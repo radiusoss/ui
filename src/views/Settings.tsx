@@ -1,7 +1,11 @@
 import * as React from 'react'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot';
-import Interpreters from './settings/Interpreters'
-import Configuration from './settings/Configuration'
+import Cluster from './cluster/Cluster'
+import Aws from './cloud/aws/Aws'
+import Helm from './helm/Helm'
+import Config from './config/Config'
+import SpitfireConfig from './spitfire/Config'
+import SpitfireInterpreters from './spitfire/Interpreters'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
 
@@ -12,11 +16,23 @@ export default class Settings extends React.Component<any, any> {
     return (
       <div>
         <Pivot>
-          <PivotItem linkText='Interpreters' itemIcon='Equalizer'>
-            <Interpreters/>
+          <PivotItem linkText='Configuration' itemIcon='Settings'>
+            <Config />
           </PivotItem>
-          <PivotItem linkText='Configuration' itemIcon='Repair'>
-            <Configuration/>
+          <PivotItem linkText='Kubernetes' itemIcon='AdminCLogoInverse32'>
+            <Cluster />
+          </PivotItem>
+          <PivotItem linkText='Helm' itemIcon='Headset'>
+            <Helm />
+          </PivotItem>
+          <PivotItem linkText='AWS' itemIcon='Cloud'>
+            <Aws />
+          </PivotItem>
+          <PivotItem linkText='Spitfire' itemIcon='Airplane'>
+            <SpitfireConfig />
+          </PivotItem>
+          <PivotItem linkText='Interpreters' itemIcon='TransitionPop'>
+            <SpitfireInterpreters />
           </PivotItem>
         </Pivot>
       </div>

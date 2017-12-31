@@ -53,7 +53,7 @@ export default class Configuration extends React.Component<any, any> {
         <div>
           <div>{ selectionDetails }</div>
           <TextField
-            label='Filter key by name:'
+            label='Filter key by name'
             onChanged={ text => this.setState({ selectedItems: text ? items.filter(i => i.name.toLowerCase().indexOf(text) > -1) : items }) }
           />
           <MarqueeSelection selection={ this.selection }>
