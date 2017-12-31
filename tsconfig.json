@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": false,
+    "allowJs": true,
+    "declaration": false,
+    "sourceMap": true,
+//    "compileOnSave": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "types": [
+      "chai",
+//      "enzyme",
+      "mocha",
+      "webpack-env"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "lib",
+    "lib-amd"
+  ]
+}
