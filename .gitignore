@@ -1,6 +1,6 @@
 .*
 .*
-_dist
+_plane
 *.log
 *.pid
 *.scss.ts

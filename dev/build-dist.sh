@@ -21,7 +21,7 @@ yarn build
 
 uglifyjs dist/kuber-plane.js -o dist/kuber-plane.min.js -c -m
 
-TARGET_FOLDER="_dist"
+TARGET_FOLDER="_plane"
 
 rm -fr $TARGET_FOLDER
 mkdir $TARGET_FOLDER

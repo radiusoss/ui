@@ -40,6 +40,6 @@ yarn build:install  # Install dependencies.
 yarn build:scss     # Generate the CSS.
 yarn build:build    # Build.
 yarn start          # Start development server (auto reload)
-yarn build:dist     # Create a distribution and grap it from the `_dist` folder.
+yarn build:dist     # Create a distribution and grap it from the `_plane` folder.
 yarn build:clean    # Clean (if needed)
 ```
