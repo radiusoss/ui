@@ -6,27 +6,32 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../actions/Conf
 import * as queryString from 'query-string'
 import { RestClient } from '../util/rest/RestClient'
 import { ConfigDispatchers } from '../actions/ConfigActions'
+import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 
 export type IConfig = {
-	kuberRest: string
-	kuberWs: string
 	azureApplicationId: string
 	azureRedirect: string
 	azureScope: string
+	hdfs: string
+	kuberPlane: string
+	kuberRest: string
+	kuberWs: string
 	spitfireRest: string
 	spitfireWs: string
-	hdfs: string
+	twitterRedirect: string
 }
 
 export const emptyConfig: IConfig = {
-  kuberRest: "",
-  kuberWs: "",
   azureApplicationId: "",
   azureRedirect: "",
   azureScope: "",
+  hdfs: "",
+  kuberPlane: "",
+  kuberRest: "",
+  kuberWs: "",
   spitfireRest: "",
   spitfireWs: "",
-  hdfs: ""
+  twitterRedirect: ""
 }
 
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
@@ -39,9 +44,8 @@ export default class Config extends React.Component<any, any> {
     const params = queryString.parse(location.search)
     console.log('URL Params', params)
     
-    // --- kuber_rest
-    
     var kuberRest
+
     if (params.kuberRest) {
       kuberRest = params.kuberRest
       var kr = { 'kuberRest': kuberRest }
@@ -52,12 +56,7 @@ export default class Config extends React.Component<any, any> {
         kuberRest = JSON.parse(krs).kuberRest
       }
       else {
-        kuberRest = window.location.protocol 
-          + '//'
-          + window.location.hostname
-          + ( window.location.port  == '' 
-            ? '' 
-            : ':' + window.location.port  )
+        kuberRest = this.currentBaseUrl()
       }
     }
     console.log('kuberRest', kuberRest)
@@ -71,16 +70,42 @@ export default class Config extends React.Component<any, any> {
     })
     
     restClient.get<IConfig>({}, {}, "/config")
-      .then(function(config) {
-        console.log('Config', config)
-        config.kuberRest = kuberRest
-        props.dispatchNewConfigAction(config)
-      })
-    
+    .then(config => { 
+      console.log('Config', config)
+      var currentBaseUrl = this.currentBaseUrl()
+      config.kuberRest = kuberRest
+      if (config.azureRedirect == "") {
+        config.azureRedirect = currentBaseUrl
+      }
+      if (config.kuberPlane == "") {
+        config.kuberPlane = currentBaseUrl
+      }
+      if (config.kuberRest == "") {
+        config.kuberRest = currentBaseUrl
+      }
+      if (config.kuberWs == "") {
+        config.kuberWs = currentBaseUrl.replace('http', 'ws')
+      }
+      if (config.twitterRedirect == "") {
+        config.twitterRedirect = currentBaseUrl + "/twitter/maketoken"
+      }
+      console.log('Updated Config', config)
+      props.dispatchNewConfigAction(config)
+    })
   }
 
   public render() {
     return <div>{ this.props.children }</div>
+  }
+
+  @autobind
+  private currentBaseUrl() {
+    return window.location.protocol 
+    + '//'
+    + window.location.hostname
+    + ( window.location.port  == '' 
+      ? '' 
+      : ':' + window.location.port  )
   }
 
 }
