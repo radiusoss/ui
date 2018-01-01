@@ -38,4 +38,4 @@ cp -r fonts $TARGET_FOLDER
 cp -r img $TARGET_FOLDER
 cp -r resources $TARGET_FOLDER
 
-cp dev/server.sh $TARGET_FOLDER
+# cp dev/server.sh $TARGET_FOLDER
