@@ -53,6 +53,7 @@ export default class Config extends React.Component<any, any> {
       }
       else {
         kuberRest = window.location.protocol 
+          + '//'
           + window.location.hostname
           + ( window.location.port  == '' 
             ? '' 
