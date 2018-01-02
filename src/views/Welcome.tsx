@@ -187,7 +187,7 @@ export default class Welcome extends React.Component<any, any> {
             </li>
             <li className="text-center">
               <a href='https://aws.amazon.com' target="_blank">
-                <img src={ 'img/amazon/amazon-aws-icon.svg' } alt='' />
+                <img src={ 'img/aws/aws.svg' } alt='' />
                 <span>Amazon AWS</span>
               </a>
             </li>
@@ -198,7 +198,7 @@ export default class Welcome extends React.Component<any, any> {
             </li>
             <li className="text-center">
               <a href='https://spark.apache.org' target="_blank">
-                <img src={ 'img/hadoop/spark_w.png' } alt='' />
+                <img src={ 'img/spark/apache-spark.svg' } alt='' />
                   <span>Apache Spark</span>
               </a>
             </li>
@@ -230,6 +230,24 @@ export default class Welcome extends React.Component<any, any> {
               <a href='https://www.office.com' target="_blank">
                 <img src={ 'img/microsoft/microsoft-office-365.svg' } alt='' />
                 <span>Microsoft Office 365</span>
+              </a>
+            </li>
+            <li className="text-center">
+              <a href='https://hbase.apache.org' target="_blank">
+                <img src={ 'img/hbase/apache-hbase-square.svg' } alt='' />
+                <span>Apache HBase</span>
+              </a>
+            </li>
+            <li className="text-center">
+              <a href='http://janusgraph.org' target="_blank">
+                <img src={ 'img/janusgraph/janusgraph.png' } alt='' />
+                <span>Janus Graph</span>
+              </a>
+            </li>
+            <li className="text-center">
+              <a href='https://reactjs.org' target="_blank">
+                <img src={ 'img/reactjs/reactjs.svg' } alt='' />
+                <span>React.js</span>
               </a>
             </li>
             <li className="text-center">
