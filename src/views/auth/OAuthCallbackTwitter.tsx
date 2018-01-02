@@ -1,10 +1,10 @@
 import * as React from 'react'
-import Spinner from './_widget/Spinner'
-import history from './../routes/History'
+import Spinner from './../_widget/Spinner'
+import history from './../../routes/History'
 import { connect } from 'react-redux'
-import { AuthDispatchers, AuthProps, mapStateToPropsAuth, mapDispatchToPropsAuth } from '../actions/AuthActions'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
-import AadApi from '../api/microsoft/AadApi'
+import { AuthDispatchers, AuthProps, mapStateToPropsAuth, mapDispatchToPropsAuth } from './../../actions/AuthActions'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
+import AadApi from './../../api/microsoft/AadApi'
 import * as queryString from 'query-string'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
