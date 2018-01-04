@@ -1,8 +1,10 @@
+export const CounterValueStorageKey = 'counter_value'
+
 export const CounterApi = {
   /*    
     resetCounter: (): Promise<null> => new Promise((resolve, reject) => {
         try {
-          resolve( () => localStorage.setItem('__counterValue', "0") )
+          resolve( () => localStorage.setItem(CounterValueStorageKey, "0") )
         }
         catch (e) {
           return reject(e)
@@ -10,15 +12,15 @@ export const CounterApi = {
       })
   */
   resetCounterPromise: (): Promise<{ type: string, value: number }> => flakify(() => {
-    localStorage.setItem('__counterValue', "0")
+    localStorage.setItem(CounterValueStorageKey, "0")
     return { type: 'RESET_COUNTER_SUCCESS', value: 0 }
   }),
   saveCounterPromise: (counter: { value: number }): Promise<{ type:string, value: number }> => flakify(() => {
-      localStorage.setItem('__counterValue', counter.value.toString())
+      localStorage.setItem(CounterValueStorageKey, counter.value.toString())
       return { type: 'SAVE_COUNT_SUCCESS', value: counter.value  }
     }),
   loadCounterPromise: (): Promise<{ type: string, value: number }> => flakify(() => {
-      const value = parseInt(localStorage.getItem('__counterValue'), 10)
+      const value = parseInt(localStorage.getItem(CounterValueStorageKey), 10)
       return { type: 'LOAD_COUNT_SUCCESS', value: value }
     })
 }

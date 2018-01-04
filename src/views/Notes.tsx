@@ -59,7 +59,7 @@ export default class Notes extends React.Component<any, any> {
 
   constructor(props) {
     super(props)
-    this.notebookApi = window["notebookApi"]
+    this.notebookApi = window["NotebookApi"]
     this.renderItemColumn = this.renderItemColumn.bind(this)
   }
 

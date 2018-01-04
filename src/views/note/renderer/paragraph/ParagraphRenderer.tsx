@@ -17,7 +17,7 @@ export default class ParagraphRenderer extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    this.notebookApi = window["notebookApi"]
+    this.notebookApi = window["NotebookApi"]
   }
 
   public render() {

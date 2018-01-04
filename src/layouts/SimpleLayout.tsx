@@ -7,7 +7,9 @@ import KuberSpl from './../views/KuberSpl'
 export default class SimpleLayout extends React.Component<any, any> {
 
   render() {
+
     return (
+
       <div className="app">
 {/*
       <div className="app flex-row align-items-center">
@@ -22,6 +24,7 @@ export default class SimpleLayout extends React.Component<any, any> {
         <Route exact path="/simple/kuberspl" name="Simple KuberSpl" component={KuberSpl} />
       </div>
     )
+
   }
 
 }

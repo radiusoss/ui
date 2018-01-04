@@ -22,7 +22,7 @@ export default class TableTextRenderer extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    this.notebookApi = window["notebookApi"]
+    this.notebookApi = window["NotebookApi"]
 /*
     this.selection = new Selection({
       onSelectionChanged: () => this.setState({ selectionDetails: this._getSelectionDetails() })

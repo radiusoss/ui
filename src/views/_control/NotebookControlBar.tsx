@@ -43,7 +43,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    this.notebookApi = window['notebookApi']
+    this.notebookApi = window['NotebookApi']
   }
 
   public render() {
@@ -116,7 +116,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
 
     const { config, isAadAuthenticated,  webSocketMessageReceived, note, runningParagraphs } = nextProps
 
-    if (! isEqual(config, this.config)) {
+    if (config && ! isEqual(config, this.config)) {
       this.config = config
     }
 /*

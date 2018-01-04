@@ -127,7 +127,7 @@ export class RestClient implements IRestClient {
     return fetch(uri, {
       method: 'POST',
       mode: 'cors',
-      credentials: 'include',
+//      credentials: 'include',
       body: stringify(body),
       headers: new Headers({
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",

@@ -24,7 +24,7 @@ export default class Interpreters extends React.Component<any, any> {
     this.state = {
       interpreterSettings: {}
     }
-    this.notebookApi = window["notebookApi"]
+    this.notebookApi = window["NotebookApi"]
     items = items || createListItems(500)
     groups = groups || createGroups(GROUP_COUNT, 1, 0, ITEMS_PER_GROUP)
   }

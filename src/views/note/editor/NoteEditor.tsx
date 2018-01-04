@@ -23,7 +23,7 @@ export default class NoteEditor extends React.Component<any, any> {
 
   constructor(props) {    
     super(props)
-    this.notebookApi = window["notebookApi"]
+    this.notebookApi = window["NotebookApi"]
   }
 
   public render() {

@@ -48,13 +48,13 @@ export default class TwitterApi extends React.Component<any, any>  implements IT
 
   public componentWillReceiveProps(nextProps) {
     const { config } = nextProps
-    if (! isEqual(config, this.config)) {
+    if (config && ! isEqual(config, this.config)) {
       this.config = config
     }
   }
 
   private redirectToTwitterAuth() {
-    window.location.href = this.config.kuberRest + "/twitter/request"
+    window.location.href = this.config.kuberRest + "/api/v1/twitter"
   }
 
   private logoutFromTwitter() {

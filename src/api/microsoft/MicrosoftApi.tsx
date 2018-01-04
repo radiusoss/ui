@@ -1,18 +1,19 @@
 import * as React from 'react'
-import * as hello from 'hellojs'
 import * as isEqual from 'lodash.isequal'
 import history from './../../routes/History'
-import { NotebookStore } from './../../store/NotebookStore'
+import async from 'async'
 import { connect } from 'react-redux'
+import { IConfig, emptyConfig } from './../../config/Config'
+import { NotebookStore } from './../../store/NotebookStore'
+import { Client } from '@microsoft/microsoft-graph-client'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { AuthDispatchers, AuthProps, mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
-import { IConfig, emptyConfig } from './../../config/Config'
-import async from 'async'
-import { Client } from '@microsoft/microsoft-graph-client'
+
+export const MicrosoftProfileStorageKey = 'microsoft_profile'
 
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
-export default class AadApi extends React.Component<any, any> {
+export default class MicrosoftApi extends React.Component<any, any> {
   private config: IConfig = emptyConfig
   private client: Client
 
@@ -20,7 +21,7 @@ export default class AadApi extends React.Component<any, any> {
     super(props)
     this.toAad = this.toAad.bind(this)
     this.handleError = this.handleError.bind(this)
-    window["aadApi"] = this
+    window["MicrosoftApi"] = this
   }
 
   public render() {
@@ -34,48 +35,25 @@ export default class AadApi extends React.Component<any, any> {
 
   public componentWillReceiveProps(nextProps) {
     const { config } = nextProps
-    if (! isEqual(config, this.config)) {
+    if (config && ! isEqual(config, this.config)) {
       this.config = config
     }
   }
 
-  // Sign the user into Azure AD. HelloJS stores token info in localStorage.hello.
   public toAad() {
-    console.log("Initialize Hello for AAD...")
-    // Initialize the auth network.
-    hello.init({
-      aad: {
-        name: 'Azure Active Directory',	
-        oauth: {
-          version: 2,
-          auth: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
-        },
-        form: false
-      }
-    })
-    // Initialize the auth request.
-    hello.init( {
-         aad: this.config.azureApplicationId
-      },
-      {
-        redirect_uri: this.config.azureRedirect,
-        scope: this.config.azureScope
-      })
-
-    console.log("Start Login with Hello for AAD...")
-    hello.login('aad', {
-      display: 'page',
-      state: 'azure-datalayer'
-    })
-
+    console.log("Start Login with Microsoft...")
+    window.location.href = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?"
+       + "client_id=" + this.config.microsoftApplicationId
+       + "&tenant=common"
+       + "&response_type=code"
+       + "&response_mode=query"
+       + "&redirect_uri=" + this.config.microsoftRedirect
+       + "&scope=" + this.config.microsoftScope
   }
 
   // Sign the user out of the session.
   public logout() {
-    hello('aad').logout()
-    localStorage.removeItem("hello")
-    localStorage.removeItem("aad")
-    localStorage.removeItem("aad_access_token")
+    localStorage.removeItem(MicrosoftProfileStorageKey)
     this.props.dispatchLogoutAction()
   }
 
@@ -240,16 +218,21 @@ export default class AadApi extends React.Component<any, any> {
   }
 
   private getClient() {
-    var auth_token = JSON.parse(localStorage.getItem("aad_access_token"))
-    if (auth_token && (this.client == null)) {
-      // Initialize the Microsoft Graph Client.
+    var profile = JSON.parse(localStorage.getItem(MicrosoftProfileStorageKey))
+    console.log('Microsoft Profile', profile)
+    // TODO(ECH) Lazy instance...
+    if (profile) {
+        // Initialize the Microsoft Graph Client.
       this.client = Client.init({
         debugLogging: true,
         authProvider: (done) => {
-          let access_token = auth_token.access_token
+          let access_token = profile.access_token
           done(null, access_token)
         }
       })
+    }
+    else {
+      this.client = null
     }
     return this.client
   }

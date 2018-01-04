@@ -10,7 +10,7 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBa
 export default class DetailsList extends React.Component<any, any> {
   private items
   private selection
-  private aadApi = window["aadApi"]
+  private MicrosoftApi = window["MicrosoftApi"]
 
   public constructor(props) {
     super(props)
@@ -31,7 +31,7 @@ export default class DetailsList extends React.Component<any, any> {
   
   // Get the files for the details list data source.
   public componentWillMount() {
-    this.aadApi.getFiles(null, (err, res) => {
+    this.MicrosoftApi.getFiles(null, (err, res) => {
       this.processItems(err, res);
     });
   }
@@ -152,7 +152,7 @@ export default class DetailsList extends React.Component<any, any> {
   // Get paged results.
   private onLoadNextPage(): any {
     const pageLink = this.state.nextPageToken;
-    this.aadApi.getFiles(pageLink, (err, res) => {
+    this.MicrosoftApi.getFiles(pageLink, (err, res) => {
       this.processItems(err, res);
     });
   }

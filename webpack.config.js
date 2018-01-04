@@ -26,7 +26,8 @@ let webpackConfig = {
 //  devtool: 'eval-source-map',
 
   devServer: {
-    stats: 'none'
+    stats: 'none',
+    historyApiFallback: true
   },
 
   externals: [

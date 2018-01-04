@@ -37,7 +37,7 @@ export default class ExerciseCard extends React.Component<IExerciseCardProps, IE
       isCodeVisible: false
     }
     this.onToggleCodeClick = this.onToggleCodeClick.bind(this)
-    this.notebookApi = window["notebookApi"]
+    this.notebookApi = window["NotebookApi"]
   }
 
   public render() {

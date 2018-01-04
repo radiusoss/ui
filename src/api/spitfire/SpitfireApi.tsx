@@ -66,7 +66,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   
   public constructor(props) {    
     super(props)
-    window['spitfireApi'] = this
+    window['SpitfireApi'] = this
   }
   
   public render() {
@@ -77,7 +77,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
     const { isAadAuthenticated, config } = nextProps
 
-    if (! isEqual(config, this.config)) {
+    if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.restClient = new RestClient({
         name: 'SpitfireApi',

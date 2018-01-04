@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import AadApi from './../../api/microsoft/AadApi'
+import MicrosoftApi from './../../api/microsoft/MicrosoftApi'
 import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTitle, IDocumentCardPreviewProps, DocumentCardActions } from 'office-ui-fabric-react/lib/DocumentCard'
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Aad extends React.Component<any, any> {
-  private aadApi: AadApi
+  private MicrosoftApi: MicrosoftApi
 
   state = {
     displayName: '',
@@ -18,7 +18,7 @@ export default class Aad extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    this.aadApi = window["aadApi"]
+    this.MicrosoftApi = window["MicrosoftApi"]
   }
 
   public render() {
@@ -122,7 +122,7 @@ export default class Aad extends React.Component<any, any> {
   }
 
   private updateProfile() {
-    this.aadApi.getMe((err, me) => {
+    this.MicrosoftApi.getMe((err, me) => {
       if (!err) {
         this.setState({
           displayName: me.displayName,
@@ -130,14 +130,14 @@ export default class Aad extends React.Component<any, any> {
         })
       }
     })
-    this.aadApi.getContacts((err, contacts) => {
+    this.MicrosoftApi.getContacts((err, contacts) => {
       if (!err) {
         this.setState({
           contacts: contacts
         })
       }
     })
-    this.aadApi.getPhoto((err, photo) => {
+    this.MicrosoftApi.getPhoto((err, photo) => {
       if (!err) {
         const url = window.URL
         const blobPhoto = url.createObjectURL(photo)

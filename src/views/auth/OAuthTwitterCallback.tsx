@@ -2,19 +2,21 @@ import * as React from 'react'
 import Spinner from './../_widget/Spinner'
 import history from './../../routes/History'
 import { connect } from 'react-redux'
-import { AuthDispatchers, AuthProps, mapStateToPropsAuth, mapDispatchToPropsAuth } from './../../actions/AuthActions'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
-import AadApi from './../../api/microsoft/AadApi'
+import TwitterApi from './../../api/twitter/TwitterApi'
 import * as queryString from 'query-string'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
+import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
+import { AuthDispatchers, AuthProps, mapStateToPropsAuth, mapDispatchToPropsAuth } from './../../actions/AuthActions'
 
+@connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
-export default class OAuthCallbackTwitter extends React.Component<AuthDispatchers & AuthProps, any> {
-  private aadApi: AadApi
+export default class OAuthTwitterCallback extends React.Component<AuthDispatchers & AuthProps, any> {
+  private TwitterApi: TwitterApi
 
   public constructor(props) {
     super(props)
-    this.aadApi = window["aadApi"]
+    this.TwitterApi = window["TwitterApi"]
   }
 
   public render() {
@@ -42,7 +44,7 @@ export default class OAuthCallbackTwitter extends React.Component<AuthDispatcher
   }
 
   private checkProfile() {
-    const parsedAuth = queryString.parse(location.hash.replace("#/twitter/auth?", ""))
+    const parsedAuth = queryString.parse(location.hash.replace("#/auth/twitter/callback?", ""))
     console.log("OAuth Callback Twitter", parsedAuth)
     history.push("/")
     this.props.dispatchIsTwitterAuthenticatedAction()

@@ -60,7 +60,7 @@ export default class Sidebar extends React.Component<any, any> {
               <a className="nav-link nav-dropdown-toggle" href="/dla/admin" onClick={this.handleClick.bind(this)}><i className="ms-Icon ms-Icon--Equalizer"></i> Admin</a>
               <ul className="nav-dropdown-items">
                 <li className="nav-item">
-                  <NavLink to={'/dla/admin/azure'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--AzureLogo"></i> Azure</NavLink>
+                  <NavLink to={'/dla/admin/microsoft'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--AzureLogo"></i> Azure</NavLink>
                   <NavLink to={'/dla/admin/social'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--SocialListeningLogo"></i> Social</NavLink>
                   <NavLink to={'/dla/admin/settings'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--Settings"></i> Settings</NavLink>
                   <NavLink to={'/dla/admin/users'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--People"></i> Users</NavLink>

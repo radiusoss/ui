@@ -71,7 +71,7 @@ export default class TableRenderer extends React.Component<any, any> {
 
   constructor(props) {
     super(props)
-    this.notebookApi = window["notebookApi"]
+    this.notebookApi = window["NotebookApi"]
   }
 
   componentDidMount() {

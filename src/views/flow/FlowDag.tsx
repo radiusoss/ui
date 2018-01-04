@@ -34,7 +34,7 @@ export default class FlowDag extends React.Component<any, any> {
     this.onCreateEdge = this.onCreateEdge.bind(this)
     this.onSwapEdge = this.onSwapEdge.bind(this)
     this.onDeleteEdge = this.onDeleteEdge.bind(this)
-    this.notebookApi = window["notebookApi"]
+    this.notebookApi = window["NotebookApi"]
   }
 
   public render() {

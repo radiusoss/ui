@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as hello from 'hellojs'
 import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../actions/ConfigActions'
@@ -8,27 +7,29 @@ import { RestClient } from '../util/rest/RestClient'
 import { ConfigDispatchers } from '../actions/ConfigActions'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 
+export const KuberRestStorageKey = 'kuber_rest'
+
 export type IConfig = {
-	azureApplicationId: string
-	azureRedirect: string
-	azureScope: string
 	hdfs: string
 	kuberPlane: string
 	kuberRest: string
 	kuberWs: string
+	microsoftApplicationId: string
+	microsoftRedirect: string
+	microsoftScope: string
 	spitfireRest: string
 	spitfireWs: string
 	twitterRedirect: string
 }
 
 export const emptyConfig: IConfig = {
-  azureApplicationId: "",
-  azureRedirect: "",
-  azureScope: "",
   hdfs: "",
   kuberPlane: "",
   kuberRest: "",
   kuberWs: "",
+  microsoftApplicationId: "",
+  microsoftRedirect: "",
+  microsoftScope: "",
   spitfireRest: "",
   spitfireWs: "",
   twitterRedirect: ""
@@ -41,6 +42,8 @@ export default class Config extends React.Component<any, any> {
 
     super(props)
 
+    // TODO(ECH) move this config class to the config view to use parse(this.props.location.search)
+    // Moreover, all the config stuff should be locate at the same place...
     const params = queryString.parse(location.search)
     console.log('URL Params', params)
     
@@ -49,9 +52,9 @@ export default class Config extends React.Component<any, any> {
     if (params.kuberRest) {
       kuberRest = params.kuberRest
       var kr = { 'kuberRest': kuberRest }
-      localStorage.setItem('kuberRest', JSON.stringify(kr))
+      localStorage.setItem(KuberRestStorageKey, JSON.stringify(kr))
     } else {
-      var krs = localStorage.getItem('kuberRest')    
+      var krs = localStorage.getItem(KuberRestStorageKey)    
       if (krs) {
         kuberRest = JSON.parse(krs).kuberRest
       }
@@ -59,7 +62,7 @@ export default class Config extends React.Component<any, any> {
         kuberRest = this.currentBaseUrl()
       }
     }
-    console.log('kuberRest', kuberRest)
+    console.log(KuberRestStorageKey, kuberRest)
     
     var restClient = new RestClient({
       name: 'Config',
@@ -74,8 +77,8 @@ export default class Config extends React.Component<any, any> {
       console.log('Config', config)
       var currentBaseUrl = this.currentBaseUrl()
       config.kuberRest = kuberRest
-      if (config.azureRedirect == "") {
-        config.azureRedirect = currentBaseUrl
+      if (config.microsoftRedirect == "") {
+        config.microsoftRedirect = currentBaseUrl + "/auth/microsoft/callback"
       }
       if (config.kuberPlane == "") {
         config.kuberPlane = currentBaseUrl
@@ -87,7 +90,7 @@ export default class Config extends React.Component<any, any> {
         config.kuberWs = currentBaseUrl.replace('http', 'ws')
       }
       if (config.twitterRedirect == "") {
-        config.twitterRedirect = currentBaseUrl + "/twitter/maketoken"
+        config.twitterRedirect = currentBaseUrl + "/api/vi/twitter/maketoken"
       }
       console.log('Updated Config', config)
       props.dispatchNewConfigAction(config)

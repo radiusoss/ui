@@ -176,7 +176,7 @@ export default class K8s extends React.Component<any, IK8sState> {
 
   public componentWillReceiveProps(nextProps) {
     const { config } = nextProps
-    if (! isEqual(config, this.config)) {
+    if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.restClient = this.newRestClient()
     }

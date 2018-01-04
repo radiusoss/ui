@@ -179,7 +179,7 @@ export default class Cluster extends React.Component<any, IK8sState> {
 
   public componentWillReceiveProps(nextProps) {
     const { config, k8sMessageReceived } = nextProps
-    if (! isEqual(config, this.config)) {
+    if (config && ! isEqual(config, this.config)) {
       this.config = config
     }
     if (k8sMessageReceived && k8sMessageReceived.op) {

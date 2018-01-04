@@ -58,7 +58,7 @@ export default class Counter extends React.Component<CounterProps & CounterDispa
   public constructor(props) {
     super(props)
     this.hdfsApi = new HdfsApi(props)
-    this.notebookApi = window["notebookApi"]
+    this.notebookApi = window["NotebookApi"]
     this.getErrorMessagePromise = this.getErrorMessagePromise.bind(this)
   }
 
@@ -87,7 +87,7 @@ export default class Counter extends React.Component<CounterProps & CounterDispa
     var version = await this.notebookApi.version()
     this.setState({ version: version.result })
 
-    this.notebookApi = window['notebookApi']
+    this.notebookApi = window['NotebookApi']
     this.notebookApi.listNotes()
 
   }

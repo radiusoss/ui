@@ -1,5 +1,5 @@
 import * as React from 'react'
-import AadApi from '../api/microsoft/AadApi'
+import MicrosoftApi from '../api/microsoft/MicrosoftApi'
 import { NormalPeoplePicker } from 'office-ui-fabric-react/lib/Pickers'
 import { Persona, PersonaPresence, IPersonaProps } from 'office-ui-fabric-react/lib/Persona'
 import { Button } from 'office-ui-fabric-react/lib/Button'
@@ -9,7 +9,7 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBa
 export default class PeoplePickerExample extends React.Component<any, any> {
   private peopleList: IPersonaProps[]
   private searchResults
-  private aadApi: AadApi = window["aadApi"]
+  private MicrosoftApi: MicrosoftApi = window["MicrosoftApi"]
 
   public constructor(props) {
     super(props)
@@ -102,7 +102,7 @@ export default class PeoplePickerExample extends React.Component<any, any> {
     this.setState({
       isLoadingCounterPeople: false
     })    
-    this.aadApi.getProfilePics(personas, (err) => {
+    this.MicrosoftApi.getProfilePics(personas, (err) => {
       this.setState({
         isLoadingCounterPics: false
       })
@@ -118,7 +118,7 @@ export default class PeoplePickerExample extends React.Component<any, any> {
         }
       }
     })
-    this.aadApi.sendMail(
+    this.MicrosoftApi.sendMail(
       recipients,
       'Email from the Microsoft Graph Sample with Office UI Fabric',
       `<p>Thanks for trying out Office UI Fabric!</p>
@@ -150,7 +150,7 @@ export default class PeoplePickerExample extends React.Component<any, any> {
 
     else {
 
-      var promise = new Promise<IPersonaProps[]>( (resolve, reject) => this.aadApi.getPeople((err, people) => {
+      var promise = new Promise<IPersonaProps[]>( (resolve, reject) => this.MicrosoftApi.getPeople((err, people) => {
         if (!err) {
           this.peopleList = this.mapUsersToPersonas(people, false);
           this.getPics(this.peopleList);
@@ -182,7 +182,7 @@ export default class PeoplePickerExample extends React.Component<any, any> {
       isLoadingCounterPics: true
     });
     return new Promise((resolve) => {
-      this.aadApi.searchForPeople(searchText.toLowerCase(), (err, people) => {
+      this.MicrosoftApi.searchForPeople(searchText.toLowerCase(), (err, people) => {
         if (!err) {
           this.searchResults = this.mapUsersToPersonas(people, true);
           this.setState({

@@ -11,6 +11,7 @@ export function counterReducer(state: ApplicationState.Counter = initialState.co
     case 'RESET_COUNTER_REQUEST':
       return { value: 0 }
     case 'LOAD_COUNT_SUCCESS':
+      console.log("this is Load Cound Success action", action)
       return { value: action.response.value }
     default:
       return state

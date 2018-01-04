@@ -52,7 +52,7 @@ export default class K8sApi extends React.Component<any, any>  implements IK8sAp
 
     const { config } = nextProps
 
-    if (! isEqual(config, this.config)) {
+    if (config && ! isEqual(config, this.config)) {
 
       this.config = config
 

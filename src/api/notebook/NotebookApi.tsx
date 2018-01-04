@@ -6,7 +6,8 @@ import { NotebookStore } from './../../store/NotebookStore'
 import { ISpitfireApi, SpitfireResponse } from './../spitfire/SpitfireApi'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from './../../actions/AuthActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
-import AadApi from './../microsoft/AadApi'
+import { MicrosoftProfileStorageKey } from './../microsoft/MicrosoftApi'
+import MicrosoftApi from './../microsoft/MicrosoftApi'
 
 export interface INotebookApi extends ISpitfireApi {}
 
@@ -14,19 +15,18 @@ export interface INotebookApi extends ISpitfireApi {}
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class NotebookApi extends React.Component<any, any> implements INotebookApi {
   private spitfireApi: ISpitfireApi
-  private aadApi: AadApi
+  private microsoftApi: MicrosoftApi
 
   public constructor(props) {
     super(props)
-    window['notebookApi'] = this
+    window['NotebookApi'] = this
   }
   public render() {
     return <div>{ this.props.children }</div>
   }
   public componentDidMount() {
-    this.spitfireApi = window['spitfireApi']
-    this.aadApi = window['aadApi']
-    this.updateProfile()
+    this.spitfireApi = window['SpitfireApi']
+    this.microsoftApi = window['MicrosoftApi']
   }
 
 // ----------------------------------------------------------------------------
@@ -112,26 +112,26 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.runFlow(id)
   }
 
-// ----------------------------------------------------------------------------
-
-private updateProfile() {
-    var parsedAuth = localStorage.getItem("aad_access_token")
+  public updateMicrosoftProfile() {
+    var parsedAuth = localStorage.getItem(MicrosoftProfileStorageKey)
     if (parsedAuth) {
-      this.aadApi.getMe(async (err, me) => {
+      this.microsoftApi.getMe(async (err, me) => {
         if (!err) {
           let principalName = me.userPrincipalName
+          console.log("Microsoft Principal Name", principalName)
           NotebookStore.state().profileDisplayName = principalName
-          console.log("Aad profileDisplayName", principalName)
-          this.login(principalName, principalName)
+          console.log("Microsoft Profile Display Name", principalName)
+          this.login(principalName + "#microsoft", principalName)
             .then(res => {
               console.log('Notebook Login', res)
               NotebookStore.state().notebookLogin = res
             })
-          this.aadApi.getPhoto((err, photoBlob) => {
+          this.microsoftApi.getPhoto((err, photoBlob) => {
             if (!err) {
               NotebookStore.state().profilePhotoBlob = photoBlob
-              console.log("Aad photoBlob", photoBlob)
+              console.log("Microsoft Photo Blob", photoBlob)
               this.props.dispatchIsAadAuthenticatedAction()
+              history.push("/")
             }
           })
         }

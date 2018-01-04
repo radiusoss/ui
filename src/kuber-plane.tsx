@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import { NotebookStore } from './store/NotebookStore'
 import Config from './config/Config'
-import AadApi from './api/microsoft/AadApi'
+import MicrosoftApi from './api/microsoft/MicrosoftApi'
 import NotebookApi from './api/notebook/NotebookApi'
 import SpitfireApi from './api/spitfire/SpitfireApi'
 import TwitterApi from './api/twitter/TwitterApi'
@@ -35,7 +35,7 @@ function start(): void {
         <Provider store={NotebookStore.notebookStore}>
           <div>
             <Config/>
-            <AadApi/>
+            <MicrosoftApi/>
             <K8sApi/>
             <TwitterApi/>
             <SpitfireApi/>

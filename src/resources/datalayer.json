@@ -22,7 +22,6 @@
     "chart.js": "2.5.0",
     "classnames": "2.2.5",
     "es6-promise": ">=3.2.1 <4.0.0",
-    "hellojs": "^1.14.0",
     "immutability-helper": "^2.0.0",
     "immutable": "3.8.1",
     "office-ui-fabric-core": ">=5.1.0-0 <6.0.0-0",

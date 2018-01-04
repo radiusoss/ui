@@ -1,4 +1,5 @@
 import * as React from 'react'
+import Highlights from './Highlights'
 
 export default class About extends React.Component<any, any> {
 
@@ -20,7 +21,7 @@ export default class About extends React.Component<any, any> {
           </div>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" style={{ minHeight: "200px"}}>
-              <img src="/img/hadoop/spark.png" height="100px" />
+              <img src="/img/spark/apache-spark.svg" height="100px" />
             </div>
             <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
               Apache Spark is an open-source cluster-computing framework. Originally developed at the University of California, Berkeley's AMPLab, the Spark codebase was later donated to the Apache Software Foundation, which has maintained it since.
@@ -36,7 +37,7 @@ export default class About extends React.Component<any, any> {
           </div>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" style={{ minHeight: "200px"}}>
-              <img src="/img/amazon/amazon-aws-icon.svg" height="100px" />
+              <img src="/img/aws/aws.svg" height="100px" />
             </div>
             <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
               Amazon Web Services is a subsidiary of Amazon.com that provides on-demand cloud computing platforms to individuals, companies and governments, on a paid subscription basis with a free-tier option available for 12 months.
@@ -52,10 +53,10 @@ export default class About extends React.Component<any, any> {
           </div>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" style={{ minHeight: "200px"}}>
-              <img src="/img/zeppelin/zeppelin.png" height="100px" />
+              <img src="/img/zeppelin/apache-zeppelin.svg" height="100px" />
             </div>
             <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
-              Web-based notebook that enables data-driven, interactive data analytics and collaborative documents with SQL, 
+              Apache Zeppelin is a Web-based notebook that enables data-driven, interactive data analytics and collaborative documents with SQL, 
             </div>
           </div>
           <div className="ms-Grid-row">
@@ -68,6 +69,8 @@ export default class About extends React.Component<any, any> {
           </div>
 
         </div>
+
+        <Highlights/>
 
       </div>
 
