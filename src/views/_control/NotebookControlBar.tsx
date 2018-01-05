@@ -38,7 +38,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
     note: undefined,
     runningParagraphs: [],
     notes: [],
-    isAadAuthenticated: false
+    isMicrosoftAuthenticated: false
   }
 
   public constructor(props) {
@@ -114,20 +114,20 @@ export default class NotebookControlBar extends React.Component<any, any> {
 
   public componentWillReceiveProps(nextProps) {
 
-    const { config, isAadAuthenticated,  webSocketMessageReceived, note, runningParagraphs } = nextProps
+    const { config, isMicrosoftAuthenticated,  webSocketMessageReceived, note, runningParagraphs } = nextProps
 
     if (config && ! isEqual(config, this.config)) {
       this.config = config
     }
 /*
-    if (!this.state.isAadAuthenticated && isAadAuthenticated) {
-      console.log("auth", this.state.isAadAuthenticated, isAadAuthenticated)
+    if (!this.state.isMicrosoftAuthenticated && isMicrosoftAuthenticated) {
+      console.log("auth", this.state.isMicrosoftAuthenticated, isMicrosoftAuthenticated)
 //      this.notebookApi.listNotes()
     }
 */
-    if (! this.state.isAadAuthenticated != isAadAuthenticated) {
+    if (! this.state.isMicrosoftAuthenticated != isMicrosoftAuthenticated) {
       this.setState({
-        isAadAuthenticated: isAadAuthenticated
+        isMicrosoftAuthenticated: isMicrosoftAuthenticated
       })
     }
 

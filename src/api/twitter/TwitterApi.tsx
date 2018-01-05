@@ -5,36 +5,41 @@ import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
 import { NotebookStore } from './../../store/NotebookStore'
 import { IConfig, emptyConfig } from './../../config/Config'
-import { RestClient, Result, Outcome, ClientOptions } from '../../util/rest/RestClient'
+import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
+
+export const TwitterProfileStorageKey = 'twitter_profile'
 
 export interface BooleanResponse {
   boolean: boolean
 }
+/*
 export interface TwitterResponse {
   status?: string
   message?: string
-  body?: TwitterBody | string | any
+  result?: TwitterBody | string | any
 }
 export interface TwitterBody {
   principal?: string
   ticket?: string
   roles?: [string]
 }
+*/
 export interface ITwitterApi {
-//  login(userName, password): Promise<Result<TwitterResponse>>
+  getMe(): Promise<Result<any>>
+  logout(): void
 }
 
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class TwitterApi extends React.Component<any, any>  implements ITwitterApi {
   private config: IConfig = emptyConfig
-  private readonly jsonOpt = { json: true }
+  private restClient: RestClient
 
   public constructor(props) {    
     super(props)
-    window['twitterApi'] = this
+    window['TwitterApi'] = this
   }
 
   public render() {
@@ -50,6 +55,13 @@ export default class TwitterApi extends React.Component<any, any>  implements IT
     const { config } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
+      this.restClient = new RestClient({
+        name: 'TwitterApi',
+        url: this.config.kuberRest,
+        path: '/api/v1/twitter',
+        username: '',
+        password: ''
+      })
     }
   }
 
@@ -57,9 +69,33 @@ export default class TwitterApi extends React.Component<any, any>  implements IT
     window.location.href = this.config.kuberRest + "/api/v1/twitter"
   }
 
-  private logoutFromTwitter() {
-    localStorage.removeItem("twitter")
+  // ----------------------------------------------------------------------------
+
+  public async getMe(): Promise<Result<any>> {
+    return this.wrapResult<any, any>(
+      r => r,
+      async () => this.restClient.get<any>({}, jsonOpt, "/me")
+    )
+  }
+
+  public logout() {
+    localStorage.removeItem(TwitterProfileStorageKey)
     this.props.dispatchLogoutAction()
+  }
+
+  // ----------------------------------------------------------------------------
+
+  private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: () => Promise<TRaw>): Promise<Result<TOut>> {
+    let result: Result<TOut> = new Result<TOut>()
+    try {
+      let raw = await action()
+      let selection = selector(raw)
+      result.success = raw !== undefined && selection !== undefined
+      result.result = selection
+    } catch (error) {
+      result.success = false
+    }
+    return result
   }
 
 }

@@ -19,15 +19,15 @@ export default class MicrosoftApi extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    this.toAad = this.toAad.bind(this)
+    this.toMicrosoft = this.toMicrosoft.bind(this)
     this.handleError = this.handleError.bind(this)
     window["MicrosoftApi"] = this
   }
 
   public render() {
-    const { isToAad, isAadAuthenticated, aadToken } = this.props
-    if (isToAad) {
-      this.toAad()
+    const { isToMicrosoft, isMicrosoftAuthenticated, microsoftToken } = this.props
+    if (isToMicrosoft) {
+      this.toMicrosoft()
       return <div></div>
     }
     return <div>{ this.props.children }</div>
@@ -40,7 +40,7 @@ export default class MicrosoftApi extends React.Component<any, any> {
     }
   }
 
-  public toAad() {
+  public toMicrosoft() {
     console.log("Start Login with Microsoft...")
     window.location.href = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?"
        + "client_id=" + this.config.microsoftApplicationId
@@ -51,7 +51,6 @@ export default class MicrosoftApi extends React.Component<any, any> {
        + "&scope=" + this.config.microsoftScope
   }
 
-  // Sign the user out of the session.
   public logout() {
     localStorage.removeItem(MicrosoftProfileStorageKey)
     this.props.dispatchLogoutAction()
@@ -213,7 +212,7 @@ export default class MicrosoftApi extends React.Component<any, any> {
     // Just redirect to the login function when the token is expired.
     // Production should implement more robust token management.
     if (err.statusCode === 401 && err.message === 'Access token has expired.') {
-      this.props.dispatchToAadAction()
+      this.props.dispatchToMicrosoftAction()
     }
   }
 

@@ -61,7 +61,8 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   private flows = []
 
   state = {
-    isAadAuthenticated: false 
+    isMicrosoftAuthenticated: false,
+    isTwitterAuthenticated: false 
   }
   
   public constructor(props) {    
@@ -75,7 +76,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
   public componentWillReceiveProps(nextProps) {
 
-    const { isAadAuthenticated, config } = nextProps
+    const { isMicrosoftAuthenticated, isTwitterAuthenticated, config } = nextProps
 
     if (config && ! isEqual(config, this.config)) {
       this.config = config
@@ -88,7 +89,11 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       })
     }
 
-    if (!this.state.isAadAuthenticated && isAadAuthenticated) {
+    if (
+      (!this.state.isMicrosoftAuthenticated && isMicrosoftAuthenticated)
+      ||
+      (!this.state.isTwitterAuthenticated && isTwitterAuthenticated)
+    ) {
 
       this.webSocketClient = new WebSocket(this.config.spitfireWs + '/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
@@ -117,9 +122,15 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
     }
 
-    if (this.state.isAadAuthenticated != isAadAuthenticated) {
+    if (this.state.isMicrosoftAuthenticated != isMicrosoftAuthenticated) {
       this.setState({
-        isAadAuthenticated: isAadAuthenticated
+        isMicrosoftAuthenticated: isMicrosoftAuthenticated
+      })
+    }
+
+    if (this.state.isTwitterAuthenticated != isTwitterAuthenticated) {
+      this.setState({
+        isTwitterAuthenticated: isTwitterAuthenticated
       })
     }
 

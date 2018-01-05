@@ -8,7 +8,7 @@ import { profileDisplayNameReducer, profilePhotoBlobReducer } from './CommonRedu
 import { newConfigReducer } from './ConfigReducer'
 import { k8sMessageSentReducer, k8sMessageReceivedReducer } from './K8sReducer'
 import { counterReducer, isSavingCounterReducer, isLoadingCounterReducer, errorCounterReducer } from './CounterReducer'
-import { isAadAuthenticatedReducer, isToAadReducer, aadTokenReducer, isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer } from './AuthReducer'
+import { isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer, isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer } from './AuthReducer'
 import { notebookLoginReducer, webSocketMessageSentReducer, webSocketMessageReceivedReducer, noteReducer, runningParagraphsReducer, notesReducer, isStartRunReducer } from './NotebookReducer'
 
 export const reducers = combineReducers<ApplicationState.State>({
@@ -23,9 +23,9 @@ export const reducers = combineReducers<ApplicationState.State>({
   k8sMessageSent: k8sMessageSentReducer,
   k8sMessageReceived: k8sMessageReceivedReducer,
 
-  isAadAuthenticated: isAadAuthenticatedReducer,
-  isToAad: isToAadReducer,
-  aadToken: aadTokenReducer,
+  isMicrosoftAuthenticated: isMicrosoftAuthenticatedReducer,
+  isToMicrosoft: isToMicrosoftReducer,
+  microsoftToken: microsoftTokenReducer,
   
   isTwitterAuthenticated: isTwitterAuthenticatedReducer,
   isToTwitter: isToTwitterReducer,

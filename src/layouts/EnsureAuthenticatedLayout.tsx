@@ -26,9 +26,9 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
 
   public render() {
 
-    const { isAadAuthenticated, isTwitterAuthenticated } = this.props
+    const { isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
 
-    if (isAadAuthenticated || isTwitterAuthenticated) {
+    if (isMicrosoftAuthenticated || isTwitterAuthenticated) {
 
       return (
         
@@ -62,9 +62,9 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
 
   public componentDidMount() {
 
-    const { dispatch, currentURL, isAadAuthenticated, isTwitterAuthenticated } = this.props
+    const { dispatch, currentURL, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
 
-    if (!isAadAuthenticated && !isTwitterAuthenticated) {
+    if (!isMicrosoftAuthenticated && !isTwitterAuthenticated) {
       // Set the current url/path for future redirection (we use a Redux action), then redirect (we use a React Router method)
 //      dispatch(history.push(currentURL))
 //      history.push("/")

@@ -10,6 +10,7 @@ import { Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/li
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
 import NotebookApi from './../api/notebook/NotebookApi'
 import MicrosoftApi from '../api/microsoft/MicrosoftApi'
+import TwitterApi from '../api/twitter/TwitterApi'
 import Highlights from './Highlights'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
@@ -19,9 +20,10 @@ const styles: any = stylesImport
 export default class Welcome extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private microsoftApi: MicrosoftApi
+  private twitterApi: TwitterApi
 
   state = {
-    isAadAuthenticated: NotebookStore.state().isAadAuthenticated,
+    isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
     isTwitterAuthenticated: NotebookStore.state().isTwitterAuthenticated,
     profileDisplayName: NotebookStore.state().profileDisplayName,
     profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob)
@@ -29,13 +31,16 @@ export default class Welcome extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    this.notebookApi = window["NotebookApi"]
     this.microsoftApi = window["MicrosoftApi"]
+    this.twitterApi = window["TwitterApi"]
+  }
+
+  public componentDidMount() {
   }
 
   public render() {
 
-    const { isAadAuthenticated, isTwitterAuthenticated, profileDisplayName, profilePhoto } = this.state
+    const { isMicrosoftAuthenticated, isTwitterAuthenticated, profileDisplayName, profilePhoto } = this.state
 
     return (
 
@@ -47,7 +52,7 @@ export default class Welcome extends React.Component<any, any> {
 
           <span className={ styles.tagline }>Kuber is the easy way to create and manage your Big Data Science Platform on Kubernetes.</span>
 
-          { (!isAadAuthenticated && !isTwitterAuthenticated) && 
+          { (!isMicrosoftAuthenticated && !isTwitterAuthenticated) && 
 
             <div>
             
@@ -59,7 +64,7 @@ export default class Welcome extends React.Component<any, any> {
                 </div>
                 <div className="ms-Grid-row">
                     <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 text-center">
-                  <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onAadAuthenticateClick(e) }>Microsoft</a>
+                  <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onMicrosoftAuthenticateClick(e) }>Microsoft</a>
                         <div className={ styles.version }>You need a valid Microsoft account.</div>
                     </div>
                     <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 text-center">
@@ -73,7 +78,7 @@ export default class Welcome extends React.Component<any, any> {
 
           }
 
-          { (isAadAuthenticated || isTwitterAuthenticated) && 
+          { (isMicrosoftAuthenticated || isTwitterAuthenticated) && 
           
               <div className="ms-Grid">
                 <div className="ms-Grid-row">
@@ -99,11 +104,11 @@ export default class Welcome extends React.Component<any, any> {
 
           <div className={ styles.flavor }>
 
-            { (!isAadAuthenticated && !isTwitterAuthenticated) && 
+            { (!isMicrosoftAuthenticated && !isTwitterAuthenticated) && 
               <img src={ 'img/datalayer/datalayer-square-white.png' } width='72' alt='Datalayer Logo' />
             }
 
-            { (isAadAuthenticated || isTwitterAuthenticated) && 
+            { (isMicrosoftAuthenticated || isTwitterAuthenticated) && 
               <div className="ms-Grid-row">
                 <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                   <br/>
@@ -173,29 +178,50 @@ export default class Welcome extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { isAadAuthenticated } = nextProps
-    if ((this.state.isAadAuthenticated == true) && (isAadAuthenticated == false)) {
+
+    const { isMicrosoftAuthenticated } = nextProps
+    if ((this.state.isMicrosoftAuthenticated == true) && (isMicrosoftAuthenticated == false)) {
       this.microsoftApi.logout()
       this.setState({
-        isAadAuthenticated: false,
+        isMicrosoftAuthenticated: false,
         profileDisplayName: '',
         profilePhoto: 'img/datalayer/datalayer-square.png'
       })
     }
-    else if ((this.state.isAadAuthenticated == false) && (isAadAuthenticated == true)) {
+    else if ((this.state.isMicrosoftAuthenticated == false) && (isMicrosoftAuthenticated == true)) {
       var blobPhoto = NotebookStore.state().profilePhotoBlob
       var profilePhoto = window.URL.createObjectURL(blobPhoto)
       this.setState({
-        isAadAuthenticated: true,
+        isMicrosoftAuthenticated: true,
         profileDisplayName: NotebookStore.state().profileDisplayName,
         profilePhoto: profilePhoto
       })
     }
+
+    const { isTwitterAuthenticated } = nextProps
+    if ((this.state.isTwitterAuthenticated == true) && (isTwitterAuthenticated == false)) {
+      this.twitterApi.logout()
+      this.setState({
+        isTwitterAuthenticated: false,
+        profileDisplayName: '',
+        profilePhoto: 'img/datalayer/datalayer-square.png'
+      })
+    }
+    else if ((this.state.isTwitterAuthenticated == false) && (isTwitterAuthenticated == true)) {
+      var blobPhoto = NotebookStore.state().profilePhotoBlob
+      var profilePhoto = window.URL.createObjectURL(blobPhoto)
+      this.setState({
+        isTwitterAuthenticated: true,
+        profileDisplayName: NotebookStore.state().profileDisplayName,
+        profilePhoto: profilePhoto
+      })
+    }
+
   }
 
-  private onAadAuthenticateClick = (e) =>  {
+  private onMicrosoftAuthenticateClick = (e) =>  {
     e.preventDefault()
-    this.props.dispatchToAadAction()
+    this.props.dispatchToMicrosoftAction()
   }
 
   private onTwitterAuthenticateClick = (e) =>  {

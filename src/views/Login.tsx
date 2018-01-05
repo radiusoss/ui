@@ -13,13 +13,13 @@ export default class Login extends React.Component<AuthDispatchers & AuthProps, 
 
   public render() {
 
-    const { isAadAuthenticated } = this.props
+    const { isMicrosoftAuthenticated } = this.props
 
     return (
 
       <div>
 
-        <button ref='login' >isAadAuthenticated={String(isAadAuthenticated)}</button>
+        <button ref='login' >isMicrosoftAuthenticated={String(isMicrosoftAuthenticated)}</button>
 
         <div className="container">
           <div className="row justify-content-center">

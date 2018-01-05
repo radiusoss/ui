@@ -1,7 +1,7 @@
 import { AuthAction } from '../actions/AuthActions'
 import { initialState } from '../state/State'
 
-export const isToAadReducer = (state: boolean = initialState.isToAad, action: AuthAction): boolean => {
+export const isToMicrosoftReducer = (state: boolean = initialState.isToMicrosoft, action: AuthAction): boolean => {
   switch (action.type) {
     case 'TO_AAD':
       return true
@@ -10,7 +10,7 @@ export const isToAadReducer = (state: boolean = initialState.isToAad, action: Au
   }
 }
 
-export const isAadAuthenticatedReducer = (state: boolean = initialState.isAadAuthenticated, action: AuthAction): boolean => {
+export const isMicrosoftAuthenticatedReducer = (state: boolean = initialState.isMicrosoftAuthenticated, action: AuthAction): boolean => {
   switch (action.type) {
     case 'IS_AAD_AUTHENTICATED':
       return true
@@ -21,10 +21,10 @@ export const isAadAuthenticatedReducer = (state: boolean = initialState.isAadAut
   }
 }
 
-export const aadTokenReducer = (state: any = initialState.aadToken, action: AuthAction): any => {
+export const microsoftTokenReducer = (state: any = initialState.microsoftToken, action: AuthAction): any => {
   switch (action.type) {
     case 'AAD_TOKEN':
-      return action.aadToken
+      return action.microsoftToken
     case 'LOGOUT':
       return {}
      default:

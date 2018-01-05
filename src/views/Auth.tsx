@@ -33,7 +33,7 @@ export default class Auth extends React.Component<AuthDispatchers & AuthProps, a
               {
                 key: 'component-example-menu',
                 name: 'Choose component',
-                disabled: !this.props.isAadAuthenticated,
+                disabled: !this.props.isMicrosoftAuthenticated,
                 ariaLabel: 'Choose a component example to render in the page',
                 items: [
                   {
@@ -56,8 +56,8 @@ export default class Auth extends React.Component<AuthDispatchers & AuthProps, a
               },
               {
                 key: 'log-in-out=button',
-                name: this.props.isAadAuthenticated ? 'Sign out' : 'Sign in',
-                onClick: this.props.isAadAuthenticated ? this.logout.bind(this) : this.login.bind(this)
+                name: this.props.isMicrosoftAuthenticated ? 'Sign out' : 'Sign in',
+                onClick: this.props.isMicrosoftAuthenticated ? this.logout.bind(this) : this.login.bind(this)
               }
             ]} />
         }
@@ -66,7 +66,7 @@ export default class Auth extends React.Component<AuthDispatchers & AuthProps, a
           <div>
             <h2>Microsoft Graph Office UI Fabric React Sample</h2>
             {
-              (!this.props.isAadAuthenticated || this.state.example === '') &&
+              (!this.props.isMicrosoftAuthenticated || this.state.example === '') &&
               <div>
                 <p>This sample shows how you can use Microsoft Graph data in Office UI Fabric React components.</p>
                 <p>To get started, sign in and then choose a component example in the command bar.</p>
@@ -75,7 +75,7 @@ export default class Auth extends React.Component<AuthDispatchers & AuthProps, a
           </div>
           <br />
           {
-            this.props.isAadAuthenticated &&
+            this.props.isMicrosoftAuthenticated &&
               <div>
               {
                 this.state.example === 'people-picker-example' &&
@@ -96,7 +96,7 @@ export default class Auth extends React.Component<AuthDispatchers & AuthProps, a
   
   // Get the user's display name.
   public componentWillMount() {
-    if (this.props.isAadAuthenticated) {
+    if (this.props.isMicrosoftAuthenticated) {
 /*      
       this.MicrosoftApi.getMe((err, me) => {
         if (!err) {
@@ -110,7 +110,7 @@ export default class Auth extends React.Component<AuthDispatchers & AuthProps, a
   }
 
   private login() { 
-    this.props.dispatchToAadAction()
+    this.props.dispatchToMicrosoftAction()
   }
 
   private logout() { 

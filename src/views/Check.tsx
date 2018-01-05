@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import HdfsApi from './../api/hdfs/HdfsApi'
 import NotebookApi from './../api/notebook/NotebookApi'
 import { ApplicationState } from '../state/State'
-import { isAadAuthenticatedAction, AuthProps, AuthDispatchers, mapStateToPropsAuth, mapDispatchToPropsAuth  } from '../actions/AuthActions'
+import { isMicrosoftAuthenticatedAction, AuthProps, AuthDispatchers, mapStateToPropsAuth, mapDispatchToPropsAuth  } from '../actions/AuthActions'
 import { CounterDispatchers, CounterProps, mapStateToPropsCounter, mapDispatchToPropsCounter } from '../actions/CounterActions'
 import { CounterLabelProp, System } from '../domain/Domain'
 import { toastr } from 'react-redux-toastr'
@@ -98,7 +98,7 @@ export default class Counter extends React.Component<CounterProps & CounterDispa
 
   public render() {
 
-    const { counter, label, isSavingCounter, isLoadingCounter, errorCounter, isAadAuthenticated, aadToken, webSocketMessageReceived } = this.props
+    const { counter, label, isSavingCounter, isLoadingCounter, errorCounter, isMicrosoftAuthenticated, microsoftToken, webSocketMessageReceived } = this.props
     const { hdfsStatuses, ticket, ip, version, kerberosWho } = this.state
 
     return (
@@ -132,10 +132,10 @@ export default class Counter extends React.Component<CounterProps & CounterDispa
 
         <hr/>
 
-        <button ref='login' onClick={ (e) => this.onLoginClick(e) }>isAadAuthenticated={String(isAadAuthenticated)}</button>
+        <button ref='login' onClick={ (e) => this.onLoginClick(e) }>isMicrosoftAuthenticated={String(isMicrosoftAuthenticated)}</button>
 {
 /*
-aadToken={JSON.stringify(aadToken)}
+microsoftToken={JSON.stringify(microsoftToken)}
 */
 }
         <hr/>
@@ -587,13 +587,13 @@ print(sample(1:2, size=10, prob=c(1,3), replace=TRUE))
 
   private onLoginClick = (e: React.SyntheticEvent<HTMLButtonElement>) =>  {
     e.preventDefault()
-    if (this.props.isAadAuthenticated) {
+    if (this.props.isMicrosoftAuthenticated) {
      this.props.dispatchLogoutAction()
-     this.props.dispatchAadTokenAction({"fake": true})
+     this.props.dispatchMicrosoftTokenAction({"fake": true})
     } 
     else {
-     this.props.dispatchIsAadAuthenticatedAction()
-     this.props.dispatchAadTokenAction({"oauth": "test"})
+     this.props.dispatchIsMicrosoftAuthenticatedAction()
+     this.props.dispatchMicrosoftTokenAction({"oauth": "test"})
     }
   }
 

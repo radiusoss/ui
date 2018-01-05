@@ -3,7 +3,7 @@ import { ApplicationState } from '../state/State'
 
 export type AuthAction = {
   type: string,
-  aadToken?: string
+  microsoftToken?: string
   twitterToken?: string
 }
 
@@ -11,17 +11,17 @@ export const logoutAction = (): AuthAction => ({
   type: 'LOGOUT'
 })
 
-export const isAadAuthenticatedAction = (): AuthAction => ({
+export const isMicrosoftAuthenticatedAction = (): AuthAction => ({
   type: 'IS_AAD_AUTHENTICATED'
 })
 
-export const toAadAction = (): AuthAction => ({
+export const toMicrosoftAction = (): AuthAction => ({
   type: 'TO_AAD'
 })
 
-export const aadTokenAction = (aadToken: any): AuthAction => ({
+export const microsoftTokenAction = (microsoftToken: any): AuthAction => ({
   type: 'AAD_TOKEN',
-  aadToken: aadToken
+  microsoftToken: microsoftToken
 })
 
 export const isTwitterAuthenticatedAction = (): AuthAction => ({
@@ -39,18 +39,18 @@ export const twitterTokenAction = (twitterToken: any): AuthAction => ({
 
 export type AuthDispatchers = {
   dispatchLogoutAction: () => void
-  dispatchIsAadAuthenticatedAction: () => void
-  dispatchToAadAction: () => void
-  dispatchAadTokenAction: (aadToken: any) => void
+  dispatchIsMicrosoftAuthenticatedAction: () => void
+  dispatchToMicrosoftAction: () => void
+  dispatchMicrosoftTokenAction: (microsoftToken: any) => void
   dispatchIsTwitterAuthenticatedAction: () => void
   dispatchToTwitterAction: () => void
   dispatchTwitterTokenAction: (twitterToken: any) => void
 }
 
 export type AuthProps = {
-  isToAad: boolean,
-  isAadAuthenticated: boolean,
-  aadToken: any,
+  isToMicrosoft: boolean,
+  isMicrosoftAuthenticated: boolean,
+  microsoftToken: any,
   isToTwitter: boolean,
   isTwitterAuthenticated: boolean,
   twitterToken: any
@@ -60,15 +60,15 @@ export const mapDispatchToPropsAuth = (dispatch: Dispatch<ApplicationState.State
   dispatchLogoutAction: () => {
     dispatch(logoutAction())
   },
-  dispatchToAadAction: () => {
+  dispatchToMicrosoftAction: () => {
     dispatch(logoutAction())
-    dispatch(toAadAction())
+    dispatch(toMicrosoftAction())
   },
-  dispatchIsAadAuthenticatedAction: () => {
-    dispatch(isAadAuthenticatedAction())
+  dispatchIsMicrosoftAuthenticatedAction: () => {
+    dispatch(isMicrosoftAuthenticatedAction())
   },
-  dispatchAadTokenAction: (aadToken: any) => {
-    dispatch(aadTokenAction(aadToken))
+  dispatchMicrosoftTokenAction: (microsoftToken: any) => {
+    dispatch(microsoftTokenAction(microsoftToken))
   },
   dispatchToTwitterAction: () => {
     dispatch(logoutAction())
@@ -83,9 +83,9 @@ export const mapDispatchToPropsAuth = (dispatch: Dispatch<ApplicationState.State
 })
 
 export const mapStateToPropsAuth = (state: ApplicationState.State): AuthProps => ({
-  isToAad: state.isToAad,
-  isAadAuthenticated: state.isAadAuthenticated,
-  aadToken: state.aadToken,
+  isToMicrosoft: state.isToMicrosoft,
+  isMicrosoftAuthenticated: state.isMicrosoftAuthenticated,
+  microsoftToken: state.microsoftToken,
   isToTwitter: state.isToTwitter,
   isTwitterAuthenticated: state.isTwitterAuthenticated,
   twitterToken: state.twitterToken

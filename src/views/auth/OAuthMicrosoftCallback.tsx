@@ -1,7 +1,7 @@
 import * as React from 'react'
-import * as isEqual from 'lodash.isequal'
 import history from './../../routes/History'
 import * as queryString from 'query-string'
+import * as isEqual from 'lodash.isequal'
 import Spinner from './../_widget/Spinner'
 import { connect } from 'react-redux'
 import { NotebookStore } from './../../store/NotebookStore'
@@ -19,12 +19,11 @@ import { AuthDispatchers, AuthProps, mapStateToPropsAuth, mapDispatchToPropsAuth
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class OAuthMicrosoftCallback extends React.Component<any, any> {
   private config: IConfig = emptyConfig
-  private notebookApi: NotebookApi
   private microsoftApi: MicrosoftApi
+  private notebookApi: NotebookApi
 
   public constructor(props) {
     super(props)
-    this.notebookApi = window['NotebookApi']
   }
 
   public render() {
@@ -50,8 +49,8 @@ export default class OAuthMicrosoftCallback extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-    this.notebookApi = window["NotebookApi"]
     this.microsoftApi = window["MicrosoftApi"]
+    this.notebookApi = window["NotebookApi"]
   }
 
   public componentWillReceiveProps(nextProps) {    
@@ -63,10 +62,10 @@ export default class OAuthMicrosoftCallback extends React.Component<any, any> {
   }
 
   private checkMicrosoftProfile() {
-    const parsedAuth = queryString.parse(this.props.location.search)
-    console.log("Microsoft OAuth Callback", parsedAuth)
-    if (parsedAuth) {
-      localStorage.setItem(MicrosoftProfileStorageKey, JSON.stringify(parsedAuth))
+    const callback = queryString.parse(this.props.location.search)
+    console.log("Microsoft OAuth Callback", callback)
+    if (callback) {
+      localStorage.setItem(MicrosoftProfileStorageKey, JSON.stringify(callback))
       this.notebookApi.updateMicrosoftProfile()
     }
   }

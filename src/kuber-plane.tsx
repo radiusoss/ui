@@ -35,10 +35,10 @@ function start(): void {
         <Provider store={NotebookStore.notebookStore}>
           <div>
             <Config/>
-            <MicrosoftApi/>
+            <SpitfireApi/>
             <K8sApi/>
             <TwitterApi/>
-            <SpitfireApi/>
+            <MicrosoftApi/>
             <NotebookApi/>
             <ConnectedRouter history = { routerHistory } >
               <Routes />

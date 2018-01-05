@@ -18,8 +18,8 @@ export default class NotebookLayout extends React.Component<any, any> {
   componentDidUpdate(prevProps) {
 /*
     const { dispatch, redirectUrl } = this.props
-    const isLoggingOut = prevProps.isAadAuthenticated && !this.props.isAadAuthenticated
-    const isLoggingIn = !prevProps.isAadAuthenticated && this.props.isAadAuthenticated
+    const isLoggingOut = prevProps.isMicrosoftAuthenticated && !this.props.isMicrosoftAuthenticated
+    const isLoggingIn = !prevProps.isMicrosoftAuthenticated && this.props.isMicrosoftAuthenticated
     if (isLoggingIn) {
       dispatch(history.push(redirectUrl))
     }
@@ -54,7 +54,7 @@ export default class NotebookLayout extends React.Component<any, any> {
 {
 function mapStateToPropsAuth(state) {
   return {
-    isAadAuthenticated: state.isAadAuthenticated,
+    isMicrosoftAuthenticated: state.isMicrosoftAuthenticated,
     redirectURL: state.redirectURL
   }
 }
