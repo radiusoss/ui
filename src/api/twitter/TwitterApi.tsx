@@ -72,9 +72,13 @@ export default class TwitterApi extends React.Component<any, any>  implements IT
   // ----------------------------------------------------------------------------
 
   public async getMe(): Promise<Result<any>> {
+    var profile = JSON.parse(localStorage.getItem(TwitterProfileStorageKey))
     return this.wrapResult<any, any>(
       r => r,
-      async () => this.restClient.get<any>({}, jsonOpt, "/me")
+      async () => this.restClient.post<any>({
+        oauth_access_token: profile.access,
+        oauth_verifier: profile.code
+      }, null, jsonOpt, "/me")
     )
   }
 

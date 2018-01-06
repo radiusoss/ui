@@ -66,8 +66,8 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
 
     if (!isMicrosoftAuthenticated && !isTwitterAuthenticated) {
       // Set the current url/path for future redirection (we use a Redux action), then redirect (we use a React Router method)
-//      dispatch(history.push(currentURL))
-//      history.push("/")
+      dispatch(history.push(currentURL))
+      history.push("/")
     }
 
   }

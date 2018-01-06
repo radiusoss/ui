@@ -131,7 +131,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
               console.log('Notebook Login', res)
               NotebookStore.state().notebookLogin = res
             })
-          this.microsoftApi.getPhoto((err, photoBlob) => {
+          this.microsoftApi.getMyPicto((err, photoBlob) => {
             if (!err) {
               NotebookStore.state().profilePhotoBlob = photoBlob
               console.log("Microsoft Photo Blob", photoBlob)

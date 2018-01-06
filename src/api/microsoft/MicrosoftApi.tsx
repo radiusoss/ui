@@ -71,7 +71,7 @@ export default class MicrosoftApi extends React.Component<any, any> {
     }
   }
 
-  public getPhoto(callback) {
+  public getMyPicto(callback) {
     var client = this.getClient()
     if (client) {
       client 
