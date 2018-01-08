@@ -91,6 +91,12 @@ export default class Highlights extends React.Component<any, any> {
               </a>
             </li>
             <li className="text-center">
+              <a href='http://lucene.apache.org/solr/' target="_blank">
+                <img src={ 'img/solr/apache-solr-white.svg' } alt='' />
+                <span>Apache Solr</span>
+              </a>
+            </li>
+            <li className="text-center">
               <a href='http://janusgraph.org' target="_blank">
                 <img src={ 'img/janusgraph/janusgraph.png' } alt='' />
                 <span>JanusGraph</span>

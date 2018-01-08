@@ -42,12 +42,12 @@ export default class MicrosoftApi extends React.Component<any, any> {
 
   public toMicrosoft() {
     console.log("Start Login with Microsoft...")
-    window.location.href = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?"
+    window.location.href = this.config.kuberRest + "/api/v1/microsoft?"
        + "client_id=" + this.config.microsoftApplicationId
        + "&tenant=common"
        + "&response_type=code"
        + "&response_mode=query"
-       + "&redirect_uri=" + this.config.microsoftRedirect
+//       + "&redirect_uri=" + this.config.microsoftRedirect
        + "&scope=" + this.config.microsoftScope
   }
 

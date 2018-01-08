@@ -27,7 +27,7 @@ export default class Profile extends React.Component<any, any> {
           <PivotItem linkText='Microsoft' itemIcon='OfficeLogo'>
             <Microsoft />
           </PivotItem>
-          <PivotItem linkText='Twitter' className='fa fa-twitter'>
+          <PivotItem linkText='Twitter' itemIcon='SocialListeningLogo'>
             <Microsoft />
           </PivotItem>
         </Pivot>
