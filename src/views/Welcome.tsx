@@ -169,7 +169,7 @@ export default class Welcome extends React.Component<any, any> {
           <img className={ styles.productImage } src={ 'img/datalayer/pipes.svg' } width='496' height='300' alt='' />
         </div>
 
-        <Highlights/>
+        <Highlights showAll="false" />
 
       </div>
 

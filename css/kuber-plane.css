@@ -15585,7 +15585,7 @@ app-root {
 .sidebar {
   padding: 0;
   color: #fff;
-  background: #263238; }
+  background: #333333; }
   .sidebar .sidebar-close {
     position: absolute;
     right: 0;
@@ -15612,12 +15612,12 @@ app-root {
       margin-left: -10px;
       -webkit-appearance: none; }
     .sidebar .sidebar-nav::-webkit-scrollbar-track {
-      background-color: #304047;
-      border-right: 1px solid #1c2429;
-      border-left: 1px solid #1c2429; }
+      background-color: #404040;
+      border-right: 1px solid #262626;
+      border-left: 1px solid #262626; }
     .sidebar .sidebar-nav::-webkit-scrollbar-thumb {
       height: 50px;
-      background-color: #11171a;
+      background-color: #1a1a1a;
       background-clip: content-box;
       border-color: transparent;
       border-style: solid;
@@ -15659,7 +15659,7 @@ app-root {
             color: #fff !important; }
         .sidebar .nav .nav-item .nav-link.active, .sidebar .nav .nav-item .navbar .active.dropdown-toggle, .navbar .sidebar .nav .nav-item .active.dropdown-toggle {
           color: #fff;
-          background: #304047; }
+          background: #404040; }
           .sidebar .nav .nav-item .nav-link.active i, .sidebar .nav .nav-item .navbar .active.dropdown-toggle i, .navbar .sidebar .nav .nav-item .active.dropdown-toggle i {
             color: #20a8d8; }
         .sidebar .nav .nav-item .nav-link [class^="icon-"], .sidebar .nav .nav-item .navbar .dropdown-toggle [class^="icon-"], .navbar .sidebar .nav .nav-item .dropdown-toggle [class^="icon-"], .sidebar .nav .nav-item .nav-link [class*=" icon-"], .sidebar .nav .nav-item .navbar .dropdown-toggle [class*=" icon-"], .navbar .sidebar .nav .nav-item .dropdown-toggle [class*=" icon-"] {
@@ -15721,7 +15721,7 @@ app-root {
           text-align: center;
           vertical-align: middle; }
       .sidebar .nav .nav-item .progress {
-        background-color: #455b66 !important; }
+        background-color: #595959 !important; }
 
 @media (min-width: 576px) {
   body.sidebar-compact .hidden-cn {
@@ -15738,7 +15738,7 @@ app-root {
       overflow: hidden;
       border-left: 0 !important; }
       body.sidebar-compact .sidebar ul.nav li.nav-item ul {
-        background: #263238; }
+        background: #333333; }
       body.sidebar-compact .sidebar ul.nav li.nav-item a.nav-link, body.sidebar-compact .sidebar ul.nav li.nav-item .navbar a.dropdown-toggle, .navbar body.sidebar-compact .sidebar ul.nav li.nav-item a.dropdown-toggle {
         position: relative;
         padding: 0 15px 0 0;
@@ -15780,7 +15780,7 @@ app-root {
             top: 0;
             left: 100%; }
       body.sidebar-compact .sidebar ul.nav li.nav-item.nav-dropdown.open {
-        background: #304047; }
+        background: #404040; }
         body.sidebar-compact .sidebar ul.nav li.nav-item.nav-dropdown.open > a.nav-link i, body.sidebar-compact .sidebar ul.nav .navbar li.nav-item.nav-dropdown.open > a.dropdown-toggle i, .navbar body.sidebar-compact .sidebar ul.nav li.nav-item.nav-dropdown.open > a.dropdown-toggle i {
           color: #20a8d8; }
         body.sidebar-compact .sidebar ul.nav li.nav-item.nav-dropdown.open > ul, body.sidebar-compact .sidebar ul.nav li.nav-item.nav-dropdown.open > ol {
