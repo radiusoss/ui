@@ -35,9 +35,6 @@ export default class Welcome extends React.Component<any, any> {
     this.twitterApi = window["TwitterApi"]
   }
 
-  public componentDidMount() {
-  }
-
   public render() {
 
     const { isMicrosoftAuthenticated, isTwitterAuthenticated, profileDisplayName, profilePhoto } = this.state
@@ -55,7 +52,7 @@ export default class Welcome extends React.Component<any, any> {
           { (!isMicrosoftAuthenticated && !isTwitterAuthenticated) && 
 
             <div>
-            
+{/*            
               <div className="ms-Grid" style={{ padding: 0 }}>
                 <div className="ms-Grid-row">
                   <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 text-center">
@@ -64,8 +61,8 @@ export default class Welcome extends React.Component<any, any> {
                 </div>
                 <div className="ms-Grid-row">
                     <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 text-center">
-                  <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onMicrosoftAuthenticateClick(e) }>Microsoft</a>
-                        <div className={ styles.version }>You need a valid Microsoft account.</div>
+                      <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onMicrosoftAuthenticateClick(e) }>Microsoft</a>
+                      <div className={ styles.version }>You need a valid Microsoft account.</div>
                     </div>
                     <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 text-center">
                       <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onTwitterAuthenticateClick(e) }>Twitter</a>
@@ -73,7 +70,20 @@ export default class Welcome extends React.Component<any, any> {
                     </div>
                 </div>
               </div>
-
+*/}
+              <div className="ms-Grid" style={{ padding: 0 }}>
+                <div className="ms-Grid-row">
+                  <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 text-center">
+                    <div className={ styles.tagline }>Authenticate with Twitter.</div>
+                  </div>
+                </div>
+                <div className="ms-Grid-row">
+                    <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 text-center">
+                      <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onTwitterAuthenticateClick(e) }>Twitter</a>
+                      <div className={ styles.version }>You need a valid Twitter account.</div>
+                    </div>
+                </div>
+              </div>
             </div>
 
           }
