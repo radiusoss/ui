@@ -7,8 +7,6 @@ import K8s from './K8s'
 const styles: any = stylesImport
 
 const K8s_TEXT = `
-<img src="img/kubernetes/kubernetes_logo.png" width="100px" />
-<br/>
 <a href='https://kubernetes.io' target="_blank">Kubernetes</a> is a fast growing open-source platform 
 which provides container-centric infrastructure. 
 Conceived by Google in 2014, and leveraging over a decade of experience running 
@@ -26,6 +24,8 @@ export default class Highlights extends React.Component<any, any> {
     super(props)
     this.state = {
       showAll: props.showAll,
+      panelTitle: '',
+      panelImg: '',
       panelText: {
         __html: ''
       },
@@ -34,10 +34,15 @@ export default class Highlights extends React.Component<any, any> {
   }
 
   @autobind
-  private showPanel(e: React.MouseEvent<HTMLAnchorElement>, text: string): void {
+  private showPanel(e: React.MouseEvent<HTMLAnchorElement>, 
+    title: string,
+    img: string,
+    text: string): void {
     e.stopPropagation()
     e.preventDefault()
     this.setState({
+      panelTitle: title,
+      panelImg: img,
       panelText: {
         __html: text
       },
@@ -48,6 +53,8 @@ export default class Highlights extends React.Component<any, any> {
   @autobind
   private closePanel(): void {
     this.setState({
+      panelTitle: '',
+      panelImg: '',
       panelText: {
         __html: ''
       },
@@ -79,10 +86,12 @@ export default class Highlights extends React.Component<any, any> {
           isOpen={ this.state.showPanel }
           type={ PanelType.smallFixedFar }
           onDismiss={ this.closePanel }
-          headerText='About'
+          headerText={ this.state.panelTitle }
           closeButtonAriaLabel='Close'
           onRenderFooterContent={ this.renderFooterContent }
         >
+          <img src={this.state.panelImg} width='100px' />
+          <br/>
           <div dangerouslySetInnerHTML={this.state.panelText}/>
         </Panel>
 
@@ -98,8 +107,9 @@ export default class Highlights extends React.Component<any, any> {
             <li className="text-center">
               <a href='http://docs.datalayer.io/docs/releases/v-0.0.1' target="_blank">
                 <img src={ 'img/release/omalley.png' } alt='' />
-                <span>OMalley Release - v-0.0.1</span>
-                <span>Made by Eric Charles (<i>To my Father</i>)</span>
+                <span>Version 0.0.2 - OMalley Release</span>
+                <span>Made by Eric Charles</span>
+                <span><i>To Eric's Father</i></span>
               </a>
             </li>
           </ul>
@@ -117,7 +127,7 @@ export default class Highlights extends React.Component<any, any> {
               </a>
             </li>
             <li className="text-center">
-              <a href="" target="_blank" onClick={(e) => this.showPanel(e, K8s_TEXT)}>
+              <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'Kubernetes', 'img/kubernetes/kubernetes_logo.png', K8s_TEXT)}>
                 <img src={ 'img/kubernetes/kubernetes_logo.png' } alt='' />
                 <span>Kubernetes</span>
               </a>
@@ -229,8 +239,9 @@ While traditional environments like YARN-based hadoop clusters have used Oozie, 
             <li className="text-center">
               <a href='http://docs.datalayer.io/docs/releases/v-0.0.1' target="_blank">
                 <img src={ 'img/release/omalley.png' } alt='' />
-                <span>OMalley Release - v-0.0.11</span>
-                <span>Made by Eric Charles (<i>To my Father</i>)</span>
+                <span>Version 0.0.2 - OMalley Release</span>
+                <span>Made by Eric Charles</span>
+                <span><i>To Eric's Father</i></span>
               </a>
             </li>
           </ul>
@@ -248,8 +259,8 @@ While traditional environments like YARN-based hadoop clusters have used Oozie, 
               </a>
             </li>
             <li className="text-center">
-              <a href="" target="_blank" onClick={(e) => this.showPanel(e, K8s_TEXT)}>
-                <img src={ 'img/kubernetes/kubernetes_logo.png' } alt='' />
+              <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'Kubernetes', 'img/kubernetes/kubernetes_logo.png', K8s_TEXT)}>
+              <img src={ 'img/kubernetes/kubernetes_logo.png' } alt='' />
                 <span>Kubernetes</span>
               </a>
             </li>

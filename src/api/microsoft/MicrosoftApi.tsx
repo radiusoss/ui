@@ -8,6 +8,7 @@ import { NotebookStore } from './../../store/NotebookStore'
 import { Client } from '@microsoft/microsoft-graph-client'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { AuthDispatchers, AuthProps, mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
+import { MeStorageKey } from '../notebook/NotebookApi'
 
 export const MicrosoftProfileStorageKey = 'microsoft_profile'
 
@@ -53,6 +54,7 @@ export default class MicrosoftApi extends React.Component<any, any> {
 
   public logout() {
     localStorage.removeItem(MicrosoftProfileStorageKey)
+    localStorage.removeItem(MeStorageKey)
     this.props.dispatchLogoutAction()
   }
 

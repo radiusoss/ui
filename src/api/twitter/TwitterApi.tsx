@@ -8,6 +8,7 @@ import { IConfig, emptyConfig } from './../../config/Config'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
+import { MeStorageKey } from '../notebook/NotebookApi'
 
 export const TwitterProfileStorageKey = 'twitter_profile'
 
@@ -84,6 +85,7 @@ export default class TwitterApi extends React.Component<any, any>  implements IT
 
   public logout() {
     localStorage.removeItem(TwitterProfileStorageKey)
+    localStorage.removeItem(MeStorageKey)
     this.props.dispatchLogoutAction()
   }
 

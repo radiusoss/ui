@@ -4,7 +4,7 @@ import { reducer as toastrReducer } from 'react-redux-toastr'
 import { ApplicationState } from '../state/State'
 import { routerReducer } from 'react-router-redux'
 
-import { profileDisplayNameReducer, profilePhotoBlobReducer } from './CommonReducer'
+import { meReducer, profileDisplayNameReducer, profilePhotoBlobReducer } from './CommonReducer'
 import { newConfigReducer } from './ConfigReducer'
 import { k8sMessageSentReducer, k8sMessageReceivedReducer } from './K8sReducer'
 import { counterReducer, isSavingCounterReducer, isLoadingCounterReducer, errorCounterReducer } from './CounterReducer'
@@ -43,6 +43,7 @@ export const reducers = combineReducers<ApplicationState.State>({
   toastr: toastrReducer,
   routing: routerReducer,
 
+  me: meReducer,
   profileDisplayName: profileDisplayNameReducer,
   profilePhotoBlob: profilePhotoBlobReducer
 

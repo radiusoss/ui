@@ -6,6 +6,7 @@ import * as queryString from 'query-string'
 import { RestClient } from '../util/rest/RestClient'
 import { ConfigDispatchers } from '../actions/ConfigActions'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
+import NotebookApi from '../api/notebook/NotebookApi'
 
 export const KuberRestStorageKey = 'kuber_rest'
 
@@ -37,10 +38,19 @@ export const emptyConfig: IConfig = {
 
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 export default class Config extends React.Component<any, any> {
+  private notebookApi: NotebookApi
   
   public constructor(props) {
-
     super(props)
+  }
+
+  public render() {
+    return <div>{ this.props.children }</div>
+  }
+
+  public componentDidMount() {
+
+    this.notebookApi = window['NotebookApi'] 
 
     // TODO(ECH) move this config class to the config view to use parse(this.props.location.search)
     // Moreover, all the config stuff should be locate at the same place...
@@ -93,12 +103,10 @@ export default class Config extends React.Component<any, any> {
         config.twitterRedirect = currentBaseUrl + "/api/vi/twitter/maketoken"
       }
       console.log('Updated Config', config)
-      props.dispatchNewConfigAction(config)
+      this.props.dispatchNewConfigAction(config)
+      this.notebookApi.updateTwitterProfile()
     })
-  }
 
-  public render() {
-    return <div>{ this.props.children }</div>
   }
 
   @autobind

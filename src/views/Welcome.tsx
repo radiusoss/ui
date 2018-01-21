@@ -19,8 +19,8 @@ const styles: any = stylesImport
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class Welcome extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
-  private microsoftApi: MicrosoftApi
-  private twitterApi: TwitterApi
+  private readonly microsoftApi: MicrosoftApi
+  private readonly twitterApi: TwitterApi
 
   state = {
     isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
@@ -33,6 +33,7 @@ export default class Welcome extends React.Component<any, any> {
     super(props)
     this.microsoftApi = window["MicrosoftApi"]
     this.twitterApi = window["TwitterApi"]
+    this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
@@ -43,7 +44,7 @@ export default class Welcome extends React.Component<any, any> {
 
       <div>
 
-        <div className={ styles.hero } style={{margin: '0px'}}>
+        <div className={ styles.hero } style={{ margin: '0px' }}>
 
           <h1 className={ styles.title }>Kuber Plane</h1>
 
@@ -110,7 +111,7 @@ export default class Welcome extends React.Component<any, any> {
 
         </div>
 
-        <div className={ styles.flavors } style={{margin: '0px'}}>
+        <div className={ styles.flavors } style={{ margin: '0px' }}>
 
           <div className={ styles.flavor }>
 

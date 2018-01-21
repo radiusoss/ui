@@ -2,23 +2,24 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import MicrosoftApi from './../../api/microsoft/MicrosoftApi'
+import { NotebookStore } from './../../store/NotebookStore'
 import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTitle, IDocumentCardPreviewProps, DocumentCardActions } from 'office-ui-fabric-react/lib/DocumentCard'
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Microsoft extends React.Component<any, any> {
-  private MicrosoftApi: MicrosoftApi
+  private microsoftApi: MicrosoftApi
 
   state = {
     displayName: '',
     principalName: '',
-    photo: 'img/datalayer/datalayer-square-white.png',
+    photo: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob),
     contacts: []
   }
 
   public constructor(props) {
     super(props)
-    this.MicrosoftApi = window["MicrosoftApi"]
+    this.microsoftApi = window["MicrosoftApi"]
   }
 
   public render() {
@@ -38,10 +39,10 @@ export default class Microsoft extends React.Component<any, any> {
         <DocumentCard>
           <DocumentCardPreview { ...previewProps } />
           <DocumentCardTitle
-            title= { principalName }
-            shouldTruncate={ true } />
+            title = { principalName }
+            shouldTruncate = { true } />
           <DocumentCardActivity
-            activity='Azure User'
+            activity='Microsoft User'
             people={
               [{ 
                 name: displayName, 
@@ -117,12 +118,8 @@ export default class Microsoft extends React.Component<any, any> {
     this.updateProfile()
   }
 
-  public componentWillUpdate() {
-//    this.updateProfile()
-  }
-
   private updateProfile() {
-    this.MicrosoftApi.getMe((err, me) => {
+    this.microsoftApi.getMe((err, me) => {
       if (!err) {
         this.setState({
           displayName: me.displayName,
@@ -130,14 +127,14 @@ export default class Microsoft extends React.Component<any, any> {
         })
       }
     })
-    this.MicrosoftApi.getContacts((err, contacts) => {
+    this.microsoftApi.getContacts((err, contacts) => {
       if (!err) {
         this.setState({
           contacts: contacts
         })
       }
     })
-    this.MicrosoftApi.getMyPicto((err, photo) => {
+    this.microsoftApi.getMyPicto((err, photo) => {
       if (!err) {
         const url = window.URL
         const blobPhoto = url.createObjectURL(photo)

@@ -91,7 +91,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
     if (
       (!this.state.isMicrosoftAuthenticated && isMicrosoftAuthenticated)
-      ||
+        ||
       (!this.state.isTwitterAuthenticated && isTwitterAuthenticated)
     ) {
 

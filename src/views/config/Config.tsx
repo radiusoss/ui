@@ -61,6 +61,7 @@ export default class Config extends React.Component<any, IK8sState> {
       <div>
 
         <br/>
+
         <h3>Kuber Configuration</h3>
 
         <Form 
@@ -170,16 +171,12 @@ export default class Config extends React.Component<any, IK8sState> {
 
   @autobind
   private submit(values: any): void {
-
     values.name = values.name_input
-
     if (this.method == 'WS') {
       this.k8sApi.send(this.wsMessage)
       return
     }
-
     this.restClient = this.newRestClient(this.url)
-
     switch (this.method) {
       case 'GET':
         this.restClient.get<{}>(values, jsonOpt, "")

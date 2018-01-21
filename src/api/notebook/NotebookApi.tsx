@@ -11,22 +11,26 @@ import { MicrosoftProfileStorageKey } from './../microsoft/MicrosoftApi'
 import TwitterApi from './../twitter/TwitterApi'
 import { TwitterProfileStorageKey } from './../twitter/TwitterApi'
 
+export const MeStorageKey = 'me'
+
 export interface INotebookApi extends ISpitfireApi {}
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class NotebookApi extends React.Component<any, any> implements INotebookApi {
-  private spitfireApi: ISpitfireApi
   private microsoftApi: MicrosoftApi
+  private spitfireApi: ISpitfireApi
   private twitterApi: TwitterApi
 
   public constructor(props) {
     super(props)
     window['NotebookApi'] = this
   }
+
   public render() {
     return <div>{ this.props.children }</div>
   }
+  
   public componentDidMount() {
     this.spitfireApi = window['SpitfireApi']
     this.microsoftApi = window['MicrosoftApi']
@@ -121,6 +125,8 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     if (profile) {
       this.microsoftApi.getMe(async (err, me) => {
         if (!err) {
+          console.log('me', me)
+          NotebookStore.state().me = me
           var principalName = me.userPrincipalName
           console.log("Microsoft Principal Name", principalName)
           var displayName = me.userPrincipalName
@@ -145,34 +151,54 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   }
 
   public updateTwitterProfile() {
-    var profile = localStorage.getItem(TwitterProfileStorageKey)
-    if (profile) {
-      this.twitterApi.getMe()
-        .then(me => {
-          console.log(me)
-          var principalName = me.result.screen_name
-          console.log("Twitter Principal Name", principalName)
-          var displayName = me.result.name
-          console.log("Twitter Display Name", displayName)
-          NotebookStore.state().profileDisplayName = displayName
-          this.login(principalName + "#twitter", principalName)
-            .then(res => {
-              console.log('Notebook Login', res)
-              NotebookStore.state().notebookLogin = res
-            })
-            var photoUrl = me.result.profile_image_url_https
-            console.log("Twitter Photo Url", photoUrl)
-            fetch(photoUrl)
-            .then((response: any) => {
-              return response.blob()
-            }).then((photoBlob: any) => {
-              NotebookStore.state().profilePhotoBlob = photoBlob
-              console.log("Twitter Photo Blob", photoBlob)
-              this.props.dispatchIsTwitterAuthenticatedAction()
-              history.push("/")
-            })
-          })
-      }
+    var me: any
+    try {
+     me = JSON.parse(localStorage.getItem(MeStorageKey))
     }
+    catch(e) {
+      console.log(e)
+    }
+    if (me && me.screen_name) {
+      this.processMe(me)
+    }
+    else {
+      var cred = localStorage.getItem(TwitterProfileStorageKey)
+      if (cred) {
+        this.twitterApi.getMe()
+          .then(me => {
+            this.processMe(me.result)
+          })
+        }
+      }
+  }
+
+  private processMe(me: any) {
+    console.log('me', me)
+    NotebookStore.state().me = me
+    localStorage.setItem(MeStorageKey, JSON.stringify(me))
+    var principalName = me.screen_name
+    console.log("Twitter Principal Name", principalName)
+    var displayName = me.name
+    console.log("Twitter Display Name", displayName)
+    NotebookStore.state().profileDisplayName = displayName
+    this.login(principalName + "#twitter", principalName)
+      .then(res => {
+        console.log('Notebook Login', res)
+        NotebookStore.state().notebookLogin = res
+      })
+      var photoUrl = me.profile_image_url_https
+      console.log("Twitter Photo Url", photoUrl)
+      NotebookStore.state().profilePhoto = photoUrl
+      fetch(photoUrl)
+        .then((response: any) => {
+          return response.blob()
+        }).then((photoBlob: any) => {
+          NotebookStore.state().profilePhotoBlob = photoBlob
+          console.log("Twitter Photo Blob", photoBlob)
+          this.props.dispatchIsTwitterAuthenticatedAction()
+          history.push("/")
+        })
+  }
+
 
 }
