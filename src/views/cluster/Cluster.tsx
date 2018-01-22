@@ -155,7 +155,7 @@ export default class Cluster extends React.Component<any, IK8SState> {
           .then(json => { this.setState({clusterDef: json})})
         break
       case 'GET_OVERVIEW':
-      this.setState({clusterDef: loading})
+      this.setState({overview: loading})
       this.k8sApi.getOverview()
           .then(json => { this.setState({overview: json})})
         break
