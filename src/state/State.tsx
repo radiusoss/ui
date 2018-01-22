@@ -1,5 +1,5 @@
 import * as redux from 'redux'
-import { IConfig, emptyConfig } from '../config/Config'
+import { IConfig, emptyConfig } from '../api/config/ConfigApi'
 
 export namespace ApplicationState {
   export type Counter = { 

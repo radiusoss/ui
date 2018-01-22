@@ -6,7 +6,7 @@ import Aside from '../blocks/Aside';
 import Footer from '../blocks/Footer';
 import Breadcrumbs from 'react-breadcrumbs';
 import EnsureAuthenticatedLayout from './../layouts/EnsureAuthenticatedLayout'
-import K8s from './../views/K8s'
+import K8S from './../views/K8S'
 import KuberSpl from './../views/KuberSpl'
 import Check from './../views/Check'
 import About from './../views/About'
@@ -37,7 +37,7 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
               <Route exact path="/dla/about" name="About" component={About} />
               <Route exact path="/dla/help" name="Help" component={Help} />
               <Route exact path="/dla/check" name="Check" component={Check} />
-              <Route exact path="/dla/k8s" name="Kubernetes" component={K8s} />
+              <Route exact path="/dla/k8s" name="Kubernetes" component={K8S} />
               <Route exact path="/dla/kuberspl" name="Kuber Spl" component={KuberSpl} />
               <Route path="/dla" component={EnsureAuthenticatedLayout} />
             </div>

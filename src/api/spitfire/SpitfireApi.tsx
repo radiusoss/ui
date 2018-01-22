@@ -5,7 +5,7 @@ import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/
 import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
 import { NotebookStore } from './../../store/NotebookStore'
-import { IConfig, emptyConfig } from './../../config/Config'
+import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
@@ -13,16 +13,19 @@ import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthA
 export interface BooleanResponse {
   boolean: boolean
 }
+
 export interface SpitfireResponse {
   status?: string
   message?: string
   body?: SpitfireBody | string | any
 }
+
 export interface SpitfireBody {
   principal?: string
   ticket?: string
   roles?: [string]
 }
+
 export interface ISpitfireApi {
   ping(): void
   login(userName, password): Promise<Result<SpitfireResponse>>
@@ -144,30 +147,35 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       async () => this.restClient.postForm<SpitfireResponse>({ userName: userName, password: password }, {}, jsonOpt, "/login")
     )
   }
+
   public async ticket(): Promise<Result<SpitfireResponse>> {
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,
       async () => this.restClient.get<SpitfireResponse>({}, jsonOpt, "/security/ticket")
     )
   }
+
   public async version(): Promise<Result<SpitfireResponse>> {
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,
       async () => this.restClient.get<SpitfireResponse>({}, jsonOpt, "/version")
     )
   }
+
   public async restartInterpreter(id: string): Promise<Result<SpitfireResponse>> {
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,
       async () => this.restClient.put<SpitfireResponse>({}, jsonOpt, `/interpreter/setting/restart/${id}`)
     )
   }
+
   public async interpreterSetting(): Promise<Result<SpitfireResponse>> {
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,
       async () => this.restClient.get<SpitfireResponse>({}, jsonOpt, "/interpreter/setting")
     )
   }
+
   public async configuration(): Promise<Result<SpitfireResponse>> {
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,
@@ -180,33 +188,43 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   public ping(): void {
     this.sendWebSocketMessage(JSON.stringify(this.PING()))
   }
+
   public newNote(name: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.NEW_NOTE(name)))
   }
+
   public listNotes(): void {
     this.sendWebSocketMessage(JSON.stringify(this.LIST_NOTES()))
   }
+
   public getNote(id: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.GET_NOTE(id)))
   }
+
   public renameNote(id: string, newName: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.NOTE_RENAME(id, newName)))
   }
+
   public moveNoteToTrash(id: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.MOVE_NOTE_TO_TRASH(id)))
   }
+
   public deleteNote(id: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.DEL_NOTE(id)))
   }
+
   public runNote(id: string, paragraphs: any[]): void {
     this.sendWebSocketMessage(JSON.stringify(this.RUN_ALL_PARAGRAPHS_SPITFIRE(id, paragraphs)))
   }
+
   public cancelParagraph(id: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.CANCEL_PARAGRAPH(id)))
   }
+
   public listConfigurations(): void {
     this.sendWebSocketMessage(JSON.stringify(this.LIST_CONFIGURATIONS()))
   }
+
   public newFlow(name: string): void {
 //    this.sendWebSocketMessage(JSON.stringify(this.NEW_FLOW(name)))
     let flow = {
@@ -220,20 +238,25 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     this.flows.push(flow)
     this.saveFlows(this.flows)
   }
+  
   public saveFlow(flow: any): void {    
     this.deleteFlow(flow.id)
     this.flows.push(flow)
     this.saveFlows(this.flows)
   }
+
   public saveFlows(flows: any): void {
     this.sendWebSocketMessage(JSON.stringify(this.SAVE_FLOWS(flows)))
   }
+
   public listFlows(): void {
     this.sendWebSocketMessage(JSON.stringify(this.LIST_FLOWS()))
   }
+
   public getFlow(id: string): void {
 //    this.sendWebSocketMessage(JSON.stringify(this.GET_FLOW(id)))
   }
+
   public renameFlow(id: string, newName: string): void {
 //    this.sendWebSocketMessage(JSON.stringify(this.FLOW_RENAME(id, newName)))
     function findAndRename(flows, id, newName) {
@@ -246,10 +269,12 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     findAndRename(this.flows, id, newName)
     this.saveFlows(this.flows)
   }
+
   public moveFlowToTrash(id: string): void {
 //    this.sendWebSocketMessage(JSON.stringify(this.MOVE_FLOW_TO_TRASH(id)))
     this.deleteFlow(id)
   }
+
   public deleteFlow(id: string): void {
 //    this.sendWebSocketMessage(JSON.stringify(this.DEL_FLOW(id)))
     function findAndRemove(array, id) {
@@ -262,6 +287,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     findAndRemove(this.flows, id)
     this.saveFlows(this.flows)
   }
+
   public runFlow(id: string): void {
 //    this.sendWebSocketMessage(JSON.stringify(this.RUN_FLOW(id)))
   }
@@ -300,6 +326,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
 //    this.webSocketClient.send(message)
     this.sendWaitingForConnection(this, message, undefined)
   }
+
   private sendWaitingForConnection = function(t, message, callback) {
     this.waitForConnection(t, function() {
       t.webSocketClient.send(message)
@@ -308,6 +335,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }, 1000)
   }
+
   private waitForConnection = function (t, callback, interval) {
     if (t.webSocketClient.readyState === 1) {
       callback()
@@ -330,6 +358,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       'roles': this.rolesValue()
     }
   }
+
   private NEW_NOTE(name: string) {
     return {
       'op':	'NEW_NOTE',
@@ -341,6 +370,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private LIST_NOTES() {
     return {
       'op':	'LIST_NOTES',
@@ -349,6 +379,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       'roles': this.rolesValue()
     }
   }
+
   private GET_NOTE(id: string) {
     return {
       'op':	'GET_NOTE',
@@ -360,6 +391,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private NOTE_RENAME(id: string, newName: string) {
     return {
       'op':	'NOTE_RENAME',
@@ -372,6 +404,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private MOVE_NOTE_TO_TRASH(id: string) {
     return {
       'op':	'MOVE_NOTE_TO_TRASH',
@@ -383,6 +416,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private DEL_NOTE(id: string) {
     return {
       'op':	'DEL_NOTE',
@@ -394,6 +428,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private RUN_ALL_PARAGRAPHS_SPITFIRE(noteId: string, paragraphs: any[]) {
     return {
       'op':	'RUN_ALL_PARAGRAPHS_SPITFIRE',
@@ -406,6 +441,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private CANCEL_PARAGRAPH(paragraphId) {
     return {
       'op':	'CANCEL_PARAGRAPH',
@@ -417,6 +453,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private LIST_CONFIGURATIONS() {
     return {
       'op':	'LIST_CONFIGURATIONS',
@@ -425,6 +462,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       'roles': this.rolesValue()
     }
   }
+
   private NEW_FLOW(name: string) {
     return {
       'op':	'NEW_FLOW',
@@ -436,6 +474,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private SAVE_FLOWS(flows: any) {
     return {
       'op':	'SAVE_FLOWS',
@@ -447,6 +486,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private LIST_FLOWS() {
     return {
       'op':	'LIST_FLOWS',
@@ -455,6 +495,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       'roles': this.rolesValue()
     }
   }
+
   private GET_FLOW(id: string) {
     return {
       'op':	'GET_NOTE',
@@ -466,6 +507,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private FLOW_RENAME(id: string, newName: string) {
     return {
       'op':	'NOTE_RENAME',
@@ -478,6 +520,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private MOVE_FLOW_TO_TRASH(id: string) {
     return {
       'op':	'MOVE_NOTE_TO_TRASH',
@@ -489,6 +532,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private DEL_FLOW(id: string) {
     return {
       'op':	'DEL_NOTE',
@@ -500,6 +544,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   private RUN_FLOW(id: string) {
     return {
       'op':	'RUN_ALL_PARAGRAPHS_SPITFIRE',
@@ -520,12 +565,14 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
     }
     return ""
   }
+
   private rolesValue(): [string] {
     if (NotebookStore.state().notebookLogin.result) {
       return NotebookStore.state().notebookLogin.result.body.roles
     }
     return [""]
   }
+  
   private ticketValue(): string {
     if (NotebookStore.state().notebookLogin.result) {
       return NotebookStore.state().notebookLogin.result.body.ticket

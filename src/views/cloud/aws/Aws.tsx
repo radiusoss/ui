@@ -3,8 +3,8 @@ import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
 import { NotebookStore } from '../../../store/NotebookStore'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../../actions/ConfigActions'
-import { mapStateToPropsK8s, mapDispatchToPropsK8s } from '../../../actions/K8sActions'
-import { IConfig, emptyConfig } from './../../../config/Config'
+import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../../../actions/K8SActions'
+import { IConfig, emptyConfig } from './../../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
 import { emailRegexp } from './../../../util/msc/regexp'
@@ -14,11 +14,11 @@ import { Form, FormConditionalSubmitButton, FormDatePicker, FormDropdown, FormCh
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
-import K8sApi from '../../../api/k8s/K8sApi'
+import K8SApi from '../../../api/k8s/K8SApi'
 
 const MAX_LENGTH = 20
 
-export type IK8sState = {
+export type IK8SState = {
   wsMessages: any[]
   restResponse: any
   formResults: any
@@ -26,12 +26,12 @@ export type IK8sState = {
   checked: boolean
 }
 
-@connect(mapStateToPropsK8s, mapDispatchToPropsK8s)
+@connect(mapStateToPropsK8S, mapDispatchToPropsK8S)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Aws extends React.Component<any, IK8sState> {
+export default class Aws extends React.Component<any, IK8SState> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
-  private k8sApi: K8sApi
+  private k8sApi: K8SApi
   private method: string
   private url: string
   private wsMessage: any
@@ -49,7 +49,7 @@ export default class Aws extends React.Component<any, IK8sState> {
   }
 
   public async componentDidMount() {
-    this.k8sApi = window['k8sApi']
+    this.k8sApi = window['K8SApi']
   }
 
   public render() {

@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
 import { NotebookStore } from '../store/NotebookStore'
-import { IConfig, emptyConfig } from './../config/Config'
+import { IConfig, emptyConfig } from './../api/config/ConfigApi'
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Label } from 'office-ui-fabric-react/lib/Label'
@@ -11,11 +11,11 @@ import { Form, FormConditionalSubmitButton, FormDatePicker, FormTextInput, Valid
 import { emailRegexp } from './../util/msc/regexp'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../actions/ConfigActions'
-import { mapStateToPropsK8s, mapDispatchToPropsK8s } from '../actions/K8sActions'
-import K8sApi  from '../api/k8s/K8sApi'
+import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../actions/K8SActions'
+import K8SApi from '../api/k8s/K8SApi'
 import JSONTree from 'react-json-tree'
 
-export type IK8sState = {
+export type IK8SState = {
     wsMessages: any[]
     restResponse: any
     formResults: any
@@ -25,11 +25,11 @@ export type IK8sState = {
 
 const MAX_LENGTH = 20
 
-@connect(mapStateToPropsK8s, mapDispatchToPropsK8s)
+@connect(mapStateToPropsK8S, mapDispatchToPropsK8S)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class K8s extends React.Component<any, IK8sState> {
+export default class K8S extends React.Component<any, IK8SState> {
   private config: IConfig = NotebookStore.state().config
-  private k8sApi: K8sApi
+  private k8sApi: K8SApi
   private restClient: RestClient
 
   state = {
@@ -170,7 +170,7 @@ export default class K8s extends React.Component<any, IK8sState> {
   }
 
   public async componentDidMount() {
-    this.k8sApi = window['k8sApi']
+    this.k8sApi = window['K8SApi']
 //    this.k8sApi.command("/bin/ls")
   }
 
@@ -196,7 +196,7 @@ export default class K8s extends React.Component<any, IK8sState> {
 
   private newRestClient() {
     return new RestClient({
-      name: 'K8s',
+      name: 'K8S',
       url: this.config.kuberRest,
       path: '/api/v1/spl'
     })

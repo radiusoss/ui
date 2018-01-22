@@ -7,12 +7,12 @@ import ReduxToastr from 'react-redux-toastr'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import { NotebookStore } from './store/NotebookStore'
-import Config from './config/Config'
+import ConfigApi from './api/config/ConfigApi'
 import MicrosoftApi from './api/microsoft/MicrosoftApi'
 import NotebookApi from './api/notebook/NotebookApi'
 import SpitfireApi from './api/spitfire/SpitfireApi'
 import TwitterApi from './api/twitter/TwitterApi'
-import K8sApi from './api/k8s/K8sApi'
+import K8SApi from './api/k8s/K8SApi'
 import { loadTheme } from 'office-ui-fabric-react/lib/Styling';
 
 loadTheme({
@@ -34,9 +34,9 @@ function start(): void {
       <div>
         <Provider store={NotebookStore.notebookStore}>
           <div>
-            <Config/>
+            <ConfigApi/>
             <SpitfireApi/>
-            <K8sApi/>
+            <K8SApi/>
             <TwitterApi/>
             <MicrosoftApi/>
             <NotebookApi/>

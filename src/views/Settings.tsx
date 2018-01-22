@@ -2,7 +2,7 @@ import * as React from 'react'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot';
 import Cluster from './cluster/Cluster'
 import Aws from './cloud/aws/Aws'
-import Helm from './helm/Helm'
+import Apps from './apps/Apps'
 import Config from './config/Config'
 import SpitfireConfig from './spitfire/Config'
 import SpitfireInterpreters from './spitfire/Interpreters'
@@ -16,23 +16,25 @@ export default class Settings extends React.Component<any, any> {
     return (
       <div>
         <Pivot>
-          <PivotItem linkText='Configuration' itemIcon='Settings'>
+          <PivotItem linkText='Configuration' itemIcon='ConfigurationSolid'>
             <Config />
           </PivotItem>
-          <PivotItem linkText='Kubernetes' itemIcon='AdminCLogoInverse32'>
+          <PivotItem linkText='Cluster' itemIcon='CircleAddition'>
             <Cluster />
           </PivotItem>
-          <PivotItem linkText='Helm' itemIcon='Headset'>
-            <Helm />
-          </PivotItem>
+{/*
           <PivotItem linkText='AWS' itemIcon='Cloud'>
             <Aws />
           </PivotItem>
-          <PivotItem linkText='Spitfire' itemIcon='Airplane'>
+*/}
+          <PivotItem linkText='Spitfire Config' itemIcon='Airplane'>
             <SpitfireConfig />
           </PivotItem>
-          <PivotItem linkText='Interpreters' itemIcon='TransitionPop'>
+          <PivotItem linkText='Spitfire Interpreters' itemIcon='AirplaneSolid'>
             <SpitfireInterpreters />
+          </PivotItem>
+          <PivotItem linkText='Apps' itemIcon='MapPin'>
+            <Apps />
           </PivotItem>
         </Pivot>
       </div>

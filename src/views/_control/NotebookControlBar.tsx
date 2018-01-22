@@ -8,7 +8,7 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import * as isEqual from 'lodash.isequal'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import history from './../../routes/History'
-import { IConfig, emptyConfig } from './../../config/Config'
+import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'

@@ -1,12 +1,12 @@
 import * as React from 'react'
 import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
-import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../actions/ConfigActions'
+import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '..//../actions/ConfigActions'
 import * as queryString from 'query-string'
-import { RestClient } from '../util/rest/RestClient'
-import { ConfigDispatchers } from '../actions/ConfigActions'
+import { RestClient } from '..//../util/rest/RestClient'
+import { ConfigDispatchers } from '..//../actions/ConfigActions'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import NotebookApi from '../api/notebook/NotebookApi'
+import NotebookApi from '../../api/notebook/NotebookApi'
 
 export const KuberRestStorageKey = 'kuber_rest'
 
@@ -37,11 +37,17 @@ export const emptyConfig: IConfig = {
 }
 
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Config extends React.Component<any, any> {
+export default class ConfigApi extends React.Component<any, any> {
   private notebookApi: NotebookApi
+
+  state = {
+    kuberRest: '',
+    config: emptyConfig
+  }
   
   public constructor(props) {
     super(props)
+    window['ConfigApi'] = this
   }
 
   public render() {
@@ -52,7 +58,7 @@ export default class Config extends React.Component<any, any> {
 
     this.notebookApi = window['NotebookApi'] 
 
-    // TODO(ECH) move this config class to the config view to use parse(this.props.location.search)
+    // TODO(ECH) move this config class to the config view to use parse(this.props.location.search).
     // Moreover, all the config stuff should be locate at the same place...
     const params = queryString.parse(location.search)
     console.log('URL Params', params)
@@ -103,10 +109,18 @@ export default class Config extends React.Component<any, any> {
         config.twitterRedirect = currentBaseUrl + "/api/vi/twitter/maketoken"
       }
       console.log('Updated Config', config)
+      this.setState({
+        kuberRest: kuberRest,
+        config: config
+      })
       this.props.dispatchNewConfigAction(config)
       this.notebookApi.updateTwitterProfile()
     })
 
+  }
+
+  public getConfig() {
+    return this.state.config
   }
 
   @autobind

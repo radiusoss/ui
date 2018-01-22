@@ -6,7 +6,7 @@ import { routerReducer } from 'react-router-redux'
 
 import { meReducer, profileDisplayNameReducer, profilePhotoBlobReducer } from './CommonReducer'
 import { newConfigReducer } from './ConfigReducer'
-import { k8sMessageSentReducer, k8sMessageReceivedReducer } from './K8sReducer'
+import { k8sMessageSentReducer, k8sMessageReceivedReducer } from './K8SReducer'
 import { counterReducer, isSavingCounterReducer, isLoadingCounterReducer, errorCounterReducer } from './CounterReducer'
 import { isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer, isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer } from './AuthReducer'
 import { notebookLoginReducer, webSocketMessageSentReducer, webSocketMessageReceivedReducer, noteReducer, runningParagraphsReducer, notesReducer, isStartRunReducer } from './NotebookReducer'

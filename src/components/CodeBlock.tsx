@@ -41,13 +41,11 @@ export default class CodeBlock extends React.Component<ICodeBlockProps, ICodeBlo
   };
 
   constructor(props: ICodeBlockProps) {
-    super(props);
-
+    super(props)
     this.state = {
       isOpen: false
-    };
-
-    this._onToggleClicked = this._onToggleClicked.bind(this);
+    }
+    this._onToggleClicked = this._onToggleClicked.bind(this)
   }
 
   public render() {

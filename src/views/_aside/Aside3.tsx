@@ -11,13 +11,10 @@ export default class Aside3 extends React.Component<any, any> {
   }
 
   public render() {
-
     return (
-    
       <div>
-        
         <h6>Settings</h6>
-
+{/*
         <div className="aside-options">
             <div className="clearfix mt-2">
                 <small><b>Option 1</b>
@@ -32,7 +29,6 @@ export default class Aside3 extends React.Component<any, any> {
                 <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
             </div>
         </div>
-
         <div className="aside-options">
             <div className="clearfix mt-1">
                 <small><b>Option 2</b>
@@ -47,7 +43,6 @@ export default class Aside3 extends React.Component<any, any> {
                 <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
             </div>
         </div>
-
         <div className="aside-options">
             <div className="clearfix mt-1">
                 <small><b>Option 3</b>
@@ -59,7 +54,6 @@ export default class Aside3 extends React.Component<any, any> {
                 </label>
             </div>
         </div>
-
         <div className="aside-options">
             <div className="clearfix mt-1">
                 <small><b>Option 4</b>
@@ -71,11 +65,10 @@ export default class Aside3 extends React.Component<any, any> {
                 </label>
             </div>
         </div>
-
         <hr/>
-
-        <h6>System Utilization</h6>
-
+*/}
+        <h6>Cluster Usage</h6>
+{/*
         <div className="text-uppercase mb-q mt-2">
             <small><b>CPU Usage</b>
             </small>
@@ -111,11 +104,9 @@ export default class Aside3 extends React.Component<any, any> {
             <div className="progress-bar bg-success" role="progressbar" style={{ "width": "10%" }} aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <small className="text-muted">25GB/256GB</small>
-
+*/}
     </div>
-
    )
-
   }
 
 }

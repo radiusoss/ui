@@ -11,13 +11,9 @@ export default class Aside1 extends React.Component<any, any> {
   }
 
   public render() {
-
     let paragraphs = NotebookStore.state().runningParagraphs
-
-    return (
-    
+    return (    
       <div>
-    
         <div className="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
           <small><b>Running Paragraphs</b></small>
         </div>
@@ -30,7 +26,7 @@ export default class Aside1 extends React.Component<any, any> {
               )
           })
         }
-
+{/*
         <div className="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
             <small><b>Today</b></small>
         </div>
@@ -125,11 +121,9 @@ export default class Aside1 extends React.Component<any, any> {
             </div>
         </div>
         <hr className="mx-1 my-0"/>
-
+*/}
       </div>
-
     )
-
   }
 
 }

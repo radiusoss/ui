@@ -5,35 +5,45 @@ import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/
 import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
-import { mapStateToPropsK8s, mapDispatchToPropsK8s } from '../../actions/K8sActions'
+import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../../actions/K8SActions'
 import { NotebookStore } from './../../store/NotebookStore'
-import { IConfig, emptyConfig } from './../../config/Config'
+import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 
 export interface BooleanResponse {
   boolean: boolean
 }
-export interface K8sResponse {
+
+export interface K8SResponse {
   status?: string
   message?: string
-  body?: K8sBody | string | any
+  body?: K8SBody | string | any
 }
-export interface K8sBody {
+
+export interface K8SBody {
   principal?: string
   ticket?: string
   roles?: [string]
 }
-export interface IK8sApi {
-  login(userName, password): Promise<Result<K8sResponse>>
-  ticket(): Promise<Result<K8sResponse>>
-  version(): Promise<Result<K8sResponse>>
+
+export interface IK8SApi {
+  login(userName, password): Promise<Result<K8SResponse>>
+  ticket(): Promise<Result<K8SResponse>>
+  version(): Promise<Result<K8SResponse>>
   send(body: string): void
   ping(): void
   command(name: string): void
 }
 
+export var loading = {
+  success: false,
+  result: {
+    message: 'loading...'
+  }
+}
+
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-@connect(mapStateToPropsK8s, mapDispatchToPropsK8s)
-export default class K8sApi extends React.Component<any, any>  implements IK8sApi {
+@connect(mapStateToPropsK8S, mapDispatchToPropsK8S)
+export default class K8SApi extends React.Component<any, any>  implements IK8SApi {
   private config: IConfig = emptyConfig
   private restClient: RestClient
   private webSocketClient: WebSocket
@@ -41,7 +51,7 @@ export default class K8sApi extends React.Component<any, any>  implements IK8sAp
   
   public constructor(props) {    
     super(props)
-    window['k8sApi'] = this
+    window['K8SApi'] = this
   }
   
   public render() {
@@ -58,13 +68,13 @@ export default class K8sApi extends React.Component<any, any>  implements IK8sAp
 
       this.webSocketClient = new WebSocket(this.config.kuberWs + '/api/v1/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
-        console.log("K8s WebSocket has been opened.");
+        console.log("K8S WebSocket has been opened.");
         toastr.success('Welcome', 'Connected to Kuber Server.')
       }
       this.webSocketClient.onmessage = (event: MessageEvent) => {
         let message = JSON.parse(event.data)
         console.log('K8S Receive << %o, %o', message.op, message)
-        this.props.dispatchK8sMessageReceivedAction(message)
+        this.props.dispatchK8SMessageReceivedAction(message)
       }
       this.webSocketClient.onerror = (event: MessageEvent) => {
         console.log("K8S WebSocket Error: " + event.data)
@@ -82,7 +92,7 @@ export default class K8sApi extends React.Component<any, any>  implements IK8sAp
       }, 10000 )
 
       this.restClient = new RestClient({
-        name: 'K8sApi',
+        name: 'K8SApi',
         url: this.config.kuberRest,
         path: '/api',
         username: '',
@@ -95,22 +105,45 @@ export default class K8sApi extends React.Component<any, any>  implements IK8sAp
 
 // ----------------------------------------------------------------------------
 
-  public async login(userName, password): Promise<Result<K8sResponse>> {
-    return this.wrapResult<K8sResponse, K8sResponse>(
+  public async login(userName, password): Promise<Result<K8SResponse>> {
+    return this.wrapResult<K8SResponse, K8SResponse>(
       r => r,
-      async () => this.restClient.postForm<K8sResponse>({ userName: userName, password: password }, {}, jsonOpt, "/login")
+      async () => this.restClient.postForm<K8SResponse>({ userName: userName, password: password }, {}, jsonOpt, "/login")
     )
   }
-  public async ticket(): Promise<Result<K8sResponse>> {
-    return this.wrapResult<K8sResponse, K8sResponse>(
+
+  public async ticket(): Promise<Result<K8SResponse>> {
+    return this.wrapResult<K8SResponse, K8SResponse>(
       r => r,
-      async () => this.restClient.get<K8sResponse>({}, jsonOpt, "/security/ticket")
+      async () => this.restClient.get<K8SResponse>({}, jsonOpt, '/security/ticket')
     )
   }
-  public async version(): Promise<Result<K8sResponse>> {
-    return this.wrapResult<K8sResponse, K8sResponse>(
+  
+  public async version(): Promise<Result<K8SResponse>> {
+    return this.wrapResult<K8SResponse, K8SResponse>(
       r => r,
-      async () => this.restClient.get<K8sResponse>({}, jsonOpt, "/version")
+      async () => this.restClient.get<K8SResponse>({}, jsonOpt, '/version')
+    )
+  }
+
+  public async getClusterDef(): Promise<Result<K8SResponse>> {
+    return this.wrapResult<K8SResponse, K8SResponse>(
+      r => r,
+      async () => this.restClient.get<K8SResponse>({}, jsonOpt, '/v1/cluster?filterBy=&itemsPerPage=10&name=&namespace=&page=1&sortBy=d,creationTimestamp')
+    )
+  }
+
+  public async getOverview(): Promise<Result<K8SResponse>> {
+    return this.wrapResult<K8SResponse, K8SResponse>(
+      r => r,
+      async () => this.restClient.get<K8SResponse>({}, jsonOpt, '/v1/overview?filterBy=&itemsPerPage=10&name=&page=1&sortBy=d,creationTimestamp')
+    )
+  }
+
+  public async getApps(): Promise<Result<K8SResponse>> {
+    return this.wrapResult<K8SResponse, K8SResponse>(
+      r => r,
+      async () => this.restClient.get<K8SResponse>({}, jsonOpt, '/v1/helm')
     )
   }
 
@@ -119,13 +152,15 @@ export default class K8sApi extends React.Component<any, any>  implements IK8sAp
   public send(body: string): void {
     this.sendWebSocketMessage(JSON.stringify(body))
   }
+
   public ping(): void {
     this.sendWebSocketMessage(JSON.stringify(this.PING()))
   }
+
   public command(command: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.COMMAND(command)))
   }
- 
+
 // ----------------------------------------------------------------------------
 
 private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: () => Promise<TRaw>): Promise<Result<TOut>> {
@@ -146,10 +181,11 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
   private sendWebSocketMessage(message: any) {
     let json = JSON.parse(message)
     console.log('K8S Send >> %o, %o', json.op, json)
-    this.props.dispatchK8sMessageSentAction(json)
+    this.props.dispatchK8SMessageSentAction(json)
 //    this.webSocketClient.send(message)
     this.sendWaitingForConnection(this, message, undefined)
   }
+
   private sendWaitingForConnection = function(t, message, callback) {
     this.waitForConnection(t, function() {
       t.webSocketClient.send(message)
@@ -158,6 +194,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }, 1000)
   }
+
   private waitForConnection = function (t, callback, interval) {
     if (t.webSocketClient.readyState === 1) {
       callback()
@@ -180,6 +217,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       'roles': this.rolesValue()
     }
   }
+
   public COMMAND(command: string) {
     return {
       'op':	'COMMAND',
@@ -192,6 +230,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       }
     }
   }
+
   public CREATE_CLUSTER_DEF() {
     return {
       'op':	'CREATE_CLUSTER_DEF',
@@ -200,6 +239,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       'roles': this.rolesValue()
     }
   }
+
   public CREATE_CLUSTER() {
     return {
       'op':	'CREATE_CLUSTER',
@@ -208,6 +248,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       'roles': this.rolesValue()
     }
   }
+
   public DELETE_CLUSTER() {
     return {
       'op':	'DELETE_CLUSTER',
@@ -225,12 +266,14 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
     }
     return ""
   }
+
   private rolesValue(): [string] {
     if (NotebookStore.state().notebookLogin.result) {
       return NotebookStore.state().notebookLogin.result.body.roles
     }
     return [""]
   }
+  
   private ticketValue(): string {
     if (NotebookStore.state().notebookLogin.result) {
       return NotebookStore.state().notebookLogin.result.body.ticket

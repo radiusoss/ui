@@ -3,8 +3,8 @@ import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
-import { mapStateToPropsK8s, mapDispatchToPropsK8s } from '../../actions/K8sActions'
-import { IConfig, emptyConfig } from './../../config/Config'
+import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../../actions/K8SActions'
+import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
 import { emailRegexp } from './../../util/msc/regexp'
@@ -14,31 +14,31 @@ import { Form, FormConditionalSubmitButton, FormDatePicker, FormDropdown, FormCh
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
-import K8sApi from '../../api/k8s/K8sApi'
+import K8SApi from '../../api/k8s/K8SApi'
+import ConfigApi from '../../api/config/ConfigApi'
 
 const MAX_LENGTH = 20
 
-export type IK8sState = {
+export type IK8SState = {
   wsMessages: any[]
-  restResponse: any
+  jsonMessage: any
   formResults: any
   disabled: boolean
   checked: boolean
 }
 
-@connect(mapStateToPropsK8s, mapDispatchToPropsK8s)
+@connect(mapStateToPropsK8S, mapDispatchToPropsK8S)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Config extends React.Component<any, IK8sState> {
+export default class Config extends React.Component<any, IK8SState> {
+  private k8sApi: K8SApi
+  private configApi: ConfigApi
   private config: IConfig = NotebookStore.state().config
-  private restClient: RestClient
-  private k8sApi: K8sApi
   private method: string
-  private url: string
   private wsMessage: any
 
   state = {
     wsMessages: new Array(),
-    restResponse: {},
+    jsonMessage: {},
     formResults: null,
     disabled: false,
     checked: false
@@ -49,43 +49,42 @@ export default class Config extends React.Component<any, IK8sState> {
   }
 
   public async componentDidMount() {
-    this.k8sApi = window['k8sApi']
+    this.k8sApi = window['K8SApi']
+    this.configApi = window['ConfigApi'] 
   }
 
   public render() {
-
     const { disabled, checked } = this.state
-
     return (
-
       <div>
-
         <br/>
-
         <h3>Kuber Configuration</h3>
-
         <Form 
           onSubmit={ this.submit } 
           showErrorsWhenPristine={ true }
         >
-
           <LayoutGroup layoutGap={ 20 } direction='vertical'>
-
             <div className="ms-Grid	ms-slideRightIn40 ms-clearfix">
               <div className="ms-Grid-row ms-clearfix">
-                <div className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 ms-clearfix">
+                <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
                 <FormConditionalSubmitButton
                     buttonProps={{
                       onClick: (e) => {
-                        this.method = 'GET'
-                        this.url = 'http://localhost:9091/api/v1/config'
+                        this.method = 'LOAD_CONFIG'
                       }
                     }}
                     >
-                    GET Config
+                    Get Config
                   </FormConditionalSubmitButton>
+                  <div style={{ padding: "10px", backgroundColor: "black" }}>
+                    <JSONTree 
+                      data={this.state.jsonMessage} 
+                      theme='greenscreen'
+                      invertTheme={false}
+                    />
+                  </div>
                 </div>
-                <div className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 ms-clearfix">
+                <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
                   <FormConditionalSubmitButton
                       buttonProps={{
                         onClick: (e) => {
@@ -94,26 +93,8 @@ export default class Config extends React.Component<any, IK8sState> {
                         }
                       }}
                     >
-                    WS PING
+                    Ping Kuber Server
                   </FormConditionalSubmitButton>
-                </div>
-              </div>
-            </div>
-
-            <div className="ms-Grid	ms-slideRightIn40 ms-clearfix">
-              <div className="ms-Grid-row ms-clearfix" style={{ width: "100%"}}>
-                <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
-                  <h4>REST Response</h4>
-                  <div style={{ padding: "10px", backgroundColor: "black" }}>
-                    <JSONTree 
-                      data={this.state.restResponse} 
-                      theme='greenscreen'
-                      invertTheme={false}
-                    />
-                  </div>
-                </div>
-                <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
-                <h4>Websocket Messages</h4>
                   <div style={{ padding: "10px", backgroundColor: "black", color: "rgb(0, 187, 0)"}}>
                     {
                       this.state.wsMessages.map((w) => {
@@ -129,14 +110,9 @@ export default class Config extends React.Component<any, IK8sState> {
                 </div>
               </div>
             </div>
-
-
           </LayoutGroup>
-
         </Form>
-
       </div>
-
     )
 
   }
@@ -147,7 +123,7 @@ export default class Config extends React.Component<any, IK8sState> {
       this.config = config
     }
     if (k8sMessageReceived && k8sMessageReceived.op) {
-      if (k8sMessageReceived.op != "PING") {
+//      if (k8sMessageReceived.op != "PING") {
         var msg = this.state.wsMessages
         if (msg.length > MAX_LENGTH) {
             msg = msg.slice(0, MAX_LENGTH - 1)
@@ -156,17 +132,8 @@ export default class Config extends React.Component<any, IK8sState> {
         this.setState({
           wsMessages: msg
         })
-      }
+//      }
     }
-  }
-
-  private newRestClient(url: string) {
-    this.setState({restResponse: {}})
-    return new RestClient({
-      name: 'KuberSpl',
-      url: url,
-      path: '/'
-    })
   }
 
   @autobind
@@ -176,24 +143,9 @@ export default class Config extends React.Component<any, IK8sState> {
       this.k8sApi.send(this.wsMessage)
       return
     }
-    this.restClient = this.newRestClient(this.url)
-    switch (this.method) {
-      case 'GET':
-        this.restClient.get<{}>(values, jsonOpt, "")
-          .then(json => { this.setState({restResponse: json})})
-        break
-      case 'POST':
-        this.restClient.post<{}>(values, {}, jsonOpt, "")
-          .then(json => { this.setState({restResponse: json})})
-        break
-      case 'PUT':
-        this.restClient.put<{}>(values, {}, jsonOpt, "")
-          .then(json => { this.setState({restResponse: json})})
-        break
-      case 'DELETE':
-        this.restClient.delete<{}>(values, jsonOpt, "")
-          .then(json => { this.setState({restResponse: json})})
-      break
+    if (this.method == 'LOAD_CONFIG') {
+      this.setState({jsonMessage: this.configApi.getConfig()})
+      return
     }
   
   }

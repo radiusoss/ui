@@ -9,7 +9,7 @@ import Welcome from './../views/Welcome'
 import Tmp from './../views/Tmp'
 import KuberSpl from './../views/KuberSpl'
 import Help from './../views/Help'
-import K8s from './../views/K8s'
+import K8S from './../views/K8S'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../actions/AuthActions'
 
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
@@ -39,7 +39,7 @@ export default class NotebookLayout extends React.Component<any, any> {
         <Route exact path="/help" name="Help" component={Help} />
         <Route exact path="/about" name="About" component={About} />
         <Route exact path="/check" name="Check" component={Check} />
-        <Route exact path="/k8s" name="Kubernetes" component={K8s} />
+        <Route exact path="/k8s" name="Kubernetes" component={K8S} />
         <Route exact path="/kuberspl" name="Kuber Spl" component={KuberSpl} />
         <Route exact path="/tmp" name="Temporary" component={Tmp} />
         <Route path="/dla" component={AuthenticatedLayout}/>

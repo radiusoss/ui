@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 import { ApplicationState } from '../state/State'
-import { IConfig } from '../config/Config'
+import { IConfig } from '../api/config/ConfigApi'
 
 export type ConfigAction = {
   type: string,

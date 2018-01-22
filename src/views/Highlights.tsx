@@ -3,10 +3,10 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import * as stylesImport from './_styles/Styles.scss'
-import K8s from './K8s'
+import K8S from './K8S'
 const styles: any = stylesImport
 
-const K8s_TEXT = `
+const K8S_TEXT = `
 <a href='https://kubernetes.io' target="_blank">Kubernetes</a> is a fast growing open-source platform 
 which provides container-centric infrastructure. 
 Conceived by Google in 2014, and leveraging over a decade of experience running 
@@ -18,6 +18,16 @@ and operating application containers, and is widely used by organizations across
 world for a variety of large-scale solutions including serving, stateful applications, 
 and increasingly - data science and ETL workloads.
 `
+
+const OMALLEY_TEXT = `
+<strong>Datalayer Science Platform</strong><br/>
+Version 0.0.2<br/>
+OMalley Release<br/>
+<br/>
+Author: Eric Charles<br/>
+<small>In memory of Freddy Charles, Eric's Father</small><br/>
+`
+
 export default class Highlights extends React.Component<any, any> {
 
   public constructor(props) {
@@ -105,11 +115,9 @@ export default class Highlights extends React.Component<any, any> {
           <span>
           <ul className={ styles.featureList } aria-label='List of highlighted features'>
             <li className="text-center">
-              <a href='http://docs.datalayer.io/docs/releases/v-0.0.1' target="_blank">
+              <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'OMalley Release', 'img/release/omalley.png', OMALLEY_TEXT)}>
                 <img src={ 'img/release/omalley.png' } alt='' />
-                <span>Version 0.0.2 - OMalley Release</span>
-                <span>Made by Eric Charles</span>
-                <span><i>To Eric's Father</i></span>
+                <span>OMalley Release</span>
               </a>
             </li>
           </ul>
@@ -127,7 +135,7 @@ export default class Highlights extends React.Component<any, any> {
               </a>
             </li>
             <li className="text-center">
-              <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'Kubernetes', 'img/kubernetes/kubernetes_logo.png', K8s_TEXT)}>
+              <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'Kubernetes', 'img/kubernetes/kubernetes_logo.png', K8S_TEXT)}>
                 <img src={ 'img/kubernetes/kubernetes_logo.png' } alt='' />
                 <span>Kubernetes</span>
               </a>
@@ -237,11 +245,9 @@ While traditional environments like YARN-based hadoop clusters have used Oozie, 
           <span>
           <ul className={ styles.featureList } aria-label='List of highlighted features'>
             <li className="text-center">
-              <a href='http://docs.datalayer.io/docs/releases/v-0.0.1' target="_blank">
+              <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'OMalley Release', 'img/release/omalley.png', OMALLEY_TEXT)}>
                 <img src={ 'img/release/omalley.png' } alt='' />
-                <span>Version 0.0.2 - OMalley Release</span>
-                <span>Made by Eric Charles</span>
-                <span><i>To Eric's Father</i></span>
+                <span>OMalley Release</span>
               </a>
             </li>
           </ul>
@@ -259,7 +265,7 @@ While traditional environments like YARN-based hadoop clusters have used Oozie, 
               </a>
             </li>
             <li className="text-center">
-              <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'Kubernetes', 'img/kubernetes/kubernetes_logo.png', K8s_TEXT)}>
+              <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'Kubernetes', 'img/kubernetes/kubernetes_logo.png', K8S_TEXT)}>
               <img src={ 'img/kubernetes/kubernetes_logo.png' } alt='' />
                 <span>Kubernetes</span>
               </a>
@@ -275,58 +281,6 @@ While traditional environments like YARN-based hadoop clusters have used Oozie, 
           }
           <span className={ styles.trademark }>All trademarks are the property of their respective owners.</span>
         </div>
-{/*
-        <div className="ms-Grid">
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" style={{ minHeight: "200px"}}>
-              <img src="/img/spark/apache-spark.svg" height="100px" />
-            </div>
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
-              Apache Spark is an open-source cluster-computing framework. Originally developed at the University of California, Berkeley's AMPLab, the Spark codebase was later donated to the Apache Software Foundation, which has maintained it since.
-            </div>
-          </div>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
-              Apache Hadoop is an open-source software framework used for distributed storage and processing of dataset of big data using the MapReduce programming model. It consists of computer clusters built from commodity hardware.
-            </div>
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" style={{ minHeight: "200px"}}>
-              <img src="/img/hadoop/hadoop.png" height="100px" />
-            </div>
-          </div>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" style={{ minHeight: "200px"}}>
-              <img src="/img/aws/aws.svg" height="100px" />
-            </div>
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
-              Amazon Web Services is a subsidiary of Amazon.com that provides on-demand cloud computing platforms to individuals, companies and governments, on a paid subscription basis with a free-tier option available for 12 months.
-            </div>
-          </div>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
-              Microsoft Azure is a cloud computing service created by Microsoft for building, testing, deploying, and managing applications and services through a global network of Microsoft-managed data centers. 
-            </div>
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" style={{ minHeight: "200px"}}>
-              <img src="/img/azure/microsoft-azure-certified.png" height="100px" />
-            </div>
-          </div>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" style={{ minHeight: "200px"}}>
-              <img src="/img/zeppelin/apache-zeppelin.svg" height="100px" />
-            </div>
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
-              Apache Zeppelin is a Web-based notebook that enables data-driven, interactive data analytics and collaborative documents with SQL, 
-            </div>
-          </div>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
-              The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. 
-            </div>
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" style={{ minHeight: "200px"}}>
-              <img src="/img/jupyter/jupyter-square.png" height="100px" />
-            </div>
-          </div>
-        </div>
-*/}
       </div>
 
     )
