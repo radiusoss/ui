@@ -38,7 +38,8 @@ export default class NotebookControlBar extends React.Component<any, any> {
     note: undefined,
     runningParagraphs: [],
     notes: [],
-    isMicrosoftAuthenticated: false
+    isMicrosoftAuthenticated: false,
+    isTwitterAuthenticated: false
   }
 
   public constructor(props) {
@@ -114,7 +115,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
 
   public componentWillReceiveProps(nextProps) {
 
-    const { config, isMicrosoftAuthenticated,  webSocketMessageReceived, note, runningParagraphs } = nextProps
+    const { config, isMicrosoftAuthenticated, isTwitterAuthenticated, webSocketMessageReceived, note, runningParagraphs } = nextProps
 
     if (config && ! isEqual(config, this.config)) {
       this.config = config
@@ -131,7 +132,13 @@ export default class NotebookControlBar extends React.Component<any, any> {
       })
     }
 
-    if (note.id && (! isEqual(note, this.props.note))) {
+    if (! this.state.isTwitterAuthenticated != isTwitterAuthenticated) {
+      this.setState({
+        isTwitterAuthenticated: isTwitterAuthenticated
+      })
+    }
+
+  if (note.id && (! isEqual(note, this.props.note))) {
       this.setState({
         note: note
       })
@@ -255,12 +262,14 @@ export default class NotebookControlBar extends React.Component<any, any> {
         icon: 'QuickNote',
         onClick: () => this.setState({ showNewNotePanel: true })
       },
+/*
       {
         key: 'new-flow',
         name: 'Flow',
         icon: 'Flow',
         onClick: () => this.setState({ showNewFlowPanel: true })
       },
+*/
       this.runIndicator
     ]
   }

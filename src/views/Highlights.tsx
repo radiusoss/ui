@@ -90,7 +90,7 @@ export default class Highlights extends React.Component<any, any> {
 
     return (
 
-      <div>
+      <div className='ms-scaleDownIn100'>
 
         <Panel
           isOpen={ this.state.showPanel }
@@ -107,10 +107,7 @@ export default class Highlights extends React.Component<any, any> {
 
         <div className={ styles.featured }>
           <span className={ styles.featuredTitle }>Highlights</span>
-{/*
-          <span className={ styles.featuredDescription }>Datalayer offers a variety of elements to help you create an experience that delights users and complements Office 365.</span>
-*/}
-          <span className={ styles.featuredDescription }>Datalayer offers a variety of elements to help you create an experience that delights Kubernetes users.</span>
+          <span className={ styles.featuredDescription }>Datalayer offers a variety of elements to help you create an experience that delights Big Data Scientists on Kubernetes.</span>
           { (this.state.showAll == "true") ?
           <span>
           <ul className={ styles.featureList } aria-label='List of highlighted features'>
