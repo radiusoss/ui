@@ -7,13 +7,13 @@ import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { connect } from 'react-redux'
-import NotebookApi from './../api/notebook/NotebookApi'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
-import * as stylesImport from './_styles/Styles.scss'
+import NotebookApi from './../../api/notebook/NotebookApi'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
+import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class Notes extends React.Component<any, any> {
+export default class NotesList extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private renameNoteTextField: TextField
   private selectionTextField: TextField
@@ -63,12 +63,9 @@ export default class Notes extends React.Component<any, any> {
     this.renderItemColumn = this.renderItemColumn.bind(this)
   }
 
-  public render() {    
-
+  public render() {
     let { notes, selectedNotes, selectionDetails } = this.state
-
     return (
-
       <div>
 {/*
         <div>{ selectionDetails }</div>
@@ -127,7 +124,6 @@ export default class Notes extends React.Component<any, any> {
               onClick={ () => this.closeDeletePanel() }
            />
         </Panel>
-
         <Panel
           isOpen={ this.state.showRenamePanel }
           type={ PanelType.smallFixedNear }          
@@ -149,13 +145,11 @@ export default class Notes extends React.Component<any, any> {
             <PrimaryButton
               text='Rename Note'
               disabled={!this.state.isNewNameValid}
-              onClick={ (e) => this.reanameSelectedNote(e) }
+              onClick={ (e) => this.renameSelectedNote(e) }
             />
           </form>
         </Panel>
-
       </div>
-
     )
 
   }
@@ -222,7 +216,7 @@ export default class Notes extends React.Component<any, any> {
     this.setState({ showRenamePanel: false });
   }
 
-  private reanameSelectedNote(e) {
+  private renameSelectedNote(e) {
     e.stopPropagation()
     e.preventDefault()
     this.notebookApi.renameNote(this.state.selectedNoteId, this.renameNoteTextField.value)
@@ -243,17 +237,17 @@ export default class Notes extends React.Component<any, any> {
   @autobind
   private getErrorMessage(value: string): string {
     if (value.length > 2) {
-        if (this) this.setState({
-          isNewNameValid: true
-        })
-        return ""
-      }
-      else {
-        if (this) this.setState({
-          isNewNameValid: false
-        })
-       return `The length of the input value should more than 2, actual is ${value.length}.`
-      }
+      if (this) this.setState({
+        isNewNameValid: true
+      })
+      return ""
+    }
+    else {
+      if (this) this.setState({
+        isNewNameValid: false
+      })
+      return `The length of the input value should more than 2, actual is ${value.length}.`
+    }
   }
 
   private getSelectionDetails(): string {

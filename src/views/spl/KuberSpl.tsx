@@ -1,20 +1,20 @@
 import * as React from 'react'
 import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
-import { NotebookStore } from '../store/NotebookStore'
-import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../actions/ConfigActions'
-import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../actions/K8SActions'
-import { IConfig, emptyConfig } from './../api/config/ConfigApi'
-import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../util/rest/RestClient'
+import { NotebookStore } from '../../store/NotebookStore'
+import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
+import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../../actions/K8SActions'
+import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
+import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
-import { emailRegexp } from './../util/msc/regexp'
+import { emailRegexp } from './../../util/msc/regexp'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import { LayoutGroup } from '@uifabric/experiments/lib/LayoutGroup';
+import { LayoutGroup } from '@uifabric/experiments/lib/LayoutGroup'
 import { Form, FormConditionalSubmitButton, FormDatePicker, FormDropdown, FormCheckBox, FormTextInput, Validators } from '@uifabric/experiments/lib/Form'
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
-import K8SApi from '../api/k8s/K8SApi'
+import K8SApi from '../../api/k8s/K8SApi'
 
 const MAX_LENGTH = 20
 

@@ -1,16 +1,16 @@
 import * as React from 'react'
 import { Route } from 'react-router-dom'
-import Header from '../blocks/Header';
-import Sidebar from '../blocks/Sidebar';
-import Aside from '../blocks/Aside';
-import Footer from '../blocks/Footer';
-import Breadcrumbs from 'react-breadcrumbs';
+import Header from '../blocks/Header'
+import Sidebar from '../blocks/Sidebar'
+import Aside from '../blocks/Aside'
+import Footer from '../blocks/Footer'
+import Breadcrumbs from 'react-breadcrumbs'
 import EnsureAuthenticatedLayout from './../layouts/EnsureAuthenticatedLayout'
 import K8S from './../views/K8S'
-import KuberSpl from './../views/KuberSpl'
 import Check from './../views/Check'
 import About from './../views/About'
 import Help from './../views/Help'
+import KuberSpl from './../views/spl/KuberSpl'
 
 export default class AuthenticatedLayout extends React.Component<any, any> {
 
@@ -18,9 +18,13 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
     
     return (
       <div className="app" style={{ overflowY: 'hidden' }}>
+
         <Header />
+
         <div className="app-body">
+
         <Route path="/" component={Sidebar} />
+
         <main className="main">
 {/*
             <Breadcrumbs

@@ -19,9 +19,21 @@ world for a variety of large-scale solutions including serving, stateful applica
 and increasingly - data science and ETL workloads.
 `
 
+const HELM_TEXT = `
+<a href='https://github.com/kubernetes/helm' target="_blank">Helm</a> is a tool for managing Kubernetes charts.
+Charts are packages of pre-configured Kubernetes resources. Use Helm to:
+<ul>
+  <li>Find and use popular software packaged as Kubernetes charts.</li>
+  <li>Share your own applications as Kubernetes charts.</li>
+  <li>Create reproducible builds of your Kubernetes applications.</li>
+  <li>Intelligently manage your Kubernetes manifest files.</li>
+  <li>Manage releases of Helm packages.</li>
+</ul>
+`
+
 const OMALLEY_TEXT = `
 <strong>Datalayer Science Platform</strong><br/>
-Version 0.0.2<br/>
+Version 0.1.0<br/>
 OMalley Release<br/>
 <br/>
 Author: Eric Charles<br/>
@@ -107,7 +119,7 @@ export default class Highlights extends React.Component<any, any> {
 
         <div className={ styles.featured }>
           <span className={ styles.featuredTitle }>Highlights</span>
-          <span className={ styles.featuredDescription }>Datalayer offers a variety of elements to help you create an experience that delights Big Data Scientists on Kubernetes.</span>
+          <span className={ styles.featuredDescription }>Datalayer develops and integrates a variety of tools to help you create an experience that delights Big Data Scientists on Kubernetes.</span>
           { (this.state.showAll == "true") ?
           <span>
           <ul className={ styles.featureList } aria-label='List of highlighted features'>
@@ -135,6 +147,12 @@ export default class Highlights extends React.Component<any, any> {
               <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'Kubernetes', 'img/kubernetes/kubernetes_logo.png', K8S_TEXT)}>
                 <img src={ 'img/kubernetes/kubernetes_logo.png' } alt='' />
                 <span>Kubernetes</span>
+              </a>
+            </li>
+            <li className="text-center">
+              <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'Helm', 'img/helm/helm.svg', HELM_TEXT)}>
+                <img src={ 'img/helm/helm.svg' } alt='' />
+                <span>Helm</span>
               </a>
             </li>
             <li className="text-center">
@@ -240,14 +258,6 @@ While traditional environments like YARN-based hadoop clusters have used Oozie, 
           </span>
           :
           <span>
-          <ul className={ styles.featureList } aria-label='List of highlighted features'>
-            <li className="text-center">
-              <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'OMalley Release', 'img/release/omalley.png', OMALLEY_TEXT)}>
-                <img src={ 'img/release/omalley.png' } alt='' />
-                <span>OMalley Release</span>
-              </a>
-            </li>
-          </ul>
           <ul className={ styles.featureList } aria-label='List of highlighted features'>
             <li className="text-center">
               <a href='http://www.apache.org' target="_blank">

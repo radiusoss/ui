@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Route, IndexRoute, Switch } from 'react-router-dom'
 import About from './../views/About'
 import Simple from './../views/Simple'
-import KuberSpl from './../views/KuberSpl'
+import KuberSpl from './../views/spl/KuberSpl'
 
 export default class SimpleLayout extends React.Component<any, any> {
 

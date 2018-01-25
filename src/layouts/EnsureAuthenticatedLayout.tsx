@@ -7,7 +7,8 @@ import Flows from './../views/Flows'
 import FlowDetail from './../views/flow/FlowDetail'
 import FlowDag from './../views/flow/FlowDag'
 import Login from './../views/Login'
-import Notes from './../views/Notes'
+import NotesList from './../views/notes/NotesList'
+import NotesTiles from './../views/notes/NotesTiles'
 import Note from './../views/note/Note'
 import Profile from './../views/Profile'
 import Settings from './../views/Settings'
@@ -25,16 +26,13 @@ import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../actions/AuthActi
 export default class EnsureAuthenticatedLayout extends React.Component<any, any> {
 
   public render() {
-
     const { isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
-
     if (isMicrosoftAuthenticated || isTwitterAuthenticated) {
-
       return (
-        
         <div>
           <Route exact path="/dla" component={Welcome}/>
-          <Route path="/dla/notes" name="Notes" component={Notes}/>
+          <Route path="/dla/notes/list" name="Notes" component={NotesList}/>
+          <Route path="/dla/notes/tiles" name="Notes" component={NotesTiles}/>
           <Route path="/dla/note/:noteId" name="Note Editor" component={Note}/>
           <Route path="/dla/stories" name="Stories" component={Stories}/>
           <Route path="/dla/datasets" name="Datasets" component={Datasets} />
@@ -48,33 +46,25 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/school/lessons/2" name="Lesson 2" component={Lesson2}/>
           <Route path="/dla/school/lessons/3" name="Lesson 3" component={Lesson3}/>
         </div>
-
       )
-
     }
     else {
-
       return <div></div>
-
     }
 
   }
 
   public componentDidMount() {
-
     const { dispatch, currentURL, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
-
     if (!isMicrosoftAuthenticated && !isTwitterAuthenticated) {
-
       // Set the current url/path for future redirection (we use a Redux action),
       // then redirect (we use a React Router method).
-
 //      history.push(currentURL)
-
-      history.push("/")
-    
+      history.push("/")    
     }
-
+    else {
+      history.push(currentURL)
+    }
   }
 
 }

@@ -135,28 +135,28 @@ export default class Welcome extends React.Component<any, any> {
             }
 
             <span className={ styles.flavorTitle }>Built to Scale</span>
-            <span className={ styles.flavorDescription }>Datalayer&rsquo;s robust, up-to-date technology is built on Kubernetes, Apache Hadoop and Spark</span>
+            <span className={ styles.flavorDescription }>Datalayer&rsquo;s robust, up-to-date technology is built on Kubernetes, Apache Hadoop, Spark and Zeppelin</span>
 {/*
             <a href='#/components' className={ styles.button }>See components</a>
 */}
           </div>
           <div className={ styles.flavor }>
             <span className={ styles.flavorTitle }>Collect</span>
-            <span className={ styles.flavorDescription }>Pull data from various data sources</span>
+            <span className={ styles.flavorDescription }>Pull data from various data sources.</span>
 {/*
             <a href='#/fabric-js'>Learn more</a>
 */}
           </div>
           <div className={ styles.flavor }>
             <span className={ styles.flavorTitle }>Deploy</span>
-            <span className={ styles.flavorDescription }>Apply your models on production data</span>
+            <span className={ styles.flavorDescription }>Apply your models on production data.</span>
 {/*
             <a href='#/angular-js'>Learn more</a>
 */}
           </div>
           <div className={ styles.flavor }>
             <span className={ styles.flavorTitle }>Model and Share</span>
-            <span className={ styles.flavorDescription }>Apply algorithms and collaborate with peers</span>
+            <span className={ styles.flavorDescription }>Apply algorithms and collaborate with peers.</span>
 {/*
             <a href='#/fabric-ios'>Learn more</a>
 */}
@@ -242,7 +242,7 @@ export default class Welcome extends React.Component<any, any> {
 
   private onNotebookClick = (e) =>  {
     e.preventDefault()
-    history.push("/dla/notes")
+    history.push("/dla/notes/tiles")
   }
 
   private onProfileClick = (e) =>  {

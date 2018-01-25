@@ -151,7 +151,7 @@ export default class Aws extends React.Component<any, IK8SState> {
   private newRestClient(url: string) {
     this.setState({restResponse: {}})
     return new RestClient({
-      name: 'KuberSpl',
+      name: 'KuberAws',
       url: url,
       path: '/'
     })

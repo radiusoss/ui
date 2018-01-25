@@ -36,7 +36,7 @@ export default class Twitter extends React.Component<any, any> {
     }
     return (
       <div>
-        <h1>{ profileDisplayName }</h1>
+        <div className='ms-font-su'>{ profileDisplayName }</div>
         <DocumentCard>
           <DocumentCardPreview { ...previewProps } />
           <DocumentCardTitle

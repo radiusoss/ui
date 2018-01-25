@@ -45,6 +45,7 @@ export interface ISpitfireApi {
   newFlow(name: string): void
   saveFlow(flow: any): void
   saveFlows(flows: any): void
+  saveLayout(layout: any): void
   listFlows(): void
   getFlow(id: string): void
   renameFlow(id: string, newName: string)
@@ -194,7 +195,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   }
 
   public listNotes(): void {
-    this.sendWebSocketMessage(JSON.stringify(this.LIST_NOTES()))
+    this.sendWebSocketMessage(JSON.stringify(this.LIST_NOTES_SPITFIRE()))
   }
 
   public getNote(id: string): void {
@@ -247,6 +248,10 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
   public saveFlows(flows: any): void {
     this.sendWebSocketMessage(JSON.stringify(this.SAVE_FLOWS(flows)))
+  }
+
+  public saveLayout(layout: any): void {
+    this.sendWebSocketMessage(JSON.stringify(this.SAVE_LAYOUT(layout)))
   }
 
   public listFlows(): void {
@@ -380,6 +385,15 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
     }
   }
 
+  private LIST_NOTES_SPITFIRE() {
+    return {
+      'op':	'LIST_NOTES_SPITFIRE',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue()
+    }
+  }
+
   private GET_NOTE(id: string) {
     return {
       'op':	'GET_NOTE',
@@ -425,6 +439,19 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       'roles': this.rolesValue(),
       'data':	{ 
         'id': id 
+      }
+    }
+  }
+
+  private RUN_ALL_PARAGRAPHS(noteId: string, paragraphs: any[]) {
+    return {
+      'op':	'RUN_ALL_PARAGRAPHS',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data':	{
+        'noteId': noteId,
+        'paragraphs': paragraphs
       }
     }
   }
@@ -484,6 +511,16 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       'data':	{
         'flows': flows
       }
+    }
+  }
+
+  private SAVE_LAYOUT(layout: any) {
+    return {
+      'op':	'SAVE_LAYOUT',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data':	layout
     }
   }
 

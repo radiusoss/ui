@@ -42,7 +42,7 @@ export default class OAuthMicrosoftCallback extends React.Component<any, any> {
       </div>
       <div style={{"textAlign": "center"}}>
         <h1>Checking your Microsoft Profile...</h1>
-        http://datalayer.io &copy; 2017
+        http://datalayer.io &copy; 2017-2018
       </div>
     </div>
     )

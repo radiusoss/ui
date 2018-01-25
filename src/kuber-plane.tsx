@@ -17,7 +17,8 @@ import { loadTheme } from 'office-ui-fabric-react/lib/Styling';
 
 loadTheme({
   palette: {
-    'themePrimary': '#038387'
+    'themePrimary': '#038387',
+    'themeDarkAlt': '#20a8d8'
   }
 })
 

@@ -19,7 +19,7 @@ export default class Settings extends React.Component<any, any> {
           <PivotItem linkText='Configuration' itemIcon='ConfigurationSolid'>
             <Config />
           </PivotItem>
-          <PivotItem linkText='Cluster' itemIcon='CircleAddition'>
+          <PivotItem linkText='Cluster' itemIcon='World'>
             <Cluster />
           </PivotItem>
 {/*

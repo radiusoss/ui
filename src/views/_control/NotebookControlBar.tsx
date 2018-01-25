@@ -48,21 +48,16 @@ export default class NotebookControlBar extends React.Component<any, any> {
   }
 
   public render() {
-
     this.updateRunIndicator()
     this.updateMenu()
-
     return (
-
       <div style = {{ backgroundColor: "white !important"}} >
-
         <CommandBar
           isSearchBoxVisible={ this.props.isSearchBoxVisible }
           items={ this.leftItems }
           farItems={ this.rightItems }
           className={ styles.commandBarBackground }
         />
-
         <Panel
           isOpen={ this.state.showNewNotePanel }
           type={ PanelType.smallFixedNear }
@@ -76,6 +71,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
               onGetErrorMessage={ v => this.getNewNoteErrorMessage(v) }
               iconClass='ms-Icon--QuickNote ms-Icon'
             />
+            <br/>
             <PrimaryButton
               text='Create Note'
               disabled={ !this.state.isNewNoteNameValid }
@@ -83,7 +79,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
             />
           </form>
         </Panel>
-
         <Panel
           isOpen={ this.state.showNewFlowPanel }
           type={ PanelType.smallFixedNear }
@@ -106,9 +101,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
             />
           </form>
         </Panel>
-
       </div>
-
     )
 
   }
@@ -143,39 +136,43 @@ export default class NotebookControlBar extends React.Component<any, any> {
         note: note
       })
     }
-
     if (! isEqual(runningParagraphs, this.props.runningParagraphs)) {
       this.setState({
         runningParagraphs: runningParagraphs
       })
     }
-
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NEW_NOTE") {
       this.notebookApi.listNotes()
       let noteId = webSocketMessageReceived.data.note.id
       this.notebookApi.getNote(noteId)
       history.push(`/dla/note/${noteId}`)
     }
-
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NOTES_INFO") {
       let notes = webSocketMessageReceived.data.notes
       this.setState({
         notes: this.asNotes(notes)
       })
     }
-
   }
 
   private asNotes(notes) {
     var ns = []
+    ns.push({
+      key: 'new-note',
+      name: '(new note)',
+      icon: 'QuickNote',
+      onClick: () => this.setState({ showNewNotePanel: true })
+    })
     notes.map(n => {
       var id = n.id
-      var note = { 
-        key: id,
-        name: n.name,
-        onClick: () => this.notebookApi.getNote(id)
+      if (n.name != '_conf') {
+        var note = { 
+          key: id,
+          name: n.name,
+          onClick: () => this.notebookApi.getNote(id)
+        }
+        ns.push( note )
       }
-      ns.push( note )
     })
     return ns
   }
@@ -255,13 +252,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
         name: 'Notes',
         icon: 'ReadingMode',
         items: this.state.notes
-      },
-      {
-        key: 'new-note',
-        name: 'Note',
-        icon: 'QuickNote',
-        onClick: () => this.setState({ showNewNotePanel: true })
-      },
+      },      
 /*
       {
         key: 'new-flow',
@@ -272,10 +263,22 @@ export default class NotebookControlBar extends React.Component<any, any> {
 */
       this.runIndicator
     ]
+    this.rightItems = [
+      {
+        key: 'tiles',
+        icon: 'Tiles',
+        onClick: () => history.push(`/dla/notes/tiles`)
+      },
+      {
+        key: 'list',
+        icon: 'ViewList',
+        onClick: () => history.push(`/dla/notes/list`)
+      }
+    ]
   }
 
   private runNote() {
-    this.props.dispatchRunNoteAction(this.state.note.id) 
+    this.props.dispatchRunNoteAction(this.state.note.id)
   }
 
   // --------------------------------------------------------------------------

@@ -20,7 +20,12 @@
 yarn install
 
 # Fix @types/react
+
 rm node_modules/@types/react-dom/node_modules/@types/react/*
 cp node_modules/@types/react/* node_modules/@types/react-dom/node_modules/@types/react/
+
 rm node_modules/@types/react-test-renderer/node_modules/@types/react/*
 cp node_modules/@types/react/* node_modules/@types/react-test-renderer/node_modules/@types/react/
+
+rm node_modules/@types/react-grid-layout/node_modules/@types/react/*
+cp node_modules/@types/react/* node_modules/@types/react-grid-layout/node_modules/@types/react/
