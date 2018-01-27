@@ -36,10 +36,11 @@ yarn start
 Useful commands:
 
 ```shell
+yarn build:build    # Build.
+yarn build:clean    # Clean all.
+yarn build:dist     # Create a distribution in the `_plane` folder.
+yarn build:help     # Echo help.
 yarn build:install  # Install dependencies.
 yarn build:scss     # Generate the CSS.
-yarn build:build    # Build.
-yarn start          # Start development server (auto reload)
-yarn build:dist     # Create a distribution and grap it from the `_plane` folder.
-yarn build:clean    # Clean (if needed)
+yarn start          # Start development server (auto reload).
 ```
