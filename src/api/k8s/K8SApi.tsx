@@ -47,7 +47,6 @@ export default class K8SApi extends React.Component<any, any>  implements IK8SAp
   private config: IConfig = emptyConfig
   private restClient: RestClient
   private webSocketClient: WebSocket
-  private flows = []
   
   public constructor(props) {    
     super(props)

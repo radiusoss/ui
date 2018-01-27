@@ -48,11 +48,9 @@ export default class Sidebar extends React.Component<any, any> {
               Deploy
             </li>
 */}
-{/*
             <li className="nav-item">
               <NavLink to={'/dla/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
             </li>
-*/}
             <li className="nav-item">
               <NavLink to={'/dla/profile'} className="nav-link" activeClassName="active"><FabricIcon name="Accounts"/> Profile</NavLink>
             </li>

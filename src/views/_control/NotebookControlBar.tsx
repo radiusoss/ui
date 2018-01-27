@@ -39,7 +39,8 @@ export default class NotebookControlBar extends React.Component<any, any> {
     runningParagraphs: [],
     notes: [],
     isMicrosoftAuthenticated: false,
-    isTwitterAuthenticated: false
+    isTwitterAuthenticated: false,
+    layout: ''
   }
 
   public constructor(props) {
@@ -107,9 +108,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-
     const { config, isMicrosoftAuthenticated, isTwitterAuthenticated, webSocketMessageReceived, note, runningParagraphs } = nextProps
-
     if (config && ! isEqual(config, this.config)) {
       this.config = config
     }
@@ -124,13 +123,11 @@ export default class NotebookControlBar extends React.Component<any, any> {
         isMicrosoftAuthenticated: isMicrosoftAuthenticated
       })
     }
-
     if (! this.state.isTwitterAuthenticated != isTwitterAuthenticated) {
       this.setState({
         isTwitterAuthenticated: isTwitterAuthenticated
       })
     }
-
   if (note.id && (! isEqual(note, this.props.note))) {
       this.setState({
         note: note
@@ -178,11 +175,8 @@ export default class NotebookControlBar extends React.Component<any, any> {
   }
 
   private updateRunIndicator() {
-
     const {note, runningParagraphs} = this.state
-
     let isNoteRunning = runningParagraphs.length > 0
-
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") == -1) {
 /*
       if (isNoteRunning) {
@@ -200,7 +194,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
       this.runIndicator = {}
       return
     }
-
     if (!note) {
       this.runIndicator = {
         key: 'run-indicator',
@@ -246,6 +239,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
   }
 
   private updateMenu() {
+    const {note, runningParagraphs} = this.state
     this.leftItems = [
       {
         key: 'tiles',
@@ -260,23 +254,52 @@ export default class NotebookControlBar extends React.Component<any, any> {
         onClick: () => history.push(`/dla/notes/list`)
       },
       {
+        key: 'new-flow',
+        name: 'New Flow',
+        icon: 'Flow',
+        title: 'New Flow',
+        onClick: () => this.setState({ showNewFlowPanel: true })
+      },
+      {
         key: 'notes',
         name: 'Notes',
         icon: 'ReadingMode',
         items: this.state.notes
       },      
-/*
-      {
-        key: 'new-flow',
-        name: 'Flow',
-        icon: 'Flow',
-        onClick: () => this.setState({ showNewFlowPanel: true })
-      },
-*/
       this.runIndicator
     ]
-    this.rightItems = [
-    ]
+    if (note) {
+      this.rightItems = [
+        {
+          key: 'CollapseMenu',
+          icon: 'CollapseMenu',
+          title: 'CollapseMenu',
+          onClick: () => this.setState({ layout: 'CollapseMenu' })
+        },
+        {
+          key: 'DoubleColumn',
+          icon: 'DoubleColumn',
+          title: 'DoubleColumn',
+          onClick: () => this.setState({ layout: 'DoubleColumn' })
+        },
+        {
+          key: 'SingleColumn',
+          icon: 'SingleColumn',
+          title: 'SingleColumn',
+          onClick: () => this.setState({ layout: 'SingleColumn' })
+        },
+        {
+          key: 'Tiles2',
+          icon: 'Tiles2',
+          title: 'Tiles2',
+          onClick: () => this.setState({ layout: 'Tiles2' })
+        }
+      ]
+    }
+    else {
+      this.rightItems = [
+      ]
+    }
   }
 
   private runNote() {
