@@ -61,10 +61,6 @@ export default class ParagraphRenderer extends React.Component<any, any> {
           <HtmlRenderer data={data} />
         }
         {
-          (type == 'REACTJS') &&
-          <ReactjsRenderer data={data} />
-        }
-        {
           (type == 'IMG') &&
           <ImageRenderer data={data} />
         }
@@ -79,6 +75,10 @@ export default class ParagraphRenderer extends React.Component<any, any> {
         {
           (type == 'TEXT') &&
           <TextRenderer data={data} />
+        }
+        {
+          (type == 'REACTJS') &&
+          <ReactjsRenderer data={data} />
         }
       </div>
     )

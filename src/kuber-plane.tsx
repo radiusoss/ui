@@ -15,10 +15,19 @@ import TwitterApi from './api/twitter/TwitterApi'
 import K8SApi from './api/k8s/K8SApi'
 import { loadTheme } from 'office-ui-fabric-react/lib/Styling';
 
+/*
+46 204 113  datalayer-green-light  #2ecc71
+26 188 156  datalayer-green-main   #1abc9c
+22 160 133  datalayer-green-dark   #16a085
+89 89 92    datalayer-gray   #59595c
+0 0 0       datalayer-black  #000000
+255 255 255 datlayer-white   #FFFFFF
+*/
 loadTheme({
   palette: {
     'themePrimary': '#038387',
-    'themeDarkAlt': '#20a8d8'
+    'themeDarkAlt': '#16a085'
+//    'themeDarkAlt': '#20a8d8'
   }
 })
 

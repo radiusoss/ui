@@ -173,19 +173,16 @@ export default class NotesTiles extends React.Component<any, any> {
   @autobind
   private onLayoutChange(layout) {
 //    this.props.onLayoutChange(layout);
-    console.log('Layout', layout)
     var layoutMap = {}
     layout.map((l) => {
       layoutMap[l.i] = l
     })
-    console.log('Layout Map', layoutMap)
     this.notebookApi.saveLayout(layoutMap)
     this.setState({ layout: layout })
   }
 
   @autobind
   private onRemoveItem(i) {
-    console.log("Removing", i);
     this.setState({ layout: _.reject(this.state.layout, { i: i }) })
   }
 
