@@ -35,7 +35,7 @@ export default class NoteRenderer extends React.Component<any, any> {
           this.state.note.paragraphs.map( p => {
             return (
               <div key={p.id}>
-                <ParagraphRenderer paragraph={p} />
+                <ParagraphRenderer paragraph={p} showCommandBar={true}/>
               </div>
             )
           })

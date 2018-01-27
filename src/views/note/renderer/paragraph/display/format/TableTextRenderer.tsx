@@ -61,19 +61,19 @@ export default class TableTextRenderer extends React.Component<any, any> {
 {/*
         <MarqueeSelection selection={ this.selection }>
 */}
-          <DetailsList
-            columns={ columns }
-            items={ filteredItems }
-            setKey='set'
-            layoutMode={ DetailsListLayoutMode.fixedColumns }
+        <DetailsList
+          columns={ columns }
+          items={ filteredItems }
+          setKey='set'
+          layoutMode={ DetailsListLayoutMode.fixedColumns }
 //            selection={ this.selection }
-            selectionPreservedOnEmptyClick={ true }
-            ref={ ref => this.detailsList = ref }
-          />
+          selectionPreservedOnEmptyClick={ true }
+          ref={ ref => this.detailsList = ref }
+          compact={ true }
+        />
 {/*
         </MarqueeSelection>
 */}
-
       </div>
     )
   }
@@ -90,7 +90,6 @@ export default class TableTextRenderer extends React.Component<any, any> {
     }
   }
 */
-
   public componentWillReceiveProps(nextProps) {
     let { columns, items } = nextProps
     if (items) {

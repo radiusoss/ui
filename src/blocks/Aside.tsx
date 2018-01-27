@@ -17,17 +17,13 @@ export interface AsideState {
 export default class Aside extends React.Component<any, AsideState> {
 
   public constructor(props) {
-
     super(props)
-
     this.state = {
       activeTab: '1',
       messages: [],
       refresh: false
     }
-
     this.toggle = this.toggle.bind(this)
-
   }
 
   public render() {

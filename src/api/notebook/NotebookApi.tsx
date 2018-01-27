@@ -147,7 +147,13 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.runFlow(id)
   }
 
-  public updateMicrosoftProfile() {
+  public commitParagraph(p: any, graph: any): void {
+    this.spitfireApi.commitParagraph(p, graph)
+  }
+
+// ----------------------------------------------------------------------------
+
+public updateMicrosoftProfile() {
     var profile = localStorage.getItem(MicrosoftProfileStorageKey)
     if (profile) {
       this.microsoftApi.getMe(async (err, me) => {

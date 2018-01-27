@@ -53,6 +53,7 @@ export interface ISpitfireApi {
   deleteFlow(id: string): void
   runFlow(id: string)
   configuration(): any
+  commitParagraph(p: any, graph: any): void
 }
 
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
@@ -297,6 +298,10 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 //    this.sendWebSocketMessage(JSON.stringify(this.RUN_FLOW(id)))
   }
 
+  public commitParagraph(p: any, graph: any): void {
+    this.sendWebSocketMessage(JSON.stringify(this.COMMIT_PARAGRAPH(p, graph)))
+  }
+        
 // ----------------------------------------------------------------------------
 /*
   private async wrapOutcome(action: () => Promise<boolean>): Promise<Outcome> {
@@ -309,7 +314,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     return outcome
   }
 */
-private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: () => Promise<TRaw>): Promise<Result<TOut>> {
+  private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: () => Promise<TRaw>): Promise<Result<TOut>> {
     let result: Result<TOut> = new Result<TOut>()
     try {
       let raw = await action()
@@ -590,6 +595,36 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
       'roles': this.rolesValue(),
       'data':	{ 
         'flowId': id
+      }
+    }
+  }
+
+  private COMMIT_PARAGRAPH(p: any, graph: any) {
+    console.log('pppppppp', p)
+    return {
+      'op':	'COMMIT_PARAGRAPH',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data':	{ 
+        'id': p.id, 
+        'paragraph': p.text,
+        'config': {
+            'colWidth': 12,
+            'enabled': true,
+            'results': {
+                '0': {
+                    'graph': graph,
+                    'helium': {}
+                }
+            },
+            'editorSetting': {
+                'language': 'scala'
+            },
+            'editorMode': 'ace/mode/scala',
+            'fontSize': 9
+        },
+        'params': {}
       }
     }
   }

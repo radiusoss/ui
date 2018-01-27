@@ -15,7 +15,7 @@ export default class TextRenderer extends React.Component<any, any> {
         <pre>
           {data}
         </pre>
-      </div>
+      </div>      
     )
   }
 

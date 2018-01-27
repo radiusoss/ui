@@ -22,7 +22,7 @@ export default class ParagraphRenderer extends React.Component<any, any> {
 
   public render() {
 
-    const { paragraph } = this.props
+    const { paragraph, showCommandBar } = this.props
 
     var results = paragraph.results
     if (!results) {
@@ -57,6 +57,10 @@ export default class ParagraphRenderer extends React.Component<any, any> {
     return (
       <div>
         {
+          (type == 'TEXT') &&
+          <TextRenderer data={data} />
+        }
+        {
           (type == 'HTML') &&
           <HtmlRenderer data={data} />
         }
@@ -65,16 +69,12 @@ export default class ParagraphRenderer extends React.Component<any, any> {
           <ImageRenderer data={data} />
         }
         {
+          (type == 'TABLE') &&
+          <TableRenderer data={data} id={id} p={paragraph} showCommandBar={showCommandBar} />
+        }
+        {
           (type == 'MATHJAX') &&
           <MathjaxRenderer data={data} />
-        }
-        {
-          (type == 'TABLE') &&
-          <TableRenderer data={data} id={id} />
-        }
-        {
-          (type == 'TEXT') &&
-          <TextRenderer data={data} />
         }
         {
           (type == 'REACTJS') &&

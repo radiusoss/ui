@@ -153,13 +153,17 @@ export default class NotesTiles extends React.Component<any, any> {
     var msg = p.results.msg[0].data
     return (
       <div key={el.i} data-grid={el}>
-        <a className='ms-fontWeight-semibold' href='#' onClick={ e => this.loadNote(e, el.i) }>{note.name}</a>
-        <div>{p.title}</div>
+        <a className='ms-fontWeight-semibold' href='#' onClick={ e => this.loadNote(e, el.i) }>
+          {note.name}
+        </a>
+        <div>
+          {p.title}
+        </div>
         <div>
 {/*
           <Html data={msg}/>
 */}
-          <ParagraphRenderer paragraph={p} />
+          <ParagraphRenderer paragraph={p} showCommandBar={false} />
         </div>
         <span
           className="remove"

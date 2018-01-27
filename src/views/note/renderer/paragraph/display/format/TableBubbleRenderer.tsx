@@ -27,13 +27,7 @@ export default class TableBubbleRenderer extends TableBaseRenderer {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [
-          {x:10, y:20, r:5},
-          {x:1, y:2, r:3},
-          {x:20, y:40, r:15},
-          {x:70 ,y:80, r:8},
-          {x:30, y:250, r:3}
-        ]
+        data: [{x:10,y:20,r:5}]
       }
     ]
   }
@@ -41,15 +35,16 @@ export default class TableBubbleRenderer extends TableBaseRenderer {
   constructor(props) {
     super(props)
     const { columns, items } = props
-    this.prepareBubbleData(columns, items, this.bubbleData)
+//    this.prepareBubbleData(columns, items, this.bubbleData)
   }
 
   render() {
     return (
       <div>
         <Bubble
-          data={this.bubbleData}
-          options={this.options}
+          data={this.spl}
+//          data={this.bubbleData}
+          //          options={this.options}
         />
       </div>
     )
