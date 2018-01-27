@@ -6,10 +6,10 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
-import history from './../routes/History'
+import history from './../../routes/History'
 import { connect } from 'react-redux'
-import NotebookApi from './../api/notebook/NotebookApi'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
+import NotebookApi from './../../api/notebook/NotebookApi'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Flows extends React.Component<any, any> {

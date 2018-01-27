@@ -107,6 +107,11 @@ export default class NotebookControlBar extends React.Component<any, any> {
 
   }
 
+  public componentDidMount() {
+    this.notebookApi.listFlows()
+    this.notebookApi.listNotes()
+  }
+
   public componentWillReceiveProps(nextProps) {
     const { config, isMicrosoftAuthenticated, isTwitterAuthenticated, webSocketMessageReceived, note, runningParagraphs } = nextProps
     if (config && ! isEqual(config, this.config)) {
@@ -128,7 +133,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
         isTwitterAuthenticated: isTwitterAuthenticated
       })
     }
-  if (note.id && (! isEqual(note, this.props.note))) {
+    if (note.id && (! isEqual(note, this.props.note))) {
       this.setState({
         note: note
       })
@@ -273,26 +278,26 @@ export default class NotebookControlBar extends React.Component<any, any> {
         {
           key: 'CollapseMenu',
           icon: 'CollapseMenu',
-          title: 'CollapseMenu',
-          onClick: () => this.setState({ layout: 'CollapseMenu' })
-        },
-        {
-          key: 'DoubleColumn',
-          icon: 'DoubleColumn',
-          title: 'DoubleColumn',
-          onClick: () => this.setState({ layout: 'DoubleColumn' })
-        },
-        {
-          key: 'SingleColumn',
-          icon: 'SingleColumn',
-          title: 'SingleColumn',
-          onClick: () => this.setState({ layout: 'SingleColumn' })
+          title: 'Lines Layout',
+          onClick: () => this.setState({ layout: 'Lines' })
         },
         {
           key: 'Tiles2',
           icon: 'Tiles2',
-          title: 'Tiles2',
-          onClick: () => this.setState({ layout: 'Tiles2' })
+          title: 'Tiles Layout',
+          onClick: () => this.setState({ layout: 'Tiles' })
+        },
+        {
+          key: 'DoubleColumn',
+          icon: 'DoubleColumn',
+          title: 'Double Column Layout',
+          onClick: () => this.setState({ layout: 'Double' })
+        },
+        {
+          key: 'SingleColumn',
+          icon: 'SingleColumn',
+          title: 'Result Layout',
+          onClick: () => this.setState({ layout: 'Result' })
         }
       ]
     }

@@ -6,7 +6,6 @@ export default class About extends React.Component<any, any> {
   public render() {
 
     return (
-
       <div>
 {/*
         <div className="ms-Grid">
@@ -21,9 +20,7 @@ export default class About extends React.Component<any, any> {
         </div>
 */}
         <Highlights showAll="true" />
-
       </div>
-
     )
 
   }
