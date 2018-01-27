@@ -21,7 +21,7 @@ echo """
 
 yarn build:build    # Build.
 yarn build:clean    # Clean all.
-yarn build:dist     # Create a distribution in the `_plane` folder.
+yarn build:dist     # Create a distribution in the _plane folder.
 yarn build:help     # Echo help.
 yarn build:install  # Install dependencies.
 yarn build:scss     # Generate the CSS.
