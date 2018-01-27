@@ -62,11 +62,6 @@ export default class NotesTiles extends React.Component<any, any> {
           type={ PanelType.smallFluid }
           onDismiss={ () => this.setState({ showPanel: false }) }
         >
-{/*
-          <a href='#' onClick={ e => this.hidePanel(e) }>
-            <img src='/img/datalayer/datalayer.png' width='100px'/>
-          </a>
-*/}
           <ResponsiveReactGridLayout
             onLayoutChange={this.onLayoutChange}
   //          compactType='vertical'
@@ -74,6 +69,9 @@ export default class NotesTiles extends React.Component<any, any> {
           >
             {_.map(this.state.layout, el => this.createTile(el))}
           </ResponsiveReactGridLayout>
+          <a href='#' onClick={ e => this.hidePanel(e) }>
+            <img src='/img/datalayer/datalayer.png' width='100px'/>
+          </a>
         </Panel>
        :
         <ResponsiveReactGridLayout

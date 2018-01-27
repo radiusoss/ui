@@ -162,9 +162,10 @@ export default class NotesList extends React.Component<any, any> {
     const { webSocketMessageReceived } = nextProps
     if (! webSocketMessageReceived) return
     if (webSocketMessageReceived.op == "NOTES_INFO") {
+      var notes = webSocketMessageReceived.data.notes.filter(n => n.name != '_conf')
       this.setState ({
-        notes: webSocketMessageReceived.data.notes,
-        selectedNotes: webSocketMessageReceived.data.notes
+        notes: notes,
+        selectedNotes: notes
       })
       this.selectionTextField.setState({
         value: ''

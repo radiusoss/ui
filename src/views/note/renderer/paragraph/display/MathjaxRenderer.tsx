@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import * as MathJax from "react-mathjax-updated"
-    
+import * as MathJax from "react-mathjax"
+
 export default class HtmlRenderer extends React.Component<any, any> {
 
   constructor(props) {

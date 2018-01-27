@@ -4,7 +4,7 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../
 import HtmlRenderer from './display/HtmlRenderer'
 import ReactjsRenderer from './display/ReactjsRenderer'
 import ImageRenderer from './display/ImageRenderer'
-// import MathjaxRenderer from './display/MathjaxRenderer'
+import MathjaxRenderer from './display/MathjaxRenderer'
 import TableRenderer from './display/TableRenderer'
 import TextRenderer from './display/TextRenderer'
 import Spinner from './../../../../_widget/Spinner'
@@ -68,12 +68,10 @@ export default class ParagraphRenderer extends React.Component<any, any> {
           (type == 'IMG') &&
           <ImageRenderer data={data} />
         }
-{/*
         {
           (type == 'MATHJAX') &&
           <MathjaxRenderer data={data} />
         }
-*/}
         {
           (type == 'TABLE') &&
           <TableRenderer data={data} id={id} />

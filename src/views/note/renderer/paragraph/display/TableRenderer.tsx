@@ -58,13 +58,16 @@ export default class TableRenderer extends React.Component<any, any> {
       name: '',
       icon: 'PieDouble',
       onClick: (e) => this.updateFormat(e, 'pie')
-    },
+    }
+/*
+    ,
     {
       key: 'Bubble',
       name: '',
       icon: 'Dialpad',
       onClick: (e) => this.updateFormat(e, 'bubble')
     }
+*/
   ]
 
   private rightItems: any[] = [{}]
