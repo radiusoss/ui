@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as _ from "lodash"
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { DefaultButton, PrimaryButton, CompoundButton } from 'office-ui-fabric-react/lib/Button'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
@@ -7,14 +8,13 @@ import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
 import { connect } from 'react-redux'
-import NotebookApi from './../../api/notebook/NotebookApi'
-import Html from './../_widget/Html'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import { WidthProvider, Responsive } from "react-grid-layout";
-import * as _ from "lodash";
+import { WidthProvider, Responsive } from "react-grid-layout"
+import NotebookApi from './../../api/notebook/NotebookApi'
+import ParagraphRenderer from './../note/renderer/paragraph/ParagraphRenderer'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
-
+/*
 import Grid00Showcase from '../spl/Grid00Showcase'
 import Grid01Basic from '../spl/Grid01Basic'
 import Grid02NoDragging from '../spl/Grid02NoDragging'
@@ -30,7 +30,7 @@ import Grid11NoVerticalCompact from '../spl/Grid11NoVerticalCompact'
 import Grid12PreventCollision from '../spl/Grid12PreventCollision'
 import Grid13ResponsiveBootstrapStyle from '../spl/Grid13ResponsiveBootstrapStyle'
 import Grid14ErrorCase from '../spl/Grid14ErrorCase'
-
+*/
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -47,30 +47,35 @@ export default class NotesTiles extends React.Component<any, any> {
     this.state = {
       notes: [],
       notesMap: {},
-      layout: []
+      layout: [],
+      showPanel: true
     }
   }
 
   public render() {    
-    let { notes } = this.state
+    let { notes, showPanel } = this.state
     return (
       <div>
+      {(showPanel == true) ?
+        <Panel
+          isOpen={ this.state.showPanel }
+          type={ PanelType.smallFluid }
+          onDismiss={ () => this.setState({ showPanel: false }) }
+        >
 {/*
-        <Grid00Showcase/>
-        <Grid01Basic/>
-        <Grid02NoDragging/>
-        <Grid03Messy/>
-        <Grid04GridProperty/>
-        <Grid05StaticElements/>
-        <Grid06DynamicAddRemove/>
-        <Grid07Localstorage/>
-        <Grid08LocalstorageResponsive/>
-        <Grid09MinMaxHandle/>
-        <Grid10DynamicMinMaxHandle/>
-        <Grid11NoVerticalCompact/>
-        <Grid12PreventCollision/>
-        <Grid13ResponsiveBootstrapStyle/>
+          <a href='#' onClick={ e => this.hidePanel(e) }>
+            <img src='/img/datalayer/datalayer.png' width='100px'/>
+          </a>
 */}
+          <ResponsiveReactGridLayout
+            onLayoutChange={this.onLayoutChange}
+  //          compactType='vertical'
+            {...this.props}
+          >
+            {_.map(this.state.layout, el => this.createTile(el))}
+          </ResponsiveReactGridLayout>
+        </Panel>
+       :
         <ResponsiveReactGridLayout
           onLayoutChange={this.onLayoutChange}
 //          compactType='vertical'
@@ -78,6 +83,7 @@ export default class NotesTiles extends React.Component<any, any> {
         >
           {_.map(this.state.layout, el => this.createTile(el))}
         </ResponsiveReactGridLayout>
+      }
       </div>
     )
   }
@@ -130,6 +136,13 @@ export default class NotesTiles extends React.Component<any, any> {
   }
 
   @autobind
+  private hidePanel(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.setState({ showPanel: false })
+  }
+
+  @autobind
   private createTile(el) {
     const removeStyle: React.CSSProperties = {
       position: "absolute",
@@ -142,9 +155,14 @@ export default class NotesTiles extends React.Component<any, any> {
     var msg = p.results.msg[0].data
     return (
       <div key={el.i} data-grid={el}>
-        <div className='ms-font-xxl'>{note.name}</div>
+        <a className='ms-fontWeight-semibold' href='#' onClick={ e => this.loadNote(e, el.i) }>{note.name}</a>
         <div>{p.title}</div>
-        <div><Html data={msg}/></div>
+        <div>
+{/*
+          <Html data={msg}/>
+*/}
+          <ParagraphRenderer paragraph={p} />
+        </div>
         <span
           className="remove"
           style={removeStyle}

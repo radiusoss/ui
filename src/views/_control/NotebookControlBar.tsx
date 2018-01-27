@@ -159,7 +159,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
     var ns = []
     ns.push({
       key: 'new-note',
-      name: '(new note)',
+      name: 'New note...',
       icon: 'QuickNote',
       onClick: () => this.setState({ showNewNotePanel: true })
     })
@@ -248,6 +248,18 @@ export default class NotebookControlBar extends React.Component<any, any> {
   private updateMenu() {
     this.leftItems = [
       {
+        key: 'tiles',
+        icon: 'Tiles',
+        title: 'Notes Tiles View',
+        onClick: () => history.push(`/dla/notes/tiles`)
+      },
+      {
+        key: 'list',
+        icon: 'ViewList',
+        title: 'Notes List View',
+        onClick: () => history.push(`/dla/notes/list`)
+      },
+      {
         key: 'notes',
         name: 'Notes',
         icon: 'ReadingMode',
@@ -264,16 +276,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
       this.runIndicator
     ]
     this.rightItems = [
-      {
-        key: 'tiles',
-        icon: 'Tiles',
-        onClick: () => history.push(`/dla/notes/tiles`)
-      },
-      {
-        key: 'list',
-        icon: 'ViewList',
-        onClick: () => history.push(`/dla/notes/list`)
-      }
     ]
   }
 

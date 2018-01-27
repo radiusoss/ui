@@ -18090,3 +18090,7 @@ pre {
   word-break: break-all;
   white-space: pre-wrap;
   /* word-wrap: break-word; */ }
+
+.datalayer-logo-square {
+  background-size: 100px !important;
+  background-image: url("../img/datalayer/datalayer.png") !important; }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Spinner from './../_widget/Spinner'
+import Spinner from './../../_widget/Spinner'
 import history from './../../routes/History'
 import { connect } from 'react-redux'
 import * as queryString from 'query-string'

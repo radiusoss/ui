@@ -69,7 +69,7 @@ export default class K8SApi extends React.Component<any, any>  implements IK8SAp
       this.webSocketClient = new WebSocket(this.config.kuberWs + '/api/v1/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
         console.log("K8S WebSocket has been opened.");
-        toastr.success('Welcome', 'Connected to Kuber Server.')
+        toastr.success('Kuber', 'Connected to Kuber Server.')
       }
       this.webSocketClient.onmessage = (event: MessageEvent) => {
         let message = JSON.parse(event.data)

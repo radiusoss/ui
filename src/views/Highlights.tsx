@@ -120,7 +120,9 @@ export default class Highlights extends React.Component<any, any> {
         <div className={ styles.featured }>
           <span className={ styles.featuredTitle }>Highlights</span>
           <span className={ styles.featuredDescription }>Datalayer develops and integrates a variety of tools to help you create an experience that delights Big Data Scientists on Kubernetes.</span>
+
           { (this.state.showAll == "true") ?
+
           <span>
           <ul className={ styles.featureList } aria-label='List of highlighted features'>
             <li className="text-center">
@@ -256,7 +258,9 @@ While traditional environments like YARN-based hadoop clusters have used Oozie, 
             </li>
           </ul>
           </span>
+          
           :
+
           <span>
           <ul className={ styles.featureList } aria-label='List of highlighted features'>
             <li className="text-center">

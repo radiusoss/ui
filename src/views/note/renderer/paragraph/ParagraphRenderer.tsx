@@ -7,7 +7,7 @@ import ImageRenderer from './display/ImageRenderer'
 // import MathjaxRenderer from './display/MathjaxRenderer'
 import TableRenderer from './display/TableRenderer'
 import TextRenderer from './display/TextRenderer'
-import Spinner from './../../../_widget/Spinner'
+import Spinner from './../../../../_widget/Spinner'
 import NotebookApi from './../../../../api/notebook/NotebookApi'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 
