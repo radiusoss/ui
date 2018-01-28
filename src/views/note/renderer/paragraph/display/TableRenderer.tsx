@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../../../actions/NotebookActions'
 import TableData from '../../../../../util/data/TableData'
@@ -192,18 +191,7 @@ export default class TableRenderer extends React.Component<any, any> {
     this.setState({
       format: format
     })
-    this.scroll()
     this.notebookApi.commitParagraph(this.state.p, this.graph(format))
-  }
-
-  private scroll() {
-/*
-    let renderer = ReactDOM.findDOMNode(this.refs['table-renderer-command-bar'])
-    if (renderer) {
-      var domNode = ReactDOM.findDOMNode(renderer)
-      domNode.scrollIntoView({block: "start", behavior: "smooth"})
-    }
-*/
   }
 
   private graph(format: string) {

@@ -160,7 +160,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
   }
 
   private runNote() {
-    this.props.dispatchRunNoteAction(this.state.note.id, this.state.note.paragraphps[0].id)
+    this.props.dispatchRunNoteAction(this.state.note.id, '')
   }
 
   private asNotes(notes) {

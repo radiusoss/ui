@@ -131,7 +131,7 @@ export default class NotesTiles extends React.Component<any, any> {
   private loadNote(e: React.MouseEvent<HTMLAnchorElement>, noteId) {
     e.stopPropagation()
     e.preventDefault()
-    this.notebookApi.showNoteLayout(noteId, 'columns')
+    this.notebookApi.showNoteLayout(noteId, 'lines')
   }
 
   @autobind

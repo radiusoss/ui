@@ -95,12 +95,16 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.deleteNote(id)
   }
 
+  public runParagraph(paragraph: any, code: string) {
+    return this.spitfireApi.runParagraph(paragraph, code)
+  }
+    
   public runNote(id: string, paragraphs: any[]) {
 //    toastr.info('Run', 'Running note', {timeOut: 500})
     return this.spitfireApi.runNote(id, paragraphs)
   }
 
-  public cancelParagraph(id: string) {
+      public cancelParagraph(id: string) {
     return this.spitfireApi.cancelParagraph(id)
   }
 

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import ParagraphEditor from './editor/ParagraphEditor'
@@ -28,15 +29,16 @@ export default class NoteLinesLayout extends React.Component<any, any> {
           {
             note.paragraphs.map(p => {
               return (
-                <div className="ms-Grid">
+                <div className="ms-Grid" key={note.id + '-' + p.id}>
                   <div className="ms-Grid-row">
                     <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px' }}>
-                      <ParagraphEditor note={note} paragraph={p}/>
+                      <ParagraphEditor note={note} paragraph={p} key={note.id + '-pe-' + p.id}/>
                     </div>
                     <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
-                      <ParagraphResultsRenderer paragraph={p} showCommandBar={true}/>
+                      <ParagraphResultsRenderer paragraph={p} showCommandBar={true} key={note.id + '-pr-' + p.id}/>
                     </div>
                   </div>
+                  <br/>
                 </div>
               )
             })
@@ -56,6 +58,15 @@ export default class NoteLinesLayout extends React.Component<any, any> {
       this.setState({
         note: webSocketMessageReceived.data.note
       })
+      this.scrollTop()
+    }
+  }
+
+  private scrollTop() {
+    let renderer = ReactDOM.findDOMNode(this.refs['table-renderer-command-bar'])
+    if (renderer) {
+      var domNode = ReactDOM.findDOMNode(renderer)
+      domNode.scrollIntoView({block: "start", behavior: "smooth"})
     }
   }
 

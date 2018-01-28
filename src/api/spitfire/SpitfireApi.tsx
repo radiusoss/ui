@@ -38,6 +38,7 @@ export interface ISpitfireApi {
   moveNoteToTrash(id: string): void
   deleteNote(id: string): void
   runNote(id: string, paragraphs: any[])
+  runParagraph(paragraph: any, code: string)
   cancelParagraph(id: string)
   restartInterpreter(id: string)
   listConfigurations()
@@ -217,6 +218,10 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
   public runNote(id: string, paragraphs: any[]): void {
     this.sendWebSocketMessage(JSON.stringify(this.RUN_ALL_PARAGRAPHS_SPITFIRE(id, paragraphs)))
+  }
+
+  public runParagraph(paragraph: any, code: string): void {
+    this.sendWebSocketMessage(JSON.stringify(this.RUN_PARAGRAPH(paragraph, code)))
   }
 
   public cancelParagraph(id: string): void {
@@ -458,6 +463,18 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
         'noteId': noteId,
         'paragraphs': paragraphs
       }
+    }
+  }
+
+  private RUN_PARAGRAPH(paragraph: any, code: string) {
+    paragraph.params = {}
+    paragraph.paragraph = code
+    return {
+      'op':	'RUN_PARAGRAPH',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data':	paragraph
     }
   }
 

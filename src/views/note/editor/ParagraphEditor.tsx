@@ -19,7 +19,8 @@ export default class ParagraphEditor extends React.Component<any, any> {
       id: ''
     },
     paragraph: {
-      id: ''
+      id: '',
+      text: ''
     },
     code: ''
   }
@@ -45,7 +46,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
           value={code}
           defaultValue=""
           minLines={5}
-          maxLines={30}
+          maxLines={60}
           width="100%"
           mode="scala"
           theme="tomorrow"
@@ -66,23 +67,11 @@ export default class ParagraphEditor extends React.Component<any, any> {
   public componentWillReceiveProps(nextProps) {
     const { isStartRun } = nextProps
     if (isStartRun) {
-      console.log('isStartRun', isStartRun)
       if (isStartRun.paragraphId == this.state.paragraph.id) {
-        let lines = this.codeEditor.getWrappedInstance().getValue().split(/\r?\n/)
-        let paragraphs = []
-        let paragraph = {}
-        let code = ''
-        for (var i = 0; i < lines.length; i++) {
-          let line = lines[i]
-          if ((line.indexOf('%') == 0) && (i != 0)) {
-            paragraphs.push(this.newParagraph(this.state.note.id, i, code))
-            code = ''
-          }
-          code = code + '\n' + line
-        }
-        paragraphs.push(this.newParagraph(this.state.note.id, i, code))
+        let code = this.codeEditor.getWrappedInstance().getValue()
         NotebookStore.state().isStartRun = null
-        this.notebookApi.runNote(this.state.note.id, paragraphs)
+        var p = this.state.paragraph
+        this.notebookApi.runParagraph(p, code)
       }
     }
   }
