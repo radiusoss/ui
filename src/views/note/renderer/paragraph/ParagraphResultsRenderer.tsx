@@ -21,9 +21,7 @@ export default class ParagraphRenderer extends React.Component<any, any> {
   }
 
   public render() {
-
     const { paragraph, showCommandBar } = this.props
-
     var results = paragraph.results
     if (!results) {
       if (paragraph.status == 'FINISHED') {
@@ -33,7 +31,6 @@ export default class ParagraphRenderer extends React.Component<any, any> {
         return <div><Spinner size={50} /></div>
       }
     }
-
     if ((typeof results) == "string") {
       return (
         <div>
@@ -43,17 +40,12 @@ export default class ParagraphRenderer extends React.Component<any, any> {
         </div>
       )
     }
-
     if (!results.msg) return <div></div>
-
     const id = paragraph.id
-    
     var msg = results.msg[0]
     if (!msg) return <div></div>
-
     const data = msg.data
     const type = msg.type
-
     return (
       <div>
         {
@@ -82,7 +74,6 @@ export default class ParagraphRenderer extends React.Component<any, any> {
         }
       </div>
     )
-
   }
 
   public shouldComponentUpdate(nextProps, nextState) {

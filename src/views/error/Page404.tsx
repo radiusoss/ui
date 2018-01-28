@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Page404 extends React.Component<any, any> {

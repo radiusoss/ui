@@ -10,16 +10,17 @@ import * as stylesImport from './../../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteEditor extends React.Component<any, any> {
+export default class ParagraphEditor extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private codeEditor
 
   state = {
     note: {
-      id: '',
-      paragraphs: []
+      id: ''
     },
-    paragraphs: [],
+    paragraph: {
+      id: ''
+    },
     code: ''
   }
 
@@ -27,28 +28,29 @@ export default class NoteEditor extends React.Component<any, any> {
     super(props)
     this.state = {
       note: props.note,
-      paragraphs: props.note.paragraphs,
+      paragraph: props.paragraph,
       code: ''
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    const { note, paragraphs, code } = this.state
+    const { note, paragraph, code } = this.state
     return (
-      <div className={styles.editorHeight}>
+      <div key={paragraph.id}>
         <CodeEditor
-          name={note.id}
+          name={paragraph.id}
           note={note}
-          paragraphs={paragraphs}
+          paragraphs={[paragraph]}
           value={code}
           defaultValue=""
-          height="100%"
+          minLines={5}
+          maxLines={30}
           width="100%"
           mode="scala"
           theme="tomorrow"
           fontSize="14px"
-          focus={true}
+          focus={false}
 //          onLoad={this.onLoad}
 //          onChange={this.onChange}
           setOptions={{
@@ -59,41 +61,37 @@ export default class NoteEditor extends React.Component<any, any> {
         />
       </div>
     )
+
   }
-/*
-  public shouldComponentUpdate(nextProps, nextState) {
-    const { note } = nextProps
-    if (!note.data) {
-      return false
-    }
-  }
-*/
   public componentWillReceiveProps(nextProps) {
     const { isStartRun } = nextProps
     if (isStartRun) {
-      let lines = this.codeEditor.getWrappedInstance().getValue().split(/\r?\n/)
-      let paragraphs = []
-      let paragraph = {}
-      let code = ''
-      for (var i = 0; i < lines.length; i++) {
-        let line = lines[i]
-        if ((line.indexOf('%') == 0) && (i != 0)) {
-          paragraphs.push(this.newParagraph(this.state.note.id, i, code))
-          code = ''
+      console.log('isStartRun', isStartRun)
+      if (isStartRun.paragraphId == this.state.paragraph.id) {
+        let lines = this.codeEditor.getWrappedInstance().getValue().split(/\r?\n/)
+        let paragraphs = []
+        let paragraph = {}
+        let code = ''
+        for (var i = 0; i < lines.length; i++) {
+          let line = lines[i]
+          if ((line.indexOf('%') == 0) && (i != 0)) {
+            paragraphs.push(this.newParagraph(this.state.note.id, i, code))
+            code = ''
+          }
+          code = code + '\n' + line
         }
-        code = code + '\n' + line
+        paragraphs.push(this.newParagraph(this.state.note.id, i, code))
+        NotebookStore.state().isStartRun = null
+        this.notebookApi.runNote(this.state.note.id, paragraphs)
       }
-      paragraphs.push(this.newParagraph(this.state.note.id, i, code))
-      NotebookStore.state().isStartRun = null,
-      this.notebookApi.runNote(this.state.note.id, paragraphs)
     }
   }
 
-  private newParagraph(noteId, i, code) {
+  private newParagraph(noteId, i, text) {
     return {
       'id': noteId + '_' + i,
       'jobName': 'paragraph_' + noteId + '_' + i,
-      'text': code.replace(/^\s+|\s+$/g, ''),
+      'text': text.replace(/^\s+|\s+$/g, ''),
       'params': {},
       'user': 'anonymous',
       'config': {

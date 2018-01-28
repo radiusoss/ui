@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import NoteEditor from './editor/NoteEditor'
-import NoteRenderer from './renderer/NoteRenderer'
+import NoteResultsRenderer from './renderer/NoteResultsRenderer'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import * as stylesImport from './../_styles/Styles.scss'
@@ -34,25 +34,25 @@ export default class NoteResultsLayout extends React.Component<any, any> {
         <Panel
           isOpen={ this.state.showPanel }
           type={ PanelType.smallFluid }
-          onDismiss={ () => this.notebookApi.showNoteLayout(this.state.note.id, 'columns') }
+          onDismiss={ () => this.notebookApi.showNoteLayout(this.state.note.id, 'lines') }
           headerText={note.name + ' - ' + new Date()}
         >
           <div className="ms-Grid">
             <div className="ms-Grid-row">
               <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
-                <NoteRenderer note={note} />
+                <NoteResultsRenderer note={note} />
               </div>
             </div>
           </div>
         </Panel>
-       :
-       <div className="ms-Grid">
-         <div className="ms-Grid-row">
+        :
+        <div className="ms-Grid">
+          <div className="ms-Grid-row">
            <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
-             <NoteRenderer note={note} />
+             <NoteResultsRenderer note={note} />
            </div>
-         </div>
-       </div>
+          </div>
+        </div>
       }
       </div>
     )

@@ -18,8 +18,9 @@ export const webSocketMessageReceivedAction = (message: any): NotebookAction => 
   type: 'WS_MESSAGE_RECEIVED',
   message: message
 })
-export const runNote = (): NotebookAction => ({
-  type: 'RUN_NOTE'
+export const runNote = (message: any): NotebookAction => ({
+  type: 'RUN_NOTE',
+  message: message
 })
 export const stopNote = (id: string): NotebookAction => ({
   type: 'STOP_NOTE',
@@ -33,7 +34,7 @@ export type NotebookProps = {
   note: any,
   notes: any,
   runningParagraphs: any[],
-  isStartRun: boolean
+  isStartRun: {noteId: any, paragraphId: any},
 }
 
 export const mapStateToPropsNotebook = (state: ApplicationState.State): NotebookProps => ({
@@ -50,7 +51,7 @@ export type NotebookDispatchers = {
   dispatchGetTicketAction: (string) => void
   dispatchWsMessageSentAction: (any) => void
   dispatchWsMessageReceivedAction: (any) => void
-  dispatchRunNoteAction: () => void
+  dispatchRunNoteAction: (noteId, paragraphId) => void
   dispatchStopNoteAction: (string) => void
 }
 
@@ -64,8 +65,8 @@ export const mapDispatchToPropsNotebook = (dispatch: Dispatch<ApplicationState.S
   dispatchWsMessageReceivedAction: (message: any) => {
     dispatch(webSocketMessageReceivedAction(message))
   },
-  dispatchRunNoteAction: () => { 
-    dispatch(runNote())
+  dispatchRunNoteAction: (noteId: any, paragraphId: any) => { 
+    dispatch(runNote({noteId: noteId, paragraphId: paragraphId}))
   },
   dispatchStopNoteAction: (message: string) => {
     dispatch(stopNote(message))

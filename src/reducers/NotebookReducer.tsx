@@ -45,10 +45,10 @@ export const runningParagraphsReducer = (state: any[] = initialState.runningPara
   }
 }
 
-export const isStartRunReducer = (state: boolean = initialState.isStartRun, action: NotebookAction): boolean => {
+export const isStartRunReducer = (state: {noteId: any, paragraphId: any} = initialState.isStartRun, action: NotebookAction): {noteId: any, paragraphId: any} => {
   switch (action.type) {
     case 'RUN_NOTE':
-      return true
+      return {noteId: action.message.noteId, paragraphId: action.message.paragraphId}
     default:
       return state
   }

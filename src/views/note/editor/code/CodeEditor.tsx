@@ -77,15 +77,16 @@ export interface CodeEditorProps {
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook, null, { withRef: true })
 export default class CodeEditor extends React.Component<any, any> {
-//  editor: Editor
   private editor: any
   private refEditor: HTMLElement
   private silent: Boolean
 
   state = {
     note: {
-      id: ''
-    }
+      id: '',
+      paragraphs: []
+    },
+    paragraphs: []
   }
   
   public static defaultProps: Partial<CodeEditorProps> = {
@@ -93,7 +94,7 @@ export default class CodeEditor extends React.Component<any, any> {
     focus: true,
     mode: 'scala',
     theme: 'monokai',
-    height: '100%',
+//    height: '100%',
     width: '100%',
     fontSize: '12',
     showGutter: true,
@@ -114,11 +115,16 @@ export default class CodeEditor extends React.Component<any, any> {
   }
 
   public constructor(props) {
-    super(props);
+    super(props)
+    this.state = {
+      note: props.note,
+      paragraphs: props.paragraphs
+    }
   }
 
   public render() {
     const { name, width, maxWidth, height, style } = this.props
+//    const divStyle = { width, height, ...style }
     const divStyle = { width, height, ...style }
     return (
       <div ref={this.updateRef}
@@ -154,14 +160,14 @@ export default class CodeEditor extends React.Component<any, any> {
 
     this.editor = ace.edit(this.refEditor)
 
+    this.editor.setAutoScrollEditorIntoView(true)
     this.editor.setOptions({
-      autoScrollEditorIntoView: false,
+//      autoScrollEditorIntoView: false,
       indentedSoftWrap: false
     })
-
     this.editor.$blockScrolling = Infinity
 
-    this.handleOptions(this.props);
+    this.handleOptions(this.props)
 
     if (onBeforeLoad) {
       onBeforeLoad(ace)
@@ -176,62 +182,69 @@ export default class CodeEditor extends React.Component<any, any> {
     this.editor.getSession().setMode(`ace/mode/${mode}`)
     this.editor.setTheme(`ace/theme/${theme}`)
     this.editor.setFontSize(fontSize)
-    this.editor.setValue((value === undefined ? defaultValue : value), cursorStart);
+
+//    this.editor.setValue((value === undefined ? defaultValue : value), cursorStart)
+
     this.editor.renderer.setShowGutter(showGutter)
-    this.editor.getSession().setUseWrapMode(wrapEnabled);
-    this.editor.setShowPrintMargin(showPrintMargin);
-    this.editor.on('focus', this.onFocus);
-    this.editor.on('blur', this.onBlur);
-    this.editor.on('copy', this.onCopy);
-    this.editor.on('paste', this.onPaste);
-    this.editor.on('change', this.onChange);
-    this.editor.session.on('changeScrollTop', this.onScroll);
-    this.editor.getSession().setAnnotations(annotations || []);
+    this.editor.getSession().setUseWrapMode(wrapEnabled)
+    this.editor.setShowPrintMargin(showPrintMargin)
+
+    this.editor.on('focus', this.onFocus)
+    this.editor.on('blur', this.onBlur)
+    this.editor.on('copy', this.onCopy)
+    this.editor.on('paste', this.onPaste)
+    this.editor.on('change', this.onChange)
+
+    this.editor.session.on('changeScrollTop', this.onScroll)
+    this.editor.getSession().setAnnotations(annotations || [])
+
     this.handleMarkers(markers || []);
 
-    // get a list of possible options to avoid 'misspelled option errors'
+    // Get a list of possible options to avoid 'misspelled option errors'.
     const availableOptions = this.editor.getOptions;
     for (let i = 0; i < editorOptions.length; i++) {
       const option = editorOptions[i];
-      if (availableOptions.hasOwnProperty(option)) {
-        this.editor.setOption(option, this.props[option]);
-      }
+//      if (availableOptions.hasOwnProperty(option)) {
+        this.editor.setOption(option, this.props[option])
+//      }
     }
 
     if (Array.isArray(commands)) {
       commands.forEach((command) => {
         this.editor.commands.addCommand(command)
-      });
+      })
     }
 
     if (keyboardHandler) {
-      this.editor.setKeyboardHandler('ace/keyboard/' + keyboardHandler);
+      this.editor.setKeyboardHandler('ace/keyboard/' + keyboardHandler)
     }
 
     if (className) {
-      this.refEditor.className += ' ' + className;
+      this.refEditor.className += ' ' + className
     }
 
     if (focus) {
-      this.editor.focus();
+      this.editor.focus()
     }
 
     if (onLoad) {
-      onLoad(this.editor);
+      onLoad(this.editor)
     }
 
-    this.editor.runNote = () => this.props.dispatchRunNoteAction(this.props.noteId)
-
+    this.editor.runCode = () => this.props.dispatchRunNoteAction(this.state.note.id, this.state.paragraphs[0].id)
     this.editor.commands.addCommand({
-      name: "runNote",
-      bindKey: {win: "Shift-Enter", mac: "Shift-Enter"},
+      name: "runCode",
+      bindKey: {
+        win: "Shift-Enter", 
+        mac: "Shift-Enter"
+      },
       exec: function(editor) {
-        editor.runNote()
+        editor.runCode()
       }
     })
 
-  }
-
+//  }
+/*
   public shouldComponentUpdate(nextProps, nextState) {
     const { note } = nextProps
     if (!note.paragraphs) {
@@ -239,24 +252,28 @@ export default class CodeEditor extends React.Component<any, any> {
     }
     return true
   }
+*/
+//  public componentWillReceiveProps(nextProps) {
+//    const { cursorStart, note } = nextProps
 
-  public componentWillReceiveProps(nextProps) {
-
-    const { note, cursorStart } = nextProps
-
+    const { note, paragraphs } = this.state
     if (!note.paragraphs) return
+//    if (this.state.note.id == note.id) return
 
-    if (this.state.note.id == note.id) return
-
-    let texts = note.paragraphs.map(p => {
+    var texts = paragraphs.map(p => {
       return p.text
     })
-    let text = texts.join('\n\n')
+
+    var text = texts.join('\n\n')
+
     this.editor.setValue(text, cursorStart)
     this.editor.focus()
+/*
     this.setState({
-      note: note
+      note: note,
+      paragraphs: note.paragraphs
     })
+*/
 /*
     const props = this.props;
 

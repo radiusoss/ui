@@ -11,25 +11,25 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { WidthProvider, Responsive } from "react-grid-layout"
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphRenderer from './../note/renderer/paragraph/ParagraphRenderer'
+import ParagraphResultsRenderer from './../note/renderer/paragraph/ParagraphResultsRenderer'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 /*
-import Grid00Showcase from '../splgrid/Grid00Showcase'
-import Grid01Basic from '../splgrid/Grid01Basic'
-import Grid02NoDragging from '../splgrid/Grid02NoDragging'
-import Grid03Messy from '../splgrid/Grid03Messy'
-import Grid04GridProperty from '../splgrid/Grid04GridProperty'
-import Grid05StaticElements from '../splgrid/Grid05StaticElements'
-import Grid06DynamicAddRemove from '../splgrid/Grid06DynamicAddRemove'
-import Grid07Localstorage from '../splgrid/Grid07Localstorage'
-import Grid08LocalstorageResponsive from '../splgrid/Grid08LocalstorageResponsive'
-import Grid09MinMaxHandle from '../splgrid/Grid09MinMaxHandle'
-import Grid10DynamicMinMaxHandle from '../splgrid/Grid10DynamicMinMaxHandle'
-import Grid11NoVerticalCompact from '../splgrid/Grid11NoVerticalCompact'
-import Grid12PreventCollision from '../splgrid/Grid12PreventCollision'
-import Grid13ResponsiveBootstrapStyle from '../splgrid/Grid13ResponsiveBootstrapStyle'
-import Grid14ErrorCase from '../splgrid/Grid14ErrorCase'
+import Grid00Showcase from '../spl/grid/Grid00Showcase'
+import Grid01Basic from '../spl/grid/Grid01Basic'
+import Grid02NoDragging from '../spl/grid/Grid02NoDragging'
+import Grid03Messy from '../spl/grid/Grid03Messy'
+import Grid04GridProperty from '../spl/grid/Grid04GridProperty'
+import Grid05StaticElements from '../spl/grid/Grid05StaticElements'
+import Grid06DynamicAddRemove from '../spl/grid/Grid06DynamicAddRemove'
+import Grid07Localstorage from '../spl/grid/Grid07Localstorage'
+import Grid08LocalstorageResponsive from '../spl/grid/Grid08LocalstorageResponsive'
+import Grid09MinMaxHandle from '../spl/grid/Grid09MinMaxHandle'
+import Grid10DynamicMinMaxHandle from '../spl/grid/Grid10DynamicMinMaxHandle'
+import Grid11NoVerticalCompact from '../spl/grid/Grid11NoVerticalCompact'
+import Grid12PreventCollision from '../spl/grid/Grid12PreventCollision'
+import Grid13ResponsiveBootstrapStyle from '../spl/grid/Grid13ResponsiveBootstrapStyle'
+import Grid14ErrorCase from '../spl/grid/Grid14ErrorCase'
 */
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
@@ -164,7 +164,7 @@ export default class NotesTiles extends React.Component<any, any> {
 {/*
           <Html data={msg}/>
 */}
-          <ParagraphRenderer paragraph={p} showCommandBar={false} />
+          <ParagraphResultsRenderer paragraph={p} showCommandBar={false} />
         </div>
         <span
           className="remove"

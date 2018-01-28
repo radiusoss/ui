@@ -6,8 +6,8 @@ import SimpleLayout from './../layouts/SimpleLayout'
 import OAuthMicrosoftCallback from './../views/auth/OAuthMicrosoftCallback'
 import OAuthTwitterCallback from './../views/auth/OAuthTwitterCallback'
 import About from './../views/about/About'
-import Page404 from './../views/Page404'
-import Page500 from './../views/Page500'
+import Page404 from './../views/error/Page404'
+import Page500 from './../views/error/Page500'
 
 export default class Routes extends React.Component<any, any> {
   

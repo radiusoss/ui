@@ -160,7 +160,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
   }
 
   private runNote() {
-    this.props.dispatchRunNoteAction(this.state.note.id)
+    this.props.dispatchRunNoteAction(this.state.note.id, this.state.note.paragraphps[0].id)
   }
 
   private asNotes(notes) {
@@ -177,7 +177,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
         var note = { 
           key: id,
           name: n.name,
-          onClick: () => this.notebookApi.showNoteLayout(id, 'columns')
+          onClick: () => this.notebookApi.showNoteLayout(id, 'lines')
         }
         ns.push(note)
       }
@@ -242,12 +242,14 @@ export default class NotebookControlBar extends React.Component<any, any> {
           title: 'Note Lines Layout',
           onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'lines')
         },
+/*
         {
           key: 'Tiles2',
           icon: 'Tiles2',
           title: 'Note Tiles Layout',
           onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'tiles')
         },
+*/
         {
           key: 'DoubleColumn',
           icon: 'DoubleColumn',
