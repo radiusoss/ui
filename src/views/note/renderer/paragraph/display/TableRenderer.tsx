@@ -112,8 +112,6 @@ export default class TableRenderer extends React.Component<any, any> {
       items.push(item)
     }
 
-    this.setState({
-    })
     this.state = {
       id: props.id,
       p: props.p,
@@ -124,8 +122,11 @@ export default class TableRenderer extends React.Component<any, any> {
       showCommandBar: props.showCommandBar,
       format: format
     }
+
     this.notebookApi = window["NotebookApi"]
+
     this.updateTable()
+
   }
 
   componentDidMount() {

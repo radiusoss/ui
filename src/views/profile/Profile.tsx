@@ -1,14 +1,14 @@
 import * as React from 'react'
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import { Label } from 'office-ui-fabric-react/lib/Label'
+import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
-import { NotebookStore } from './../store/NotebookStore'
-import Kerberos from './profile/Kerberos'
-import Microsoft from './profile/Microsoft'
-import Twitter from './profile/Twitter'
+import { NotebookStore } from './../../store/NotebookStore'
+import Kerberos from './Kerberos'
+import Microsoft from './Microsoft'
+import Twitter from './Twitter'
 import { connect } from 'react-redux'
-import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../actions/AuthActions'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
+import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)

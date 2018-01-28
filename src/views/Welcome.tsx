@@ -11,7 +11,7 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/
 import NotebookApi from './../api/notebook/NotebookApi'
 import MicrosoftApi from '../api/microsoft/MicrosoftApi'
 import TwitterApi from '../api/twitter/TwitterApi'
-import Highlights from './Highlights'
+import Highlights from './about/Highlights'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 

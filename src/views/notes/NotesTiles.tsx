@@ -61,6 +61,7 @@ export default class NotesTiles extends React.Component<any, any> {
           isOpen={ this.state.showPanel }
           type={ PanelType.smallFluid }
           onDismiss={ () => this.setState({ showPanel: false }) }
+          headerText={'Notebook Cover - ' + new Date()}
         >
           <ResponsiveReactGridLayout
             onLayoutChange={this.onLayoutChange}

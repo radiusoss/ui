@@ -1,25 +1,25 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import HdfsApi from './../api/hdfs/HdfsApi'
-import NotebookApi from './../api/notebook/NotebookApi'
-import { ApplicationState } from '../state/State'
-import { isMicrosoftAuthenticatedAction, AuthProps, AuthDispatchers, mapStateToPropsAuth, mapDispatchToPropsAuth  } from '../actions/AuthActions'
-import { CounterDispatchers, CounterProps, mapStateToPropsCounter, mapDispatchToPropsCounter } from '../actions/CounterActions'
-import { CounterLabelProp, System } from '../domain/Domain'
+import HdfsApi from './../../api/hdfs/HdfsApi'
+import NotebookApi from './../../api/notebook/NotebookApi'
+import { ApplicationState } from '../../state/State'
+import { isMicrosoftAuthenticatedAction, AuthProps, AuthDispatchers, mapStateToPropsAuth, mapDispatchToPropsAuth  } from '../../actions/AuthActions'
+import { CounterDispatchers, CounterProps, mapStateToPropsCounter, mapDispatchToPropsCounter } from '../../actions/CounterActions'
+import { CounterLabelProp, System } from '../../domain/Domain'
 import { toastr } from 'react-redux-toastr'
 import JSONTree from 'react-json-tree'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button';
-import CodeBlock from '../components/CodeBlock'
-import ExerciseCard from '../components/ExerciseCard'
+import CodeBlock from '../../components/CodeBlock'
+import ExerciseCard from '../../components/ExerciseCard'
 import { TextFieldBasicExample } from 'office-ui-fabric-react/lib/components/TextField/examples/TextField.Basic.Example'
 import { TextFieldErrorMessageExample } from 'office-ui-fabric-react/lib/components/TextField/examples/TextField.ErrorMessage.Example'
-import * as stylesImport from '../components/CodeBlock.module.scss'
+import * as stylesImport from '../../components/CodeBlock.module.scss'
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { NumberTextField } from 'office-ui-fabric-react/lib/components/TextField/examples/NumberTextField';
-import { NotebookProps, mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
-import { SpitfireResponse } from '../api/spitfire/SpitfireApi'
-import * as note from '../resources/note.json'
-import * as svg from '../resources/azure.svg'
+import { NotebookProps, mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
+import { SpitfireResponse } from '../../api/spitfire/SpitfireApi'
+import * as note from '../../resources/NOTE.json'
+import * as svg from '../../resources/azure.svg'
 
 const styles: any = stylesImport
 const TextFieldBasicExampleCode = require('!raw-loader!office-ui-fabric-react/src/components/TextField/examples/TextField.Basic.Example.tsx') as string

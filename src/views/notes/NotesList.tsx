@@ -155,7 +155,7 @@ export default class NotesList extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-    this.notebookApi.listNotes()
+//    this.notebookApi.listNotes()
   }
 
   public componentWillReceiveProps(nextProps) {

@@ -1,0 +1,107 @@
+{
+  "op": "PARAGRAPH",
+  "data": {
+    "paragraph": {
+      "text": "%spark\n\nprintln(lr_table)",
+      "user": "datalayerio#twitter",
+      "dateUpdated": "2018-01-27T14:39:05+0100",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "name": "string",
+                      "weights": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "name",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "weights",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "scala"
+        },
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "name\tweights\nvar01\t-1.5572462050616074\nvar11\t0.3149073877709553\nvar21\t-0.3446912056356284\nvar31\t1.201394228676075\nvar41\t-1.0337328268704975\nvar51\t-1.5512934611172975\nvar61\t-1.6416196202856013\nvar71\t1.4453790871261896\nvar81\t-1.1599083640936656\nvar91\t-1.6654973358260372\nvar101\t-0.06895205088671968\nvar111\t-1.1616643107110232\nvar121\t-1.7629433233483518\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_2CETCX3MY_63",
+      "id": "2CETCX3MY_63",
+      "dateCreated": "2018-01-27T11:40:36+0100",
+      "dateStarted": "2018-01-27T11:40:39+0100",
+      "dateFinished": "2018-01-27T11:40:41+0100",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    }
+  },
+  "ticket": "anonymous",
+  "principal": "anonymous",
+  "roles": ""
+}

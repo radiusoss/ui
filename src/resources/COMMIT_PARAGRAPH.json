@@ -1,0 +1,84 @@
+{
+    "op": "COMMIT_PARAGRAPH",
+    "data": {
+        "id": "2CETCX3MY_63",
+        "paragraph": "%spark\n\nprintln(lr_table)",
+        "config": {
+            "colWidth": 12,
+            "enabled": true,
+            "results": {
+                "0": {
+                    "graph": {
+                        "mode": "multiBarChart",
+                        "height": 300,
+                        "optionOpen": false,
+                        "setting": {
+                            "table": {
+                                "tableGridState": {},
+                                "tableColumnTypeState": {
+                                    "names": {
+                                        "name": "string",
+                                        "weights": "string"
+                                    },
+                                    "updated": false
+                                },
+                                "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                                "tableOptionValue": {
+                                    "useFilter": false,
+                                    "showPagination": false,
+                                    "showAggregationFooter": false
+                                },
+                                "updated": false,
+                                "initialized": false
+                            },
+                            "multiBarChart": {
+                                "rotate": {
+                                    "degree": "-45"
+                                },
+                                "xLabelStatus": "default"
+                            },
+                            "stackedAreaChart": {
+                                "rotate": {
+                                    "degree": "-45"
+                                },
+                                "xLabelStatus": "default"
+                            },
+                            "lineChart": {
+                                "rotate": {
+                                    "degree": "-45"
+                                },
+                                "xLabelStatus": "default"
+                            }
+                        },
+                        "commonSetting": {},
+                        "keys": [
+                            {
+                                "name": "name",
+                                "index": 0,
+                                "aggr": "sum"
+                            }
+                        ],
+                        "groups": [],
+                        "values": [
+                            {
+                                "name": "weights",
+                                "index": 1,
+                                "aggr": "sum"
+                            }
+                        ]
+                    },
+                    "helium": {}
+                }
+            },
+            "editorSetting": {
+                "language": "scala"
+            },
+            "editorMode": "ace/mode/scala",
+            "fontSize": 9
+        },
+        "params": {}
+    },
+    "principal": "anonymous",
+    "ticket": "anonymous",
+    "roles": "[]"
+}

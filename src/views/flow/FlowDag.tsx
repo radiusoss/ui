@@ -82,7 +82,12 @@ export default class FlowDag extends React.Component<any, any> {
       </div>
     )
   }
-  
+
+  public componentDidMount() {
+    this.notebookApi.listFlows()
+    this.notebookApi.listNotes()
+  }
+
   public componentWillReceiveProps(nextProps) {
     const { webSocketMessageReceived } = nextProps
     if (! webSocketMessageReceived) return

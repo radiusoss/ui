@@ -1,18 +1,18 @@
 import * as React from 'react'
 import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
-import { NotebookStore } from '../store/NotebookStore'
-import { IConfig, emptyConfig } from './../api/config/ConfigApi'
+import { NotebookStore } from '../../store/NotebookStore'
+import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Label } from 'office-ui-fabric-react/lib/Label'
-import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../util/rest/RestClient'
+import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import { Form, FormConditionalSubmitButton, FormDatePicker, FormTextInput, Validators } from '@uifabric/experiments/lib/Form'
-import { emailRegexp } from './../util/msc/regexp'
+import { emailRegexp } from './../../util/msc/regexp'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../actions/ConfigActions'
-import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../actions/K8SActions'
-import K8SApi from '../api/k8s/K8SApi'
+import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
+import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../../actions/K8SActions'
+import K8SApi from '../../api/k8s/K8SApi'
 import JSONTree from 'react-json-tree'
 
 export type IK8SState = {
@@ -27,7 +27,7 @@ const MAX_LENGTH = 20
 
 @connect(mapStateToPropsK8S, mapDispatchToPropsK8S)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class K8S extends React.Component<any, IK8SState> {
+export default class Spl extends React.Component<any, IK8SState> {
   private config: IConfig = NotebookStore.state().config
   private k8sApi: K8SApi
   private restClient: RestClient

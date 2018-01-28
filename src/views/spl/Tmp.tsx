@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { toastr } from 'react-redux-toastr'
-import { CounterDispatchers, CounterProps, mapStateToPropsCounter, mapDispatchToPropsCounter } from '../actions/CounterActions'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
+import { CounterDispatchers, CounterProps, mapStateToPropsCounter, mapDispatchToPropsCounter } from '../../actions/CounterActions'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 const styles = {
   backgroundColor : 'red',

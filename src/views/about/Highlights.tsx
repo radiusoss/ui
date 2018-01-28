@@ -2,8 +2,7 @@ import * as React from 'react'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import * as stylesImport from './_styles/Styles.scss'
-import K8S from './K8S'
+import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 const K8S_TEXT = `

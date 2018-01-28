@@ -29,18 +29,19 @@ export default class NotebookControlBar extends React.Component<any, any> {
   private rightItems: any[] = [{}]
 
   state = {
+    isMicrosoftAuthenticated: false,
+    isTwitterAuthenticated: false,
+    note: undefined,
+    notes: [],
+    runningParagraphs: [],
+    layout: '',
+    flows: [],
     showNewNotePanel: false,
     newNoteName: "",
     isNewNoteNameValid: false,
     showNewFlowPanel: false,
     newFlowName: "",
-    isNewFlowNameValid: false,
-    note: undefined,
-    runningParagraphs: [],
-    notes: [],
-    isMicrosoftAuthenticated: false,
-    isTwitterAuthenticated: false,
-    layout: ''
+    isNewFlowNameValid: false
   }
 
   public constructor(props) {
@@ -95,6 +96,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
               onGetErrorMessage={ v => this.getNewFlowErrorMessage(v) }
               iconClass='ms-Icon--Flow ms-Icon'
             />
+            <br/>
             <PrimaryButton
               text='Create Flow'
               disabled={ !this.state.isNewFlowNameValid }
@@ -108,8 +110,8 @@ export default class NotebookControlBar extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-    this.notebookApi.listFlows()
     this.notebookApi.listNotes()
+    this.notebookApi.listFlows()
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -117,12 +119,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
     if (config && ! isEqual(config, this.config)) {
       this.config = config
     }
-/*
-    if (!this.state.isMicrosoftAuthenticated && isMicrosoftAuthenticated) {
-      console.log("auth", this.state.isMicrosoftAuthenticated, isMicrosoftAuthenticated)
-//      this.notebookApi.listNotes()
-    }
-*/
     if (! this.state.isMicrosoftAuthenticated != isMicrosoftAuthenticated) {
       this.setState({
         isMicrosoftAuthenticated: isMicrosoftAuthenticated
@@ -155,6 +151,12 @@ export default class NotebookControlBar extends React.Component<any, any> {
         notes: this.asNotes(notes)
       })
     }
+    if (webSocketMessageReceived && webSocketMessageReceived.op == "SAVE_FLOWS") {
+      let flows = webSocketMessageReceived.data.flows
+      this.setState({
+        flows: this.asFlows(flows)
+      })
+    }
   }
 
   private asNotes(notes) {
@@ -173,10 +175,30 @@ export default class NotebookControlBar extends React.Component<any, any> {
           name: n.name,
           onClick: () => this.notebookApi.getNote(id)
         }
-        ns.push( note )
+        ns.push(note)
       }
     })
     return ns
+  }
+
+  private asFlows(flows) {
+    var fl = []
+    fl.push(
+      {
+        key: 'new-flow',
+        name: 'New flow...',
+        icon: 'Flow',
+        onClick: () => this.setState({ showNewFlowPanel: true })
+      })
+    flows.map(f => {
+      var flow = { 
+        key: f.id,
+        name: f.name,
+        onClick: () => history.push(`/dla/flow/dag/${f.id}`)
+      }
+      fl.push(flow)
+    })
+    return fl
   }
 
   private updateRunIndicator() {
@@ -259,12 +281,11 @@ export default class NotebookControlBar extends React.Component<any, any> {
         onClick: () => history.push(`/dla/notes/list`)
       },
       {
-        key: 'new-flow',
-        name: 'New Flow',
+        key: 'flows',
+        name: 'Flows',
         icon: 'Flow',
-        title: 'New Flow',
-        onClick: () => this.setState({ showNewFlowPanel: true })
-      },
+        items: this.state.flows
+      },      
       {
         key: 'notes',
         name: 'Notes',

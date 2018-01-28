@@ -5,7 +5,7 @@ import NotebookLayout from './../layouts/NotebookLayout'
 import SimpleLayout from './../layouts/SimpleLayout'
 import OAuthMicrosoftCallback from './../views/auth/OAuthMicrosoftCallback'
 import OAuthTwitterCallback from './../views/auth/OAuthTwitterCallback'
-import About from './../views/About'
+import About from './../views/about/About'
 import Page404 from './../views/Page404'
 import Page500 from './../views/Page500'
 
