@@ -15,13 +15,31 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBa
 export default class ParagraphRenderer extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
+  state = {
+    paragraph: {
+      id: '',
+      status: '',
+      results: {
+        msg: {
+          data: '',
+          type: '',
+        }
+      }
+    },
+    showCommandBar: true
+  }
+
   public constructor(props) {
     super(props)
+    this.state = {
+      paragraph: props.paragraph,
+      showCommandBar: props.showCommandBar
+    }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    const { paragraph, showCommandBar } = this.props
+    const { paragraph, showCommandBar } = this.state
     var results = paragraph.results
     if (!results) {
       if (paragraph.status == 'FINISHED') {
@@ -77,7 +95,10 @@ export default class ParagraphRenderer extends React.Component<any, any> {
   }
 
   public shouldComponentUpdate(nextProps, nextState) {
-    const { webSocketMessageSent } = nextProps
+    const { webSocketMessageSent, webSocketMessageReceived } = nextProps
+    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
+      return true
+    }
     if (webSocketMessageSent && (webSocketMessageSent.op == "RUN_ALL_PARAGRAPHS_SPITFIRE")) {
       return true
     }
@@ -88,6 +109,18 @@ export default class ParagraphRenderer extends React.Component<any, any> {
       return false
     }
     return true
+  }
+
+  public componentWillReceiveProps(nextProps) {
+    const { webSocketMessageReceived } = nextProps
+    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
+      var paragraph = webSocketMessageReceived.data.paragraph
+      if (paragraph.id == this.state.paragraph.id) {
+        this.setState({
+          paragraph: webSocketMessageReceived.data.paragraph
+        })
+      }
+    }
   }
 
 }

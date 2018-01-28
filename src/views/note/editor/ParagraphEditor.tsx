@@ -22,21 +22,24 @@ export default class ParagraphEditor extends React.Component<any, any> {
       id: '',
       text: ''
     },
+    focus: false,
     code: ''
   }
 
   constructor(props) {    
     super(props)
+    console.log('focus', props.focus)
     this.state = {
       note: props.note,
       paragraph: props.paragraph,
+      focus: props.focus, 
       code: ''
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    const { note, paragraph, code } = this.state
+    const { note, paragraph, code, focus } = this.state
     return (
       <div key={paragraph.id}>
         <CodeEditor
@@ -51,7 +54,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
           mode="scala"
           theme="tomorrow"
           fontSize="14px"
-          focus={false}
+          focus={focus}
 //          onLoad={this.onLoad}
 //          onChange={this.onChange}
           setOptions={{

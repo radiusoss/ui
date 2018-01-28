@@ -56,9 +56,7 @@ export default class NoteResultsRenderer extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-
     const { note, webSocketMessageSent, webSocketMessageReceived } = nextProps
-
     if (webSocketMessageSent) {
       if (webSocketMessageSent.op == "RUN_ALL_PARAGRAPHS_SPITFIRE") {
         this.setState({
@@ -70,7 +68,6 @@ export default class NoteResultsRenderer extends React.Component<any, any> {
         return
       }
     }
-
     if (webSocketMessageReceived) {
       if (webSocketMessageReceived.op == "PARAGRAPH") {
         let paragraph = webSocketMessageReceived.data.paragraph
@@ -84,7 +81,6 @@ export default class NoteResultsRenderer extends React.Component<any, any> {
             paragraphs: updatedParagraphs
           }
         })
-
         let runningParagraphs = NotebookStore.state().runningParagraphs
         let updatedRunningParagraphs = []
         for (let i = 0; i < runningParagraphs.length; i++) {
@@ -101,7 +97,6 @@ export default class NoteResultsRenderer extends React.Component<any, any> {
         return
       }
     }
-
     if (note && note.paragraphs) {
       if (note.id !== this.state.note.id) {
         this.setState({
@@ -120,7 +115,6 @@ export default class NoteResultsRenderer extends React.Component<any, any> {
         }
       }
     }
-
   }
 
 }
