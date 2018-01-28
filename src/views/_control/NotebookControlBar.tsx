@@ -34,7 +34,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
     note: undefined,
     notes: [],
     runningParagraphs: [],
-    layout: '',
     flows: [],
     showNewNotePanel: false,
     newNoteName: "",
@@ -142,8 +141,9 @@ export default class NotebookControlBar extends React.Component<any, any> {
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NEW_NOTE") {
       this.notebookApi.listNotes()
       let noteId = webSocketMessageReceived.data.note.id
-      this.notebookApi.getNote(noteId)
-      history.push(`/dla/note/${noteId}`)
+      this.notebookApi.showNoteLayout(noteId, 'columns')
+//      this.notebookApi.getNote(noteId)
+//      history.push(`/dla/note/columns/${noteId}`)
     }
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NOTES_INFO") {
       let notes = webSocketMessageReceived.data.notes
@@ -157,6 +157,10 @@ export default class NotebookControlBar extends React.Component<any, any> {
         flows: this.asFlows(flows)
       })
     }
+  }
+
+  private runNote() {
+    this.props.dispatchRunNoteAction(this.state.note.id)
   }
 
   private asNotes(notes) {
@@ -173,7 +177,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
         var note = { 
           key: id,
           name: n.name,
-          onClick: () => this.notebookApi.getNote(id)
+          onClick: () => this.notebookApi.showNoteLayout(id, 'columns')
         }
         ns.push(note)
       }
@@ -194,16 +198,79 @@ export default class NotebookControlBar extends React.Component<any, any> {
       var flow = { 
         key: f.id,
         name: f.name,
-        onClick: () => history.push(`/dla/flow/dag/${f.id}`)
+        onClick: () => this.notebookApi.getFlow(f.id)
       }
       fl.push(flow)
     })
     return fl
   }
 
+  private updateMenu() {
+    const {note, runningParagraphs} = this.state
+    this.leftItems = [
+      {
+        key: 'tiles',
+        icon: 'Tiles',
+        title: 'Notes Tiles View',
+        onClick: () => history.push(`/dla/notes/tiles`)
+      },
+      {
+        key: 'list',
+        icon: 'ViewList',
+        title: 'Notes List View',
+        onClick: () => history.push(`/dla/notes/list`)
+      },
+      {
+        key: 'flows',
+        name: 'Flows',
+        icon: 'Flow',
+        items: this.state.flows
+      },      
+      {
+        key: 'notes',
+        name: 'Notes',
+        icon: 'ReadingMode',
+        items: this.state.notes
+      },      
+      this.runIndicator
+    ]
+    if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") != -1) {
+      this.rightItems = [
+        {
+          key: 'CollapseMenu',
+          icon: 'CollapseMenu',
+          title: 'Note Lines Layout',
+          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'lines')
+        },
+        {
+          key: 'Tiles2',
+          icon: 'Tiles2',
+          title: 'Note Tiles Layout',
+          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'tiles')
+        },
+        {
+          key: 'DoubleColumn',
+          icon: 'DoubleColumn',
+          title: 'Note Columns Layout',
+          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'columns')
+        },
+        {
+          key: 'SingleColumn',
+          icon: 'SingleColumn',
+          title: 'Note Results Layout',
+          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'results')
+        }
+      ]
+    }
+    else {
+      this.rightItems = [
+      ]
+    }
+  }
+
   private updateRunIndicator() {
     const {note, runningParagraphs} = this.state
-    let isNoteRunning = runningParagraphs.length > 0
+//    let isNoteRunning = runningParagraphs.length > 0
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") == -1) {
 /*
       if (isNoteRunning) {
@@ -263,73 +330,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
       onClick: () => this.runNote()
     }
 
-  }
-
-  private updateMenu() {
-    const {note, runningParagraphs} = this.state
-    this.leftItems = [
-      {
-        key: 'tiles',
-        icon: 'Tiles',
-        title: 'Notes Tiles View',
-        onClick: () => history.push(`/dla/notes/tiles`)
-      },
-      {
-        key: 'list',
-        icon: 'ViewList',
-        title: 'Notes List View',
-        onClick: () => history.push(`/dla/notes/list`)
-      },
-      {
-        key: 'flows',
-        name: 'Flows',
-        icon: 'Flow',
-        items: this.state.flows
-      },      
-      {
-        key: 'notes',
-        name: 'Notes',
-        icon: 'ReadingMode',
-        items: this.state.notes
-      },      
-      this.runIndicator
-    ]
-    if (note) {
-      this.rightItems = [
-        {
-          key: 'CollapseMenu',
-          icon: 'CollapseMenu',
-          title: 'Lines Layout',
-          onClick: () => this.setState({ layout: 'Lines' })
-        },
-        {
-          key: 'Tiles2',
-          icon: 'Tiles2',
-          title: 'Tiles Layout',
-          onClick: () => this.setState({ layout: 'Tiles' })
-        },
-        {
-          key: 'DoubleColumn',
-          icon: 'DoubleColumn',
-          title: 'Double Column Layout',
-          onClick: () => this.setState({ layout: 'Double' })
-        },
-        {
-          key: 'SingleColumn',
-          icon: 'SingleColumn',
-          title: 'Result Layout',
-          onClick: () => this.setState({ layout: 'Result' })
-        }
-      ]
-    }
-    else {
-      this.rightItems = [
-      ]
-    }
-  }
-
-  private runNote() {
-    this.props.dispatchRunNoteAction(this.state.note.id)
   }
 
   // --------------------------------------------------------------------------

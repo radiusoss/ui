@@ -155,7 +155,7 @@ export default class NotesList extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-//    this.notebookApi.listNotes()
+    this.notebookApi.listNotes()
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -177,7 +177,7 @@ export default class NotesList extends React.Component<any, any> {
   private loadNote(e: React.MouseEvent<HTMLAnchorElement>, noteId) {
     e.stopPropagation()
     e.preventDefault()
-    this.notebookApi.getNote(noteId)
+    this.notebookApi.showNoteLayout(noteId, 'columns')
   }
 
   private showDeletePanel(e: React.MouseEvent<HTMLAnchorElement>, noteId, noteName) {

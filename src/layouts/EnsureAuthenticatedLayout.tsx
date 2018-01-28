@@ -9,9 +9,12 @@ import FlowDag from './../views/flow/FlowDag'
 import Login from './../views/auth/Login'
 import NotesList from './../views/notes/NotesList'
 import NotesTiles from './../views/notes/NotesTiles'
-import Note from './../views/note/Note'
+import NoteLinesLayout from './../views/note/NoteLinesLayout'
+import NoteTilesLayout from './../views/note/NoteTilesLayout'
+import NoteColumnsLayout from './../views/note/NoteColumnsLayout'
+import NoteResultsLayout from './../views/note/NoteResultsLayout'
 import Profile from './../views/profile/Profile'
-import Settings from './../views/settings/Settings'
+import Settings from './../views/admin/Settings'
 import Simple from './../views/spl/Simple'
 import Lesson1 from '../views/school/lessons/1/Lesson1'
 import Lesson2 from '../views/school/lessons/2/Lesson2'
@@ -33,13 +36,15 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route exact path="/dla" component={Welcome}/>
           <Route path="/dla/notes/list" name="Notes" component={NotesList}/>
           <Route path="/dla/notes/tiles" name="Notes" component={NotesTiles}/>
-          <Route path="/dla/note/:noteId" name="Note Editor" component={Note}/>
+          <Route path="/dla/note/lines/:noteId" name="Note Lines Layout" component={NoteLinesLayout}/>
+          <Route path="/dla/note/tiles/:noteId" name="Note Tiles Layout" component={NoteTilesLayout}/>
+          <Route path="/dla/note/columns/:noteId" name="Note Columns Layout" component={NoteColumnsLayout}/>
+          <Route path="/dla/note/results/:noteId" name="Note Results Layout" component={NoteResultsLayout}/>
           <Route path="/dla/stories" name="Stories" component={Stories}/>
           <Route path="/dla/datasets" name="Datasets" component={Datasets} />
           <Route path="/dla/flows" name="Flows" component={Flows}/>
           <Route path="/dla/flow/dag/:flowId" name="Flow Dag" component={FlowDag}/>
           <Route path="/dla/flow/detail/:flowId" name="Flow Detail" component={FlowDetail}/>
-          <Route path="/dla/admin/settings" name="Settings" component={Settings}/>
           <Route path="/dla/profile" name="Profile" component={Profile}/>
           <Route path="/dla/settings" name="Settings" component={Settings}/>
           <Route path="/dla/school/lessons/1" name="Lesson 1" component={Lesson1}/>

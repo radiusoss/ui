@@ -73,8 +73,13 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.newNote(name)
   }
 
+  public showNoteLayout(id: string, layout: string) {
+    history.push(`/dla/note/${layout}/${id}`)
+    return this.spitfireApi.getNote(id)
+  }
+
   public getNote(id: string) {
-    history.push(`/dla/note/${id}`)
+//    history.push(`/dla/note/columns/${id}`)
     return this.spitfireApi.getNote(id)
   }
 
@@ -128,7 +133,8 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   }
 
   public getFlow(id: string): void {
-    return this.spitfireApi.getFlow(id)
+    history.push(`/dla/flow/dag/${id}`)
+    this.spitfireApi.getFlow(id)
   }
 
   public renameFlow(id: string, newName: string): void {

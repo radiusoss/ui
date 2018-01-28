@@ -15,21 +15,21 @@ import ParagraphRenderer from './../note/renderer/paragraph/ParagraphRenderer'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 /*
-import Grid00Showcase from '../spl/Grid00Showcase'
-import Grid01Basic from '../spl/Grid01Basic'
-import Grid02NoDragging from '../spl/Grid02NoDragging'
-import Grid03Messy from '../spl/Grid03Messy'
-import Grid04GridProperty from '../spl/Grid04GridProperty'
-import Grid05StaticElements from '../spl/Grid05StaticElements'
-import Grid06DynamicAddRemove from '../spl/Grid06DynamicAddRemove'
-import Grid07Localstorage from '../spl/Grid07Localstorage'
-import Grid08LocalstorageResponsive from '../spl/Grid08LocalstorageResponsive'
-import Grid09MinMaxHandle from '../spl/Grid09MinMaxHandle'
-import Grid10DynamicMinMaxHandle from '../spl/Grid10DynamicMinMaxHandle'
-import Grid11NoVerticalCompact from '../spl/Grid11NoVerticalCompact'
-import Grid12PreventCollision from '../spl/Grid12PreventCollision'
-import Grid13ResponsiveBootstrapStyle from '../spl/Grid13ResponsiveBootstrapStyle'
-import Grid14ErrorCase from '../spl/Grid14ErrorCase'
+import Grid00Showcase from '../splgrid/Grid00Showcase'
+import Grid01Basic from '../splgrid/Grid01Basic'
+import Grid02NoDragging from '../splgrid/Grid02NoDragging'
+import Grid03Messy from '../splgrid/Grid03Messy'
+import Grid04GridProperty from '../splgrid/Grid04GridProperty'
+import Grid05StaticElements from '../splgrid/Grid05StaticElements'
+import Grid06DynamicAddRemove from '../splgrid/Grid06DynamicAddRemove'
+import Grid07Localstorage from '../splgrid/Grid07Localstorage'
+import Grid08LocalstorageResponsive from '../splgrid/Grid08LocalstorageResponsive'
+import Grid09MinMaxHandle from '../splgrid/Grid09MinMaxHandle'
+import Grid10DynamicMinMaxHandle from '../splgrid/Grid10DynamicMinMaxHandle'
+import Grid11NoVerticalCompact from '../splgrid/Grid11NoVerticalCompact'
+import Grid12PreventCollision from '../splgrid/Grid12PreventCollision'
+import Grid13ResponsiveBootstrapStyle from '../splgrid/Grid13ResponsiveBootstrapStyle'
+import Grid14ErrorCase from '../splgrid/Grid14ErrorCase'
 */
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
@@ -52,7 +52,7 @@ export default class NotesTiles extends React.Component<any, any> {
     }
   }
 
-  public render() {    
+  public render() {
     let { notes, showPanel } = this.state
     return (
       <div>
@@ -131,7 +131,7 @@ export default class NotesTiles extends React.Component<any, any> {
   private loadNote(e: React.MouseEvent<HTMLAnchorElement>, noteId) {
     e.stopPropagation()
     e.preventDefault()
-    this.notebookApi.getNote(noteId)
+    this.notebookApi.showNoteLayout(noteId, 'columns')
   }
 
   @autobind
