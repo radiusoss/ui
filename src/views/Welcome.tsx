@@ -46,7 +46,7 @@ export default class Welcome extends React.Component<any, any> {
 
         <div className={ styles.hero } style={{ margin: '0px' }}>
 
-          <h1 className={ styles.title }>Kuber Plane</h1>
+          <h1 className={ styles.title }>Kuber Board</h1>
 
           <span className={ styles.tagline }>Kuber is the easy way to create and manage your Big Data Science Platform on Kubernetes.</span>
 

@@ -19,9 +19,9 @@
 
 yarn build
 
-uglifyjs dist/kuber-plane.js -o dist/kuber-plane.min.js -c -m
+uglifyjs dist/kuber-board.js -o dist/kuber-board.min.js -c -m
 
-TARGET_FOLDER="_plane"
+TARGET_FOLDER="_board"
 
 rm -fr $TARGET_FOLDER
 mkdir $TARGET_FOLDER
@@ -30,8 +30,8 @@ cp index.min.html $TARGET_FOLDER/index.html
 
 mkdir $TARGET_FOLDER/dist
 
-# cp dist/kuber-plane.js $TARGET_FOLDER/dist
-cp dist/kuber-plane.min.js $TARGET_FOLDER/dist
+# cp dist/kuber-board.js $TARGET_FOLDER/dist
+cp dist/kuber-board.min.js $TARGET_FOLDER/dist
 
 cp -r css $TARGET_FOLDER
 cp -r fonts $TARGET_FOLDER

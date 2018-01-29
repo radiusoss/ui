@@ -84,12 +84,12 @@ build.serve.setConfig({
 });
   
 gulp.task('scss', function () {
-  return gulp.src('./scss/kuber-plane.scss')
+  return gulp.src('./scss/kuber-board.scss')
   .pipe(sass().on('error', sass.logError))
-  .pipe(concat('kuber-plane.css'))
+  .pipe(concat('kuber-board.css'))
   .pipe(gulp.dest('./css'))
   .pipe(sass({outputStyle: 'compressed'}))
-  .pipe(concat('kuber-plane.min.css'))
+  .pipe(concat('kuber-board.min.css'))
   .pipe(gulp.dest('./css'));
 });
 
