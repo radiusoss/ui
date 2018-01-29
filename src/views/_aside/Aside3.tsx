@@ -13,8 +13,8 @@ export default class Aside3 extends React.Component<any, any> {
   public render() {
     return (
       <div>
-        <h6>Settings</h6>
 {/*
+        <h6>Settings</h6>
         <div className="aside-options">
             <div className="clearfix mt-2">
                 <small><b>Option 1</b>
@@ -68,7 +68,6 @@ export default class Aside3 extends React.Component<any, any> {
         <hr/>
 */}
         <h6>Cluster Usage</h6>
-{/*
         <div className="text-uppercase mb-q mt-2">
             <small><b>CPU Usage</b>
             </small>
@@ -77,7 +76,6 @@ export default class Aside3 extends React.Component<any, any> {
             <div className="progress-bar bg-info" role="progressbar" style={{ "width": "25%"}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <small className="text-muted">348 Processes. 1/4 Cores.</small>
-
         <div className="text-uppercase mb-q mt-h">
             <small><b>Memory Usage</b>
             </small>
@@ -104,7 +102,7 @@ export default class Aside3 extends React.Component<any, any> {
             <div className="progress-bar bg-success" role="progressbar" style={{ "width": "10%" }} aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <small className="text-muted">25GB/256GB</small>
-*/}
+
     </div>
    )
   }

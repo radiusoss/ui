@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
+import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
+import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { connect } from 'react-redux'
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import * as isEqual from 'lodash.isequal'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import history from './../../routes/History'
@@ -57,7 +57,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
           isSearchBoxVisible={ this.props.isSearchBoxVisible }
           items={ this.leftItems }
           farItems={ this.rightItems }
-          className={ styles.commandBarBackground }
+          className={ styles.commandBarBackgroundTransparentLarge }
         />
         <Panel
           isOpen={ this.state.showNewNotePanel }

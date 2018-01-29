@@ -13,21 +13,24 @@ export default class NoteResultsRenderer extends React.Component<any, any> {
     note : {
       id: '',
       paragraphs: [{
-        id: ''
+        id: '',
+        title: ''
       }]
-    }
+    },
+    showCommandBar: true
   }
 
   public constructor(props) {
     super(props)
     this.state = {
-      note: props.note
+      note: props.note,
+      showCommandBar: props.showCommandBar
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    var {note} = this.state
+    var {note, showCommandBar} = this.state
     if (!note.paragraphs) {
       return <div></div>
     }
@@ -37,7 +40,11 @@ export default class NoteResultsRenderer extends React.Component<any, any> {
           note.paragraphs.map( p => {
             return (
               <div key={p.id}>
-                <ParagraphResultsRenderer paragraph={p} showCommandBar={true}/>
+{/*
+                <br/>
+                <div className="ms-fontSize-xl">{p.title}</div>
+*/}
+                <ParagraphResultsRenderer paragraph={p} showCommandBar={showCommandBar}/>
               </div>
             )
           })

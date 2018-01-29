@@ -39,8 +39,8 @@ export default class NoteResultsLayout extends React.Component<any, any> {
         >
           <div className="ms-Grid">
             <div className="ms-Grid-row">
-              <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
-                <NoteResultsRenderer note={note} />
+              <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }} >
+                <NoteResultsRenderer note={note} showCommandBar={false} />
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@ export default class NoteResultsLayout extends React.Component<any, any> {
         :
         <div className="ms-Grid">
           <div className="ms-Grid-row">
-           <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
+           <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }} >
              <NoteResultsRenderer note={note} />
            </div>
           </div>

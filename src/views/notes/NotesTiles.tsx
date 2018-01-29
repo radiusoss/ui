@@ -151,7 +151,10 @@ export default class NotesTiles extends React.Component<any, any> {
     }
     var note = this.state.notesMap[el.i]
     var p = note.p
-    var msg = p.results.msg[0].data
+//    var msg = ''
+//    if (p.results && p.results.msg && p.results.msg[0]) {
+//      msg = p.results.msg[0].data
+//    }
     return (
       <div key={el.i} data-grid={el}>
         <a className='ms-fontWeight-semibold' href='#' onClick={ e => this.loadNote(e, el.i) }>

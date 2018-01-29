@@ -51,7 +51,7 @@ function start(): void {
             <MicrosoftApi/>
             <NotebookApi/>
             <ConnectedRouter history = { routerHistory } >
-              <Routes />
+            <Routes />
             </ConnectedRouter>
             <ReduxToastr
               timeOut={4000}

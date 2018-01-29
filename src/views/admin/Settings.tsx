@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
 import Cluster from './../cluster/Cluster'
-import Aws from './../cloud/aws/Aws'
+import Aws from './../cloud/Aws'
 import Apps from './../apps/Apps'
 import Config from './../config/Config'
 import SpitfireConfig from './../spitfire/Config'

@@ -3,8 +3,20 @@
 
 // ----------------------------------------------------------------------------
 
-.commandBarBackground {
+.commandBarBackgroundTransparent {
   background-color: transparent !important;
+}
+
+.commandBarLarge {
+  min-width: 1000px;
+}
+
+.commandBarBackgroundTransparentLarge {
+  background-color: transparent !important;
+  min-width: 1000px;
+}
+
+.commandBarLarge {
   min-width: 1000px;
 }
 

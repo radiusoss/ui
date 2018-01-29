@@ -1,9 +1,10 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import ParagraphEditor from './editor/ParagraphEditor'
+import ParagraphEditor from './editor/paragraph/ParagraphEditor'
 import ParagraphResultsRenderer from './renderer/paragraph/ParagraphResultsRenderer'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
+import { goToTop } from 'react-scrollable-anchor'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
@@ -26,27 +27,22 @@ export default class NoteLinesLayout extends React.Component<any, any> {
     var i = 0
     if (note.id) {
       return (
-        <div>
+        <div style={{ backgroundColor: "white"}}>
           {
             note.paragraphs.map(p => {
               i++
               return (
-                <div className="ms-Grid" key={note.id + '-' + p.id}>
-                  <div className="ms-Grid-row">
-                  <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px' }}>
-                    {p.id}
-                  </div>
-                  <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
-                  </div>
-                  </div>
-                  <div className="ms-Grid-row">
-                    <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px' }}>
-                      <ParagraphEditor note={note} paragraph={p} key={note.id + '-pe-' + p.id} focus={i==1}/>
+                <div>
+                  <div className="ms-Grid" key={note.id + '-' + p.id}>
+                    <div className="ms-Grid-row">
+                      <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px' }}>
+                        <ParagraphEditor note={note} paragraph={p} key={note.id + '-pe-' + p.id} focus={i==1}/>
+                      </div>
+                      <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }} >
+                        <ParagraphResultsRenderer paragraph={p} showCommandBar={true} key={note.id + '-pr-' + p.id}/>
+                      </div>
                     </div>
-                    <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
-                      <ParagraphResultsRenderer paragraph={p} showCommandBar={true} key={note.id + '-pr-' + p.id}/>
-                    </div>
-                  </div>
+                 </div>
               </div>
               )
             })
@@ -59,14 +55,16 @@ export default class NoteLinesLayout extends React.Component<any, any> {
     }
   }
 
-  public componentDidMount () {
-    this.scrollTop()
-  }
-
-  public componentDidUpdate() {
-    this.scrollTop()
+  public componentDidMount() {
+//    this.scrollTop()
   }
       
+  public componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      this.scrollTop()
+    }
+  }
+
   public componentWillReceiveProps(nextProps) {
     const { webSocketMessageReceived } = nextProps
     if (! webSocketMessageReceived) return
@@ -74,12 +72,12 @@ export default class NoteLinesLayout extends React.Component<any, any> {
       this.setState({
         note: webSocketMessageReceived.data.note
       })
-      this.scrollTop()
     }
   }
 
   private scrollTop() {
-    window.scrollTo(0, 0)
+    console.log('scrollTop -----------')
+    goToTop()
 /*
     let renderer = ReactDOM.findDOMNode(this.refs['table-renderer-command-bar'])
     if (renderer) {

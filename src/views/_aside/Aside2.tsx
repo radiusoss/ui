@@ -39,7 +39,7 @@ export default class Aside2 extends React.Component<any, IAside2State> {
             )
           })
         }
-  {/*
+
         <div className="message">
             <div className="py-1 pb-3 mr-1 float-left">
                 <div className="avatar">
@@ -54,7 +54,9 @@ export default class Aside2 extends React.Component<any, IAside2State> {
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
+
         <hr/>
+
         <div className="message">
             <div className="py-1 pb-3 mr-1 float-left">
                 <div className="avatar">
@@ -69,7 +71,9 @@ export default class Aside2 extends React.Component<any, IAside2State> {
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
+
         <hr/>
+
         <div className="message">
             <div className="py-1 pb-3 mr-1 float-left">
                 <div className="avatar">
@@ -84,7 +88,9 @@ export default class Aside2 extends React.Component<any, IAside2State> {
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
+
         <hr/>
+
         <div className="message">
             <div className="py-1 pb-3 mr-1 float-left">
                 <div className="avatar">
@@ -99,7 +105,9 @@ export default class Aside2 extends React.Component<any, IAside2State> {
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
+
         <hr/>
+
         <div className="message">
             <div className="py-1 pb-3 mr-1 float-left">
                 <div className="avatar">
@@ -114,7 +122,7 @@ export default class Aside2 extends React.Component<any, IAside2State> {
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
-  */}
+
       </div>
 
     )

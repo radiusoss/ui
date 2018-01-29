@@ -147,7 +147,7 @@ export default class TableRenderer extends React.Component<any, any> {
             items={ this.leftItems }
             farItems={ this.rightItems }
             ref="table-renderer-command-bar"
-            className={ styles.commandBarBackground }
+            className={ styles.commandBarBackgroundTransparent }
           />
         }
 

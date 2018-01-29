@@ -132,6 +132,8 @@ export default class Header extends React.Component<any, HeaderState> {
           </li>
 */}
           <li className="nav-item hidden-md-down">
+{/*
+*/}
             <a className="nav-link navbar-toggler aside-menu-toggler" onClick={this.asideToggle} href="#">&#9776;</a>
           </li>
         </ul>
@@ -141,24 +143,24 @@ export default class Header extends React.Component<any, HeaderState> {
 
   }
 
-  toggle(e) {
+  private toggle(e) {
     e.preventDefault()
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
-    });
+    })
   }
 
-  sidebarToggle(e) {
+  private sidebarToggle(e) {
     e.preventDefault()
     document.body.classList.toggle('sidebar-hidden')
   }
 
-  mobileSidebarToggle(e) {
+  private mobileSidebarToggle(e) {
     e.preventDefault()
     document.body.classList.toggle('sidebar-mobile-show')
   }
 
-  asideToggle(e) {
+  private asideToggle(e) {
     e.preventDefault()
     document.body.classList.toggle('aside-menu-hidden')
   }

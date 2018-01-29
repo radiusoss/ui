@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../../actions/NotebookActions'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../../../actions/NotebookActions'
 import { Editor, EditorCommand, Annotation } from 'brace'
 import * as isEqual from 'lodash.isequal'
 import * as ace from 'brace'
@@ -232,6 +232,7 @@ export default class CodeEditor extends React.Component<any, any> {
     }
 
     this.editor.runCode = () => this.props.dispatchRunNoteAction(this.state.note.id, this.state.paragraphs[0].id)
+
     this.editor.commands.addCommand({
       name: "runCode",
       bindKey: {

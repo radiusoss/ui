@@ -3,7 +3,7 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../actions/NotebookActions'
 import { NotebookStore } from './../../../store/NotebookStore'
-import CodeEditor from './code/CodeEditor'
+import CodeEditor from './paragraph/code/CodeEditor'
 import NotebookApi from './../../../api/notebook/NotebookApi'
 import * as isEqual from 'lodash.isequal'
 import * as stylesImport from './../../_styles/Styles.scss'
@@ -47,6 +47,7 @@ export default class NoteEditor extends React.Component<any, any> {
           width="100%"
           mode="scala"
           theme="tomorrow"
+          showGutter={true}
           fontSize="14px"
           focus={true}
 //          onLoad={this.onLoad}

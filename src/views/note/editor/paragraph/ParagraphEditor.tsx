@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { connect } from 'react-redux'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../actions/NotebookActions'
-import { NotebookStore } from './../../../store/NotebookStore'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../../actions/NotebookActions'
+import { NotebookStore } from './../../../../store/NotebookStore'
 import CodeEditor from './code/CodeEditor'
-import NotebookApi from './../../../api/notebook/NotebookApi'
+import NotebookApi from './../../../../api/notebook/NotebookApi'
 import * as isEqual from 'lodash.isequal'
-import * as stylesImport from './../../_styles/Styles.scss'
+import * as stylesImport from './../../../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -20,6 +20,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
     },
     paragraph: {
       id: '',
+      title: '',
       text: ''
     },
     focus: false,
@@ -42,6 +43,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
     const { note, paragraph, code, focus } = this.state
     return (
       <div key={paragraph.id}>
+        <div className="ms-fontSize-xl">{paragraph.title}</div>
         <CodeEditor
           name={paragraph.id}
           note={note}
@@ -53,6 +55,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
           width="100%"
           mode="scala"
           theme="tomorrow"
+          showGutter={false}
           fontSize="14px"
           focus={focus}
 //          onLoad={this.onLoad}

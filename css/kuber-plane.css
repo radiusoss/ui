@@ -3116,14 +3116,14 @@ tbody.collapse.show {
 header.navbar {
   position: relative;
   flex-direction: row;
-  height: 55px;
+  height: 40px;
   padding: 0;
   background-color: #fff;
   border-bottom: 1px solid #cfd8dc; }
   header.navbar .navbar-brand {
     display: inline-block;
     width: 155px;
-    height: 55px;
+    height: 40px;
     padding: 0.5rem 1rem;
     margin-right: 0;
     background-color: #fff;
@@ -3150,7 +3150,7 @@ header.navbar {
         margin-top: -16px;
         margin-left: 0; }
       header.navbar .nav-item .nav-link > .img-avatar, header.navbar .nav-item .dropdown-toggle > .img-avatar {
-        height: 35px;
+        height: 20px;
         margin: 0 10px; }
   header.navbar .dropdown-menu {
     padding-bottom: 0;
@@ -15503,7 +15503,7 @@ app-root {
   min-height: 100vh; }
 
 .app-header {
-  flex: 0 0 55px; }
+  flex: 0 0 40px; }
 
 .app-footer {
   flex: 0 0 50px; }
@@ -15527,7 +15527,7 @@ app-root {
   width: 100%; }
 
 .header-fixed .app-body {
-  margin-top: 55px; }
+  margin-top: 40px; }
 
 .sidebar-hidden .sidebar {
   margin-left: -200px; }
@@ -15536,7 +15536,7 @@ app-root {
   position: fixed;
   height: 100%; }
   .sidebar-fixed .sidebar .sidebar-nav {
-    height: calc(100vh - 55px); }
+    height: calc(100vh - 40px); }
 
 .sidebar-fixed .main, .sidebar-fixed .app-footer {
   margin-left: 200px; }
@@ -15549,7 +15549,7 @@ app-root {
   z-index: 999;
   height: 100%; }
   .sidebar-off-canvas .sidebar .sidebar-nav {
-    height: calc(100vh - 55px); }
+    height: calc(100vh - 40px); }
 
 .sidebar-compact .sidebar {
   flex: 0 0 50px; }
@@ -15571,7 +15571,7 @@ app-root {
   right: 0;
   height: 100%; }
   .aside-menu-fixed .aside-menu .tab-content {
-    height: calc(100vh - 2.375rem - 55px); }
+    height: calc(100vh - 2.375rem - 40px); }
 
 .aside-menu-fixed .main, .aside-menu-fixed .app-footer {
   margin-right: 250px; }
@@ -15585,7 +15585,7 @@ app-root {
   z-index: 999;
   height: 100%; }
   .aside-menu-off-canvas .aside-menu .tab-content {
-    height: calc(100vh - 2.375rem - 55px); }
+    height: calc(100vh - 2.375rem - 40px); }
 
 .footer-fixed .app-footer {
   position: fixed;
@@ -15626,7 +15626,7 @@ app-root {
       right: 15px;
       height: inherit; }
   .app-body {
-    margin-top: 55px; }
+    margin-top: 40px; }
   .sidebar {
     position: fixed;
     width: 220px;
@@ -15643,7 +15643,7 @@ app-root {
     width: 220px;
     margin-left: 0; }
     .sidebar-mobile-show .sidebar .sidebar-nav {
-      height: calc(100vh - 55px); }
+      height: calc(100vh - 40px); }
   .sidebar-mobile-show .main {
     margin-right: -220px !important;
     margin-left: 220px !important; } }
@@ -15659,7 +15659,7 @@ app-root {
     padding: 0 1rem;
     font-size: 24px;
     font-weight: 800;
-    line-height: 55px;
+    line-height: 40px;
     color: #fff;
     background: 0;
     border: 0;
@@ -15871,12 +15871,12 @@ app-root {
 
 nav.top-nav {
   position: absolute;
-  top: 55px;
+  top: 40px;
   left: 0;
   z-index: 999;
   display: inline !important;
   width: 100%;
-  height: 40px;
+  height: 25px;
   background: #fff;
   border-bottom: 1px solid #cfd8dc; }
   nav.top-nav ul.nav {
@@ -15900,7 +15900,7 @@ nav.top-nav {
         padding: 0 15px;
         font-size: 12px;
         font-weight: 400;
-        line-height: 40px;
+        line-height: 25px;
         color: #263238;
         text-decoration: none;
         text-transform: uppercase; }
@@ -15910,7 +15910,7 @@ nav.top-nav {
           width: 20px;
           margin: 0 10px 0 0;
           font-size: 14px;
-          line-height: 39px;
+          line-height: 24px;
           text-align: center; }
         nav.top-nav ul.nav li.nav-item a.nav-link .tag, nav.top-nav ul.nav li.nav-item .navbar a.dropdown-toggle .tag, .navbar nav.top-nav ul.nav li.nav-item a.dropdown-toggle .tag {
           float: right;
@@ -15924,7 +15924,7 @@ nav.top-nav {
           background: #20a8d8; }
       nav.top-nav ul.nav li.nav-item ul {
         position: absolute;
-        top: 39px;
+        top: 24px;
         left: 0; }
         nav.top-nav ul.nav li.nav-item ul li {
           position: relative;
@@ -17949,7 +17949,7 @@ base-chart.chart {
   outline: 0; }
 
 .navbar .dropdown-toggle .img-avatar {
-  height: 35px;
+  height: 20px;
   margin: 0 10px; }
 
 *[dir="rtl"] {
@@ -18001,7 +18001,7 @@ base-chart.chart {
     z-index: 999;
     height: 100%; }
     *[dir="rtl"] .aside-menu-off-canvas .aside-menu .tab-content {
-      height: calc(100vh - 2.375rem - 55px); }
+      height: calc(100vh - 2.375rem - 40px); }
   *[dir="rtl"] .sidebar .sidebar-nav {
     direction: ltr; }
     *[dir="rtl"] .sidebar .sidebar-nav * {
@@ -18090,7 +18090,3 @@ pre {
   word-break: break-all;
   white-space: pre-wrap;
   /* word-wrap: break-word; */ }
-
-.datalayer-logo-square {
-  background-size: 100px !important;
-  background-image: url("../img/datalayer/datalayer.png") !important; }
