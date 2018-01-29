@@ -12,7 +12,7 @@ export const KuberRestStorageKey = 'kuber_rest'
 
 export type IConfig = {
 	hdfs: string
-	kuberPlane: string
+	kuberBoard: string
 	kuberRest: string
 	kuberWs: string
 	microsoftApplicationId: string
@@ -25,7 +25,7 @@ export type IConfig = {
 
 export const emptyConfig: IConfig = {
   hdfs: "",
-  kuberPlane: "",
+  kuberBoard: "",
   kuberRest: "",
   kuberWs: "",
   microsoftApplicationId: "",
@@ -96,8 +96,8 @@ export default class ConfigApi extends React.Component<any, any> {
       if (config.microsoftRedirect == "") {
         config.microsoftRedirect = currentBaseUrl + "/auth/microsoft/callback"
       }
-      if (config.kuberPlane == "") {
-        config.kuberPlane = currentBaseUrl
+      if (config.kuberBoard == "") {
+        config.kuberBoard = currentBaseUrl
       }
       if (config.kuberRest == "") {
         config.kuberRest = currentBaseUrl
