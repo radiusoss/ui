@@ -125,6 +125,12 @@ export default class Highlights extends React.Component<any, any> {
           <span>
           <ul className={ styles.featureList } aria-label='List of highlighted features'>
             <li className="text-center">
+              <a href='http://datalayer.io' target="_blank">
+                <img src={ 'img/kuber/kuber.svg' } alt='' />
+                <span>Datalayer Kuber</span>
+              </a>
+            </li>
+            <li className="text-center">
               <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'OMalley Release', 'img/release/omalley.png', OMALLEY_TEXT)}>
                 <img src={ 'img/release/omalley.png' } alt='' />
                 <span>OMalley Release</span>
