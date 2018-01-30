@@ -6,6 +6,8 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/C
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
+import { Slider } from 'office-ui-fabric-react/lib/Slider'
+import { toastr } from 'react-redux-toastr'
 import { emailRegexp } from './../../util/msc/regexp'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { LayoutGroup } from '@uifabric/experiments/lib/LayoutGroup';
@@ -49,91 +51,108 @@ export default class Cluster extends React.Component<any, IK8SState> {
       <div>
         <br/>
         <h3>Cluster</h3>
-        <Form 
-          onSubmit={ this.submit } 
-          showErrorsWhenPristine={ true }
-        >
-          <LayoutGroup layoutGap={ 20 } direction='vertical'>
-            <div className="ms-Grid	ms-slideRightIn40 ms-clearfix">
-              <div className="ms-Grid-row ms-clearfix">
-                <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
-                  <FormConditionalSubmitButton
-                    buttonProps={{
-                      onClick: (e) => {
-                        this.method = 'GET_CLUSTER_DEF'
-                      }
-                    }}
-                  >
-                    Get Cluster Definition
-                  </FormConditionalSubmitButton>
-                  <div style={{ padding: "10px", backgroundColor: "black" }}>
-                    <JSONTree
-                      data={this.state.clusterDef} 
-                      theme='greenscreen'
-                      invertTheme={false}
-                    />
-                  </div>
-                </div>
-                <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
-                  <FormConditionalSubmitButton
-                    buttonProps={{
-                      onClick: (e) => {
-                        this.method = 'GET_OVERVIEW'
-                      }
-                    }}
-                  >
-                    Get Cluster Overview
-                  </FormConditionalSubmitButton>
-                  <div style={{ padding: "10px", backgroundColor: "black" }}>
-                    <JSONTree
-                      data={this.state.overview} 
-                      theme='greenscreen'
-                      invertTheme={false}
-                    />
-                  </div>
-                </div>
-                <div className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 ms-clearfix">
-{/*
-                  <FormConditionalSubmitButton
-                    buttonProps={{
-                      onClick: (e) => {
-                        this.method = 'WS'
-                        this.wsMessage = this.k8sApi.CREATE_CLUSTER_DEF()
-                      }
-                    }}
-                    >
-                    WS Create Cluster Def
-                  </FormConditionalSubmitButton>
-                  <br/>
-                  <br/>
-                  <FormConditionalSubmitButton
-                      buttonProps={{
-                        onClick: (e) => {
-                          this.method = 'WS'
-                          this.wsMessage = this.k8sApi.CREATE_CLUSTER()
-                        }
-                      }}
-                    >
-                    WS Create Cluster
-                  </FormConditionalSubmitButton>
-                  <br/>
-                  <br/>
-                  <FormConditionalSubmitButton
-                      buttonProps={{
-                        onClick: (e) => {
-                          this.method = 'WS'
-                          this.wsMessage = this.k8sApi.DELETE_CLUSTER()
-                        }
-                      }}
-                    >
-                    WS Delete Cluster
-                  </FormConditionalSubmitButton>
-*/}
-                </div>
-              </div>
+        <div className="ms-Grid" style={{ padding: 0 }}>
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+              <Slider
+                label='Number of Workers'
+                min={ 0 }
+                max={ 3 }
+                step={ 1 }
+                defaultValue={ 3 }
+                showValue={ true }
+                onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + 'worker(s).') }
+              />
             </div>
-          </LayoutGroup>
-        </Form>
+            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
+            <Form 
+              onSubmit={ this.submit } 
+              showErrorsWhenPristine={ true }
+            >
+              <LayoutGroup layoutGap={ 20 } direction='vertical'>
+                <div className="ms-Grid	ms-slideRightIn40 ms-clearfix">
+                  <div className="ms-Grid-row ms-clearfix">
+                    <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
+                      <FormConditionalSubmitButton
+                        buttonProps={{
+                          onClick: (e) => {
+                            this.method = 'GET_CLUSTER_DEF'
+                          }
+                        }}
+                      >
+                        Get Cluster Definition
+                      </FormConditionalSubmitButton>
+                      <div style={{ padding: "10px", backgroundColor: "black" }}>
+                        <JSONTree
+                          data={this.state.clusterDef} 
+                          theme='greenscreen'
+                          invertTheme={false}
+                        />
+                      </div>
+                    </div>
+                    <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
+                      <FormConditionalSubmitButton
+                        buttonProps={{
+                          onClick: (e) => {
+                            this.method = 'GET_OVERVIEW'
+                          }
+                        }}
+                      >
+                        Get Cluster Overview
+                      </FormConditionalSubmitButton>
+                      <div style={{ padding: "10px", backgroundColor: "black" }}>
+                        <JSONTree
+                          data={this.state.overview} 
+                          theme='greenscreen'
+                          invertTheme={false}
+                        />
+                      </div>
+                    </div>
+                    <div className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 ms-clearfix">
+    {/*
+                      <FormConditionalSubmitButton
+                        buttonProps={{
+                          onClick: (e) => {
+                            this.method = 'WS'
+                            this.wsMessage = this.k8sApi.CREATE_CLUSTER_DEF()
+                          }
+                        }}
+                        >
+                        WS Create Cluster Def
+                      </FormConditionalSubmitButton>
+                      <br/>
+                      <br/>
+                      <FormConditionalSubmitButton
+                          buttonProps={{
+                            onClick: (e) => {
+                              this.method = 'WS'
+                              this.wsMessage = this.k8sApi.CREATE_CLUSTER()
+                            }
+                          }}
+                        >
+                        WS Create Cluster
+                      </FormConditionalSubmitButton>
+                      <br/>
+                      <br/>
+                      <FormConditionalSubmitButton
+                          buttonProps={{
+                            onClick: (e) => {
+                              this.method = 'WS'
+                              this.wsMessage = this.k8sApi.DELETE_CLUSTER()
+                            }
+                          }}
+                        >
+                        WS Delete Cluster
+                      </FormConditionalSubmitButton>
+    */}
+                    </div>
+                  </div>
+                </div>
+              </LayoutGroup>
+            </Form>
+            </div>
+          </div>
+        </div>
       </div>
     )
 

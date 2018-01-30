@@ -16,26 +16,26 @@ export default class Settings extends React.Component<any, any> {
     return (
       <div>
         <Pivot>
-          <PivotItem linkText='Configuration' itemIcon='ConfigurationSolid'>
-            <Config />
-          </PivotItem>
           <PivotItem linkText='Cluster' itemIcon='World'>
             <Cluster />
           </PivotItem>
-{/*
-          <PivotItem linkText='AWS' itemIcon='Cloud'>
-            <Aws />
+          <PivotItem linkText='Kuber Config' itemIcon='ConfigurationSolid'>
+            <Config />
           </PivotItem>
-*/}
           <PivotItem linkText='Spitfire Config' itemIcon='Airplane'>
             <SpitfireConfig />
           </PivotItem>
           <PivotItem linkText='Spitfire Interpreters' itemIcon='AirplaneSolid'>
             <SpitfireInterpreters />
           </PivotItem>
+{/*
+          <PivotItem linkText='AWS' itemIcon='Cloud'>
+            <Aws />
+          </PivotItem>
           <PivotItem linkText='Apps' itemIcon='MapPin'>
             <Apps />
           </PivotItem>
+*/}
         </Pivot>
       </div>
     )

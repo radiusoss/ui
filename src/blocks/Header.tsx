@@ -133,8 +133,8 @@ export default class Header extends React.Component<any, HeaderState> {
 */}
           <li className="nav-item hidden-md-down">
 {/*
-*/}
             <a className="nav-link navbar-toggler aside-menu-toggler" onClick={this.asideToggle} href="#">&#9776;</a>
+*/}
           </li>
         </ul>
       </header>

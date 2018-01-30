@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import history from './../../../../routes/History'
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../../actions/NotebookActions'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
@@ -61,13 +60,13 @@ export default class ParagraphRenderer extends React.Component<any, any> {
             onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the new version...')
           },
           {
-            key: 'favorite-indicator',
-            name: 'Favorite',
-            icon: 'FavoriteStar',
-            title: 'Favorite',
+            key: 'love-indicator',
+            name: 'Cover',
+            icon: 'Heart',
+            title: 'Cover',
             onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the new version...')
           },
-              {
+          {
             key: 'add-indicator',
             name: 'Add',
             icon: 'Add',
@@ -161,26 +160,17 @@ export default class ParagraphRenderer extends React.Component<any, any> {
           </div>
           <div className={`ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }} >
             {
-            (showCommandBar == true) && 
+              (showCommandBar == true) && 
               <div className='ms-textAlignRight'>
-                <CommandBar
-                  isSearchBoxVisible={ false }
-                  items={ this.leftItems }
-                  farItems={ this.rightItems }
-                  className={ styles.commandBarBackgroundTransparent }
-                />
-{/*
-                <Toggle
-                  defaultChecked={ false }
-                  onAriaLabel='This toggle is checked. Press to uncheck.'
-                  offAriaLabel='This toggle is unchecked. Press to check.'
-                  onText='On Cover'
-                  offText='Off Cover'
-                  onFocus={ () => toastr.warning('Not yet available', 'Looks like you are eager for the new version...') }
-                  onBlur={ () => toastr.warning('Not yet available', 'Looks like you are eager for the new version...') }
-                />
-*/}
+                <div className="ms-Grid-row">
+                  <CommandBar
+                    isSearchBoxVisible={ false }
+                    items={ this.leftItems }
+                    farItems={ this.rightItems }
+                    className={ styles.commandBarBackgroundTransparent }
+                  />
                 </div>
+              </div>
             }
           </div>
 {/*
