@@ -1,6 +1,6 @@
 {
-  "name": "kuber-board",
-  "description": "kuber-board Plane - Simple. Collaborative. Multi Cloud. Big Data Science.",
+  "name": "datalayer-ui",
+  "description": "datalayer-ui Plane - Simple. Collaborative. Multi Cloud. Big Data Science.",
   "version": "1.0.0",
   "private": true,
   "license": "Apache 2.0",
@@ -17,7 +17,7 @@
     "start": "gulp serve",
     "test": "gulp test --test",
     "test:watch": "gulp test --test",
-    "uglify": "uglifyjs dist/kuber-board.js > dist/kuber-board.min.js"
+    "uglify": "uglifyjs dist/datalayer-ui.js > dist/datalayer-ui.min.js"
   },
   "dependencies": {
     "@microsoft/load-themed-styles": "1.7.5",

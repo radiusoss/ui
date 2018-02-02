@@ -13,7 +13,7 @@ let webpackConfig = {
   context: path.join(__dirname, 'lib/'),
 
   entry: {
-    [packageJSON.name]: './kuber-board.js'
+    [packageJSON.name]: './datalayer-ui.js'
   },
 
   output: {
