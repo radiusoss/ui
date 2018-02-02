@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as _ from "lodash"
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { DefaultButton, PrimaryButton, CompoundButton } from 'office-ui-fabric-react/lib/Button'
+import history from './../../routes/History'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-react/lib/DetailsList'
@@ -60,7 +61,8 @@ export default class NotesTiles extends React.Component<any, any> {
         <Panel
           isOpen={ this.state.showPanel }
           type={ PanelType.smallFluid }
-          onDismiss={ () => this.setState({ showPanel: false }) }
+//          onDismiss={ () => this.setState({ showPanel: false }) }
+          onDismiss={ () => history.push(`/dla/notes/list`) }
           headerText={'Notebook Cover - ' + new Date()}
         >
           <ResponsiveReactGridLayout

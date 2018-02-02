@@ -1,9 +1,14 @@
 import * as React from 'react'
+import { toastr } from 'react-redux-toastr'
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import NoteEditor from './editor/NoteEditor'
 import NoteResultsRenderer from './renderer/NoteResultsRenderer'
 import { connect } from 'react-redux'
+import { Rating, RatingSize } from 'office-ui-fabric-react/lib/Rating'
+import { Facepile, IFacepilePersona, IFacepileProps } from 'office-ui-fabric-react/lib/Facepile'
+import { PersonaSize, PersonaInitialsColor } from 'office-ui-fabric-react/lib/Persona'
+import { TestImages, facepilePersonas, ExtraDataType } from './../spl/SplImg'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
@@ -18,7 +23,11 @@ export default class NoteResultsLayout extends React.Component<any, any> {
       name: '',
       paragraphs: []
     },
-    showPanel: true
+    showPanel: true,
+    numberOfFaces: 3,
+    imagesFadeIn: true,
+    extraDataType: ExtraDataType.none,
+    personaSize: PersonaSize.extraSmall
   }
 
   public constructor(props) {
@@ -37,6 +46,24 @@ export default class NoteResultsLayout extends React.Component<any, any> {
           onDismiss={ () => this.notebookApi.showNoteLayout(this.state.note.id, 'lines') }
           headerText={note.name + ' - ' + new Date()}
         >
+          <Facepile
+            personaSize={PersonaSize.small}
+            personas={facepilePersonas.slice(0, this.state.numberOfFaces)}
+/*
+            getPersonaProps={
+              imageShouldFadeIn: {this.state.imagesFadeIn}
+              hidePersonaDetails={false}
+            }
+*/
+          />
+          <Rating
+            min={ 1 }
+            max={ 5 }
+            rating={ 4 }
+            onChanged={ rating => toastr.warning('Not yet available', 'Looks like you are eager for the new version to give rating ' + rating) }
+            onFocus={ () => console.log('onFocus called') }
+            onBlur={ () => console.log('onBlur called') }
+          />
           <div className="ms-Grid">
             <div className="ms-Grid-row">
               <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px'}} >

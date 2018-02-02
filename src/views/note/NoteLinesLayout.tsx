@@ -1,186 +1,17 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { Rating, RatingSize } from 'office-ui-fabric-react/lib/Rating'
+import { toastr } from 'react-redux-toastr'
 import ParagraphEditor from './editor/paragraph/ParagraphEditor'
 import ParagraphResultsRenderer from './renderer/paragraph/ParagraphResultsRenderer'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import { toastr } from 'react-redux-toastr'
 import { goToTop } from 'react-scrollable-anchor'
+import { Rating, RatingSize } from 'office-ui-fabric-react/lib/Rating'
 import { Facepile, IFacepilePersona, IFacepileProps } from 'office-ui-fabric-react/lib/Facepile'
 import { PersonaSize, PersonaInitialsColor } from 'office-ui-fabric-react/lib/Persona'
+import { TestImages, facepilePersonas, ExtraDataType } from './../spl/SplImg'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
-
-const baseProductionCdnUrl = 'https://static2.sharepointonline.com/files/fabric/office-ui-fabric-react-assets/';
-
-export const TestImages = {
-  choiceGroupBarUnselected: baseProductionCdnUrl + 'choicegroup-bar-unselected.png',
-  choiceGroupBarSelected: baseProductionCdnUrl + 'choicegroup-bar-selected.png',
-  choiceGroupPieUnselected: baseProductionCdnUrl + 'choicegroup-pie-unselected.png',
-  choiceGroupPieSelected: baseProductionCdnUrl + 'choicegroup-pie-selected.png',
-  documentPreview: baseProductionCdnUrl + 'document-preview.png',
-  documentPreviewTwo: baseProductionCdnUrl + 'document-preview2.png',
-  documentPreviewThree: baseProductionCdnUrl + 'document-preview3.png',
-  iconOne: baseProductionCdnUrl + 'icon-one.png',
-  iconPpt: baseProductionCdnUrl + 'icon-ppt.png',
-  personaFemale: baseProductionCdnUrl + 'persona-female.png',
-  personaMale: baseProductionCdnUrl + 'persona-male.png'
-}
-
-export const facepilePersonas: IFacepilePersona[] = [
-  {
-    imageUrl: TestImages.personaFemale,
-    personaName: 'Annie Lindqvist',
-    data: '50%'
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    personaName: 'Aaron Reid',
-    data: '$1,000'
-  },
-  {
-    personaName: 'Alex Lundberg',
-    data: '75%',
-    onClick: (ev: React.MouseEvent<HTMLElement>, persona: IFacepilePersona) =>
-      alert('You clicked on ' + persona.personaName + '. Extra data: ' + persona.data)
-  },
-  {
-    personaName: 'Roko Kolar',
-    data: '4 hrs'
-  },
-  {
-    imageInitials: 'CB',
-    personaName: 'Christian Bergqvist',
-    initialsColor: PersonaInitialsColor.green,
-    data: '25%'
-  },
-  {
-    imageUrl: TestImages.personaFemale,
-    imageInitials: 'VL',
-    personaName: 'Valentina Lovric',
-    initialsColor: PersonaInitialsColor.lightBlue,
-    data: 'Emp1234',
-    onClick: (ev: React.MouseEvent<HTMLElement>, persona: IFacepilePersona) =>
-      alert('You clicked on ' + persona.personaName + '. Extra data: ' + persona.data)
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'MS',
-    personaName: 'Maor Sharett',
-    initialsColor: PersonaInitialsColor.lightGreen
-  },
-  {
-    imageUrl: TestImages.personaFemale,
-    imageInitials: 'PV',
-    personaName: 'Annie Lindqvist2',
-    initialsColor: PersonaInitialsColor.lightPink
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'AR',
-    personaName: 'Aaron Reid2',
-    initialsColor: PersonaInitialsColor.magenta,
-    data: 'Emp1234',
-    onClick: (ev: React.MouseEvent<HTMLElement>, persona: IFacepilePersona) =>
-      toastr.warning('You clicked on ' + persona.personaName + '. Extra data: ' + persona.data)
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'AL',
-    personaName: 'Alex Lundberg2',
-    initialsColor: PersonaInitialsColor.orange
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'RK',
-    personaName: 'Roko Kolar2',
-    initialsColor: PersonaInitialsColor.pink
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'CB',
-    personaName: 'Christian Bergqvist2',
-    initialsColor: PersonaInitialsColor.purple
-  },
-  {
-    imageUrl: TestImages.personaFemale,
-    imageInitials: 'VL',
-    personaName: 'Valentina Lovric2',
-    initialsColor: PersonaInitialsColor.red
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'MS',
-    personaName: 'Maor Sharett2',
-    initialsColor: PersonaInitialsColor.teal
-  },
-  {
-    imageUrl: TestImages.personaFemale,
-    imageInitials: 'VL',
-    personaName: 'Another A Name',
-    initialsColor: PersonaInitialsColor.blue
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'MS',
-    personaName: 'Another A Name (So Many A names!)',
-    initialsColor: PersonaInitialsColor.darkBlue
-  },
-  {
-    imageUrl: TestImages.personaFemale,
-    imageInitials: 'VL',
-    personaName: 'Another Anecdotal A Name',
-    initialsColor: PersonaInitialsColor.darkGreen
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'MS',
-    personaName: 'Anerobic A Name',
-    initialsColor: PersonaInitialsColor.darkRed
-  },
-  {
-    imageUrl: TestImages.personaFemale,
-    imageInitials: 'VL',
-    personaName: 'Aerobic A Name',
-    initialsColor: PersonaInitialsColor.green
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'MS',
-    personaName: 'Maor Sharett2',
-    initialsColor: PersonaInitialsColor.lightBlue
-  },
-  {
-    imageUrl: TestImages.personaFemale,
-    imageInitials: 'VL',
-    personaName: 'Valentina Lovric2',
-    initialsColor: PersonaInitialsColor.lightGreen
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'MS',
-    personaName: 'Maor Sharett2',
-    initialsColor: PersonaInitialsColor.lightPink
-  },
-  {
-    imageUrl: TestImages.personaFemale,
-    imageInitials: 'VL',
-    personaName: 'Valentina Lovric2',
-    initialsColor: PersonaInitialsColor.magenta
-  },
-  {
-    imageUrl: TestImages.personaMale,
-    imageInitials: 'MS',
-    personaName: 'Maor Sharett2',
-    initialsColor: PersonaInitialsColor.orange
-  },
-]
-
-export enum ExtraDataType {
-  none = 0,
-  name = 1
-}
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class NoteLinesLayout extends React.Component<any, any> {
@@ -266,9 +97,9 @@ export default class NoteLinesLayout extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-//    this.scrollTop()
+    this.scrollTop()
   }
-      
+
   public componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       this.scrollTop()
@@ -286,7 +117,7 @@ export default class NoteLinesLayout extends React.Component<any, any> {
   }
 
   private scrollTop() {
-    console.log('scrollTop -----------')
+    console.log('Scrolling to Top of the page...')
     goToTop()
 /*
     let renderer = ReactDOM.findDOMNode(this.refs['table-renderer-command-bar'])

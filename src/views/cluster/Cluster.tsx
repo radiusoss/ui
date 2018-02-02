@@ -61,7 +61,7 @@ export default class Cluster extends React.Component<any, IK8SState> {
                 step={ 1 }
                 defaultValue={ 3 }
                 showValue={ true }
-                onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + 'worker(s).') }
+                onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + ' worker(s).') }
               />
             </div>
             <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
