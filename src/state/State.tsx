@@ -10,6 +10,9 @@ export namespace ApplicationState {
     isSavingCounter: boolean,
     isLoadingCounter: boolean,
     errorCounter: string,
+    isToGoogle: boolean,
+    isGoogleAuthenticated: boolean,
+    googleToken: any,
     isToMicrosoft: boolean,
     isMicrosoftAuthenticated: boolean,
     microsoftToken: any,
@@ -28,7 +31,7 @@ export namespace ApplicationState {
     profilePhoto: string,
     profilePhotoBlob: Blob,
     config: IConfig,
-    k8sLogin: any,
+    kuberLogin: any,
     kuberMessageSent: any,
     kuberMessageReceived: any
     }
@@ -43,6 +46,9 @@ export const initialState: ApplicationState.State = {
   isSavingCounter: false,
   isLoadingCounter: false,
   errorCounter: '',
+  isToGoogle: false,
+  isGoogleAuthenticated: false,
+  googleToken: {},
   isToMicrosoft: false,
   isMicrosoftAuthenticated: false,
   microsoftToken: {},
@@ -61,7 +67,7 @@ export const initialState: ApplicationState.State = {
   profilePhoto: 'img/datalayer/datalayer-square.png',
   profilePhotoBlob: new Blob(),
   config: emptyConfig,
-  k8sLogin: {},
+  kuberLogin: {},
   kuberMessageSent: {},
   kuberMessageReceived: {}
 }

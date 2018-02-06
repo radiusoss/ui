@@ -6,6 +6,7 @@ import { NotebookStore } from './../../store/NotebookStore'
 import Kerberos from './Kerberos'
 import Microsoft from './Microsoft'
 import Twitter from './Twitter'
+import Google from './Google'
 import { connect } from 'react-redux'
 import { MessageBarButton } from 'office-ui-fabric-react/lib/Button'
 import { Link } from 'office-ui-fabric-react/lib/Link'
@@ -18,6 +19,7 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 export default class Profile extends React.Component<any, any> {
 
   state = {
+    isGoogleAuthenticated: NotebookStore.state().isGoogleAuthenticated,
     isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
     isTwitterAuthenticated: NotebookStore.state().isTwitterAuthenticated
   }
@@ -27,11 +29,27 @@ export default class Profile extends React.Component<any, any> {
   }
 
   public render() {
-    const { isMicrosoftAuthenticated, isTwitterAuthenticated } = this.state
+    const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.state
+    var selectedKey = 'google'
+    if (isMicrosoftAuthenticated) selectedKey = 'microsoft'
+    if (isTwitterAuthenticated) selectedKey = 'twitter'
     return (
       <div>
-        <Pivot>
-          <PivotItem linkText='Microsoft' itemIcon='OfficeLogo'>
+        <Pivot selectedKey={ selectedKey }>
+          <PivotItem linkText='Google' itemIcon='SocialListeningLogo' itemKey='google'>
+            { (isGoogleAuthenticated) &&
+                <Google/>
+              }
+              { (! isGoogleAuthenticated) &&
+              <MessageBar
+                messageBarType={ MessageBarType.info }
+                isMultiline={ false }
+              >
+                Nothing to see here...
+              </MessageBar>
+              }
+          </PivotItem>
+          <PivotItem linkText='Microsoft' itemIcon='OfficeLogo' itemKey='microsoft'>
             { (isMicrosoftAuthenticated) &&
               <Microsoft />
             }
@@ -44,7 +62,7 @@ export default class Profile extends React.Component<any, any> {
               </MessageBar>
             }
           </PivotItem>
-          <PivotItem linkText='Twitter' itemIcon='SocialListeningLogo'>
+          <PivotItem linkText='Twitter' itemIcon='SocialListeningLogo' itemKey='twitter'>
           { (isTwitterAuthenticated) &&
               <Twitter/>
             }

@@ -15,6 +15,9 @@ export type IConfig = {
 	kuberBoard: string
 	kuberRest: string
 	kuberWs: string
+	googleClientId: string
+	googleRedirect: string
+	googleScope: string
 	microsoftApplicationId: string
 	microsoftRedirect: string
 	microsoftScope: string
@@ -28,6 +31,9 @@ export const emptyConfig: IConfig = {
   kuberBoard: "",
   kuberRest: "",
   kuberWs: "",
+	googleClientId: "",
+	googleRedirect: "",
+	googleScope: "",
   microsoftApplicationId: "",
   microsoftRedirect: "",
   microsoftScope: "",
@@ -93,9 +99,6 @@ export default class ConfigApi extends React.Component<any, any> {
       console.log('Config', config)
       var currentBaseUrl = this.currentBaseUrl()
       config.kuberRest = kuberRest
-      if (config.microsoftRedirect == "") {
-        config.microsoftRedirect = currentBaseUrl + "/auth/microsoft/callback"
-      }
       if (config.kuberBoard == "") {
         config.kuberBoard = currentBaseUrl
       }
@@ -105,6 +108,12 @@ export default class ConfigApi extends React.Component<any, any> {
       if (config.kuberWs == "") {
         config.kuberWs = currentBaseUrl.replace('http', 'ws')
       }
+      if (config.googleRedirect == "") {
+        config.googleRedirect = currentBaseUrl + "/auth/google/callback"
+      }
+      if (config.microsoftRedirect == "") {
+        config.microsoftRedirect = currentBaseUrl + "/auth/microsoft/callback"
+      }
       if (config.twitterRedirect == "") {
         config.twitterRedirect = currentBaseUrl + "/api/v1/twitter/maketoken"
       }
@@ -113,8 +122,9 @@ export default class ConfigApi extends React.Component<any, any> {
         kuberRest: kuberRest,
         config: config
       })
+
       this.props.dispatchNewConfigAction(config)
-      this.notebookApi.updateTwitterProfile()
+
     })
 
   }

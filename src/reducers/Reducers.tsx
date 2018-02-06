@@ -8,8 +8,12 @@ import { meReducer, profileDisplayNameReducer, profilePhotoBlobReducer } from '.
 import { newConfigReducer } from './ConfigReducer'
 import { kuberMessageSentReducer, kuberMessageReceivedReducer } from './KuberReducer'
 import { counterReducer, isSavingCounterReducer, isLoadingCounterReducer, errorCounterReducer } from './CounterReducer'
-import { isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer, isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer } from './AuthReducer'
-import { notebookLoginReducer, webSocketMessageSentReducer, webSocketMessageReceivedReducer, noteReducer, runningParagraphsReducer, notesReducer, isStartRunReducer } from './NotebookReducer'
+import { isGoogleAuthenticatedReducer, isToGoogleReducer, googleTokenReducer, 
+  isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer, 
+  isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer,
+ } from './AuthReducer'
+import { notebookLoginReducer, webSocketMessageSentReducer, webSocketMessageReceivedReducer, noteReducer, 
+  runningParagraphsReducer, notesReducer, isStartRunReducer } from './NotebookReducer'
 
 export const reducers = combineReducers<ApplicationState.State>({
 
@@ -23,6 +27,10 @@ export const reducers = combineReducers<ApplicationState.State>({
   kuberMessageSent: kuberMessageSentReducer,
   kuberMessageReceived: kuberMessageReceivedReducer,
 
+  isGoogleAuthenticated: isGoogleAuthenticatedReducer,
+  isToGoogle: isToGoogleReducer,
+  googleToken: googleTokenReducer,
+  
   isMicrosoftAuthenticated: isMicrosoftAuthenticatedReducer,
   isToMicrosoft: isToMicrosoftReducer,
   microsoftToken: microsoftTokenReducer,

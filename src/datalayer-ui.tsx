@@ -8,10 +8,11 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import { NotebookStore } from './store/NotebookStore'
 import ConfigApi from './api/config/ConfigApi'
+import GoogleApi from './api/google/GoogleApi'
 import MicrosoftApi from './api/microsoft/MicrosoftApi'
+import TwitterApi from './api/twitter/TwitterApi'
 import NotebookApi from './api/notebook/NotebookApi'
 import SpitfireApi from './api/spitfire/SpitfireApi'
-import TwitterApi from './api/twitter/TwitterApi'
 import KuberApi from './api/kuber/KuberApi'
 import { loadTheme } from 'office-ui-fabric-react/lib/Styling';
 
@@ -47,8 +48,9 @@ function start(): void {
             <ConfigApi/>
             <SpitfireApi/>
             <KuberApi/>
-            <TwitterApi/>
+            <GoogleApi/>
             <MicrosoftApi/>
+            <TwitterApi/>
             <NotebookApi/>
             <ConnectedRouter history = { routerHistory } >
             <Routes />

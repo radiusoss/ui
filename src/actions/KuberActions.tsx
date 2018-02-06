@@ -16,13 +16,13 @@ export const kuberMessageReceivedAction = (message: any): KuberAction => ({
 })
 
 export type KuberProps = {
-  k8sLogin: {},
+  kuberLogin: {},
   kuberMessageSent: any,
   kuberMessageReceived: any,
 }
 
 export const mapStateToPropsKuber = (state: ApplicationState.State): KuberProps => ({
-  k8sLogin: state.k8sLogin,
+  kuberLogin: state.kuberLogin,
   kuberMessageSent: state.kuberMessageSent,
   kuberMessageReceived: state.kuberMessageReceived,
 })
