@@ -141,7 +141,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NEW_NOTE") {
       this.notebookApi.listNotes()
       let noteId = webSocketMessageReceived.data.note.id
-      this.notebookApi.showNoteLayout(noteId, 'columns')
+      this.notebookApi.showNoteLayout(noteId, 'lines')
 //      this.notebookApi.getNote(noteId)
 //      history.push(`/dla/note/columns/${noteId}`)
     }

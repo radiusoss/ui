@@ -15,22 +15,22 @@ import { Form, FormConditionalSubmitButton, FormDatePicker, FormDropdown, FormCh
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
-import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../../actions/K8SActions'
-import K8SApi, { K8SResponse, loading } from '../../api/k8s/K8SApi'
+import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
+import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
 
 const MAX_LENGTH = 20
 
-export type IK8SState = {
-  clusterDef: Result<K8SResponse>,
-  overview: Result<K8SResponse>
+export type IKuberState = {
+  clusterDef: Result<KuberResponse>,
+  overview: Result<KuberResponse>
 }
 
-@connect(mapStateToPropsK8S, mapDispatchToPropsK8S)
+@connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Cluster extends React.Component<any, IK8SState> {
+export default class Cluster extends React.Component<any, IKuberState> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
-  private k8sApi: K8SApi
+  private k8sApi: KuberApi
   private method: string
 
   state = {
@@ -43,7 +43,7 @@ export default class Cluster extends React.Component<any, IK8SState> {
   }
 
   public async componentDidMount() {
-    this.k8sApi = window['K8SApi']
+    this.k8sApi = window['KuberApi']
   }
 
   public render() {
@@ -59,8 +59,9 @@ export default class Cluster extends React.Component<any, IK8SState> {
                 min={ 0 }
                 max={ 3 }
                 step={ 1 }
-                defaultValue={ 3 }
+                defaultValue={ 0 }
                 showValue={ true }
+                disabled={ true }
                 onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + ' worker(s).') }
               />
             </div>

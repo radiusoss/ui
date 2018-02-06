@@ -12,7 +12,7 @@ import MicrosoftApi from './api/microsoft/MicrosoftApi'
 import NotebookApi from './api/notebook/NotebookApi'
 import SpitfireApi from './api/spitfire/SpitfireApi'
 import TwitterApi from './api/twitter/TwitterApi'
-import K8SApi from './api/k8s/K8SApi'
+import KuberApi from './api/kuber/KuberApi'
 import { loadTheme } from 'office-ui-fabric-react/lib/Styling';
 
 /*
@@ -46,7 +46,7 @@ function start(): void {
           <div>
             <ConfigApi/>
             <SpitfireApi/>
-            <K8SApi/>
+            <KuberApi/>
             <TwitterApi/>
             <MicrosoftApi/>
             <NotebookApi/>

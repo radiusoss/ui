@@ -6,7 +6,7 @@ import { routerReducer } from 'react-router-redux'
 
 import { meReducer, profileDisplayNameReducer, profilePhotoBlobReducer } from './CommonReducer'
 import { newConfigReducer } from './ConfigReducer'
-import { k8sMessageSentReducer, k8sMessageReceivedReducer } from './K8SReducer'
+import { kuberMessageSentReducer, kuberMessageReceivedReducer } from './KuberReducer'
 import { counterReducer, isSavingCounterReducer, isLoadingCounterReducer, errorCounterReducer } from './CounterReducer'
 import { isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer, isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer } from './AuthReducer'
 import { notebookLoginReducer, webSocketMessageSentReducer, webSocketMessageReceivedReducer, noteReducer, runningParagraphsReducer, notesReducer, isStartRunReducer } from './NotebookReducer'
@@ -20,8 +20,8 @@ export const reducers = combineReducers<ApplicationState.State>({
   isLoadingCounter: isLoadingCounterReducer,
   errorCounter: errorCounterReducer,
 
-  k8sMessageSent: k8sMessageSentReducer,
-  k8sMessageReceived: k8sMessageReceivedReducer,
+  kuberMessageSent: kuberMessageSentReducer,
+  kuberMessageReceived: kuberMessageReceivedReducer,
 
   isMicrosoftAuthenticated: isMicrosoftAuthenticatedReducer,
   isToMicrosoft: isToMicrosoftReducer,

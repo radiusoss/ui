@@ -80,9 +80,9 @@ export default class ExerciseCard extends React.Component<IExerciseCardProps, IE
           { children }
         </div>
 
-        { this._getObjectivesAndPrerequisites() }
+        { this.getObjectivesAndPrerequisites() }
 
-        { this._getDosAndDonts() }
+        { this.getDosAndDonts() }
 
       </div>
 
@@ -90,7 +90,7 @@ export default class ExerciseCard extends React.Component<IExerciseCardProps, IE
 
   }
 
-  private _getDosAndDonts() {
+  private getDosAndDonts() {
     if (this.props.dos && this.props.donts) {
       return (
         <div className='ExerciseCard-dosAndDonts'>
@@ -115,7 +115,7 @@ export default class ExerciseCard extends React.Component<IExerciseCardProps, IE
     }
   }
 
-  private _getObjectivesAndPrerequisites() {
+  private getObjectivesAndPrerequisites() {
     if (this.props.content && this.props.prerequisites) {
       return (
         <div className='ExerciseCard-contentAndPrerequisites'>
@@ -141,8 +141,8 @@ export default class ExerciseCard extends React.Component<IExerciseCardProps, IE
   private goToNote(e: React.MouseEvent<HTMLAnchorElement>) {
     e.stopPropagation()
     e.preventDefault()
-    this.notebookApi.showNoteLayout(this.props.noteId, 'columns')
-    history.push(`/dla/note/columns/${this.props.noteId}`)
+    this.notebookApi.showNoteLayout(this.props.noteId, 'lines')
+//    history.push(`/dla/note/lines/${this.props.noteId}`)
   }
 
 }

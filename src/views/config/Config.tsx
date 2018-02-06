@@ -3,7 +3,7 @@ import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
-import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../../actions/K8SActions'
+import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
@@ -14,12 +14,12 @@ import { Form, FormConditionalSubmitButton, FormDatePicker, FormDropdown, FormCh
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
-import K8SApi from '../../api/k8s/K8SApi'
+import KuberApi from '../../api/kuber/KuberApi'
 import ConfigApi from '../../api/config/ConfigApi'
 
 const MAX_LENGTH = 20
 
-export type IK8SState = {
+export type IKuberState = {
   wsMessages: any[]
   jsonMessage: any
   formResults: any
@@ -27,10 +27,10 @@ export type IK8SState = {
   checked: boolean
 }
 
-@connect(mapStateToPropsK8S, mapDispatchToPropsK8S)
+@connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Config extends React.Component<any, IK8SState> {
-  private k8sApi: K8SApi
+export default class Config extends React.Component<any, IKuberState> {
+  private k8sApi: KuberApi
   private configApi: ConfigApi
   private config: IConfig = NotebookStore.state().config
   private method: string
@@ -49,7 +49,7 @@ export default class Config extends React.Component<any, IK8SState> {
   }
 
   public async componentDidMount() {
-    this.k8sApi = window['K8SApi']
+    this.k8sApi = window['KuberApi']
     this.configApi = window['ConfigApi'] 
   }
 
@@ -118,17 +118,17 @@ export default class Config extends React.Component<any, IK8SState> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, k8sMessageReceived } = nextProps
+    const { config, kuberMessageReceived } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
     }
-    if (k8sMessageReceived && k8sMessageReceived.op) {
-//      if (k8sMessageReceived.op != "PING") {
+    if (kuberMessageReceived && kuberMessageReceived.op) {
+//      if (kuberMessageReceived.op != "PING") {
         var msg = this.state.wsMessages
         if (msg.length > MAX_LENGTH) {
             msg = msg.slice(0, MAX_LENGTH - 1)
         }
-        msg.unshift(new Date().toTimeString() + ' - ' + JSON.stringify(k8sMessageReceived))
+        msg.unshift(new Date().toTimeString() + ' - ' + JSON.stringify(kuberMessageReceived))
         this.setState({
           wsMessages: msg
         })

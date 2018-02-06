@@ -3,7 +3,7 @@ import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
-import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../../actions/K8SActions'
+import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
@@ -14,19 +14,19 @@ import { Form, FormConditionalSubmitButton, FormDatePicker, FormDropdown, FormCh
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
-import K8SApi, { K8SResponse } from '../../api/k8s/K8SApi'
+import KuberApi, { KuberResponse } from '../../api/kuber/KuberApi'
 
 const MAX_LENGTH = 20
 
-export type IK8SState = {
-  apps: Result<K8SResponse>
+export type IKuberState = {
+  apps: Result<KuberResponse>
 }
 
-@connect(mapStateToPropsK8S, mapDispatchToPropsK8S)
+@connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Apps extends React.Component<any, IK8SState> {
+export default class Apps extends React.Component<any, IKuberState> {
   private config: IConfig = NotebookStore.state().config
-  private k8sApi: K8SApi
+  private k8sApi: KuberApi
   private method: string
 
   state = {
@@ -38,7 +38,7 @@ export default class Apps extends React.Component<any, IK8SState> {
   }
 
   public async componentDidMount() {
-    this.k8sApi = window['K8SApi']
+    this.k8sApi = window['KuberApi']
   }
 
   public render() {
@@ -81,7 +81,7 @@ export default class Apps extends React.Component<any, IK8SState> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, k8sMessageReceived } = nextProps
+    const { config, kuberMessageReceived } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
     }

@@ -11,11 +11,11 @@ import { Form, FormConditionalSubmitButton, FormDatePicker, FormTextInput, Valid
 import { emailRegexp } from './../../util/msc/regexp'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
-import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../../actions/K8SActions'
-import K8SApi from '../../api/k8s/K8SApi'
+import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
+import KuberApi from '../../api/kuber/KuberApi'
 import JSONTree from 'react-json-tree'
 
-export type IK8SState = {
+export type IKuberState = {
     wsMessages: any[]
     restResponse: any
     formResults: any
@@ -25,11 +25,11 @@ export type IK8SState = {
 
 const MAX_LENGTH = 20
 
-@connect(mapStateToPropsK8S, mapDispatchToPropsK8S)
+@connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Spl extends React.Component<any, IK8SState> {
+export default class Spl extends React.Component<any, IKuberState> {
   private config: IConfig = NotebookStore.state().config
-  private k8sApi: K8SApi
+  private k8sApi: KuberApi
   private restClient: RestClient
 
   state = {
@@ -53,7 +53,7 @@ export default class Spl extends React.Component<any, IK8SState> {
 
       <div>
 
-        <h1>K8S</h1>
+        <h1>Kuber</h1>
         
         <div className="callout m-0 py-h text-center bg-faded text-uppercase">
           <small><b>Received Messages</b></small>
@@ -170,7 +170,7 @@ export default class Spl extends React.Component<any, IK8SState> {
   }
 
   public async componentDidMount() {
-    this.k8sApi = window['K8SApi']
+    this.k8sApi = window['KuberApi']
 //    this.k8sApi.command("/bin/ls")
   }
 
@@ -180,14 +180,14 @@ export default class Spl extends React.Component<any, IK8SState> {
       this.config = config
       this.restClient = this.newRestClient()
     }
-    const { k8sMessageReceived } = nextProps
-    if (k8sMessageReceived.op) {
+    const { kuberMessageReceived } = nextProps
+    if (kuberMessageReceived.op) {
       var msg = this.state.wsMessages
       if (msg.length > MAX_LENGTH) {
           msg = msg.slice(0, MAX_LENGTH - 1)
       }
-//      msg.unshift(k8sMessageReceived.message)
-      msg.unshift(k8sMessageReceived)
+//      msg.unshift(kuberMessageReceived.message)
+      msg.unshift(kuberMessageReceived)
       this.setState({
         wsMessages: msg
       })
@@ -196,7 +196,7 @@ export default class Spl extends React.Component<any, IK8SState> {
 
   private newRestClient() {
     return new RestClient({
-      name: 'K8S',
+      name: 'Kuber',
       url: this.config.kuberRest,
       path: '/api/v1/spl'
     })

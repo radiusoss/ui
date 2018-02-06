@@ -29,8 +29,8 @@ export namespace ApplicationState {
     profilePhotoBlob: Blob,
     config: IConfig,
     k8sLogin: any,
-    k8sMessageSent: any,
-    k8sMessageReceived: any
+    kuberMessageSent: any,
+    kuberMessageReceived: any
     }
 }
 
@@ -62,6 +62,6 @@ export const initialState: ApplicationState.State = {
   profilePhotoBlob: new Blob(),
   config: emptyConfig,
   k8sLogin: {},
-  k8sMessageSent: {},
-  k8sMessageReceived: {}
+  kuberMessageSent: {},
+  kuberMessageReceived: {}
 }

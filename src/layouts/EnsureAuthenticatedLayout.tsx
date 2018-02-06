@@ -14,7 +14,7 @@ import NoteTilesLayout from './../views/note/NoteTilesLayout'
 import NoteColumnsLayout from './../views/note/NoteColumnsLayout'
 import NoteResultsLayout from './../views/note/NoteResultsLayout'
 import Profile from './../views/profile/Profile'
-import Settings from './../views/admin/Settings'
+import Settings from './../views/settings/Settings'
 import Simple from './../views/spl/Simple'
 import Lesson1 from '../views/school/lessons/1/Lesson1'
 import Lesson2 from '../views/school/lessons/2/Lesson2'
@@ -23,6 +23,7 @@ import Stories from './../views/stories/Stories'
 import Welcome from './../views/Welcome'
 import { connect } from 'react-redux'
 import history from './../routes/History'
+import { NotebookStore } from './../store/NotebookStore'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../actions/AuthActions'
 
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
@@ -61,15 +62,16 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
 
   public componentDidMount() {
     const { dispatch, currentURL, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
+//    console.log('----', NotebookStore.state().isMicrosoftAuthenticated, NotebookStore.state().isTwitterAuthenticated)
     if (!isMicrosoftAuthenticated && !isTwitterAuthenticated) {
       // Set the current url/path for future redirection (we use a Redux action),
       // then redirect (we use a React Router method).
 //      history.push(currentURL)
-      history.push("/")    
+      history.push("/")
     }
     else {
       history.push(currentURL)
-    }
+   }
   }
 
 }

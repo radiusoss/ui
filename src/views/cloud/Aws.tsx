@@ -3,7 +3,7 @@ import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
-import { mapStateToPropsK8S, mapDispatchToPropsK8S } from '../../actions/K8SActions'
+import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
@@ -14,11 +14,11 @@ import { Form, FormConditionalSubmitButton, FormDatePicker, FormDropdown, FormCh
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
-import K8SApi from '../../api/k8s/K8SApi'
+import KuberApi from '../../api/kuber/KuberApi'
 
 const MAX_LENGTH = 20
 
-export type IK8SState = {
+export type IKuberState = {
   wsMessages: any[]
   restResponse: any
   formResults: any
@@ -26,12 +26,12 @@ export type IK8SState = {
   checked: boolean
 }
 
-@connect(mapStateToPropsK8S, mapDispatchToPropsK8S)
+@connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Aws extends React.Component<any, IK8SState> {
+export default class Aws extends React.Component<any, IKuberState> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
-  private k8sApi: K8SApi
+  private k8sApi: KuberApi
   private method: string
   private url: string
   private wsMessage: any
@@ -49,7 +49,7 @@ export default class Aws extends React.Component<any, IK8SState> {
   }
 
   public async componentDidMount() {
-    this.k8sApi = window['K8SApi']
+    this.k8sApi = window['KuberApi']
   }
 
   public render() {
@@ -77,22 +77,12 @@ export default class Aws extends React.Component<any, IK8SState> {
                     buttonProps={{
                       onClick: (e) => {
                         this.method = 'GET'
-                        this.url = 'http://localhost:9091/api/v1/cloud/aws/us-west-2/volumes'
+                        this.url = 'http://localhost:9091/api/v1/cloud/aws/eu-central-1/volumes'
                       }
                     }}
                     >
-                    GET AWS Volumes
+                    EBS Volumes
                   </FormConditionalSubmitButton>
-                </div>
-                <div className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 ms-clearfix">
-                </div>
-              </div>
-            </div>
-
-            <div className="ms-Grid	ms-slideRightIn40 ms-clearfix">
-              <div className="ms-Grid-row ms-clearfix" style={{ width: "100%"}}>
-                <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
-                  <h4>REST Response</h4>
                   <div style={{ padding: "10px", backgroundColor: "black" }}>
                     <JSONTree 
                       data={this.state.restResponse} 
@@ -101,24 +91,8 @@ export default class Aws extends React.Component<any, IK8SState> {
                     />
                   </div>
                 </div>
-                <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
-                <h4>Websocket Messages</h4>
-                  <div style={{ padding: "10px", backgroundColor: "black", color: "rgb(0, 187, 0)"}}>
-                    {
-                      this.state.wsMessages.map((w) => {
-                        return (
-                          <small key={ Math.random() }>
-                              { w }
-                              <br/>
-                          </small>
-                        )
-                      })
-                    }
-                  </div>
-                </div>
               </div>
             </div>
-
           </LayoutGroup>
 
         </Form>
@@ -130,21 +104,9 @@ export default class Aws extends React.Component<any, IK8SState> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, k8sMessageReceived } = nextProps
+    const { config, kuberMessageReceived } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
-    }
-    if (k8sMessageReceived && k8sMessageReceived.op) {
-      if (k8sMessageReceived.op != "PING") {
-        var msg = this.state.wsMessages
-        if (msg.length > MAX_LENGTH) {
-            msg = msg.slice(0, MAX_LENGTH - 1)
-        }
-        msg.unshift(new Date().toTimeString() + ' - ' + JSON.stringify(k8sMessageReceived))
-        this.setState({
-          wsMessages: msg
-        })
-      }
     }
   }
 
@@ -159,16 +121,8 @@ export default class Aws extends React.Component<any, IK8SState> {
 
   @autobind
   private submit(values: any): void {
-
     values.name = values.name_input
-
-    if (this.method == 'WS') {
-      this.k8sApi.send(this.wsMessage)
-      return
-    }
-
     this.restClient = this.newRestClient(this.url)
-
     switch (this.method) {
       case 'GET':
         this.restClient.get<{}>(values, jsonOpt, "")
@@ -187,7 +141,6 @@ export default class Aws extends React.Component<any, IK8SState> {
           .then(json => { this.setState({restResponse: json})})
       break
     }
-  
   }
 
 }
