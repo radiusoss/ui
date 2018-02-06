@@ -106,7 +106,7 @@ export default class ConfigApi extends React.Component<any, any> {
         config.kuberWs = currentBaseUrl.replace('http', 'ws')
       }
       if (config.twitterRedirect == "") {
-        config.twitterRedirect = currentBaseUrl + "/api/vi/twitter/maketoken"
+        config.twitterRedirect = currentBaseUrl + "/api/v1/twitter/maketoken"
       }
       console.log('Updated Config', config)
       this.setState({

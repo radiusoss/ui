@@ -46,14 +46,13 @@ export default class Welcome extends React.Component<any, any> {
 
         <div className={ styles.hero } style={{ margin: '0px' }}>
 
-          <h1 className={ styles.title }>Datalayer UI</h1>
+          <h1 className={ styles.title }>Datalayer</h1>
 
-          <span className={ styles.tagline }>Kuber is the easy way to create and manage your Big Data Science Platform on Kubernetes.</span>
+          <span className={ styles.tagline }>The easy way to run Big Data Science on Kubernetes.</span>
 
-          { (!isMicrosoftAuthenticated && !isTwitterAuthenticated) && 
+          { (!isMicrosoftAuthenticated && !isTwitterAuthenticated) &&
 
             <div>
-{/*            
               <div className="ms-Grid" style={{ padding: 0 }}>
                 <div className="ms-Grid-row">
                   <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 text-center">
@@ -61,17 +60,23 @@ export default class Welcome extends React.Component<any, any> {
                   </div>
                 </div>
                 <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 text-center">
-                      <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onMicrosoftAuthenticateClick(e) }>Microsoft</a>
-                      <div className={ styles.version }>You need a valid Microsoft account.</div>
+                    <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 text-center">
+                      <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onGoogleAuthenticateClick(e) }>Google</a>
                     </div>
-                    <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 text-center">
+                    <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 text-center">
+                      <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onMicrosoftAuthenticateClick(e) }>Microsoft</a>
+                    </div>
+                    <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 text-center">
                       <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onTwitterAuthenticateClick(e) }>Twitter</a>
-                      <div className={ styles.version }>You need a valid Twitter account.</div>
                     </div>
                 </div>
+                <div className="ms-Grid-row">
+                  <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 text-center">
+                    <div className={ styles.version }>You need a valid account.</div>
+                  </div>
+                </div>
               </div>
-*/}
+{/*
               <div className="ms-Grid" style={{ padding: 0 }}>
                 <div className="ms-Grid-row">
                   <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 text-center">
@@ -85,6 +90,7 @@ export default class Welcome extends React.Component<any, any> {
                     </div>
                 </div>
               </div>
+*/}
             </div>
 
           }
@@ -99,7 +105,7 @@ export default class Welcome extends React.Component<any, any> {
                 </div>
                 <div className="ms-Grid-row">
                   <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-                    <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onCoverClick(e) }>Cover</a>
+                    <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onInClick(e) }>Explore</a>
                   </div>
                   <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
                     <a href="#" className={ css(styles.button, styles.button) } onClick={ (e) => this.onLogoutClick(e) }>Logout</a>
@@ -175,7 +181,7 @@ export default class Welcome extends React.Component<any, any> {
         <div className={ css(styles.product, styles.productAddins) } style={{margin: '0px'}}>
           <div>
             <span className={ styles.productTitle }>Enterprise ready</span>
-            <span className={ styles.productDescription }>Integrate with Azure Security.</span>
+            <span className={ styles.productDescription }>Integrate with Google and Microsoft Security.</span>
           </div>
           <img className={ styles.productImage } src={ 'img/datalayer/pipes.svg' } width='496' height='300' alt='' />
         </div>
@@ -230,6 +236,11 @@ export default class Welcome extends React.Component<any, any> {
 
   }
 
+  private onGoogleAuthenticateClick = (e) =>  {
+    e.preventDefault()
+    this.props.dispatchToGoogleAction()
+  }
+
   private onMicrosoftAuthenticateClick = (e) =>  {
     e.preventDefault()
     this.props.dispatchToMicrosoftAction()
@@ -240,7 +251,7 @@ export default class Welcome extends React.Component<any, any> {
     this.props.dispatchToTwitterAction()
   }
 
-  private onCoverClick = (e) =>  {
+  private onInClick = (e) =>  {
     e.preventDefault()
 //    history.push("/dla/notes/tiles")
     history.push("/dla/settings")

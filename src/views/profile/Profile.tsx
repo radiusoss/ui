@@ -7,6 +7,9 @@ import Kerberos from './Kerberos'
 import Microsoft from './Microsoft'
 import Twitter from './Twitter'
 import { connect } from 'react-redux'
+import { MessageBarButton } from 'office-ui-fabric-react/lib/Button'
+import { Link } from 'office-ui-fabric-react/lib/Link'
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
@@ -15,10 +18,8 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 export default class Profile extends React.Component<any, any> {
 
   state = {
-    isMicrosoftAuthenticated: false,
-    isTwitterAuthenticated: false,
-    profileDisplayName: '',
-    profilePhoto: null
+    isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
+    isTwitterAuthenticated: NotebookStore.state().isTwitterAuthenticated
   }
 
   public constructor(props) {
@@ -30,24 +31,38 @@ export default class Profile extends React.Component<any, any> {
     return (
       <div>
         <Pivot>
-{/*
-          if (isMicrosoftAuthenticated) {
-            <PivotItem linkText='Microsoft' itemIcon='OfficeLogo'>
+          <PivotItem linkText='Microsoft' itemIcon='OfficeLogo'>
+            { (isMicrosoftAuthenticated) &&
               <Microsoft />
-            </PivotItem>
-          }
-*/}
-          if (isTwitterAuthenticated) {
-            <PivotItem linkText='Twitter' itemIcon='SocialListeningLogo'>
+            }
+            { (! isMicrosoftAuthenticated) &&
+            <MessageBar
+              messageBarType={ MessageBarType.info }
+              isMultiline={ false }
+            >
+              Nothing to see here...
+              </MessageBar>
+            }
+          </PivotItem>
+          <PivotItem linkText='Twitter' itemIcon='SocialListeningLogo'>
+          { (isTwitterAuthenticated) &&
               <Twitter/>
-            </PivotItem>
-          }
+            }
+            { (! isTwitterAuthenticated) &&
+            <MessageBar
+              messageBarType={ MessageBarType.info }
+              isMultiline={ false }
+            >
+              Nothing to see here...
+            </MessageBar>
+            }
+          </PivotItem>
+        </Pivot>
 {/*
           <PivotItem linkText='Kerberos' itemIcon='SecurityGroup'>
             <Kerberos />
           </PivotItem>
 */}
-        </Pivot>
       </div>
     )
   }
@@ -56,9 +71,7 @@ export default class Profile extends React.Component<any, any> {
     const { isMicrosoftAuthenticated, isTwitterAuthenticated, profileDisplayName, profilePhoto } = nextProps
     this.setState({
       isMicrosoftAuthenticated: isMicrosoftAuthenticated, 
-      isTwitterAuthenticated: isTwitterAuthenticated, 
-      profileDisplayName: profileDisplayName, 
-      profilePhoto: profilePhoto
+      isTwitterAuthenticated: isTwitterAuthenticated
     })
   }
 

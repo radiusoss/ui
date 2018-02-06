@@ -44,6 +44,7 @@ export default class NoteLinesLayout extends React.Component<any, any> {
                 <div className="ms-font-xxl">{note.name}</div>
               </div>
             </div>
+{/*
             <div className="ms-Grid-row">
               <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 ms-textAlignRight">
                 <Rating
@@ -59,15 +60,14 @@ export default class NoteLinesLayout extends React.Component<any, any> {
                 <Facepile
                   personaSize={PersonaSize.small}
                   personas={facepilePersonas.slice(0, this.state.numberOfFaces)}
-  /*
-                  getPersonaProps={
-                    imageShouldFadeIn: {this.state.imagesFadeIn}
-                    hidePersonaDetails={false}
-                  }
-  */
+//                getPersonaProps={
+//                  imageShouldFadeIn: {this.state.imagesFadeIn}
+//                  hidePersonaDetails={false}
+//                }
                 />
               </div>
             </div>
+*/}
           </div>
           {
             note.paragraphs.map(p => {

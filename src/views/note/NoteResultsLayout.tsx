@@ -46,15 +46,14 @@ export default class NoteResultsLayout extends React.Component<any, any> {
           onDismiss={ () => this.notebookApi.showNoteLayout(this.state.note.id, 'lines') }
           headerText={note.name + ' - ' + new Date()}
         >
+{/*
           <Facepile
             personaSize={PersonaSize.small}
             personas={facepilePersonas.slice(0, this.state.numberOfFaces)}
-/*
-            getPersonaProps={
-              imageShouldFadeIn: {this.state.imagesFadeIn}
-              hidePersonaDetails={false}
-            }
-*/
+//            getPersonaProps={
+//              imageShouldFadeIn: {this.state.imagesFadeIn}
+//              hidePersonaDetails={false}
+//            }
           />
           <Rating
             min={ 1 }
@@ -64,6 +63,7 @@ export default class NoteResultsLayout extends React.Component<any, any> {
             onFocus={ () => console.log('onFocus called') }
             onBlur={ () => console.log('onBlur called') }
           />
+*/}
           <div className="ms-Grid">
             <div className="ms-Grid-row">
               <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px'}} >

@@ -12,15 +12,15 @@ export const logoutAction = (): AuthAction => ({
 })
 
 export const isMicrosoftAuthenticatedAction = (): AuthAction => ({
-  type: 'IS_AAD_AUTHENTICATED'
+  type: 'IS_MICROSOFT_AUTHENTICATED'
 })
 
 export const toMicrosoftAction = (): AuthAction => ({
-  type: 'TO_AAD'
+  type: 'TO_MICROSOFT'
 })
 
 export const microsoftTokenAction = (microsoftToken: any): AuthAction => ({
-  type: 'AAD_TOKEN',
+  type: 'MICROSOFT_TOKEN',
   microsoftToken: microsoftToken
 })
 

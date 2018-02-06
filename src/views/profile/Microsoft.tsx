@@ -67,7 +67,7 @@ export default class Microsoft extends React.Component<any, any> {
                     }]
                 }
               return (
-                <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" key={ c.principalName }>              
+                <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4" key={c.emailAddresses[0].address}>              
                   <DocumentCard>
 {/*
                     <DocumentCardPreview { ...previewProps } />

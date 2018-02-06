@@ -7,18 +7,6 @@ export default class About extends React.Component<any, any> {
 
     return (
       <div>
-{/*
-        <div className="ms-Grid">
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 text-center">
-              <h1>Datalayer UI</h1>
-              <h2>Collect. Explore. Model. Serve.</h2>
-              <br/>
-              <br/>
-            </div>
-          </div>
-        </div>
-*/}
         <Highlights showAll="true" />
       </div>
     )

@@ -104,7 +104,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       this.webSocketClient = new WebSocket(this.config.spitfireWs + '/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
         console.log("Spitfire WebSocket has been opened.");
-        toastr.success('Spitfire', 'Connected to Spitfire Server.')
+        toastr.success('Spitfire', 'Connected to Spitfire API.')
       }
       this.webSocketClient.onmessage = (event: MessageEvent) => {
         let message = JSON.parse(event.data)

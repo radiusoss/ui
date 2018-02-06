@@ -30,10 +30,10 @@ Charts are packages of pre-configured Kubernetes resources. Use Helm to:
 </ul>
 `
 
-const OMALLEY_TEXT = `
+const RELEASE_TEXT = `
 <strong>Datalayer Science Platform</strong><br/>
-Version 0.1.0<br/>
-OMalley Release<br/>
+Version 1.0.0<br/>
+Arcadia Release<br/>
 <br/>
 Author: Eric Charles<br/>
 <small>In memory of Freddy Charles, Eric's Father</small><br/>
@@ -125,6 +125,12 @@ export default class Highlights extends React.Component<any, any> {
           <span>
             <ul className={ styles.featureList } aria-label='List of highlighted features'>
               <li className="text-center">
+                <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'Arcadia Release', 'img/releases/arcadia.png', RELEASE_TEXT)}>
+                  <img src={ 'img/releases/arcadia.png' } alt='' />
+                  <span>Arcadia Release</span>
+                </a>
+              </li>
+              <li className="text-center">
                 <a href='http://datalayer.io' target="_blank">
                   <img src={ 'img/datalayer/datalayer-square.png' } alt='' />
                   <span>Datalayer</span>
@@ -138,22 +144,22 @@ export default class Highlights extends React.Component<any, any> {
               </li>
               <li className="text-center">
                 <a href='http://datalayer.io' target="_blank">
-                  <img src={ 'img/kuber/kuber.svg' } alt='' />
-                  <span>Kuber</span>
+                  <img src={ 'img/kuber/kuber-board.svg' } alt='' />
+                  <span>Kuber Board</span>
+                </a>
+              </li>
+            </ul>
+            <ul className={ styles.featureList } aria-label='List of highlighted features'>
+              <li className="text-center">
+                <a href='http://datalayer.io' target="_blank">
+                  <img src={ 'img/kuber/kuber-cli.svg' } alt='' />
+                  <span>Kuber CLI</span>
                 </a>
               </li>
               <li className="text-center">
                 <a href='http://datalayer.io' target="_blank">
                   <img src={ 'img/spitfire/datalayer-spitfire.svg' } alt='' />
                     <span>Spitfire</span>
-                </a>
-              </li>
-            </ul>
-            <ul className={ styles.featureList } aria-label='List of highlighted features'>
-              <li className="text-center">
-                <a href="" target="_blank" onClick={(e) => this.showPanel(e, 'OMalley Release', 'img/release/omalley.png', OMALLEY_TEXT)}>
-                  <img src={ 'img/release/omalley.png' } alt='' />
-                  <span>OMalley Release</span>
                 </a>
               </li>
               <li className="text-center">

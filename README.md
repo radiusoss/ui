@@ -25,7 +25,7 @@ cd $GOPATH/src/github.com/datalayer/kuber/server/
 go run main.go --apiserver-host=http://localhost:8001
 ```
 
-Start the Datalayer UI user interface and browse to http://localhost:4326.
+Start the Datalayer user interface and browse to http://localhost:4326.
 
 ```shell
 cd $GOPATH/src/github.com/datalayer/kuber/plane

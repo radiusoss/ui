@@ -14,8 +14,8 @@ export default class Routes extends React.Component<any, any> {
   render() {
     return (
       <div>
-          <Route exact path="/" name="Datalayer UI" component={NotebookLayout} />
-          <Route exact path="/index.html" name="Datalayer UI" component={NotebookLayout} />
+          <Route exact path="/" name="Datalayer" component={NotebookLayout} />
+          <Route exact path="/index.html" name="Datalayer" component={NotebookLayout} />
           <Route path="/auth/microsoft/callback" name="Microsoft OAuth Callback" component={OAuthMicrosoftCallback}/>
           <Route path="/auth/twitter/callback" name="Twitter OAuth Callback" component={OAuthTwitterCallback}/>
           <Route path="/dla" name="Notebook Layout" component={NotebookLayout} />
