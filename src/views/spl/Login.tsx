@@ -12,15 +12,10 @@ export default class Login extends React.Component<AuthDispatchers & AuthProps, 
   }
 
   public render() {
-
     const { isMicrosoftAuthenticated } = this.props
-
     return (
-
       <div>
-
         <button ref='login' >isMicrosoftAuthenticated={String(isMicrosoftAuthenticated)}</button>
-
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-md-8">
@@ -65,7 +60,6 @@ export default class Login extends React.Component<AuthDispatchers & AuthProps, 
             </div>
           </div>
         </div>
-
        </div>
      )
 

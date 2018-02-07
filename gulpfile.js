@@ -61,7 +61,7 @@ let rushBuild = build.subTask('rushbuild', (gulp, options, done) => {
 });
 
 const sourceMatch = [
-  'src/**/*.{ts,tsx,scss,js,jsx,txt,html}',
+  'src/**/*.{ts,tsx,scss,less,js,jsx,txt,html}',
   '!src/**/*.scss.ts'
 ];
 

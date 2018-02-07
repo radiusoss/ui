@@ -37,6 +37,7 @@
     "react-addons-shallow-compare": "15.5.2",
     "react-addons-test-utils": "15.5.1",
     "react-addons-transition-group": "15.5.2",
+    "react-big-calendar": "0.17.0",
     "react-breadcrumbs": "1.6.5",
     "react-chartjs-2": "2.7.0",
     "react-digraph": "2.0.4",

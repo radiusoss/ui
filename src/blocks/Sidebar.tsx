@@ -50,6 +50,12 @@ export default class Sidebar extends React.Component<any, any> {
               <NavLink to={'/dla/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
             </li>
             <li className="nav-item">
+              <NavLink to={'/dla/calendar'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Calendar</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to={'/dla/users'} className="nav-link" activeClassName="active"><FabricIcon name="People"/> Users</NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink to={'/dla/profile'} className="nav-link" activeClassName="active"><FabricIcon name="Accounts"/> Profile</NavLink>
             </li>
             <li className="nav-item">
@@ -98,7 +104,7 @@ export default class Sidebar extends React.Component<any, any> {
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--AnalyticsQuery"></i> About</a>
               <ul className="nav-dropdown-items">
                 <li className="nav-item">
-                  <NavLink to={'/dla/about/datalayer'} className="nav-link" activeClassName="active"><FabricIcon name="GlobalNavButton"/> Datalayer</NavLink>
+                  <NavLink to={'/dla/about/platform'} className="nav-link" activeClassName="active"><FabricIcon name="GlobalNavButton"/> Platform</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink to={'/dla/about/highlights'} className="nav-link" activeClassName="active"><FabricIcon name="AutoEnhanceOn"/> Highlights</NavLink>

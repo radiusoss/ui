@@ -20,11 +20,8 @@ export default class Auth extends React.Component<AuthDispatchers & AuthProps, a
   }
 
   public render() {
-
     return (
-
       <div >
-
         <div>
         {          
           // Show the command bar with the Sign in or Sign out button.
@@ -89,9 +86,7 @@ export default class Auth extends React.Component<AuthDispatchers & AuthProps, a
           }
         </div>
       </div>
-
     )
-
   }
   
   // Get the user's display name.

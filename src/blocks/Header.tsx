@@ -21,21 +21,14 @@ export default class Header extends React.Component<any, HeaderState> {
   }
 
   render() {
-
     return (
-
       <header className="app-header navbar">
-
         <button className="navbar-toggler mobile-sidebar-toggler hidden-lg-up" onClick={this.mobileSidebarToggle} type="button">&#9776;</button>
-
         <a className="navbar-brand" href="#"></a>
-
         <ul className="nav navbar-nav hidden-md-down">
-
           <li className="nav-item">
             <a className="nav-link navbar-toggler sidebar-toggler" onClick={this.sidebarToggle} href="#">&#9776;</a>
           </li>
-
           <li className="nav-item" style={{ textAlign: 'left' }}>
             <NotebookControlBar isSearchBoxVisible={ false } />
           </li>
@@ -51,7 +44,6 @@ export default class Header extends React.Component<any, HeaderState> {
           </li>
 */}
         </ul>
-
         <ul className="nav navbar-nav ml-auto">
 {/*
           <li className="nav-item hidden-md-down">
@@ -132,15 +124,11 @@ export default class Header extends React.Component<any, HeaderState> {
           </li>
 */}
           <li className="nav-item hidden-md-down">
-{/*
             <a className="nav-link navbar-toggler aside-menu-toggler" onClick={this.asideToggle} href="#">&#9776;</a>
-*/}
           </li>
         </ul>
       </header>
-
     )
-
   }
 
   private toggle(e) {

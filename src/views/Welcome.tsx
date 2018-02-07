@@ -145,7 +145,7 @@ export default class Welcome extends React.Component<any, any> {
             }
 
             <span className={ styles.flavorTitle }>Built to Scale</span>
-            <span className={ styles.flavorDescription }>Datalayer&rsquo;s robust, up-to-date technology is built on Kubernetes, Apache Hadoop, Spark and Zeppelin</span>
+            <span className={ styles.flavorDescription }>Datalayer&rsquo;s robust, up-to-date technology is built on Kubernetes, Apache Spark, Hadoop and Zeppelin</span>
 {/*
             <a href='#/components' className={ styles.button }>See components</a>
 */}
@@ -159,7 +159,7 @@ export default class Welcome extends React.Component<any, any> {
           </div>
           <div className={ styles.flavor }>
             <span className={ styles.flavorTitle }>Deploy</span>
-            <span className={ styles.flavorDescription }>Apply your models on production data.</span>
+            <span className={ styles.flavorDescription }>Score your models on production data.</span>
 {/*
             <a href='#/angular-js'>Learn more</a>
 */}
@@ -276,8 +276,7 @@ export default class Welcome extends React.Component<any, any> {
 
   private onInClick = (e) =>  {
     e.preventDefault()
-//    history.push("/dla/notes/tiles")
-    history.push("/dla/settings")
+    history.push("/dla/notes/tiles")
   }
 
   private onLogoutClick = (e) =>  {

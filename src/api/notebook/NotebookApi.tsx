@@ -48,7 +48,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   }
 
   public async login(userName, password) {
-    return this.spitfireApi.login(userName, password)
+    return this.spitfireApi.login(userName, password)    
   }
 
   public async ticket() {
@@ -213,8 +213,9 @@ export default class NotebookApi extends React.Component<any, any> implements IN
           NotebookStore.state().profilePhotoBlob = photoBlob
           console.log("Google Photo Blob", photoBlob)
           this.props.dispatchIsGoogleAuthenticatedAction()
-          history.push("/")
-        })
+//          history.push("/")
+          history.push("/dla/calendar")
+    })
   }
 
 // ----------------------------------------------------------------------------
@@ -298,7 +299,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
           console.log("Twitter Photo Blob", photoBlob)
           this.props.dispatchIsTwitterAuthenticatedAction()
           history.push("/")
-        })
+    })
   }
 
 }

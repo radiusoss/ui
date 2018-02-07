@@ -52,7 +52,7 @@ export default class Microsoft extends React.Component<any, any> {
           />
         </DocumentCard>
         <hr/>
-        <h1>My Contacts</h1>
+        <h1>Contacts</h1>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
           {

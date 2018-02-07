@@ -64,7 +64,7 @@ export default class GoogleApi extends React.Component<any, any> {
     var peopleClient = new RestClient({
       name: 'GooglePersonApi',
       url:  'https://content-people.googleapis.com',
-      path: '/v1/people',
+      path: '/v1/people/me',
       username: '',
       password: ''
     })
@@ -73,7 +73,35 @@ export default class GoogleApi extends React.Component<any, any> {
       key: this.config.googleApiKey,
       personFields: 'names,emailAddresses,photos,coverPhotos'
     }
-    var uri = peopleClient.buildRequestUriWithParams('/me', p)
+    var uri = peopleClient.buildRequestUriWithParams('', p)
+    return this.wrapResult<any, any>(
+      r => r,
+      async () => fetch(uri, {
+        method: 'GET',
+        headers: new Headers({ 
+          "Content-Type": "application/json"
+        })
+      })
+      .then(response => response.json() as any)
+    )
+  }
+
+  public async getContacts(maxResults): Promise<Result<any>> {
+    var profile = JSON.parse(localStorage.getItem(GoogleProfileStorageKey))
+    var peopleClient = new RestClient({
+      name: 'GooglePersonApi',
+      url:  'https://content-people.googleapis.com',
+      path: '/v1/people/me',
+      username: '',
+      password: ''
+    })
+    var p = {
+      access_token: profile.access_token,
+      key: this.config.googleApiKey,
+      pageSize: maxResults,
+      personFields: 'names,emailAddresses,photos,coverPhotos'
+    }
+    var uri = peopleClient.buildRequestUriWithParams('/connections', p)
     return this.wrapResult<any, any>(
       r => r,
       async () => fetch(uri, {

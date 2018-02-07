@@ -9,7 +9,7 @@ import EnsureAuthenticatedLayout from './../layouts/EnsureAuthenticatedLayout'
 import Kuber from './../views/spl/Spl'
 import Check from './../views/spl/Check'
 import About from './../views/about/About'
-import Datalayer from './../views/about/Datalayer'
+import Platform from './../views/about/Platform'
 import ReleaseNotes from './../views/about/ReleaseNotes'
 import Help from './../views/help/Help'
 import KuberSpl from './../views/spl/KuberSpl'
@@ -40,7 +40,7 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
             />
 */}
             <div className="container-fluid" style={{ padding: this.getPadding(), overflowY: 'hidden' }}>
-              <Route exact path="/dla/about/datalayer" name="Datalayer" component={Datalayer} />
+              <Route exact path="/dla/about/platform" name="Datalayer" component={Platform} />
               <Route exact path="/dla/about/highlights" name="About" component={About} />
               <Route exact path="/dla/about/release-notes" name="Release Notes" component={ReleaseNotes} />
               <Route exact path="/dla/help" name="Help" component={Help} />

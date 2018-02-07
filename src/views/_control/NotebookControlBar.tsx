@@ -237,7 +237,31 @@ export default class NotebookControlBar extends React.Component<any, any> {
         name: 'Notes',
         icon: 'ReadingMode',
         items: this.state.notes
-      },      
+      },
+      {
+        key: 'calendar',
+        icon: 'Calendar',
+        title: 'Calendar View',
+        onClick: () => history.push(`/dla/calendar`)
+      },
+      {
+        key: 'people',
+        icon: 'People',
+        title: 'Users View',
+        onClick: () => history.push(`/dla/users`)
+      },
+      {
+        key: 'profile',
+        icon: 'Accounts',
+        title: 'Profile View',
+        onClick: () => history.push(`/dla/profile`)
+      },
+      {
+        key: 'settings',
+        icon: 'Settings',
+        title: 'Settings View',
+        onClick: () => history.push(`/dla/settings`)
+      },
       this.runIndicator
     ]
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") != -1) {

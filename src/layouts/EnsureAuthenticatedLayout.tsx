@@ -1,12 +1,10 @@
 import * as React from 'react'
 import { Route } from 'react-router-dom'
-import Auth from './../views/auth/Auth'
 import Check from './../views/spl/Check'
 import Datasets from './../views/dataset/Datasets'
 import Flows from './../views/flows/Flows'
 import FlowDetail from './../views/flow/FlowDetail'
 import FlowDag from './../views/flow/FlowDag'
-import Login from './../views/auth/Login'
 import NotesList from './../views/notes/NotesList'
 import NotesTiles from './../views/notes/NotesTiles'
 import NoteLinesLayout from './../views/note/NoteLinesLayout'
@@ -14,12 +12,16 @@ import NoteTilesLayout from './../views/note/NoteTilesLayout'
 import NoteColumnsLayout from './../views/note/NoteColumnsLayout'
 import NoteResultsLayout from './../views/note/NoteResultsLayout'
 import Profile from './../views/profile/Profile'
+import Users from './../views/users/Users'
+import Calendar from './../views/calendar/Calendar'
 import Settings from './../views/settings/Settings'
 import Simple from './../views/spl/Simple'
 import Lesson1 from '../views/school/lessons/1/Lesson1'
 import Lesson2 from '../views/school/lessons/2/Lesson2'
 import Lesson3 from '../views/school/lessons/3/Lesson3'
 import Stories from './../views/stories/Stories'
+import Login from './../views/spl/Login'
+import Auth from './../views/spl/Auth'
 import Welcome from './../views/Welcome'
 import { connect } from 'react-redux'
 import history from './../routes/History'
@@ -47,6 +49,8 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/flow/dag/:flowId" name="Flow Dag" component={FlowDag}/>
           <Route path="/dla/flow/detail/:flowId" name="Flow Detail" component={FlowDetail}/>
           <Route path="/dla/profile" name="Profile" component={Profile}/>
+          <Route path="/dla/users" name="Profile" component={Users}/>
+          <Route path="/dla/calendar" name="Profile" component={Calendar}/>
           <Route path="/dla/settings" name="Settings" component={Settings}/>
           <Route path="/dla/school/lessons/1" name="Lesson 1" component={Lesson1}/>
           <Route path="/dla/school/lessons/2" name="Lesson 2" component={Lesson2}/>

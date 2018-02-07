@@ -9,27 +9,28 @@ export default class ReleaseNotes extends React.Component<any, any> {
       <div className="ms-scaleDownIn100">
         <div className="ms-Grid">
           <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-              <p className="ms-font-xxl">Version 1.0.0 #Arcadia</p>
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <p className="ms-font-xxl">Version 1.0.0</p>
               <img src="img/releases/arcadia.png" style={{ maxHeight: 150 }} />
-            </div>
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
+              <p className="ms-font-xl">#Arcadia</p>
               <p>The release `1.0.0` of the `Datalayer Science Platform` contains the following features.</p>
               <ul>
                 <li>Google Authentication</li>
                 <li>Spitfire Shiro Authentication</li>
                 <li>Basic User Management</li>
+                <li>Resources Plannning</li>
                 <li>Better Note Editor</li>
-                <li>Resources Requests</li>
               </ul>
             </div>
           </div>
           <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-              <p className="ms-font-xxl">Version 0.1.0 #OMalley</p>
+            <hr/>
+          </div>
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <p className="ms-font-xxl">Version 0.1.0</p>
               <img src="img/releases/omalley.png" style={{ maxHeight: 150 }} />
-            </div>
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
+              <p className="ms-font-xl">#OMalley</p>
               <p>
               The release `0.1.0` of the `Datalayer Science Platform` contains the following features.
               </p>
@@ -47,11 +48,13 @@ export default class ReleaseNotes extends React.Component<any, any> {
             </div>
           </div>
           <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-              <p className="ms-font-xxl">Version 0.0.1 #Basic</p>
+            <hr/>
+          </div>
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <p className="ms-font-xxl">Version 0.0.1</p>
               <img src="img/releases/basic-1.jpg" style={{ maxHeight: 150 }} />
-            </div>
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
+              <p className="ms-font-xl">#Basic</p>
               <p>
                 Version 0.0.1 is the very first release of the Datalayer Science Platform. Follow the provided <a href="http://docs.datalayer.io/docs/install">quick start install guide</a> to deploy your first cluster.
               </p>

@@ -92,7 +92,7 @@ let webpackConfig = {
         loader: 'dsv-loader'
       },
       {
-        test: /\.(css|scss)$/,
+        test: /\.(css|scss|less)$/,
         loader:'style!css!'
       },
       {
