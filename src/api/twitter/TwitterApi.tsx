@@ -67,6 +67,7 @@ export default class TwitterApi extends React.Component<any, any>  implements IT
   }
 
   private redirectToTwitterAuth() {
+    console.log("Start Login with Twitter...")
     window.location.href = this.config.kuberRest + "/api/v1/twitter"
   }
 

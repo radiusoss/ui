@@ -67,6 +67,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   private flows = []
 
   state = {
+    isGoogleAuthenticated: false,
     isMicrosoftAuthenticated: false,
     isTwitterAuthenticated: false 
   }
@@ -82,7 +83,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
   public componentWillReceiveProps(nextProps) {
 
-    const { isMicrosoftAuthenticated, isTwitterAuthenticated, config } = nextProps
+    const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, config } = nextProps
 
     if (config && ! isEqual(config, this.config)) {
       this.config = config
@@ -96,8 +97,10 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     }
 
     if (
+      (!this.state.isGoogleAuthenticated && isGoogleAuthenticated)
+      ||
       (!this.state.isMicrosoftAuthenticated && isMicrosoftAuthenticated)
-        ||
+      ||
       (!this.state.isTwitterAuthenticated && isTwitterAuthenticated)
     ) {
 
@@ -125,7 +128,12 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       setInterval( _ => {
         this.ping()
       }, 10000 )
+    }
 
+    if (this.state.isGoogleAuthenticated != isGoogleAuthenticated) {
+      this.setState({
+        isGoogleAuthenticated: isGoogleAuthenticated
+      })
     }
 
     if (this.state.isMicrosoftAuthenticated != isMicrosoftAuthenticated) {

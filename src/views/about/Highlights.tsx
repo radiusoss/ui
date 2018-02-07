@@ -139,7 +139,7 @@ export default class Highlights extends React.Component<any, any> {
               <li className="text-center">
                 <a href='http://datalayer.io' target="_blank">
                   <img src={ 'img/studio/studio.svg' } alt='' />
-                  <span>Studio</span>
+                  <span>Data Studio</span>
                 </a>
               </li>
               <li className="text-center">
@@ -193,12 +193,18 @@ export default class Highlights extends React.Component<any, any> {
                 </a>
               </li>
               <li className="text-center">
-                  <a href='https://microsoftmarketplace.microsoft.com/en-us/marketplace/apps/datalayer.datalayer-notebook' target="_blank">
-                    <img src={ 'img/azure/microsoft-azure-certified.png' } alt='' />
-                    <span>Microsoft Azure</span>
-                  </a>
-                </li>
-                <li className="text-center">
+                <a href='https://cloud.google.com/' target="_blank">
+                  <img src={ 'img/google/google-cloud.svg' } alt='' />
+                  <span>Google Cloud</span>
+                </a>
+              </li>
+              <li className="text-center">
+                <a href='https://microsoftmarketplace.microsoft.com/en-us/marketplace/apps/datalayer.datalayer-notebook' target="_blank">
+                  <img src={ 'img/azure/azure.svg' } alt='' />
+                  <span>Microsoft Azure</span>
+                </a>
+              </li>
+              <li className="text-center">
                 <a href='https://spark.apache.org' target="_blank">
                   <img src={ 'img/spark/apache-spark-w.svg' } alt='' />
                     <span>Apache Spark</span>

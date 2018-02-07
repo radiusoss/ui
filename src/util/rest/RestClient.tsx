@@ -1,5 +1,6 @@
 import * as stream from 'stream'
 import { stringify } from 'qs'
+import * as queryString from 'query-string'
 
 export class Outcome {
   success: boolean
@@ -34,11 +35,11 @@ export interface IRestClient {
   buildRequestUri(path?: string, params?: {}): string
   get<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn>
   getOp<TReturn>(op: string, path?: string): Promise<TReturn>
-//  getStream(reqParams: {}, config: any, path: string): stream.Stream;
   post<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn>
   postForm<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn>
   put<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn>
   delete<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn>
+//  getStream(reqParams: {}, config: any, path: string): stream.Stream
 }
 
 export class RestClient implements IRestClient {
@@ -55,7 +56,7 @@ export class RestClient implements IRestClient {
   }
 
   public async get<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn> {
-    let uri: string = this.buildRequestUri(path, reqParams);
+    let uri: string = this.buildRequestUriWithParams(path, reqParams);
     return fetch(uri, {
       method: 'GET',
       mode: 'cors',
@@ -74,24 +75,9 @@ export class RestClient implements IRestClient {
     let config: any = { json: true }
     return this.get<TReturn>(params, config, path)
   }
-/*
-  public GetStream(reqParams: {}, config: any, path: string): stream.Stream {
-    let uri: string = this.BuildRequestUri(path, reqParams);
-//    return getRequest(uri, config);
-    return response = fetch(uri, {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'include',
-        headers: new Headers({
-          "Content-Type": "application/json",
-          "Authorization": "Basic " + btoa(this.options.username + ":" + this.options.password)
-        })
-      })
-    .then(response => response.body as stream.Stream)
-  }
-*/
+
   public async post<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn> {
-    let uri: string = this.buildRequestUri(path, reqParams)
+    let uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'POST',
       mode: 'cors',
@@ -107,7 +93,7 @@ export class RestClient implements IRestClient {
   }
 
   public async put<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn> {
-    let uri: string = this.buildRequestUri(path, reqParams)
+    let uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'PUT',
       mode: 'cors',
@@ -123,7 +109,7 @@ export class RestClient implements IRestClient {
   }
 
   public async postForm<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn> {
-    let uri: string = this.buildRequestUri(path, reqParams)
+    let uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'POST',
       mode: 'cors',
@@ -139,7 +125,7 @@ export class RestClient implements IRestClient {
   }
 
   public async delete<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn> {
-    let uri: string = this.buildRequestUri(path, reqParams)
+    let uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'DELETE',
       mode: 'cors',
@@ -152,25 +138,41 @@ export class RestClient implements IRestClient {
     .then(response => response.json() as any)
     .then(json => json as TReturn)
   }
-
-  public buildRequestUri(path?: string, params?: {}): string {
+/*
+  public getStream(reqParams: {}, config: any, path: string): stream.Stream {
+    let uri: string = this.BuildRequestUri(path, reqParams);
+//    return getRequest(uri, config);
+    return response = fetch(uri, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        headers: new Headers({
+          "Content-Type": "application/json",
+          "Authorization": "Basic " + btoa(this.options.username + ":" + this.options.password)
+        })
+      })
+    .then(response => response.body as stream.Stream)
+  }
+*/
+public buildRequestUri(path?: string): string {
     path = path || ''
     if (path[0] === '/') {
       path = path.substr(1)
     }
+    var uri = `${this.baseUri}${path}`
+    if (uri.endsWith("/")) {
+      uri = uri.substring(0, uri.length -1)
+    }
+    return uri
+  }
+
+  public buildRequestUriWithParams(path?: string, params?: {}): string {
+    var uri = this.buildRequestUri(path)
     params = params || {}
     let reqparams: {} = { ...this.baseParameters, ...params }
-    let ps = JSON.stringify(reqparams)
-    var uri
-    // TODO(ECH) Take into account parameters...
-//    if (ps == '') {
-      uri = `${this.baseUri}${path}`
-//    }
-//    else {
-//      uri = `${this.baseUri}${path}?${ps}`
-//    }
-    if (uri.endsWith("/")) {
-      return uri.substring(0, uri.length -1)
+    var ps = queryString.stringify(reqparams)
+    if (ps != '') {
+      uri = `${uri}?${ps}`
     }
     return uri
   }

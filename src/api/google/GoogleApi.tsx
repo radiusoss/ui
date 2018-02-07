@@ -21,7 +21,6 @@ export default class GoogleApi extends React.Component<any, any> {
   public constructor(props) {
     super(props)
     this.toGoogle = this.toGoogle.bind(this)
-    this.handleError = this.handleError.bind(this)
     window["GoogleApi"] = this
   }
 
@@ -41,7 +40,7 @@ export default class GoogleApi extends React.Component<any, any> {
       this.restClient = new RestClient({
         name: 'GoogleApi',
         url: this.config.kuberRest,
-        path: '/api',
+        path: '/api/v1/google',
         username: '',
         password: ''
       })
@@ -58,122 +57,54 @@ export default class GoogleApi extends React.Component<any, any> {
        + "&scope=" + this.config.googleScope
   }
 
+  // ----------------------------------------------------------------------------
+
+  public async getMe(): Promise<Result<any>> {
+    var profile = JSON.parse(localStorage.getItem(GoogleProfileStorageKey))
+    var peopleClient = new RestClient({
+      name: 'GooglePersonApi',
+      url:  'https://content-people.googleapis.com',
+      path: '/v1/people',
+      username: '',
+      password: ''
+    })
+    var p = {
+      access_token: profile.access_token,
+      key: this.config.googleApiKey,
+      personFields: 'names,emailAddresses,photos,coverPhotos'
+    }
+    var uri = peopleClient.buildRequestUriWithParams('/me', p)
+    return this.wrapResult<any, any>(
+      r => r,
+      async () => fetch(uri, {
+        method: 'GET',
+        headers: new Headers({ 
+          "Content-Type": "application/json"
+        })
+      })
+      .then(response => response.json() as any)
+    )
+  }
+
   public logout() {
     localStorage.removeItem(GoogleProfileStorageKey)
     localStorage.removeItem(MeStorageKey)
     this.props.dispatchLogoutAction()
   }
-/*
-  public getMe(callback) {
-    var client = this.getClient()
-    if (client) {
-      client 
-      .api('/me')
-      .select('displayName,givenName,surname,emailAddresses,userPrincipalName')
-      .get((err, res) => {
-        if (!err) {
-          callback(null, res)
-        }
-        else this.handleError(err)
-      })
-    }
-  }
 
-  public getMyPicto(callback) {
-    var client = this.getClient()
-    if (client) {
-      client 
-      .api('/me/photo/$value')
-      .responseType('blob')
-			.get((err, res, rawResponse) => {
-        if (!err) {
-          callback(null, rawResponse.xhr.response)
-        }
-        else this.handleError(err)
-      })
-    }
-  }
+  // ----------------------------------------------------------------------------
 
-  public getContacts(callback) {
-    var client = this.getClient()
-    if (client) {
-      client 
-      .api('/me/contacts')
-			.get((err, res) => {
-        if (err) {
-          this.handleError(err);
-        }
-        callback(err, (res) ? res.value : [])
-      })
+  private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: () => Promise<TRaw>): Promise<Result<TOut>> {
+    let result: Result<TOut> = new Result<TOut>()
+    try {
+      let raw = await action()
+      let selection = selector(raw)
+      result.success = raw !== undefined && selection !== undefined
+      result.result = selection
+    } catch (error) {
+      result.success = false
     }
-  }
+    return result
+  } 
 
-  public getPeople(callback) {
-    var client = this.getClient()
-    if (client) {
-      client 
-      .api('/me/people')
-      .version('beta')
-      .filter(`personType eq 'Person'`)
-      .select('displayName,givenName,surname,emailAddresses,userPrincipalName')
-      .top(20)
-      .get((err, res) => {
-        if (err) {
-          this.handleError(err)
-        }
-        callback(err, (res) ? res.value : [])
-      })
-    }
-  }
-
-  public getProfilePics(personas, callback) {
-    var client = this.getClient()
-    if (client) {
-      const pic = (p, done) => {
-        client 
-          .api(`users/${p.props.id}/photo/$value`)
-          .header('Cache-Control', 'no-cache')      
-          .responseType('blob')
-          .get((err, res, rawResponse) => {
-            if (err) {
-              done(err);
-            }
-            else {
-              p.imageUrl = window.URL.createObjectURL(rawResponse.xhr.response)
-              p.initialsColor = null
-              done()
-            }
-          })
-      }
-      async.each(personas, pic, (err) => {
-        callback(err);
-      })
-    }
-  }
-
-  public searchForPeople(searchText, callback) {
-    var client = this.getClient()
-    if (client) {
-      client
-        .api('/users')
-        .filter(`startswith(displayName,'${searchText}')`)
-        .select('displayName,givenName,surname,mail,userPrincipalName,id')
-        .top(20)
-        .get((err, res) => {
-          if (err) {
-            this.handleError(err)
-          }
-          callback(err, (res) ? res.value : [])
-        })
-    }
-  }
-*/
-  private handleError(err) {
-    // Just redirect to the login function when the token is expired.
-    // Production should implement more robust token management.
-    if (err.statusCode === 401 && err.message === 'Access token has expired.') {
-      this.props.dispatchToGoogleAction()
-    }
-  }
- 
 }

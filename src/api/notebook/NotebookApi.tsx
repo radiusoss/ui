@@ -6,9 +6,10 @@ import { NotebookStore } from './../../store/NotebookStore'
 import { ISpitfireApi, SpitfireResponse } from './../spitfire/SpitfireApi'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from './../../actions/AuthActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
-import { MicrosoftProfileStorageKey } from './../microsoft/MicrosoftApi'
 import GoogleApi from './../google/GoogleApi'
+import { GoogleProfileStorageKey } from './../google/GoogleApi'
 import MicrosoftApi from './../microsoft/MicrosoftApi'
+import { MicrosoftProfileStorageKey } from './../microsoft/MicrosoftApi'
 import TwitterApi from './../twitter/TwitterApi'
 import { TwitterProfileStorageKey } from './../twitter/TwitterApi'
 
@@ -167,7 +168,53 @@ export default class NotebookApi extends React.Component<any, any> implements IN
 // ----------------------------------------------------------------------------
   
   public updateGoogleProfile() {
-    // https://content-people.googleapis.com/v1/people/me?access_token=ya29.GltZBb2eUEvcT7Ue7WS4G4GUYGtXInPlQJWYJJzBkDU1CAeBiFbt6R9ZqHxTzWpgTm4Ebc3ENnSS9dFMmaBXe5hoEu1nbksbAgMnK1efs06miQCEssyh6Vmo3TEJ&key=AIzaSyA4GOtTmfHmAL5t8jn0LBZ_SsInQukugAU&personFields=emailAddresses
+    var me: any
+    try {
+     me = JSON.parse(localStorage.getItem(MeStorageKey))
+    }
+    catch(e) {
+      console.log(e)
+    }
+    if (me && me.screen_name) {
+      this.processGoogleMe(me)
+    }
+    else {
+      var cred = localStorage.getItem(GoogleProfileStorageKey)
+      if (cred) {
+        this.googleApi.getMe()
+          .then(me => {
+            this.processGoogleMe(me.result)
+          })
+        }
+      }
+  }
+
+  private processGoogleMe(me: any) {
+    console.log('me', me)
+    NotebookStore.state().me = me
+    localStorage.setItem(MeStorageKey, JSON.stringify(me))
+    var principalName = me.resourceName
+    console.log("Google Principal Name", principalName)
+    var displayName = me.names[0].displayName
+    console.log("Google Display Name", displayName)
+    NotebookStore.state().profileDisplayName = displayName
+    this.login(principalName + "#google", principalName)
+      .then(res => {
+        console.log('Notebook Login', res)
+        NotebookStore.state().notebookLogin = res
+      })
+      var photoUrl = me.photos[0].url
+      console.log("Google Photo Url", photoUrl)
+      NotebookStore.state().profilePhoto = photoUrl
+      fetch(photoUrl)
+        .then((response: any) => {
+          return response.blob()
+        }).then((photoBlob: any) => {
+          NotebookStore.state().profilePhotoBlob = photoBlob
+          console.log("Google Photo Blob", photoBlob)
+          this.props.dispatchIsGoogleAuthenticatedAction()
+          history.push("/")
+        })
   }
 
 // ----------------------------------------------------------------------------

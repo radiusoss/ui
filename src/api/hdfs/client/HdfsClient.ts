@@ -86,7 +86,7 @@ export class HdfsClient implements IHdfsClient {
     const op: string = 'APPEND'
     const locHeader: string = 'location'
     const reqParams = { op, bufferSize }
-    const uri = this.restClient.buildRequestUri(path, reqParams)
+    const uri = this.restClient.buildRequestUriWithParams(path, reqParams)
 
     return this.wrapOutcome(async () => {
       // two-part creation per docs
@@ -138,7 +138,7 @@ export class HdfsClient implements IHdfsClient {
     try {
       // two-part creation per docs
       // reference: https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/Hdfs.html#Create_and_Write_to_a_File
-      let uri = this.restClient.buildRequestUri(path, parameters)
+      let uri = this.restClient.buildRequestUriWithParams(path, parameters)
 //      let req1: RequestResponse = await put(uri, requestOpts)
       const req1 = await fetch(uri, {
         method: "PUT",

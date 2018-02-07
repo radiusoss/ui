@@ -41,12 +41,14 @@ export default class Profile extends React.Component<any, any> {
                 <Google/>
               }
               { (! isGoogleAuthenticated) &&
-              <MessageBar
-                messageBarType={ MessageBarType.info }
-                isMultiline={ false }
-              >
-                Nothing to see here...
-              </MessageBar>
+              <div style={{ padding: 10 }}>
+                <MessageBar
+                  messageBarType={ MessageBarType.info }
+                  isMultiline={ false }
+                >
+                  Nothing to see here...
+                </MessageBar>
+              </div>
               }
           </PivotItem>
           <PivotItem linkText='Microsoft' itemIcon='OfficeLogo' itemKey='microsoft'>
@@ -54,12 +56,14 @@ export default class Profile extends React.Component<any, any> {
               <Microsoft />
             }
             { (! isMicrosoftAuthenticated) &&
-            <MessageBar
-              messageBarType={ MessageBarType.info }
-              isMultiline={ false }
-            >
-              Nothing to see here...
-              </MessageBar>
+            <div style={{ padding: 10 }}>
+              <MessageBar
+                messageBarType={ MessageBarType.info }
+                isMultiline={ false }
+              >
+                Nothing to see here...
+                </MessageBar>
+            </div>
             }
           </PivotItem>
           <PivotItem linkText='Twitter' itemIcon='SocialListeningLogo' itemKey='twitter'>
@@ -67,12 +71,14 @@ export default class Profile extends React.Component<any, any> {
               <Twitter/>
             }
             { (! isTwitterAuthenticated) &&
-            <MessageBar
-              messageBarType={ MessageBarType.info }
-              isMultiline={ false }
-            >
-              Nothing to see here...
-            </MessageBar>
+            <div style={{ padding: 10 }}>
+              <MessageBar
+                messageBarType={ MessageBarType.info }
+                isMultiline={ false }
+              >
+                Nothing to see here...
+              </MessageBar>
+            </div>
             }
           </PivotItem>
         </Pivot>

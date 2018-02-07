@@ -29,7 +29,7 @@ export default class MicrosoftApi extends React.Component<any, any> {
     const { isToMicrosoft, isMicrosoftAuthenticated, microsoftToken } = this.props
     if (isToMicrosoft) {
       this.toMicrosoft()
-      return <div></div>
+      return <div>{ this.props.children }</div>
     }
     return <div>{ this.props.children }</div>
   }

@@ -30,8 +30,8 @@ import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../actions/AuthActi
 export default class EnsureAuthenticatedLayout extends React.Component<any, any> {
 
   public render() {
-    const { isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
-    if (isMicrosoftAuthenticated || isTwitterAuthenticated) {
+    const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
+    if (isGoogleAuthenticated || isMicrosoftAuthenticated || isTwitterAuthenticated) {
       return (
         <div>
           <Route exact path="/dla" component={Welcome}/>
@@ -61,9 +61,9 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
   }
 
   public componentDidMount() {
-    const { dispatch, currentURL, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
+    const { dispatch, currentURL, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
 //    console.log('----', NotebookStore.state().isMicrosoftAuthenticated, NotebookStore.state().isTwitterAuthenticated)
-    if (!isMicrosoftAuthenticated && !isTwitterAuthenticated) {
+    if (!isGoogleAuthenticated && !isMicrosoftAuthenticated && !isTwitterAuthenticated) {
       // Set the current url/path for future redirection (we use a Redux action),
       // then redirect (we use a React Router method).
 //      history.push(currentURL)

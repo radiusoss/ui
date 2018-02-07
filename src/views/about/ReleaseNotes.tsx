@@ -17,7 +17,9 @@ export default class ReleaseNotes extends React.Component<any, any> {
               <p>The release `1.0.0` of the `Datalayer Science Platform` contains the following features.</p>
               <ul>
                 <li>Google Authentication</li>
+                <li>Spitfire Shiro Authentication</li>
                 <li>Basic User Management</li>
+                <li>Better Note Editor</li>
                 <li>Resources Requests</li>
               </ul>
             </div>

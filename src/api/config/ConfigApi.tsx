@@ -15,6 +15,7 @@ export type IConfig = {
 	kuberBoard: string
 	kuberRest: string
 	kuberWs: string
+	googleApiKey: string
 	googleClientId: string
 	googleRedirect: string
 	googleScope: string
@@ -27,19 +28,20 @@ export type IConfig = {
 }
 
 export const emptyConfig: IConfig = {
-  hdfs: "",
-  kuberBoard: "",
-  kuberRest: "",
-  kuberWs: "",
-	googleClientId: "",
-	googleRedirect: "",
-	googleScope: "",
-  microsoftApplicationId: "",
-  microsoftRedirect: "",
-  microsoftScope: "",
-  spitfireRest: "",
-  spitfireWs: "",
-  twitterRedirect: ""
+  hdfs: '',
+  kuberBoard: '',
+  kuberRest: '',
+  kuberWs: '',
+	googleApiKey: '',
+	googleClientId: '',
+	googleRedirect: '',
+	googleScope: '',
+  microsoftApplicationId: '',
+  microsoftRedirect: '',
+  microsoftScope: '',
+  spitfireRest: '',
+  spitfireWs: '',
+  twitterRedirect: ''
 }
 
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
@@ -99,22 +101,22 @@ export default class ConfigApi extends React.Component<any, any> {
       console.log('Config', config)
       var currentBaseUrl = this.currentBaseUrl()
       config.kuberRest = kuberRest
-      if (config.kuberBoard == "") {
+      if (config.kuberBoard == '') {
         config.kuberBoard = currentBaseUrl
       }
-      if (config.kuberRest == "") {
+      if (config.kuberRest == '') {
         config.kuberRest = currentBaseUrl
       }
-      if (config.kuberWs == "") {
+      if (config.kuberWs == '') {
         config.kuberWs = currentBaseUrl.replace('http', 'ws')
       }
-      if (config.googleRedirect == "") {
+      if (config.googleRedirect == '') {
         config.googleRedirect = currentBaseUrl + "/auth/google/callback"
       }
-      if (config.microsoftRedirect == "") {
+      if (config.microsoftRedirect == '') {
         config.microsoftRedirect = currentBaseUrl + "/auth/microsoft/callback"
       }
-      if (config.twitterRedirect == "") {
+      if (config.twitterRedirect == '') {
         config.twitterRedirect = currentBaseUrl + "/api/v1/twitter/maketoken"
       }
       console.log('Updated Config', config)

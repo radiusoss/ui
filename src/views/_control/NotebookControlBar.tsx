@@ -29,6 +29,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
   private rightItems: any[] = [{}]
 
   state = {
+    isGoogleAuthenticated: false,
     isMicrosoftAuthenticated: false,
     isTwitterAuthenticated: false,
     note: undefined,
@@ -114,9 +115,14 @@ export default class NotebookControlBar extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, isMicrosoftAuthenticated, isTwitterAuthenticated, webSocketMessageReceived, note, runningParagraphs } = nextProps
+    const { config, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, webSocketMessageReceived, note, runningParagraphs } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
+    }
+    if (! this.state.isGoogleAuthenticated != isGoogleAuthenticated) {
+      this.setState({
+        isGoogleAuthenticated: isGoogleAuthenticated
+      })
     }
     if (! this.state.isMicrosoftAuthenticated != isMicrosoftAuthenticated) {
       this.setState({
