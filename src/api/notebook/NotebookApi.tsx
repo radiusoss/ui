@@ -120,6 +120,18 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.listConfigurations()
   }
 
+  public addUsers(users: any): void {
+    return this.spitfireApi.addUsers(users)
+  }
+
+  public removeUsers(users: any): void {
+    return this.spitfireApi.removeUsers(users)
+  }
+
+  public listUsers(): void {
+    return this.spitfireApi.listUsers()
+  }
+
   public newFlow(name: string): void {
     return this.spitfireApi.newFlow(name)
   }
@@ -175,7 +187,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     catch(e) {
       console.log(e)
     }
-    if (me && me.screen_name) {
+    if (me && me.resourceName) {
       this.processGoogleMe(me)
     }
     else {
@@ -190,32 +202,49 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   }
 
   private processGoogleMe(me: any) {
-    console.log('me', me)
+    console.log('Google Me', me)
     NotebookStore.state().me = me
     localStorage.setItem(MeStorageKey, JSON.stringify(me))
     var principalName = me.resourceName
     console.log("Google Principal Name", principalName)
     var displayName = me.names[0].displayName
+    var userName = principalName
     console.log("Google Display Name", displayName)
     NotebookStore.state().profileDisplayName = displayName
-    this.login(principalName + "#google", principalName)
+    var email = ""
+    if (me.emailAddresses) {
+      email = me.emailAddresses[0].value
+      userName = email
+    }
+    console.log("Google Email", email)
+    this.login(userName + "#google", principalName)
       .then(res => {
-        console.log('Notebook Login', res)
+        console.log('Google Notebook Login', res)
         NotebookStore.state().notebookLogin = res
+        if (!res.success) {
+          history.push("/500")
+        }
+        else if (res.result.status != "OK") {
+          history.push("/500")
+        }
+        else {
+          var photoUrl = me.photos[0].url
+          console.log("Google Photo Url", photoUrl)
+          NotebookStore.state().profilePhoto = photoUrl
+          fetch(photoUrl)
+            .then((response: any) => {
+              return response.blob()
+            }).then((photoBlob: any) => {
+              NotebookStore.state().profilePhotoBlob = photoBlob
+              console.log("Google Photo Blob", photoBlob)
+              this.props.dispatchIsGoogleAuthenticatedAction()
+              history.push("/dla/profile")
+            })
+          }
       })
-      var photoUrl = me.photos[0].url
-      console.log("Google Photo Url", photoUrl)
-      NotebookStore.state().profilePhoto = photoUrl
-      fetch(photoUrl)
-        .then((response: any) => {
-          return response.blob()
-        }).then((photoBlob: any) => {
-          NotebookStore.state().profilePhotoBlob = photoBlob
-          console.log("Google Photo Blob", photoBlob)
-          this.props.dispatchIsGoogleAuthenticatedAction()
-//          history.push("/")
-          history.push("/dla/calendar")
-    })
+      .catch(function(error) {
+        console.log(error)
+      })
   }
 
 // ----------------------------------------------------------------------------
@@ -225,7 +254,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     if (profile) {
       this.microsoftApi.getMe(async (err, me) => {
         if (!err) {
-          console.log('me', me)
+          console.log('Microsoft Me', me)
           NotebookStore.state().me = me
           var principalName = me.userPrincipalName
           console.log("Microsoft Principal Name", principalName)
@@ -234,7 +263,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
           NotebookStore.state().profileDisplayName = displayName
           this.login(principalName + "#microsoft", principalName)
             .then(res => {
-              console.log('Notebook Login', res)
+              console.log('Microsoft Notebook Login', res)
               NotebookStore.state().notebookLogin = res
             })
           this.microsoftApi.getMyPicto((err, photoBlob) => {
@@ -275,7 +304,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   }
 
   private processTwitterMe(me: any) {
-    console.log('me', me)
+    console.log('Twitter Me', me)
     NotebookStore.state().me = me
     localStorage.setItem(MeStorageKey, JSON.stringify(me))
     var principalName = me.screen_name
@@ -285,7 +314,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     NotebookStore.state().profileDisplayName = displayName
     this.login(principalName + "#twitter", principalName)
       .then(res => {
-        console.log('Notebook Login', res)
+        console.log('Twitter Notebook Login', res)
         NotebookStore.state().notebookLogin = res
       })
       var photoUrl = me.profile_image_url_https

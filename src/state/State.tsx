@@ -34,7 +34,7 @@ export namespace ApplicationState {
     kuberLogin: any,
     kuberMessageSent: any,
     kuberMessageReceived: any
-    }
+  }
 }
 
 const initialCounter: ApplicationState.Counter = {

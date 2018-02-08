@@ -17,9 +17,10 @@ export default class ReleaseNotes extends React.Component<any, any> {
               <ul>
                 <li>Google Authentication</li>
                 <li>Spitfire Shiro Authentication</li>
-                <li>Basic User Management</li>
-                <li>Resources Plannning</li>
-                <li>Better Note Editor</li>
+                <li>Basic User Management with Authorized Users</li>
+                <li>Cluster Calendar</li>
+                <li>Read Only Note Column View</li>
+                <li>Fully Operational Note Lines Views</li>
               </ul>
             </div>
           </div>

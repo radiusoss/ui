@@ -2,13 +2,14 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { NotebookStore } from './../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import GoogleApi from './../../api/google/GoogleApi'
+import NotebookApi from './../../api/notebook/NotebookApi'
+import { IUser } from './../../domain/Domain'
 import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTitle, IDocumentCardPreviewProps, DocumentCardActions } from 'office-ui-fabric-react/lib/DocumentCard'
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Users extends React.Component<any, any> {
-  private googleApi: GoogleApi
+  private notebookApi: NotebookApi
 
   state = {
     users: []
@@ -16,40 +17,29 @@ export default class Users extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    this.googleApi = window["GoogleApi"]
+    this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-
-    return (
-      
+    return (      
       <div>
-
         <div className='ms-font-su'>Users</div>
-
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             {
               this.state.users.map((c) => {
-                var resourceName = c.resourceName
-                var displayName = ""
-                if (c.names && c.names[0]) displayName = c.names[0].displayName
-                var email = ""
-                if (c.emailAddresses && c.emailAddresses[0]) email = c.emailAddresses[0].value
-                var picto = ""
-                if (c.photos && c.photos[0]) picto = c.photos[0].url
                 return (
-                  <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2" key={ resourceName }>
+                  <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2" key={ c.principal }>
                     <DocumentCard>
                       <DocumentCardTitle
-                        title = { displayName }
+                        title = { c.displayName }
                         shouldTruncate = { true } />
                       <DocumentCardActivity
-                        activity={'@' + resourceName}
+                        activity={'@' + c.principal}
                         people={
                           [{ 
-                            name: email, 
-                            profileImageSrc: picto
+                            name: c.email, 
+                            profileImageSrc: c.picto
                           }]
                         }
                       />
@@ -57,13 +47,12 @@ export default class Users extends React.Component<any, any> {
                         actions={
                           [
                             {
-                              iconProps: { iconName: 'Share' },
+                              iconProps: { iconName: 'Delete' },
                               onClick: (ev: any) => {
-                                console.log('You clicked the share action.')
+                                this.deleteUser(c)
                                 ev.preventDefault()
                                 ev.stopPropagation()
-                              },
-                              ariaLabel: 'share action'
+                              }
                             }
                           ]
                         }
@@ -76,21 +65,27 @@ export default class Users extends React.Component<any, any> {
           </div>
         </div>
       </div>
-
     )
-
   }
 
   public componentDidMount() {
-    this.updateUsers()
+    this.notebookApi.listUsers()
   }
 
-  private updateUsers() {
-    this.googleApi.getContacts(50)
-      .then(contacts => {
-        this.setState({
-          users: contacts.result.connections
-        })
+  public componentWillReceiveProps(nextProps) {
+    const { webSocketMessageReceived } = nextProps
+    if (! webSocketMessageReceived) return
+    if (webSocketMessageReceived.op == "LIST_USERS") {
+      var users = webSocketMessageReceived.data.users
+      this.setState({
+        users: Object.keys(users).map(function(k) { return users[k] })
+      })
+    }
+  }
+
+  private deleteUser(user: any) {
+    this.notebookApi.removeUsers({
+      principal: user.principal + '#' + user.source
     })
   }
 

@@ -35,6 +35,16 @@ export default class Profile extends React.Component<any, any> {
     if (isTwitterAuthenticated) selectedKey = 'twitter'
     return (
       <div>
+        { (isGoogleAuthenticated) &&
+          <Google/>
+        }
+        { (isMicrosoftAuthenticated) &&
+          <Microsoft />
+        }
+        { (isTwitterAuthenticated) &&
+          <Twitter/>
+        }
+{/*
         <Pivot selectedKey={ selectedKey }>
           <PivotItem linkText='Google' itemIcon='SocialListeningLogo' itemKey='google'>
             { (isGoogleAuthenticated) &&
@@ -82,6 +92,7 @@ export default class Profile extends React.Component<any, any> {
             }
           </PivotItem>
         </Pivot>
+*/}
 {/*
           <PivotItem linkText='Kerberos' itemIcon='SecurityGroup'>
             <Kerberos />

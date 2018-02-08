@@ -61,6 +61,9 @@ export default class Sidebar extends React.Component<any, any> {
             <li className="nav-item">
               <NavLink to={'/dla/settings'} className="nav-link" activeClassName="active"><FabricIcon name="Settings"/> Settings</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink to={'/dla/docs'} className="nav-link" activeClassName="active"><FabricIcon name="Documentation"/> Docs</NavLink>
+             </li>
 {/*
             <li className="nav-item nav-dropdown">
               <a className="nav-link nav-dropdown-toggle" href="/dla/admin" onClick={this.handleClick.bind(this)}><i className="ms-Icon ms-Icon--Equalizer"></i> Admin</a>

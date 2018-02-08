@@ -43,6 +43,9 @@ export interface ISpitfireApi {
   restartInterpreter(id: string)
   listConfigurations()
   interpreterSetting()
+  addUsers(users: any): void
+  removeUsers(users: any): void
+  listUsers(): void
   newFlow(name: string): void
   saveFlow(flow: any): void
   saveFlows(flows: any): void
@@ -153,6 +156,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 // ----------------------------------------------------------------------------
 
   public async login(userName, password): Promise<Result<SpitfireResponse>> {
+    // TODO(ECH)
     password = "spitfire-shared"
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,
@@ -239,6 +243,18 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
   public listConfigurations(): void {
     this.sendWebSocketMessage(JSON.stringify(this.LIST_CONFIGURATIONS()))
+  }
+
+  public addUsers(users: any): void {
+    this.sendWebSocketMessage(JSON.stringify(this.ADD_USERS(users)))
+  }
+
+  public removeUsers(users: any): void {
+    this.sendWebSocketMessage(JSON.stringify(this.REMOVE_USERS(users)))
+  }
+
+  public listUsers(): void {
+    this.sendWebSocketMessage(JSON.stringify(this.LIST_USERS()))
   }
 
   public newFlow(name: string): void {
@@ -518,6 +534,35 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       'principal': this.principalValue(),
       'ticket':	this.ticketValue(),
       'roles': this.rolesValue()
+    }
+  }
+
+  private LIST_USERS() {
+    return {
+      'op':	'LIST_USERS',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue()
+    }
+  }
+
+  private ADD_USERS(users: any) {
+    return {
+      'op':	'ADD_USERS',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data': users
+    }
+  }
+
+  private REMOVE_USERS(users: any) {
+    return {
+      'op':	'REMOVE_USERS',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data': users
     }
   }
 

@@ -6,12 +6,14 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { connect } from 'react-redux'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import * as isEqual from 'lodash.isequal'
+import { toastr } from 'react-redux-toastr'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import history from './../../routes/History'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
 
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
@@ -54,12 +56,27 @@ export default class NotebookControlBar extends React.Component<any, any> {
     this.updateMenu()
     return (
       <div style = {{ backgroundColor: "white !important"}} >
-        <CommandBar
-          isSearchBoxVisible={ this.props.isSearchBoxVisible }
-          items={ this.leftItems }
-          farItems={ this.rightItems }
-          className={ styles.commandBarBackgroundTransparentLarge }
-        />
+
+        <div className="ms-Grid" style={{ padding: 0 }}>
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
+              <CommandBar
+                isSearchBoxVisible={ this.props.isSearchBoxVisible }
+                items={ this.leftItems }
+                farItems={ this.rightItems }
+                className={ styles.commandBarBackgroundTransparentLarge }
+              />
+            </div>
+            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-textAlignRight">
+              <SearchBox
+                onFocus={ () => toastr.warning('Search is not available', 'Looks like you are eager for the next release...') }
+                onBlur={ () => console.log('onBlur called') }
+                underlined={ true }
+              />
+            </div>
+          </div>
+        </div>
+
         <Panel
           isOpen={ this.state.showNewNotePanel }
           type={ PanelType.smallFixedNear }
@@ -241,37 +258,43 @@ export default class NotebookControlBar extends React.Component<any, any> {
       {
         key: 'calendar',
         icon: 'Calendar',
-        title: 'Calendar View',
+        title: 'Calendar',
         onClick: () => history.push(`/dla/calendar`)
       },
       {
         key: 'people',
         icon: 'People',
-        title: 'Users View',
+        title: 'Users',
         onClick: () => history.push(`/dla/users`)
       },
       {
         key: 'profile',
         icon: 'Accounts',
-        title: 'Profile View',
+        title: 'Profile',
         onClick: () => history.push(`/dla/profile`)
       },
       {
         key: 'settings',
         icon: 'Settings',
-        title: 'Settings View',
+        title: 'Settings',
         onClick: () => history.push(`/dla/settings`)
+      },
+      {
+        key: 'docs',
+        icon: 'Documentation',
+        title: 'Documentation',
+        onClick: () => history.push(`/dla/docs`)
       },
       this.runIndicator
     ]
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") != -1) {
-      this.rightItems = [
+      this.leftItems.push(
         {
           key: 'CollapseMenu',
           icon: 'CollapseMenu',
           title: 'Note Lines Layout',
           onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'lines')
-        },
+        })
 /*
         {
           key: 'Tiles2',
@@ -280,18 +303,23 @@ export default class NotebookControlBar extends React.Component<any, any> {
           onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'tiles')
         },
 */
-        {
-          key: 'DoubleColumn',
-          icon: 'DoubleColumn',
-          title: 'Note Columns Layout',
-          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'columns')
-        },
+      this.leftItems.push(
         {
           key: 'SingleColumn',
           icon: 'SingleColumn',
           title: 'Note Results Layout',
           onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'results')
-        }
+        })
+      this.leftItems.push(
+          {
+          key: 'DoubleColumn',
+          icon: 'DoubleColumn',
+          title: 'Code Scratchpad',
+          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'columns')
+        })
+    }
+    if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") != -1) {
+      this.rightItems = [
       ]
     }
     else {

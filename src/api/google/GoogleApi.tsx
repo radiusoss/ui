@@ -71,7 +71,7 @@ export default class GoogleApi extends React.Component<any, any> {
     var p = {
       access_token: profile.access_token,
       key: this.config.googleApiKey,
-      personFields: 'names,emailAddresses,photos,coverPhotos'
+      personFields: 'emailAddresses,names,photos,coverPhotos'
     }
     var uri = peopleClient.buildRequestUriWithParams('', p)
     return this.wrapResult<any, any>(

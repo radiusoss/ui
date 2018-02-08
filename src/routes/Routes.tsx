@@ -22,7 +22,7 @@ export default class Routes extends React.Component<any, any> {
           <Route path="/auth/twitter/callback" name="Twitter OAuth Callback" component={OAuthTwitterCallback}/>
           <Route path="/dla" name="Notebook Layout" component={NotebookLayout} />
           <Route path="/simple" name="Simple Layout" component={SimpleLayout} />
-          <Route path="500" name="Page 500" component={Page500}/>
+          <Route path="/500" name="Page 500" component={Page500}/>
 {/*
           <Route component={AuthenticatedLayout}>
             <Route path="*" name="Page 404" component={Page404}/>

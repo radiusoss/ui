@@ -9,6 +9,7 @@ import EnsureAuthenticatedLayout from './../layouts/EnsureAuthenticatedLayout'
 import Kuber from './../views/spl/Spl'
 import Check from './../views/spl/Check'
 import About from './../views/about/About'
+import Docs from './../views/docs/Docs'
 import Platform from './../views/about/Platform'
 import ReleaseNotes from './../views/about/ReleaseNotes'
 import Help from './../views/help/Help'
@@ -17,17 +18,12 @@ import KuberSpl from './../views/spl/KuberSpl'
 export default class AuthenticatedLayout extends React.Component<any, any> {
 
   public render() {
-    
     return (
       <div className="app" style={{ overflowY: 'hidden' }}>
-
         <Header />
-
         <div className="app-body">
-
-        <Route path="/" component={Sidebar} />
-
-        <main className="main">
+          <Route path="/" component={Sidebar} />
+          <main className="main">
 {/*
             <Breadcrumbs
               wrapperElement="ol"
@@ -43,6 +39,7 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
               <Route exact path="/dla/about/platform" name="Datalayer" component={Platform} />
               <Route exact path="/dla/about/highlights" name="About" component={About} />
               <Route exact path="/dla/about/release-notes" name="Release Notes" component={ReleaseNotes} />
+              <Route exact path="/dla/docs" name="Docs" component={Docs} />
               <Route exact path="/dla/help" name="Help" component={Help} />
               <Route exact path="/dla/check" name="Check" component={Check} />
               <Route exact path="/dla/k8s" name="Kubernetes" component={Kuber} />
@@ -61,6 +58,7 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
     if (
       this.props.location.pathname.indexOf("/dla/notes") > -1 || 
       this.props.location.pathname.indexOf("/dla/note/") > -1 ||
+      this.props.location.pathname.indexOf("/dla/docs") > -1 ||
       this.props.location.pathname.indexOf("/dla/flows") > -1 ||
       this.props.location.pathname.indexOf("/dla/flow/dag") > -1 
       ) {

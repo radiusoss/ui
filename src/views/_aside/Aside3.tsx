@@ -73,7 +73,7 @@ export default class Aside3 extends React.Component<any, any> {
     bg-warning
     bg-danger
 */}
-        <h6>Cluster Usage</h6>
+        <h6>Cluster</h6>
         <div className="text-uppercase mb-q mt-2">
           <small><b>CPU Usage</b></small>
         </div>

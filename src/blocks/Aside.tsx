@@ -41,7 +41,7 @@ export default class Aside extends React.Component<any, AsideState> {
               </li>
 */}
               <li className="nav-item">
-                <a className={classNames({ active: this.state.activeTab === '3' }, 'nav-link')} onClick={() => { this.toggle('3'); }} data-toggle="tab" role="tab"><i className="icon-settings"></i></a>
+                <a className={classNames({ active: this.state.activeTab === '3' }, 'nav-link')} onClick={() => { this.toggle('3'); }} data-toggle="tab" role="tab"><i className="icon-speedometer"></i></a>
               </li>
           </ul>
           <div className="tab-content">

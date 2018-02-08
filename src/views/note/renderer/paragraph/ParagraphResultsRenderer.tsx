@@ -57,42 +57,42 @@ export default class ParagraphRenderer extends React.Component<any, any> {
             name: 'Run',
             icon: 'Play',
             title: 'Run the paragraph [SHIFT+Enter]',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the new version...')
+            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           },
           {
             key: 'love-indicator',
             name: 'Cover',
             icon: 'Heart',
             title: 'Cover',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the new version...')
+            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           },
           {
             key: 'add-indicator',
             name: 'Add',
             icon: 'Add',
             title: 'Add',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the new version...')
+            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           },
           {
             key: 'move-up-indicator',
             name: 'Up',
             icon: 'ChevronUp',
             title: 'Move Paragraph Up',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the new version...')
+            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           },
           {
             key: 'move-down-indicator',
             name: 'Down',
             icon: 'ChevronDown',
             title: 'Move Paragraph Down',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the new version...')
+            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           },
           {
             key: 'clean',
             icon: 'ClearFormatting',
             name: 'Clear',
             title: 'Clear Content',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the new version...')
+            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           }
         ]
       }

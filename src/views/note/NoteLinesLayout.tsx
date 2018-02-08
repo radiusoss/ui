@@ -9,7 +9,7 @@ import { goToTop } from 'react-scrollable-anchor'
 import { Rating, RatingSize } from 'office-ui-fabric-react/lib/Rating'
 import { Facepile, IFacepilePersona, IFacepileProps } from 'office-ui-fabric-react/lib/Facepile'
 import { PersonaSize, PersonaInitialsColor } from 'office-ui-fabric-react/lib/Persona'
-import { TestImages, facepilePersonas, ExtraDataType } from './../spl/SplImg'
+import { TestImages, facepilePersonas, ExtraDataType } from './../../spl/ImageSpl'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
@@ -51,7 +51,7 @@ export default class NoteLinesLayout extends React.Component<any, any> {
                   min={ 1 }
                   max={ 5 }
                   rating={ 4 }
-                  onChanged={ rating => toastr.warning('Not yet available', 'Looks like you are eager for the new version to give rating ' + rating) }
+                  onChanged={ rating => toastr.warning('Not yet available', 'Looks like you are eager for the next release to give rating ' + rating) }
                   onFocus={ () => console.log('onFocus called') }
                   onBlur={ () => console.log('onBlur called') }
                 />

@@ -50,6 +50,7 @@ export default class NoteEditor extends React.Component<any, any> {
           showGutter={true}
           fontSize="14px"
           focus={true}
+          readOnly={true}
 //          onLoad={this.onLoad}
 //          onChange={this.onChange}
           setOptions={{
