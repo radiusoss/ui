@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResultsRenderer from './../note/renderer/paragraph/ParagraphResultsRenderer'
+import ParagraphResultsRenderer from './../renderer/paragraph/ParagraphResultsRenderer'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class ScratchpadRenderer extends React.Component<any, any> {

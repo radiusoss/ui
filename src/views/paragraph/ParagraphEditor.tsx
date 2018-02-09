@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { connect } from 'react-redux'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../../actions/NotebookActions'
-import { NotebookStore } from './../../../../store/NotebookStore'
-import CodeEditor from './code/CodeEditor'
-import NotebookApi from './../../../../api/notebook/NotebookApi'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
+import { NotebookStore } from './../../store/NotebookStore'
+import CodeEditor from './../editor/CodeEditor'
+import NotebookApi from './../../api/notebook/NotebookApi'
 import * as isEqual from 'lodash.isequal'
-import * as stylesImport from './../../../_styles/Styles.scss'
+import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)

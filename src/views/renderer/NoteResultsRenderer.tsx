@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { NotebookStore } from '../../../store/NotebookStore'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../../actions/NotebookActions'
-import NotebookApi from './../../../api/notebook/NotebookApi'
+import { NotebookStore } from '../../store/NotebookStore'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
+import NotebookApi from './../../api/notebook/NotebookApi'
 import ParagraphResultsRenderer from './paragraph/ParagraphResultsRenderer'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)

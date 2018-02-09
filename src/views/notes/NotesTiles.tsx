@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { WidthProvider, Responsive } from "react-grid-layout"
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResultsRenderer from './../note/renderer/paragraph/ParagraphResultsRenderer'
+import ParagraphResultsRenderer from './../renderer/paragraph/ParagraphResultsRenderer'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 /*

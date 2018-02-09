@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import history from './../../../../routes/History'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../../actions/NotebookActions'
+import history from './../../../routes/History'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../actions/NotebookActions'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import HtmlRenderer from './display/HtmlRenderer'
@@ -11,11 +11,11 @@ import ImageRenderer from './display/ImageRenderer'
 import MathjaxRenderer from './display/MathjaxRenderer'
 import TableRenderer from './display/TableRenderer'
 import TextRenderer from './display/TextRenderer'
-import Spinner from './../../../../_widget/Spinner'
-import NotebookApi from './../../../../api/notebook/NotebookApi'
+import Spinner from './../../../_widget/Spinner'
+import NotebookApi from './../../../api/notebook/NotebookApi'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import * as stylesImport from './../../../_styles/Styles.scss'
+import * as stylesImport from './../../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../../../actions/NotebookActions'
-import TableData from '../../../../../util/data/TableData'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../../actions/NotebookActions'
+import TableData from '../../../../util/data/TableData'
 import TableTextRenderer from './format/TableTextRenderer'
 import TableLineRenderer from './format/TableLineRenderer'
 import TablePieRenderer from './format/TablePieRenderer'
@@ -11,8 +11,8 @@ import TableBubbleRenderer from './format/TableBubbleRenderer'
 import TableDoughnutRenderer from './format/TableDoughnutRenderer'
 import TableScatterRenderer from './format/TableScatterRenderer'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import NotebookApi from './../../../../../api/notebook/NotebookApi'
-import * as stylesImport from './../../../../_styles/Styles.scss'
+import NotebookApi from './../../../../api/notebook/NotebookApi'
+import * as stylesImport from './../../../_styles/Styles.scss'
 const styles: any = stylesImport
 import * as isEqual from 'lodash.isequal'
 

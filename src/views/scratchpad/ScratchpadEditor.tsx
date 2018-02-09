@@ -3,7 +3,7 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { NotebookStore } from './../../store/NotebookStore'
-import CodeEditor from './../note/editor/paragraph/code/CodeEditor'
+import CodeEditor from './../editor/CodeEditor'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import * as isEqual from 'lodash.isequal'
 import * as stylesImport from './../_styles/Styles.scss'
