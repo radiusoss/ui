@@ -24,11 +24,9 @@ export default class Routes extends React.Component<any, any> {
           <Route path="/simple" name="Simple Layout" component={SimpleLayout} />
           <Route path="/500" name="Page 500" component={Page500}/>
 {/*
-          <Route component={AuthenticatedLayout}>
-            <Route path="*" name="Page 404" component={Page404}/>
-          </Route>
+          <Route path="*" name="Page 404" component={Page404}/>
 */}
-      </div>
+          </div>
     )
   }
 

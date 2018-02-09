@@ -6,13 +6,9 @@ import history from './../routes/History'
 export default class Sidebar extends React.Component<any, any> {
 
   public render() {
-
     return (
-
-      <div className="sidebar" style={{ zIndex: 99}}>
-        
+      <div className="sidebar" style={{ zIndex: 99}}>        
         <nav className="sidebar-nav">
-
           <ul className="nav">
 {/*
             <li className="nav-item">
@@ -34,9 +30,18 @@ export default class Sidebar extends React.Component<any, any> {
               </ul>
             </li>
 */}
-            <li className="nav-item">
-              <NavLink to={'/dla/notes/list'} className="nav-link" activeClassName="active"><FabricIcon name="ReadingMode"/> Notes</NavLink>
-            </li>
+          <li className="nav-item">
+            <NavLink to={'/dla/board'} className="nav-link" activeClassName="active"><FabricIcon name="ViewDashboard"/> Board</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink to={'/dla/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink to={'/dla/notes/list'} className="nav-link" activeClassName="active"><FabricIcon name="ReadingMode"/> Notebook</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink to={'/dla/note/scratchpad'} className="nav-link" activeClassName="active"><FabricIcon name="NoteForward"/> Scratchpad</NavLink>
+          </li>
 {/*
             <li className="nav-item">
               <NavLink to={'/dla/stories'} className="nav-link" activeClassName="active"><FabricIcon name="InternetSharing"/> Stories</NavLink>
@@ -46,9 +51,6 @@ export default class Sidebar extends React.Component<any, any> {
               Deploy
             </li>
 */}
-            <li className="nav-item">
-              <NavLink to={'/dla/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
-            </li>
             <li className="nav-item">
               <NavLink to={'/dla/calendar'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Calendar</NavLink>
             </li>
@@ -115,16 +117,15 @@ export default class Sidebar extends React.Component<any, any> {
                 <li className="nav-item">
                   <NavLink to={'/dla/about/release-notes'} className="nav-link" activeClassName="active"><FabricIcon name="History"/> Release Notes</NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/about/hall-of-fame'} className="nav-link" activeClassName="active"><FabricIcon name="Crown"/> Hall of Fame</NavLink>
+                </li>
               </ul>
             </li>
           </ul>
-
         </nav>
-
       </div>
-
     )
-
   }
 
   private handleClick(e: React.MouseEvent<HTMLAnchorElement>) {

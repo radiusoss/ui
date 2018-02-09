@@ -85,7 +85,7 @@ export default class Users extends React.Component<any, any> {
 
   private deleteUser(user: any) {
     this.notebookApi.removeUsers({
-      principal: user.principal + '#' + user.source
+      principal: user.userName + '#' + user.source
     })
   }
 

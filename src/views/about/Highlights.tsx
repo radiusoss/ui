@@ -117,6 +117,7 @@ export default class Highlights extends React.Component<any, any> {
         </Panel>
 
         <div className={ styles.featured }>
+
           <span className={ styles.featuredTitle }>Highlights</span>
           <span className={ styles.featuredDescription }>Datalayer develops and integrates a variety of tools to help you create an experience that delights Big Data Scientists on Kubernetes.</span>
 
@@ -319,8 +320,11 @@ export default class Highlights extends React.Component<any, any> {
             </ul>
           </span>
           }
+
           <span className={ styles.trademark }>All trademarks are the property of their respective owners.</span>
+
         </div>
+
       </div>
 
     )

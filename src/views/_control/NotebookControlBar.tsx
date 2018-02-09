@@ -36,6 +36,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
     isTwitterAuthenticated: false,
     note: undefined,
     notes: [],
+    noteScratchpadId: '_conf',
     runningParagraphs: [],
     flows: [],
     showNewNotePanel: false,
@@ -165,8 +166,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
       this.notebookApi.listNotes()
       let noteId = webSocketMessageReceived.data.note.id
       this.notebookApi.showNoteLayout(noteId, 'lines')
-//      this.notebookApi.getNote(noteId)
-//      history.push(`/dla/note/columns/${noteId}`)
     }
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NOTES_INFO") {
       let notes = webSocketMessageReceived.data.notes
@@ -232,6 +231,12 @@ export default class NotebookControlBar extends React.Component<any, any> {
     const {note, runningParagraphs} = this.state
     this.leftItems = [
       {
+        key: 'board',
+        icon: 'ViewDashboard',
+        title: 'Board',
+        onClick: () => history.push(`/dla/board`)
+      },
+      {
         key: 'tiles',
         icon: 'Tiles',
         title: 'Notes Tiles View',
@@ -285,6 +290,12 @@ export default class NotebookControlBar extends React.Component<any, any> {
         title: 'Documentation',
         onClick: () => history.push(`/dla/docs`)
       },
+      {
+        key: 'Scratchpad',
+        icon: 'NoteForward',
+        title: 'Code Scratchpad',
+        onClick: () => this.notebookApi.showNoteScratchpad(this.state.noteScratchpadId)
+      },
       this.runIndicator
     ]
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") != -1) {
@@ -309,13 +320,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
           icon: 'SingleColumn',
           title: 'Note Results Layout',
           onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'results')
-        })
-      this.leftItems.push(
-          {
-          key: 'DoubleColumn',
-          icon: 'DoubleColumn',
-          title: 'Code Scratchpad',
-          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'columns')
         })
     }
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") != -1) {

@@ -50,7 +50,7 @@ export default class NoteEditor extends React.Component<any, any> {
           showGutter={true}
           fontSize="14px"
           focus={true}
-          readOnly={true}
+          readOnly={false}
 //          onLoad={this.onLoad}
 //          onChange={this.onChange}
           setOptions={{
@@ -62,14 +62,7 @@ export default class NoteEditor extends React.Component<any, any> {
       </div>
     )
   }
-/*
-  public shouldComponentUpdate(nextProps, nextState) {
-    const { note } = nextProps
-    if (!note.data) {
-      return false
-    }
-  }
-*/
+
   public componentWillReceiveProps(nextProps) {
     const { isStartRun } = nextProps
     if (isStartRun) {

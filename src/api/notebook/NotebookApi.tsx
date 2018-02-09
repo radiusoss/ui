@@ -82,8 +82,11 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.getNote(id)
   }
 
+  public showNoteScratchpad(id) {
+    history.push(`/dla/note/scratchpad`)
+  }
+
   public getNote(id: string) {
-//    history.push(`/dla/note/columns/${id}`)
     return this.spitfireApi.getNote(id)
   }
 
@@ -104,11 +107,10 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   }
     
   public runNote(id: string, paragraphs: any[]) {
-//    toastr.info('Run', 'Running note', {timeOut: 500})
     return this.spitfireApi.runNote(id, paragraphs)
   }
 
-      public cancelParagraph(id: string) {
+  public cancelParagraph(id: string) {
     return this.spitfireApi.cancelParagraph(id)
   }
 
@@ -238,7 +240,8 @@ export default class NotebookApi extends React.Component<any, any> implements IN
               NotebookStore.state().profilePhotoBlob = photoBlob
               console.log("Google Photo Blob", photoBlob)
               this.props.dispatchIsGoogleAuthenticatedAction()
-              history.push("/dla/profile")
+//              history.push("/")
+              history.push("/dla/note/scratchpad")
             })
           }
       })

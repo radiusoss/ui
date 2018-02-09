@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NoteEditor from './editor/NoteEditor'
 import NoteResultsRenderer from './renderer/NoteResultsRenderer'
+import NotebookApi from './../../api/notebook/NotebookApi'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteColumnsLayout extends React.Component<any, any> {
+export default class NoteScratchpad extends React.Component<any, any> {
+  private readonly notebookApi: NotebookApi
 
   state = {
     note: {
@@ -18,6 +20,7 @@ export default class NoteColumnsLayout extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
+    this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
@@ -39,6 +42,10 @@ export default class NoteColumnsLayout extends React.Component<any, any> {
     else {
       return <div></div>
     }
+  }
+
+  public componentDidMount() {
+    return this.notebookApi.getNote("_conf")
   }
 
   public componentWillReceiveProps(nextProps) {

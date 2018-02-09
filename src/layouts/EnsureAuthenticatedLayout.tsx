@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Route } from 'react-router-dom'
 import Check from './../views/spl/Check'
 import Datasets from './../views/dataset/Datasets'
+import Board from './../views/board/Board'
 import Flows from './../views/flows/Flows'
 import FlowDetail from './../views/flow/FlowDetail'
 import FlowDag from './../views/flow/FlowDag'
@@ -9,7 +10,7 @@ import NotesList from './../views/notes/NotesList'
 import NotesTiles from './../views/notes/NotesTiles'
 import NoteLinesLayout from './../views/note/NoteLinesLayout'
 import NoteTilesLayout from './../views/note/NoteTilesLayout'
-import NoteColumnsLayout from './../views/note/NoteColumnsLayout'
+import NoteScratchpad from './../views/note/NoteScratchpad'
 import NoteResultsLayout from './../views/note/NoteResultsLayout'
 import Profile from './../views/profile/Profile'
 import Users from './../views/users/Users'
@@ -37,11 +38,12 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
       return (
         <div>
           <Route exact path="/dla" component={Welcome}/>
+          <Route path="/dla/board" name="Board" component={Board}/>
           <Route path="/dla/notes/list" name="Notes" component={NotesList}/>
           <Route path="/dla/notes/tiles" name="Notes" component={NotesTiles}/>
           <Route path="/dla/note/lines/:noteId" name="Note Lines Layout" component={NoteLinesLayout}/>
           <Route path="/dla/note/tiles/:noteId" name="Note Tiles Layout" component={NoteTilesLayout}/>
-          <Route path="/dla/note/columns/:noteId" name="Note Columns Layout" component={NoteColumnsLayout}/>
+          <Route path="/dla/note/scratchpad" name="Note Scratchpad" component={NoteScratchpad}/>
           <Route path="/dla/note/results/:noteId" name="Note Results Layout" component={NoteResultsLayout}/>
           <Route path="/dla/stories" name="Stories" component={Stories}/>
           <Route path="/dla/datasets" name="Datasets" component={Datasets} />
@@ -66,7 +68,6 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
 
   public componentDidMount() {
     const { dispatch, currentURL, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
-//    console.log('----', NotebookStore.state().isMicrosoftAuthenticated, NotebookStore.state().isTwitterAuthenticated)
     if (!isGoogleAuthenticated && !isMicrosoftAuthenticated && !isTwitterAuthenticated) {
       // Set the current url/path for future redirection (we use a Redux action),
       // then redirect (we use a React Router method).
