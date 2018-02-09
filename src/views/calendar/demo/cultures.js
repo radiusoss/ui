@@ -11,8 +11,8 @@ class Cultures extends React.Component {
   state = { culture: 'fr' }
 
   render() {
-    let cultures = ['en', 'en-GB', 'es', 'fr', 'ar-AE']
-    let rtl = this.state.culture === 'ar-AE'
+    var cultures = ['en', 'en-GB', 'es', 'fr', 'ar-AE']
+    var rtl = this.state.culture === 'ar-AE'
 
     return (
       <React.Fragment>

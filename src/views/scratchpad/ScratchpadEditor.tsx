@@ -1,16 +1,16 @@
 import * as React from 'react'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { connect } from 'react-redux'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../../actions/NotebookActions'
-import { NotebookStore } from './../../../store/NotebookStore'
-import CodeEditor from './paragraph/code/CodeEditor'
-import NotebookApi from './../../../api/notebook/NotebookApi'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
+import { NotebookStore } from './../../store/NotebookStore'
+import CodeEditor from './../note/editor/paragraph/code/CodeEditor'
+import NotebookApi from './../../api/notebook/NotebookApi'
 import * as isEqual from 'lodash.isequal'
-import * as stylesImport from './../../_styles/Styles.scss'
+import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteEditor extends React.Component<any, any> {
+export default class ScratchpadEditor extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private codeEditor
 
@@ -20,15 +20,17 @@ export default class NoteEditor extends React.Component<any, any> {
       paragraphs: []
     },
     paragraphs: [],
-    code: ''
+    code: '',
+    lastParagraphId: -1
   }
 
-  constructor(props) {    
+  constructor(props) {
     super(props)
     this.state = {
       note: props.note,
       paragraphs: props.note.paragraphs,
-      code: ''
+      code: '',
+      lastParagraphId: new Date().getTime()
     }
     this.notebookApi = window["NotebookApi"]
   }
@@ -66,21 +68,27 @@ export default class NoteEditor extends React.Component<any, any> {
   public componentWillReceiveProps(nextProps) {
     const { isStartRun } = nextProps
     if (isStartRun) {
-      let lines = this.codeEditor.getWrappedInstance().getValue().split(/\r?\n/)
-      let paragraphs = []
-      let paragraph = {}
-      let code = ''
+      var lines = this.codeEditor.getWrappedInstance().getValue().split(/\r?\n/)
+      var pid = this.state.lastParagraphId
+      var paragraphs = []
+      var paragraph = {}
+      var code = ''
       for (var i = 0; i < lines.length; i++) {
-        let line = lines[i]
+        var line = lines[i]
         if ((line.indexOf('%') == 0) && (i != 0)) {
-          paragraphs.push(this.newParagraph(this.state.note.id, i, code))
+          pid = pid + 1
+          paragraphs.push(this.newParagraph(this.state.note.id, pid, code))
           code = ''
         }
         code = code + '\n' + line
       }
-      paragraphs.push(this.newParagraph(this.state.note.id, i, code))
+      pid = pid + 1
+      paragraphs.push(this.newParagraph(this.state.note.id, pid, code))
       NotebookStore.state().isStartRun = null,
       this.notebookApi.runNote(this.state.note.id, paragraphs)
+      this.setState({
+        lastParagraphId: pid
+      })
     }
   }
 

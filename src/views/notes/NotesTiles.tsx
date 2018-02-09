@@ -54,7 +54,7 @@ export default class NotesTiles extends React.Component<any, any> {
   }
 
   public render() {
-    let { notes, showPanel } = this.state
+    var { notes, showPanel } = this.state
     return (
       <div>
       {(showPanel == true) ?

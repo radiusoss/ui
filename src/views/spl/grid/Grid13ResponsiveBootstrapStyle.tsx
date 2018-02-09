@@ -4,7 +4,7 @@ import { WidthProvider, Responsive } from "react-grid-layout";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 /**
- * This example illustrates how to let grid items lay themselves out with a bootstrap-style specification.
+ * This example illustrates how to var grid items lay themselves out with a bootstrap-style specification.
  */
 export default class Grid13ResponsiveBootstrapStyle extends React.Component<any, any> {
   static defaultProps = {

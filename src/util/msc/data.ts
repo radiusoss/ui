@@ -12,7 +12,7 @@ const DATA = {
 
 export function createListItems(count: number, startIndex = 0): any {
   return Array.apply(null, Array(count)).map((item, index) => {
-    let size = 150 + Math.round(Math.random() * 100);
+    var size = 150 + Math.round(Math.random() * 100);
 
     return {
       thumbnail: `//placehold.it/${ size }x${ size }`,
@@ -33,7 +33,7 @@ export function createGroups(
   itemsPerGroup: number, level?: number, key?: string) {
   key = key ? key + '-' : '';
   level = level ? level : 0;
-  let count = Math.pow(itemsPerGroup, groupDepth);
+  var count = Math.pow(itemsPerGroup, groupDepth);
   return Array.apply(null, Array(groupCount)).map((value, index) => {
     return {
       count: count,
@@ -61,6 +61,6 @@ export function isGroupable(key: string): boolean {
 }
 
 function _randWord(array: string[]) {
-  let index = Math.floor(Math.random() * array.length);
+  var index = Math.floor(Math.random() * array.length);
   return array[index];
 }

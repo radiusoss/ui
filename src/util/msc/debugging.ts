@@ -6,9 +6,9 @@ export function instrumentMethod(target: any, methodName: string) {
   target[methodName] = function() {
     beep();
 
-    let startTime = performance.now();
-    let retVal = originalMethod.apply(this, arguments);
-    let duration = performance.now() - startTime;
+    var startTime = performance.now();
+    var retVal = originalMethod.apply(this, arguments);
+    var duration = performance.now() - startTime;
 
     /* tslint:disable:no-console */
     if (duration <= 1) {
@@ -25,7 +25,7 @@ export function instrumentMethod(target: any, methodName: string) {
 }
 
 export function getStackTrace() {
-  let obj = {
+  var obj = {
     stack: ''
   };
 
@@ -35,7 +35,7 @@ export function getStackTrace() {
 
   if (captureStackTrace) {
     captureStackTrace(obj, getStackTrace);
-    let stackEntries = obj.stack.split('at ');
+    var stackEntries = obj.stack.split('at ');
 
     obj.stack = stackEntries[2];
   }

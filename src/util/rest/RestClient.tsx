@@ -56,7 +56,7 @@ export class RestClient implements IRestClient {
   }
 
   public async get<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn> {
-    let uri: string = this.buildRequestUriWithParams(path, reqParams);
+    var uri: string = this.buildRequestUriWithParams(path, reqParams);
     return fetch(uri, {
       method: 'GET',
       mode: 'cors',
@@ -71,13 +71,13 @@ export class RestClient implements IRestClient {
   }
 
   public async getOp<TReturn>(op: string, path?: string): Promise<TReturn> {
-    let params: {} = { op: op }
-    let config: any = { json: true }
+    var params: {} = { op: op }
+    var config: any = { json: true }
     return this.get<TReturn>(params, config, path)
   }
 
   public async post<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn> {
-    let uri: string = this.buildRequestUriWithParams(path, reqParams)
+    var uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'POST',
       mode: 'cors',
@@ -93,7 +93,7 @@ export class RestClient implements IRestClient {
   }
 
   public async put<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn> {
-    let uri: string = this.buildRequestUriWithParams(path, reqParams)
+    var uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'PUT',
       mode: 'cors',
@@ -109,7 +109,7 @@ export class RestClient implements IRestClient {
   }
 
   public async postForm<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn> {
-    let uri: string = this.buildRequestUriWithParams(path, reqParams)
+    var uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'POST',
       mode: 'cors',
@@ -125,7 +125,7 @@ export class RestClient implements IRestClient {
   }
 
   public async delete<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn> {
-    let uri: string = this.buildRequestUriWithParams(path, reqParams)
+    var uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'DELETE',
       mode: 'cors',
@@ -140,7 +140,7 @@ export class RestClient implements IRestClient {
   }
 /*
   public getStream(reqParams: {}, config: any, path: string): stream.Stream {
-    let uri: string = this.BuildRequestUri(path, reqParams);
+    var uri: string = this.BuildRequestUri(path, reqParams);
 //    return getRequest(uri, config);
     return response = fetch(uri, {
         method: 'GET',
@@ -169,7 +169,7 @@ public buildRequestUri(path?: string): string {
   public buildRequestUriWithParams(path?: string, params?: {}): string {
     var uri = this.buildRequestUri(path)
     params = params || {}
-    let reqparams: {} = { ...this.baseParameters, ...params }
+    var reqparams: {} = { ...this.baseParameters, ...params }
     var ps = queryString.stringify(reqparams)
     if (ps != '') {
       uri = `${uri}?${ps}`

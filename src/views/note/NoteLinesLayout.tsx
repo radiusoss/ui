@@ -120,7 +120,7 @@ export default class NoteLinesLayout extends React.Component<any, any> {
     console.log('Scrolling to Top of the page...')
     goToTop()
 /*
-    let renderer = ReactDOM.findDOMNode(this.refs['table-renderer-command-bar'])
+    var renderer = ReactDOM.findDOMNode(this.refs['table-renderer-command-bar'])
     if (renderer) {
       var domNode = ReactDOM.findDOMNode(renderer)
       domNode.scrollIntoView({

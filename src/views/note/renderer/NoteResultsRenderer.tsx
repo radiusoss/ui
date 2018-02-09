@@ -77,8 +77,8 @@ export default class NoteResultsRenderer extends React.Component<any, any> {
     }
     if (webSocketMessageReceived) {
       if (webSocketMessageReceived.op == "PARAGRAPH") {
-        let paragraph = webSocketMessageReceived.data.paragraph
-        let updatedParagraphs = this.state.note.paragraphs.map( p => {
+        var paragraph = webSocketMessageReceived.data.paragraph
+        var updatedParagraphs = this.state.note.paragraphs.map( p => {
           if (p.id == paragraph.id) return paragraph
           return p
         })
@@ -88,9 +88,9 @@ export default class NoteResultsRenderer extends React.Component<any, any> {
             paragraphs: updatedParagraphs
           }
         })
-        let runningParagraphs = NotebookStore.state().runningParagraphs
-        let updatedRunningParagraphs = []
-        for (let i = 0; i < runningParagraphs.length; i++) {
+        var runningParagraphs = NotebookStore.state().runningParagraphs
+        var updatedRunningParagraphs = []
+        for (var i = 0; i < runningParagraphs.length; i++) {
           if (paragraph.id !== runningParagraphs[i].id) {
             updatedRunningParagraphs = updatedRunningParagraphs.concat(runningParagraphs[i])
           }

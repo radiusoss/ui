@@ -20,16 +20,16 @@ import { EnumParserHelper } from './EnumParserHelper';
  * @returns {Array<IProperty>} An array of properties.
  */
 export function parse(source: string, propsInterfaceOrEnumName?: string): IProperty[] {
-  let props: IProperty[] = [];
-  let regex: RegExp = null;
-  let parseInfo;
+  var props: IProperty[] = [];
+  var regex: RegExp = null;
+  var parseInfo;
 
-  let propertyNameSuffix = (type: string) => type === 'interface' ? ' interface' : ' enum';
-  let propertyType = (type: string) => type === 'interface' ? PropertyType.interface : PropertyType.enum;
+  var propertyNameSuffix = (type: string) => type === 'interface' ? ' interface' : ' enum';
+  var propertyType = (type: string) => type === 'interface' ? PropertyType.interface : PropertyType.enum;
 
   if (propsInterfaceOrEnumName) {
     regex = new RegExp(`export (interface|enum) ${propsInterfaceOrEnumName}(?: extends .*?)? \\{(.*[\\r\\n]*)*?\\}`);
-    let regexResult = regex.exec(source);
+    var regexResult = regex.exec(source);
     if (regexResult && regexResult.length > 0) {
       parseInfo = _parseEnumOrInterface(regexResult);
       return [<IProperty>{
@@ -41,8 +41,8 @@ export function parse(source: string, propsInterfaceOrEnumName?: string): IPrope
     }
   } else {
     regex = new RegExp(`export (interface|enum) (\\S*?)(?: extends .*?)? \\{(.*[\\r\\n]*)*?\\}`, 'g');
-    let regexResult: RegExpExecArray;
-    let results: Array<IProperty> = [];
+    var regexResult: RegExpExecArray;
+    var results: Array<IProperty> = [];
     while ((regexResult = regex.exec(source)) !== null) {
       parseInfo = _parseEnumOrInterface(regexResult);
       results.push(<IProperty>{
@@ -60,7 +60,7 @@ export function parse(source: string, propsInterfaceOrEnumName?: string): IPrope
 }
 
 function _parseEnumOrInterface(regexResult: RegExpExecArray) {
-  let parseInfo;
+  var parseInfo;
   if (regexResult[1] === 'interface') {
     let parser = new InterfaceParserHelper(regexResult[0]);
     parseInfo = parser.parse();

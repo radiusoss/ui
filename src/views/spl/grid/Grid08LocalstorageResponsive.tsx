@@ -68,7 +68,7 @@ export default class Grid08LocalstorageResponsive extends React.Component<any, a
 }
 
 function getFromLS(key) {
-  let ls = {};
+  var ls = {};
   try {
     ls = JSON.parse(localStorage.getItem("rgl-8")) || {};
   } catch (e) {

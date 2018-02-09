@@ -25,7 +25,7 @@ export class BaseParser {
   }
 
   protected eatWhile(match: string): string {
-    let i = 0;
+    var i = 0;
 
     while (this._str.charAt(this._currLocation + i) === match) {
       i++;
@@ -39,7 +39,7 @@ export class BaseParser {
   }
 
   protected eatWhileRegex(match: RegExp): string {
-    let i = 0;
+    var i = 0;
 
     while (match.test(this._str.charAt(this._currLocation + i))) {
       i++;
@@ -53,7 +53,7 @@ export class BaseParser {
   }
 
   protected eatWord(word: string): string {
-    let len = word.length;
+    var len = word.length;
 
     if (this.peekAhead(len) === word) {
       this._currLocation += len;
@@ -64,7 +64,7 @@ export class BaseParser {
   }
 
   protected eatUntil(match: RegExp): string {
-    let i = 0;
+    var i = 0;
 
     while (!match.test(this._str.charAt(this._currLocation + i))) {
       i++;

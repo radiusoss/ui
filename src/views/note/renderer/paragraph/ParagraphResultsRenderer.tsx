@@ -19,7 +19,7 @@ import * as stylesImport from './../../../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ParagraphRenderer extends React.Component<any, any> {
+export default class ParagraphResultsRenderer extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private leftItems: any[] = []
   private rightItems: any[] = []
@@ -45,8 +45,6 @@ export default class ParagraphRenderer extends React.Component<any, any> {
       showCommandBar: props.showCommandBar
     }
     this.leftItems = [
-    ]
-    this.rightItems = [
       {
         key: '...',
         name: '...',
@@ -60,17 +58,17 @@ export default class ParagraphRenderer extends React.Component<any, any> {
             onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           },
           {
-            key: 'love-indicator',
-            name: 'Cover',
-            icon: 'Heart',
-            title: 'Cover',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-          },
-          {
             key: 'add-indicator',
             name: 'Add',
             icon: 'Add',
             title: 'Add',
+            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
+          },
+          {
+            key: 'to-cover',
+            name: 'Cover',
+            icon: 'Heart',
+            title: 'Cover',
             onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           },
           {
@@ -96,6 +94,8 @@ export default class ParagraphRenderer extends React.Component<any, any> {
           }
         ]
       }
+    ]
+    this.rightItems = [
     ]
     this.notebookApi = window["NotebookApi"]
   }
@@ -128,55 +128,54 @@ export default class ParagraphRenderer extends React.Component<any, any> {
     const type = msg.type
     return (
       <div>
-{/*
-      <div className="ms-Grid">
-        <div className="ms-Grid-row">
-*/}
-          <div className={`ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8`} style={{ paddingLeft: '0px', margin: '0px' }}>
-            {
-              (type == 'TEXT') &&
-              <TextRenderer data={data} />
-            }
-            {
-              (type == 'HTML') &&
-              <HtmlRenderer data={data} />
-            }
-            {
-              (type == 'IMG') &&
-              <ImageRenderer data={data} />
-            }
-            {
-              (type == 'TABLE') &&
-              <TableRenderer data={data} id={id} p={paragraph} showCommandBar={showCommandBar} />
-            }
-            {
-              (type == 'MATHJAX') &&
-              <MathjaxRenderer data={data} />
-            }
-            {
-              (type == 'REACTJS') &&
-              <ReactjsRenderer data={data} />
-            }
-          </div>
-          <div className={`ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }} >
-            {
-              (showCommandBar == true) && 
-              <div className='ms-textAlignRight'>
-                <div className="ms-Grid-row">
+        {
+        (showCommandBar == true) && 
+        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
+          <div className='ms-textAlignLeft'>
+            <div className="ms-Grid-row">
+              <div style={{ float: "left" }}>
+                <span style={{display: "inline"}}>
                   <CommandBar
                     isSearchBoxVisible={ false }
                     items={ this.leftItems }
                     farItems={ this.rightItems }
                     className={ styles.commandBarBackgroundTransparent }
                   />
-                </div>
+                </span>
+                <span style={{ display: "inline"}}>
+                  Note Title
+                </span>
               </div>
-            }
+            </div>
           </div>
-{/*
         </div>
-      </div>
-*/}
+        }
+        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }} key={paragraph.id}>
+          {
+            (type == 'TEXT') &&
+            <TextRenderer data={data} />
+          }
+          {
+            (type == 'HTML') &&
+            <HtmlRenderer data={data} />
+          }
+          {
+            (type == 'IMG') &&
+            <ImageRenderer data={data} />
+          }
+          {
+            (type == 'TABLE') &&
+            <TableRenderer data={data} id={id} p={paragraph} showCommandBar={showCommandBar} />
+          }
+          {
+            (type == 'MATHJAX') &&
+            <MathjaxRenderer data={data} />
+          }
+          {
+            (type == 'REACTJS') &&
+            <ReactjsRenderer data={data} />
+          }
+        </div>
       </div>
     )
   }

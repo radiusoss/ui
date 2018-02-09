@@ -70,7 +70,7 @@ export default class Grid07Localstorage extends React.Component<any, any> {
 }
 
 function getFromLS(key) {
-  let ls = {};
+  var ls = {};
   try {
     ls = JSON.parse(localStorage.getItem("rgl-7")) || {};
   } catch (e) {

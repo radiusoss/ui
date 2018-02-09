@@ -24,7 +24,7 @@ export default class Twitter extends React.Component<any, any> {
 
   public render() {
     const { profileDisplayName, profilePhoto, me } = this.state
-    let previewProps: IDocumentCardPreviewProps = {
+    var previewProps: IDocumentCardPreviewProps = {
       previewImages: [{
 //      previewImageSrc: me.profile_background_image_url_https,
         previewImageSrc: me.profile_banner_url,

@@ -6,9 +6,9 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 
-let items = []
+var items = []
 
-let columns = [{
+var columns = [{
     key: 'Key',
     name: 'Key',
     fieldName: 'key',
@@ -44,7 +44,7 @@ export default class Configuration extends React.Component<any, any> {
   }
 
   public render() {
-    let { items, selectedItems, selectionDetails } = this.state;
+    var { items, selectedItems, selectionDetails } = this.state;
     return (
       <div>
         <br/>
@@ -73,13 +73,13 @@ export default class Configuration extends React.Component<any, any> {
   }
 
   public async componentDidMount() {
-    let configuration = await this.notebookApi.configuration()
+    var configuration = await this.notebookApi.configuration()
     console.log('configuration', configuration)
     var data = configuration.result.body
     console.log('data', data)
-    let keys = Object.keys(data)
+    var keys = Object.keys(data)
     keys.forEach( key => {
-      let value = data[key]
+      var value = data[key]
       items.push({
         key: key,
         name: key,
@@ -93,7 +93,7 @@ export default class Configuration extends React.Component<any, any> {
   }
 
   private getSelectionDetails(): string {
-    let selectionCount = this.selection.getSelectedCount();
+    var selectionCount = this.selection.getSelectedCount();
     switch (selectionCount) {
       case 0:
         return 'No items selected';

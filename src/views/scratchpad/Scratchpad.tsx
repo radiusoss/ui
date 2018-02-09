@@ -1,13 +1,15 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import NoteEditor from './editor/NoteEditor'
-import NoteResultsRenderer from './renderer/NoteResultsRenderer'
+import ScratchpadEditor from './ScratchpadEditor'
+import ScratchpadRenderer from './ScratchpadRenderer'
+import NotebookApi from './../../api/notebook/NotebookApi'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteTilesLayout extends React.Component<any, any> {
+export default class NoteScratchpad extends React.Component<any, any> {
+  private readonly notebookApi: NotebookApi
 
   state = {
     note: {
@@ -18,24 +20,32 @@ export default class NoteTilesLayout extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
+    this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
     const { note } = this.state
-    return (
-      <div>
+    if (note.id) {
+      return (
         <div className="ms-Grid">
           <div className="ms-Grid-row">
             <div className={`${styles.editorHeight} ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px' }}>
-              <NoteEditor note={note} />
+              <ScratchpadEditor note={note} />
             </div>
             <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
-              <NoteResultsRenderer note={note} />
+              <ScratchpadRenderer note={note} />
             </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
+    else {
+      return <div></div>
+    }
+  }
+
+  public componentDidMount() {
+    return this.notebookApi.getNote("_conf")
   }
 
   public componentWillReceiveProps(nextProps) {

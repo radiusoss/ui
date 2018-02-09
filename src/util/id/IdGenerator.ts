@@ -27,7 +27,7 @@ export default function generateId(index: number, customKeys?: Key[]) : string {
     .reduce((a, b) => a.concat(b));
   const n : number = customLib.length;
 
-  let generatedId : string[] = [];
+  var generatedId : string[] = [];
 
   while (index > 0) {
     generatedId.push(customLib[Math.round(Math.random() * n)]);

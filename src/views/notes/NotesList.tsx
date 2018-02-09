@@ -64,7 +64,7 @@ export default class NotesList extends React.Component<any, any> {
   }
 
   public render() {
-    let { notes, selectedNotes, selectionDetails } = this.state
+    var { notes, selectedNotes, selectionDetails } = this.state
     return (
       <div>
 {/*
@@ -252,7 +252,7 @@ export default class NotesList extends React.Component<any, any> {
   }
 
   private getSelectionDetails(): string {
-    let selectionCount = this.selection.getSelectedCount();
+    var selectionCount = this.selection.getSelectedCount();
     switch (selectionCount) {
       case 0:
         return 'No items selected';
@@ -264,7 +264,7 @@ export default class NotesList extends React.Component<any, any> {
   }
 
   private renderItemColumn(item, index, column) {
-    let fieldContent = item[column.fieldName]
+    var fieldContent = item[column.fieldName]
     switch (column.key) {
       case 'name':
         return <a href="#" onClick={ e => this.loadNote(e, item.id) }><strong>{item.name}</strong></a>

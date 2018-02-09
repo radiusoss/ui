@@ -93,10 +93,10 @@ export default class TwitterApi extends React.Component<any, any>  implements IT
   // ----------------------------------------------------------------------------
 
   private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: () => Promise<TRaw>): Promise<Result<TOut>> {
-    let result: Result<TOut> = new Result<TOut>()
+    var result: Result<TOut> = new Result<TOut>()
     try {
-      let raw = await action()
-      let selection = selector(raw)
+      var raw = await action()
+      var selection = selector(raw)
       result.success = raw !== undefined && selection !== undefined
       result.result = selection
     } catch (error) {

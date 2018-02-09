@@ -33,7 +33,8 @@ export namespace ApplicationState {
     config: IConfig,
     kuberLogin: any,
     kuberMessageSent: any,
-    kuberMessageReceived: any
+    kuberMessageReceived: any,
+    clearScratchpad: boolean
   }
 }
 
@@ -69,5 +70,6 @@ export const initialState: ApplicationState.State = {
   config: emptyConfig,
   kuberLogin: {},
   kuberMessageSent: {},
-  kuberMessageReceived: {}
+  kuberMessageReceived: {},
+  clearScratchpad: false
 }

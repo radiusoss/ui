@@ -23,21 +23,21 @@ export default class TablePieRenderer extends TableBaseRenderer {
 
   protected preparePieData(columns, items, data) {
 
-    let labels = []
-    let backgroundColor = []
-    let hoverBackgroundColor = []
+    var labels = []
+    var backgroundColor = []
+    var hoverBackgroundColor = []
     for (var i = 0; i < items.length; i++) {
       labels = labels.concat(items[i][columns[0]['name']])
-      let color = this.getRandomColor()
+      var color = this.getRandomColor()
       backgroundColor = backgroundColor.concat(color)
       hoverBackgroundColor = hoverBackgroundColor.concat(color)
     }
     data['labels'] = labels
 
-    let datasets = []
+    var datasets = []
     for (var i = 1; i < columns.length; i++) {
-      let serieName = columns[i]['name']
-      let dataset = {
+      var serieName = columns[i]['name']
+      var dataset = {
         label: serieName,
         backgroundColor: backgroundColor,
         hoverBackgroundColor: hoverBackgroundColor

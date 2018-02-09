@@ -74,7 +74,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
     const { isStartRun } = nextProps
     if (isStartRun) {
       if (isStartRun.paragraphId == this.state.paragraph.id) {
-        let code = this.codeEditor.getWrappedInstance().getValue()
+        var code = this.codeEditor.getWrappedInstance().getValue()
         NotebookStore.state().isStartRun = null
         var p = this.state.paragraph
         this.notebookApi.runParagraph(p, code)

@@ -92,12 +92,12 @@ export default class FlowDag extends React.Component<any, any> {
     const { webSocketMessageReceived } = nextProps
     if (! webSocketMessageReceived) return
     if (webSocketMessageReceived.op == "NOTES_INFO") {
-      let notes = webSocketMessageReceived.data.notes.map(note => ({ id: note.id, name: note.name }))
+      var notes = webSocketMessageReceived.data.notes.map(note => ({ id: note.id, name: note.name }))
       this.setState({notes: notes})
     }
     if (webSocketMessageReceived.op == "SAVE_FLOWS") {
       console.log('flows', webSocketMessageReceived.data.flows)
-      let flowId = this.props.match.params.flowId
+      var flowId = this.props.match.params.flowId
       webSocketMessageReceived.data.flows.map(flow => {
         if (flow['id'] === flowId) {
           this.setState({
@@ -239,13 +239,13 @@ export default class FlowDag extends React.Component<any, any> {
   }
 
   private onSelectionChanged(notes: [any]) {
-    let note = notes[notes.length - 1]
+    var note = notes[notes.length - 1]
     this.onCreateNode(Math.random() * 200, Math.random() * 200, note.id, note.name)
   }
   
   private persistDag(dag: any) {
     this.setState({dag: dag})
-    let flow = this.state.flow
+    var flow = this.state.flow
     flow['dag'] = this.state.dag
     this.setState({flow: flow})
     this.notebookApi.saveFlow(flow)

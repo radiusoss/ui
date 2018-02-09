@@ -11,7 +11,7 @@ describe('WebHdfs Integration', () => {
       url: 'http://localhost:50070',
       path: 'webhdfs/v1/testing/'
     })
-    let result = await client.getFileStatus(path)
+    var result = await client.getFileStatus(path)
     expect(result.success).to.be.equal(false)
   })
 
@@ -22,7 +22,7 @@ describe('WebHdfs Integration', () => {
       username: 'datalayer'
     })
     const path = 'integration/'
-    let outcome = await client.makeDirectory(path)
+    var outcome = await client.makeDirectory(path)
     expect(outcome.success).to.be.equal(true)
   })
 
@@ -32,7 +32,7 @@ describe('WebHdfs Integration', () => {
       path: 'webhdfs/v1/testing/',
       username: 'datalayer'
     })
-    let outcome = await client.listStatus("/")
+    var outcome = await client.listStatus("/")
     expect(outcome.success).to.be.equal(true)
   })
 
@@ -44,19 +44,19 @@ describe('WebHdfs Integration', () => {
       username: 'datalayer'
     })
     const expected: string = 'this is my test string that I am round-tripping.\n have a good trip!';
-    let inputStream = new sb.ReadableStreamBuffer();
+    var inputStream = new sb.ReadableStreamBuffer();
     inputStream.put(expected);
     inputStream.stop();
-    let outcome = await client.createFile(inputStream, hdfsPath, { overwrite: true });
+    var outcome = await client.createFile(inputStream, hdfsPath, { overwrite: true });
     expect(outcome.success).to.be.equal(true);
-    let outStream = new sb.WritableStreamBuffer();
+    var outStream = new sb.WritableStreamBuffer();
 /*
     client.OpenFile(hdfsPath)
       .on('complete', assert)
       .pipe(outStream);
     function assert(): void {
       outStream.end();
-      let actual = outStream.getContentsAsString();
+      var actual = outStream.getContentsAsString();
       expect(actual).toEqual(expected);
       done()
     }

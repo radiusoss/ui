@@ -10,21 +10,29 @@ export const notebookTicketAction = (notebookLogin: string): NotebookAction => (
   type: 'NOTEBOOK_TICKET',
   message: notebookLogin
 })
+
 export const webSocketMessageSentAction = (message: any): NotebookAction => ({
   type: 'WS_MESSAGE_SENT',
   message: message
 })
+
 export const webSocketMessageReceivedAction = (message: any): NotebookAction => ({
   type: 'WS_MESSAGE_RECEIVED',
   message: message
 })
+
 export const runNote = (message: any): NotebookAction => ({
   type: 'RUN_NOTE',
   message: message
 })
+
 export const stopNote = (id: string): NotebookAction => ({
   type: 'STOP_NOTE',
   message: id
+})
+
+export const clearScratchpad = (): NotebookAction => ({
+  type: 'CLEAR_SCRATCHPAD'
 })
 
 export type NotebookProps = {
@@ -35,6 +43,7 @@ export type NotebookProps = {
   notes: any,
   runningParagraphs: any[],
   isStartRun: {noteId: any, paragraphId: any},
+  clearScratchpad: boolean
 }
 
 export const mapStateToPropsNotebook = (state: ApplicationState.State): NotebookProps => ({
@@ -44,7 +53,8 @@ export const mapStateToPropsNotebook = (state: ApplicationState.State): Notebook
   note: state.note,
   notes: state.notes,
   runningParagraphs: state.runningParagraphs,
-  isStartRun: state.isStartRun
+  isStartRun: state.isStartRun,
+  clearScratchpad: state.clearScratchpad
 })
 
 export type NotebookDispatchers = {
@@ -53,6 +63,7 @@ export type NotebookDispatchers = {
   dispatchWsMessageReceivedAction: (any) => void
   dispatchRunNoteAction: (noteId, paragraphId) => void
   dispatchStopNoteAction: (string) => void
+  dispatchClearScratchpad: () => void
 }
 
 export const mapDispatchToPropsNotebook = (dispatch: Dispatch<ApplicationState.State>): NotebookDispatchers => ({
@@ -70,5 +81,8 @@ export const mapDispatchToPropsNotebook = (dispatch: Dispatch<ApplicationState.S
   },
   dispatchStopNoteAction: (message: string) => {
     dispatch(stopNote(message))
+  },
+  dispatchClearScratchpad: () => {
+    dispatch(clearScratchpad())
   }
 })

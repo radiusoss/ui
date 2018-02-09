@@ -48,17 +48,17 @@ export default class TableBaseRenderer extends React.Component<any, any> {
 
   protected prepareData(columns, items, data) {
 
-    let labels = []
+    var labels = []
     for (var i = 0; i < items.length; i++) {
       labels = labels.concat(items[i][columns[0]['name']])
     }
     data['labels'] = labels
 
-    let datasets = []
+    var datasets = []
     for (var i = 1; i < columns.length; i++) {
-      let serieName = columns[i]['name']
-      let color = this.getRandomColor()
-      let dataset = {
+      var serieName = columns[i]['name']
+      var color = this.getRandomColor()
+      var dataset = {
         label: serieName,
 //        type:'line',
 //        yAxisID: 'y-axis-1',

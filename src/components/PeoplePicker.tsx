@@ -81,8 +81,8 @@ export default class PeoplePickerExample extends React.Component<any, any> {
   private mapUsersToPersonas(users, useMailProp) {
     return users.map((p) => { 
       // The email property is returned differently from the /users and /people endpoints. 
-      let email = (useMailProp) ? p.mail : p.emailAddresses[0].address;
-      let personaProps = {
+      var email = (useMailProp) ? p.mail : p.emailAddresses[0].address;
+      var personaProps = {
         id: p.id,
         primaryText: p.displayName,
         secondaryText: email || p.userPrincipalName,
@@ -90,7 +90,7 @@ export default class PeoplePickerExample extends React.Component<any, any> {
         imageInitials: (!!p.givenName && !!p.surname) ? p.givenName.substring(0,1) + p.surname.substring(0,1) : p.displayName.substring(0,1),
         initialsColor: Math.floor(Math.random() * 15) + 0
       }
-//      let persona = new Persona(personaProps);
+//      var persona = new Persona(personaProps);
 //      return persona;
       return personaProps;
     })
@@ -205,7 +205,7 @@ export default class PeoplePickerExample extends React.Component<any, any> {
 
   // Show the results of the `/me/people` query. For sample purposes only.
   private showPeopleResults() {
-    let message = 'Query loading. Please try again.';
+    var message = 'Query loading. Please try again.';
     if (!this.state.isLoadingCounterPeople) {
       const people = this.peopleList.map((p) => {
         return `\n${p.primaryText}`

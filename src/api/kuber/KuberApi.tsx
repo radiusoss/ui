@@ -71,7 +71,7 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
         toastr.success('Kuber', 'Connected to Kuber API.')
       }
       this.webSocketClient.onmessage = (event: MessageEvent) => {
-        let message = JSON.parse(event.data)
+        var message = JSON.parse(event.data)
         console.log('Kuber Receive << %o, %o', message.op, message)
         this.props.dispatchKuberMessageReceivedAction(message)
       }
@@ -80,7 +80,7 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
         toastr.warning('Issue while connecting to the server', 'Force reload your browser [' + event.data + ']')
       }
       this.webSocketClient.onclose = (event: CloseEvent) => {
-        let code = event.code
+        var code = event.code
         console.log("Kuber WebSocket Closed: " + code)
         if (code != 1001) {
           toastr.light('Kuber Interaction Finished', 'Check the result on the Kuber page.')
@@ -163,10 +163,10 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
 // ----------------------------------------------------------------------------
 
 private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: () => Promise<TRaw>): Promise<Result<TOut>> {
-    let result: Result<TOut> = new Result<TOut>()
+    var result: Result<TOut> = new Result<TOut>()
     try {
-      let raw = await action()
-      let selection = selector(raw)
+      var raw = await action()
+      var selection = selector(raw)
       result.success = raw !== undefined && selection !== undefined
       result.result = selection
     } catch (error) {
@@ -178,7 +178,7 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
 // ----------------------------------------------------------------------------
 
   private sendWebSocketMessage(message: any) {
-    let json = JSON.parse(message)
+    var json = JSON.parse(message)
     console.log('Kuber Send >> %o, %o', json.op, json)
     this.props.dispatchKuberMessageSentAction(json)
 //    this.webSocketClient.send(message)

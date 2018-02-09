@@ -1,7 +1,7 @@
 import React from 'react'
 import BigCalendar from 'react-big-calendar'
 
-let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
+var allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
 const events = [
   {
     id: 0,
@@ -40,7 +40,7 @@ const resourceMap = [
   { resourceId: 4, resourceTitle: 'Meeting room 2' },
 ]
 
-let Resource = () => (
+var Resource = () => (
   <BigCalendar
     events={events}
     defaultView="day"

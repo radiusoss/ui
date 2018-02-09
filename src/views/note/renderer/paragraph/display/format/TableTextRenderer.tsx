@@ -28,7 +28,7 @@ export default class TableTextRenderer extends React.Component<any, any> {
       onSelectionChanged: () => this.setState({ selectionDetails: this._getSelectionDetails() })
     })
 */
-    let { columns, items } = props
+    var { columns, items } = props
 
     if (items) {
       this.state = {
@@ -42,8 +42,8 @@ export default class TableTextRenderer extends React.Component<any, any> {
 
   public render() {
 
-//    let { items, selectionDetails } = this.state
-    let { columns, items, filteredItems } = this.state
+//    var { items, selectionDetails } = this.state
+    var { columns, items, filteredItems } = this.state
 
     return (
 
@@ -79,7 +79,7 @@ export default class TableTextRenderer extends React.Component<any, any> {
   }
 /*
   private _getSelectionDetails(): string {
-    let selectionCount = this.selection.getSelectedCount();
+    var selectionCount = this.selection.getSelectedCount();
     switch (selectionCount) {
       case 0:
         return 'No items selected';
@@ -91,7 +91,7 @@ export default class TableTextRenderer extends React.Component<any, any> {
   }
 */
   public componentWillReceiveProps(nextProps) {
-    let { columns, items } = nextProps
+    var { columns, items } = nextProps
     if (items) {
       this.setState({
         columns: columns,

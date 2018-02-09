@@ -14,7 +14,6 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/C
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
-
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
@@ -164,17 +163,17 @@ export default class NotebookControlBar extends React.Component<any, any> {
     }
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NEW_NOTE") {
       this.notebookApi.listNotes()
-      let noteId = webSocketMessageReceived.data.note.id
+      var noteId = webSocketMessageReceived.data.note.id
       this.notebookApi.showNoteLayout(noteId, 'lines')
     }
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NOTES_INFO") {
-      let notes = webSocketMessageReceived.data.notes
+      var notes = webSocketMessageReceived.data.notes
       this.setState({
         notes: this.asNotes(notes)
       })
     }
     if (webSocketMessageReceived && webSocketMessageReceived.op == "SAVE_FLOWS") {
-      let flows = webSocketMessageReceived.data.flows
+      var flows = webSocketMessageReceived.data.flows
       this.setState({
         flows: this.asFlows(flows)
       })
@@ -232,21 +231,10 @@ export default class NotebookControlBar extends React.Component<any, any> {
     this.leftItems = [
       {
         key: 'board',
+        name: 'Board',
         icon: 'ViewDashboard',
         title: 'Board',
         onClick: () => history.push(`/dla/board`)
-      },
-      {
-        key: 'tiles',
-        icon: 'Tiles',
-        title: 'Notes Tiles View',
-        onClick: () => history.push(`/dla/notes/tiles`)
-      },
-      {
-        key: 'list',
-        icon: 'ViewList',
-        title: 'Notes List View',
-        onClick: () => history.push(`/dla/notes/list`)
       },
       {
         key: 'flows',
@@ -261,139 +249,120 @@ export default class NotebookControlBar extends React.Component<any, any> {
         items: this.state.notes
       },
       {
-        key: 'calendar',
-        icon: 'Calendar',
-        title: 'Calendar',
-        onClick: () => history.push(`/dla/calendar`)
-      },
-      {
-        key: 'people',
-        icon: 'People',
-        title: 'Users',
-        onClick: () => history.push(`/dla/users`)
-      },
-      {
-        key: 'profile',
-        icon: 'Accounts',
-        title: 'Profile',
-        onClick: () => history.push(`/dla/profile`)
-      },
-      {
-        key: 'settings',
-        icon: 'Settings',
-        title: 'Settings',
-        onClick: () => history.push(`/dla/settings`)
-      },
-      {
-        key: 'docs',
-        icon: 'Documentation',
-        title: 'Documentation',
-        onClick: () => history.push(`/dla/docs`)
+        key: 'more',
+        name: 'More',
+        icon: 'CollapseMenu',
+        title: 'More...',
+        items: [
+          {
+            key: 'tiles',
+            name: 'Notes Tiles',
+            icon: 'Tiles',
+            title: 'Notes Tiles View',
+            onClick: () => history.push(`/dla/notes/tiles`)
+          },
+          {
+            key: 'list',
+            name: 'Notes List',
+            icon: 'ViewList',
+            title: 'Notes List View',
+            onClick: () => history.push(`/dla/notes/list`)
+          },
+          {
+            key: 'calendar',
+            name: 'Calendar',
+            icon: 'Calendar',
+            title: 'Calendar',
+            onClick: () => history.push(`/dla/calendar`)
+          },
+          {
+            key: 'people',
+            name: 'People',
+            icon: 'People',
+            title: 'Users',
+            onClick: () => history.push(`/dla/users`)
+          },
+          {
+            key: 'profile',
+            name: 'Profile',
+            icon: 'Accounts',
+            title: 'Profile',
+            onClick: () => history.push(`/dla/profile`)
+          },
+          {
+            key: 'settings',
+            name: 'Settings',
+            icon: 'Settings',
+            title: 'Settings',
+            onClick: () => history.push(`/dla/settings`)
+          },
+          {
+            key: 'docs',
+            name: 'Documentation',
+            icon: 'Documentation',
+            title: 'Documentation',
+            onClick: () => history.push(`/dla/docs`)
+          }
+        ]
       },
       {
         key: 'Scratchpad',
         icon: 'NoteForward',
-        title: 'Code Scratchpad',
+        title: 'Scratchpad',
         onClick: () => this.notebookApi.showNoteScratchpad(this.state.noteScratchpadId)
       },
       this.runIndicator
     ]
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") != -1) {
-      this.leftItems.push(
-        {
-          key: 'CollapseMenu',
-          icon: 'CollapseMenu',
-          title: 'Note Lines Layout',
-          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'lines')
-        })
-/*
-        {
-          key: 'Tiles2',
-          icon: 'Tiles2',
-          title: 'Note Tiles Layout',
-          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'tiles')
-        },
-*/
-      this.leftItems.push(
-        {
-          key: 'SingleColumn',
-          icon: 'SingleColumn',
-          title: 'Note Results Layout',
-          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'results')
-        })
-    }
-    if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") != -1) {
-      this.rightItems = [
-      ]
-    }
-    else {
-      this.rightItems = [
-      ]
+      if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/scratchpad") == -1) {
+        this.leftItems.push(
+          {
+            key: 'SingleColumn',
+            icon: 'SingleColumn',
+            title: 'Note Results Layout',
+            onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'results')
+          }
+        )
+      }
+      else {
+        this.leftItems.push(
+          {
+            key: 'clear',
+            icon: 'ClearFormatting',
+            title: 'Clear Scratchpad',
+            onClick: () => this.props.dispatchClearScratchpad()
+          }
+        )
+      }
     }
   }
 
   private updateRunIndicator() {
     const {note, runningParagraphs} = this.state
-//    let isNoteRunning = runningParagraphs.length > 0
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") == -1) {
-/*
-      if (isNoteRunning) {
-        this.runIndicator = {
-          key: 'run-indicator',
-          name: 'Running',
-          icon: 'Running',
-          onClick: () => {
-            this.notebookApi.getNote(runningNote.id)
-          }
-        }
-        return
-      }
-*/
       this.runIndicator = {}
       return
     }
-    if (!note) {
-      this.runIndicator = {
-        key: 'run-indicator',
-        name: 'Run',
-        icon: 'Play',
-        title: 'Run the note [SHIFT+Enter]',
-        onClick: () => this.runNote()
-      }
-      return
-    }
-/*
-    if (runningNote) {
-      if (note.id == runningNote.id) {
+    if (note) {
+      if (note.name != this.state.noteScratchpadId) {
         this.runIndicator = {
           key: 'run-indicator',
-          name: isNoteRunning ? 'Stop' : 'Run',
-          icon: isNoteRunning ? 'Location' : 'Play',
-          onClick: isNoteRunning ? () => this.stopNote() : () => this.runNote()
+          name: note.name,
+          icon: 'Play',
+          title: 'Run the note [SHIFT+Enter]',
+          onClick: () => this.runNote()
+          }
+      }
+      else {
+        this.runIndicator = {
+          key: 'run-indicator',
+          name: 'Scratchpad',
+          icon: 'Play',
+          title: 'Run Scratchpad [SHIFT+Enter]',
+          onClick: () => this.runNote()
         }
-        return
       }
     }
-    if (isNoteRunning) {
-      this.runIndicator = {
-        key: 'run-indicator',
-        name: 'Running',
-        icon: 'Running',
-        onClick: () => {
-          this.notebookApi.getNote(runningNote.id)
-        }
-      }
-      return
-    }
-*/
-    this.runIndicator = {
-      key: 'run-indicator',
-      name: note.name,
-      icon: 'Play',
-      title: 'Run the note [SHIFT+Enter]',
-      onClick: () => this.runNote()
-    }
-
   }
 
   // --------------------------------------------------------------------------

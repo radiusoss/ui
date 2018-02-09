@@ -113,7 +113,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
         toastr.success('Spitfire', 'Connected to Spitfire API.')
       }
       this.webSocketClient.onmessage = (event: MessageEvent) => {
-        let message = JSON.parse(event.data)
+        var message = JSON.parse(event.data)
         console.log('Spitfire Receive << %o, %o', message.op, message)
         this.props.dispatchWsMessageReceivedAction(message)
       }
@@ -122,7 +122,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
         toastr.warning('Issue while connecting to the server', 'Force reload your browser [' + event.data + ']')
       }
       this.webSocketClient.onclose = (event: CloseEvent) => {
-        let code = event.code
+        var code = event.code
         console.log("Spitfire WebSocket Closed: " + code)
         if (code != 1001) {
           toastr.error('Spitfire Connection closed', 'The server is not reachable - Ensure it is online and your network is available, then reload your browser [' + code + ']')
@@ -259,7 +259,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
   public newFlow(name: string): void {
 //    this.sendWebSocketMessage(JSON.stringify(this.NEW_FLOW(name)))
-    let flow = {
+    var flow = {
       id: this.ID(),
       name: name,
       dag: {
@@ -335,7 +335,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 // ----------------------------------------------------------------------------
 /*
   private async wrapOutcome(action: () => Promise<boolean>): Promise<Outcome> {
-    let outcome = new Outcome()
+    var outcome = new Outcome()
     try {
       outcome.success = await action()
     } catch (error) {
@@ -345,10 +345,10 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   }
 */
   private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: () => Promise<TRaw>): Promise<Result<TOut>> {
-    let result: Result<TOut> = new Result<TOut>()
+    var result: Result<TOut> = new Result<TOut>()
     try {
-      let raw = await action()
-      let selection = selector(raw)
+      var raw = await action()
+      var selection = selector(raw)
       result.success = raw !== undefined && selection !== undefined
       result.result = selection
     } catch (error) {
@@ -360,7 +360,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 // ----------------------------------------------------------------------------
 
   private sendWebSocketMessage(message: any) {
-    let json = JSON.parse(message)
+    var json = JSON.parse(message)
     console.log('Spitfire Send >> %o, %o', json.op, json)
     this.props.dispatchWsMessageSentAction(json)
 //    this.webSocketClient.send(message)

@@ -267,7 +267,7 @@ export default class Google extends React.Component<any, IGoogleProfileState> {
   }
 
   private getSelectionDetails(): JSX.Element {
-    let selectionCount = this.selection.getSelectedCount()
+    var selectionCount = this.selection.getSelectedCount()
     switch (selectionCount) {
       case 0:
         return <DefaultButton
@@ -305,9 +305,9 @@ export default class Google extends React.Component<any, IGoogleProfileState> {
   @autobind
   private onColumnClick(ev: React.MouseEvent<HTMLElement>, column: IColumn) {
     const { columns, items } = this.state;
-    let newItems: IUser[] = items.slice();
-    let newColumns: IColumn[] = columns.slice();
-    let currColumn: IColumn = newColumns.filter((currCol: IColumn, idx: number) => {
+    var newItems: IUser[] = items.slice();
+    var newColumns: IColumn[] = columns.slice();
+    var currColumn: IColumn = newColumns.filter((currCol: IColumn, idx: number) => {
       return column.key === currCol.key
     })[0]
     newColumns.forEach((newCol: IColumn) => {

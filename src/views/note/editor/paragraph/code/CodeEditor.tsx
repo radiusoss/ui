@@ -174,7 +174,7 @@ export default class CodeEditor extends React.Component<any, any> {
     }
 
     const editorProps = Object.keys(this.props.editorProps)
-    for (let i = 0; i < editorProps.length; i++) {
+    for (var i = 0; i < editorProps.length; i++) {
       this.editor[editorProps[i]] = this.props.editorProps[editorProps[i]]
     }
 
@@ -202,7 +202,7 @@ export default class CodeEditor extends React.Component<any, any> {
 
     // Get a list of possible options to avoid 'misspelled option errors'.
     const availableOptions = this.editor.getOptions;
-    for (let i = 0; i < editorOptions.length; i++) {
+    for (var i = 0; i < editorOptions.length; i++) {
       const option = editorOptions[i];
 //      if (availableOptions.hasOwnProperty(option)) {
         this.editor.setOption(option, this.props[option])
@@ -278,7 +278,7 @@ export default class CodeEditor extends React.Component<any, any> {
 /*
     const props = this.props;
 
-    for (let i = 0; i < editorOptions.length; i++) {
+    for (var i = 0; i < editorOptions.length; i++) {
       const option = editorOptions[i];
       if (nextProps[option] !== props[option]) {
         this.editor.setOption(option, nextProps[option]);
@@ -286,11 +286,11 @@ export default class CodeEditor extends React.Component<any, any> {
     }
 
     if (nextProps.className !== props.className) {
-      let appliedClasses = this.refEditor.className;
-      let appliedClassesArray = appliedClasses.trim().split(' ');
-      let oldClassesArray = props.className.trim().split(' ');
+      var appliedClasses = this.refEditor.className;
+      var appliedClassesArray = appliedClasses.trim().split(' ');
+      var oldClassesArray = props.className.trim().split(' ');
       oldClassesArray.forEach((oldClass) => {
-        let index = appliedClassesArray.indexOf(oldClass);
+        var index = appliedClassesArray.indexOf(oldClass);
         appliedClassesArray.splice(index, 1);
       });
       this.refEditor.className = ' ' + nextProps.className + ' ' + appliedClassesArray.join(' ');
@@ -406,7 +406,7 @@ export default class CodeEditor extends React.Component<any, any> {
   @autobind
   handleOptions(props) {
     const setOptions = Object.keys(props.setOptions);
-    for (let y = 0; y < setOptions.length; y++) {
+    for (var y = 0; y < setOptions.length; y++) {
       this.editor.setOption(setOptions[y], props.setOptions[setOptions[y]]);
     }
   }
@@ -414,7 +414,7 @@ export default class CodeEditor extends React.Component<any, any> {
   @autobind
   handleMarkers(markers) {
     // remove foreground markers
-    let currentMarkers = this.editor.getSession().getMarkers(true);
+    var currentMarkers = this.editor.getSession().getMarkers(true);
     for (const i in currentMarkers) {
       if (currentMarkers.hasOwnProperty(i)) {
         this.editor.getSession().removeMarker(currentMarkers[i].id);

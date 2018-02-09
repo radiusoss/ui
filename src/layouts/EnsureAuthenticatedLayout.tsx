@@ -9,8 +9,7 @@ import FlowDag from './../views/flow/FlowDag'
 import NotesList from './../views/notes/NotesList'
 import NotesTiles from './../views/notes/NotesTiles'
 import NoteLinesLayout from './../views/note/NoteLinesLayout'
-import NoteTilesLayout from './../views/note/NoteTilesLayout'
-import NoteScratchpad from './../views/note/NoteScratchpad'
+import Scratchpad from './../views/scratchpad/Scratchpad'
 import NoteResultsLayout from './../views/note/NoteResultsLayout'
 import Profile from './../views/profile/Profile'
 import Users from './../views/users/Users'
@@ -42,8 +41,7 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/notes/list" name="Notes" component={NotesList}/>
           <Route path="/dla/notes/tiles" name="Notes" component={NotesTiles}/>
           <Route path="/dla/note/lines/:noteId" name="Note Lines Layout" component={NoteLinesLayout}/>
-          <Route path="/dla/note/tiles/:noteId" name="Note Tiles Layout" component={NoteTilesLayout}/>
-          <Route path="/dla/note/scratchpad" name="Note Scratchpad" component={NoteScratchpad}/>
+          <Route path="/dla/note/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
           <Route path="/dla/note/results/:noteId" name="Note Results Layout" component={NoteResultsLayout}/>
           <Route path="/dla/stories" name="Stories" component={Stories}/>
           <Route path="/dla/datasets" name="Datasets" component={Datasets} />

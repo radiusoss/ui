@@ -2,7 +2,7 @@ import React from 'react'
 import BigCalendar from 'react-big-calendar'
 import events from '../events'
 
-let Popup = () => (
+var Popup = () => (
   <React.Fragment>
     <h3 className="callout">
       Click the "+x more" link on any calendar day that cannot fit all the days

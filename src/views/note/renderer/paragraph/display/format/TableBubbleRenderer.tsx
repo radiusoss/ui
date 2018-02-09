@@ -52,22 +52,22 @@ export default class TableBubbleRenderer extends TableBaseRenderer {
 
   protected prepareBubbleData(columns, items, bubbleData) {
 
-    let labels = []
+    var labels = []
     for (var i = 0; i < items.length; i++) {
       labels = labels.concat(items[i][columns[0]['name']])
     }
     bubbleData['labels'] = labels
 
-    let datasets = []
-    let data = []
+    var datasets = []
+    var data = []
     for (var j = 0; j < items.length; j++) {
       data = data.concat({
         x: items[j][columns[0]['name']],
         y: items[j][columns[1]['name']],
         r: items[j][columns[2]['name']]})
     }
-    let color = this.getRandomColor()
-    let dataset = {
+    var color = this.getRandomColor()
+    var dataset = {
       label: `X=${columns[0]['name']} X=${columns[1]['name']} S=${columns[2]['name']}`,
       fill: false,
       lineTension: 0.1,

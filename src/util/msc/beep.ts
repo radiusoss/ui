@@ -2,7 +2,7 @@ const BEEP_DATA = 'data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI
 
 const MIN_DURATION_BETWEEN_BEEPS = 100;
 
-let _beepsLeft = 0;
+var _beepsLeft = 0;
 
 export function beep() {
   _beepsLeft++;

@@ -90,7 +90,7 @@ export default class DetailsList extends React.Component<any, any> {
   private processItems(err, res) { 
       if (!err) {
         const files = res.value;
-        let nextLink = null;          
+        var nextLink = null;          
         const items = files.map((f) => {
           return {
             Name: f.name,
@@ -129,7 +129,7 @@ export default class DetailsList extends React.Component<any, any> {
 
   // Get data to display for the items selected in the details list.
   private getSelectionDetails() {
-    let selectionCount = this.selection.getSelectedCount();
+    var selectionCount = this.selection.getSelectedCount();
     switch (selectionCount) {
       case 0:
         return 'No items selected';

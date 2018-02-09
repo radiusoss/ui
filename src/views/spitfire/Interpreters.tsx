@@ -12,8 +12,8 @@ import './../_styles/DetailsList.scss'
 const ITEMS_PER_GROUP = 20
 const GROUP_COUNT = 20
 
-let items: any[]
-let groups: IGroup[]
+var items: any[]
+var groups: IGroup[]
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Interpreters extends React.Component<any, any> {
@@ -98,11 +98,11 @@ export default class Interpreters extends React.Component<any, any> {
   private async restartInterpreters(e) {
     e.stopPropagation()
     e.preventDefault()
-    let interpreterSettings = this.state.interpreterSettings
+    var interpreterSettings = this.state.interpreterSettings
     this.setState({
         interpreterSettings: {}
     })
-    let body = interpreterSettings.result.body
+    var body = interpreterSettings.result.body
     for (var i in body) {
       var id = body[i].id
       var name = body[i].name

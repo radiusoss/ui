@@ -8,7 +8,7 @@ export default class Spinner extends React.Component<any, any> {
 
     super(props)
 
-    let spinnerSize = props.size
+    var spinnerSize = props.size
 
     this.spinners = [
       React.createElement(ChasingDots, {size: spinnerSize}),

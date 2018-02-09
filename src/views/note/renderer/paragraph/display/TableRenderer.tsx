@@ -87,9 +87,9 @@ export default class TableRenderer extends React.Component<any, any> {
     var tableData = new TableData()
     tableData.loadParagraphResult({type: "TABLE", msg: this.props.data})
 
-    let columnsData = tableData.columns
-    let columnNamesData = tableData.columnNames
-    let columns = columnNamesData.map( c => {
+    var columnsData = tableData.columns
+    var columnNamesData = tableData.columnNames
+    var columns = columnNamesData.map( c => {
       return {
         key: c,
         name: c,
@@ -100,12 +100,12 @@ export default class TableRenderer extends React.Component<any, any> {
       }
     })
 
-    let rowData: [any] = tableData.rows
-    let items = []
-    for (let i = 0; i < rowData.length; i++) {
-      let row = rowData[i]
-      let item = {}
-      for (let j = 0; j < columnNamesData.length; j++) {
+    var rowData: [any] = tableData.rows
+    var items = []
+    for (var i = 0; i < rowData.length; i++) {
+      var row = rowData[i]
+      var item = {}
+      for (var j = 0; j < columnNamesData.length; j++) {
         item[columnNamesData[j]] = row[j]
       }
       items.push(item)
@@ -134,7 +134,7 @@ export default class TableRenderer extends React.Component<any, any> {
 
   public render() {
 
-    let { columns, items, format, showCommandBar } = this.state
+    var { columns, items, format, showCommandBar } = this.state
 
     return (
 

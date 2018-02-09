@@ -91,14 +91,14 @@ export class HdfsClient implements IHdfsClient {
     return this.wrapOutcome(async () => {
       // two-part creation per docs
       // reference: http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/Hdfs.html#Append_to_a_File
-//      let request1 = await post(uri, this.jsonOpt);
+//      var request1 = await post(uri, this.jsonOpt);
       const request1 = await fetch(uri, {
         method: "POST",
         body: JSON.stringify({}),
         headers: new Headers({ 'Content-Type': 'application/json' })
       })
       const dataUri = request1.headers[locHeader];
-//      let request2 = post(dataUri, this.jsonOpt)
+//      var request2 = post(dataUri, this.jsonOpt)
 //      file.pipe(request2.body)
       const request2 = await fetch(dataUri, {
         method: "POST",
@@ -116,7 +116,7 @@ export class HdfsClient implements IHdfsClient {
     const locHeader: string = 'location'
 
     options = options || {};
-    let parameters: {} = {
+    var parameters: {} = {
       blocksize: options.blockSize,
       buffersize: options.bufferSize,
       overwrite: options.overwrite,
@@ -126,40 +126,40 @@ export class HdfsClient implements IHdfsClient {
       noredirect: true
     }
 /*
-    let requestOpts: RequestPromiseOptions = {
+    var requestOpts: RequestPromiseOptions = {
       followRedirect: false,
       followAllRedirects: false,
       resolveWithFullResponse: true,
       simple: false
     }
 */
-    let success: boolean = false
-    let location: string = ''
+    var success: boolean = false
+    var location: string = ''
     try {
       // two-part creation per docs
       // reference: https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/Hdfs.html#Create_and_Write_to_a_File
-      let uri = this.restClient.buildRequestUriWithParams(path, parameters)
-//      let req1: RequestResponse = await put(uri, requestOpts)
+      var uri = this.restClient.buildRequestUriWithParams(path, parameters)
+//      var req1: RequestResponse = await put(uri, requestOpts)
       const req1 = await fetch(uri, {
         method: "PUT",
         headers: new Headers({ 'Content-Type': 'application/json' })
       })
-      let dataUri = req1.headers[locHeader]
-//      let req2 = put(dataUri, requestOpts)
+      var dataUri = req1.headers[locHeader]
+//      var req2 = put(dataUri, requestOpts)
 //      file.pipe(req2)
       const req2 = await fetch(uri, {
         method: "PUT",
         body: file,
         headers: new Headers({ 'Content-Type': 'application/json' })
       })
-      let response: Response = await req2
+      var response: Response = await req2
       location = response.headers[locHeader]
       success = location !== null
     } 
     catch (error) {
       success = false
     }
-    let result = new Result<string>()
+    var result = new Result<string>()
     result.success = success
     result.result = location
     return result
@@ -169,14 +169,14 @@ export class HdfsClient implements IHdfsClient {
     const op: string = 'DELETE'
     const reqParams = { op, recursive }
     return this.wrapOutcome(async () => {
-      let raw = await this.restClient.delete<BooleanResponse>(reqParams, this.jsonOpt, path)
+      var raw = await this.restClient.delete<BooleanResponse>(reqParams, this.jsonOpt, path)
       return raw.boolean
     })
   }
 
   public async exists(path: string): Promise<Outcome> {
     return this.wrapOutcome(async () => {
-      let stat = await this.getFileStatus(path);
+      var stat = await this.getFileStatus(path);
       return stat !== undefined && stat.success;
     })
   }
@@ -197,7 +197,7 @@ export class HdfsClient implements IHdfsClient {
       Token: Token
     }
     const op: string = 'GETDELEGATIONTOKEN'
-    let params = { op: op, renewer: renewer }
+    var params = { op: op, renewer: renewer }
     return this.wrapResult<DelegationTokenResponse, Token>(
       r => r.Token,
       async () => this.restClient.get<DelegationTokenResponse>(params, this.jsonOpt)
@@ -252,9 +252,9 @@ export class HdfsClient implements IHdfsClient {
 
   public async makeDirectory(path: string, permissionOctal?: string): Promise<Outcome> {
     const op: string = 'MKDIRS'
-    let reqParams = { op, permission: permissionOctal }
+    var reqParams = { op, permission: permissionOctal }
     return this.wrapOutcome(async () => {
-      let raw = await this.restClient.put<BooleanResponse>(reqParams, this.jsonOpt, path)
+      var raw = await this.restClient.put<BooleanResponse>(reqParams, this.jsonOpt, path)
       return raw.boolean
     });
   }
@@ -264,14 +264,14 @@ export class HdfsClient implements IHdfsClient {
     options?: OpenFileOptions
   ): stream.Stream {
     options = options || {};
-    let param: {} = {
+    var param: {} = {
       op: 'OPEN',
       buffersize: options.BufferSize,
       length: options.Length,
       offset: options.Offset,
     };
 
-    let coreOptions = {
+    var coreOptions = {
       followRedirect: true
     };
     return this.restClient.GetStream(param, coreOptions, path);
@@ -279,15 +279,15 @@ export class HdfsClient implements IHdfsClient {
 */
   public async rename(source: string, destination: string): Promise<Outcome> {
     const op: string = 'RENAME'
-    let reqParam = { op, destination }
+    var reqParam = { op, destination }
     return this.wrapOutcome(async () => {
-      let raw = await this.restClient.put<BooleanResponse>(reqParam, this.jsonOpt, source)
+      var raw = await this.restClient.put<BooleanResponse>(reqParam, this.jsonOpt, source)
       return raw.boolean
     })
   }
 
   private async wrapOutcome(action: () => Promise<boolean>): Promise<Outcome> {
-    let outcome = new Outcome()
+    var outcome = new Outcome()
     try {
       outcome.success = await action()
     } catch (error) {
@@ -297,10 +297,10 @@ export class HdfsClient implements IHdfsClient {
   }
 
   private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: () => Promise<TRaw>): Promise<Result<TOut>> {
-    let result: Result<TOut> = new Result<TOut>()
+    var result: Result<TOut> = new Result<TOut>()
     try {
-      let raw = await action()
-      let selection = selector(raw)
+      var raw = await action()
+      var selection = selector(raw)
       result.success = raw !== undefined && selection !== undefined
       result.result = selection
     } catch (error) {

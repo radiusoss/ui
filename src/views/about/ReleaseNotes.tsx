@@ -28,8 +28,8 @@ export default class ReleaseNotes extends React.Component<any, any> {
                 <li>Basic User Management with Authorized Users</li>
                 <li>Fully Operational Note Lines View</li>
                 <li>Scratchpad Note</li>
-                <li>Cluster Calendar with On-Off Slots</li>
                 <li>Notebook Title</li>
+                <li>Cluster Calendar with On-Off Slots</li>
                 <li>Board and Side Views: Day Calendar + Cluster Usage + Latests Paragraphs</li>
               </ul>
             </div>
@@ -52,7 +52,7 @@ export default class ReleaseNotes extends React.Component<any, any> {
                 <li>Format HDFS only if needed</li>
                 <li>Fetch K8s API for settings/config and settings/k8s</li>
                 <li>Remount HDFS Volumes on restart</li>
-                <li>Configure pull timeout (--runtime-request-timeout 4m0s on kubelet service)</li>
+                <li>Configure pull timeout (--runtime-request-timeout 4m0s on kubevar service)</li>
                 <li>Ensure fixed IP address for K8S Master</li>
                 <li>Manage HDFS with cluster-id</li>
               </ul>              

@@ -43,7 +43,7 @@ export default class ExerciseCard extends React.Component<IExerciseCardProps, IE
   public render() {
     const { language, title, code, children, isRightAligned } = this.props;
     const { isCodeVisible } = this.state;
-    let rootClass = 'ExerciseCard' + (this.state.isCodeVisible ? ' is-codeVisible' : '');
+    var rootClass = 'ExerciseCard' + (this.state.isCodeVisible ? ' is-codeVisible' : '');
 
     return (
 

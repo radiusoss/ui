@@ -617,10 +617,10 @@ print(sample(1:2, size=10, prob=c(1,3), replace=TRUE))
   }
 
   private getApiUrl() {    
-    let protocol = window.location.protocol == 'https:' ? 'https://' : 'http://'
-    let host = window.location.hostname
-    let port = (window.location.port  == '4320' || window.location.port  == '4322' || window.location.port  == '4323') ? ':' + '8091' : (window.location.port  == '' ? '' : ':' + window.location.port  )
-    let path = '/api'
+    var protocol = window.location.protocol == 'https:' ? 'https://' : 'http://'
+    var host = window.location.hostname
+    var port = (window.location.port  == '4320' || window.location.port  == '4322' || window.location.port  == '4323') ? ':' + '8091' : (window.location.port  == '' ? '' : ':' + window.location.port  )
+    var path = '/api'
     return protocol + host + port + path
   }
 

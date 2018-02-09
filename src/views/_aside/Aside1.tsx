@@ -11,7 +11,7 @@ export default class Aside1 extends React.Component<any, any> {
   }
 
   public render() {
-    let paragraphs = NotebookStore.state().runningParagraphs
+    var paragraphs = NotebookStore.state().runningParagraphs
     return (    
       <div>
         <div className="callout m-0 py-h text-muted text-center bg-faded text-uppercase">

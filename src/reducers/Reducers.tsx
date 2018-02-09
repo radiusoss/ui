@@ -12,7 +12,8 @@ import { isGoogleAuthenticatedReducer, isToGoogleReducer, googleTokenReducer,
   isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer, 
   isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer,
  } from './AuthReducer'
-import { notebookLoginReducer, webSocketMessageSentReducer, webSocketMessageReceivedReducer, noteReducer, 
+import { notebookLoginReducer, webSocketMessageSentReducer, 
+  webSocketMessageReceivedReducer, noteReducer, clearScratchpadReducer,
   runningParagraphsReducer, notesReducer, isStartRunReducer } from './NotebookReducer'
 
 export const reducers = combineReducers<ApplicationState.State>({
@@ -53,6 +54,8 @@ export const reducers = combineReducers<ApplicationState.State>({
 
   me: meReducer,
   profileDisplayName: profileDisplayNameReducer,
-  profilePhotoBlob: profilePhotoBlobReducer
+  profilePhotoBlob: profilePhotoBlobReducer, 
+
+  clearScratchpad: clearScratchpadReducer
 
 })

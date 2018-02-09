@@ -34,7 +34,7 @@ loadTheme({
 
 document.getElementById('preloader').style.display = 'none'
 
-let div: HTMLElement = document.createElement('div')
+var div: HTMLElement = document.createElement('div')
 document.body.appendChild(div)
 
 function start(): void {

@@ -24,7 +24,7 @@ export default class Microsoft extends React.Component<any, any> {
 
   public render() {
     const { displayName, principalName, photo } = this.state
-    let previewProps: IDocumentCardPreviewProps = {
+    var previewProps: IDocumentCardPreviewProps = {
       previewImages: [{
           previewImageSrc: photo,
           imageFit: ImageFit.cover,
@@ -57,7 +57,7 @@ export default class Microsoft extends React.Component<any, any> {
           <div className="ms-Grid-row">
           {
             this.state.contacts.map( c => {
-              let previewProps: IDocumentCardPreviewProps = {
+              var previewProps: IDocumentCardPreviewProps = {
                   previewImages: [{
                       name: c.emailAddresses[0].name,
                       imageFit: ImageFit.cover,

@@ -190,7 +190,7 @@ export default class MicrosoftApi extends React.Component<any, any> {
   public getFiles(nextLink, callback) {
     var client = this.getClient()
     if (client) {
-      let request
+      var request
       if (nextLink) {
         request = this.client.api(nextLink)
       }
@@ -227,7 +227,7 @@ export default class MicrosoftApi extends React.Component<any, any> {
       this.client = Client.init({
         debugLogging: true,
         authProvider: (done) => {
-          let access_token = profile.access_token
+          var access_token = profile.access_token
           done(null, access_token)
         }
       })

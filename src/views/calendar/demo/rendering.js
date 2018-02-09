@@ -39,7 +39,7 @@ const customSlotPropGetter = date => {
   else return {}
 }
 
-let Rendering = () => (
+var Rendering = () => (
   <BigCalendar
     events={events}
     defaultDate={new Date(2015, 3, 1)}

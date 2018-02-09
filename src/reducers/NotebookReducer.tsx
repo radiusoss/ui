@@ -77,3 +77,12 @@ export const notesReducer = (state: any[] = initialState.notes, action: Notebook
       return []
   }
 }
+
+export const clearScratchpadReducer = (state: boolean = initialState.clearScratchpad, action: NotebookAction): boolean => {
+  switch (action.type) {
+    case 'CLEAR_SCRATCHPAD':
+      return true
+    default:
+      return false
+  }
+}

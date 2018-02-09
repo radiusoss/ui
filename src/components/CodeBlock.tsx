@@ -49,10 +49,10 @@ export default class CodeBlock extends React.Component<ICodeBlockProps, ICodeBlo
   }
 
   public render() {
-    let { language, isCollapsible, isLightTheme, children } = this.props;
-    let { isOpen } = this.state;
+    var { language, isCollapsible, isLightTheme, children } = this.props;
+    var { isOpen } = this.state;
 
-    let toggleButton;
+    var toggleButton;
     if (isCollapsible) {
       toggleButton = <button className={ styles.toggle } onClick={ this._onToggleClicked.bind(this) }>&lt;/&gt;</button>;
     }

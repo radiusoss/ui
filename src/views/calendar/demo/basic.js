@@ -2,9 +2,9 @@ import React from 'react'
 import BigCalendar from 'react-big-calendar'
 import events from '../events'
 
-let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
+var allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
 
-let Basic = () => (
+var Basic = () => (
   <BigCalendar
     events={events}
     views={allViews}

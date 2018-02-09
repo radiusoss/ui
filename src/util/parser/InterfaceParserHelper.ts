@@ -28,15 +28,15 @@ export class InterfaceParserHelper extends BaseParser {
   }
 
   public parse(): Array<IInterfaceProperty> {
-    let bank: Array<string> = [];
-    let comment = '';
-    let identifierName = '';
-    let type = '';
-    let returnResult = [];
-    let defaultValue = '';
-    let isDeprecated = false;
-    let deprecatedMessage = '';
-    let noClosingSymbolAsteriskPrereq = false;
+    var bank: Array<string> = [];
+    var comment = '';
+    var identifierName = '';
+    var type = '';
+    var returnResult = [];
+    var defaultValue = '';
+    var isDeprecated = false;
+    var deprecatedMessage = '';
+    var noClosingSymbolAsteriskPrereq = false;
 
     this.eatUntil(/\{/);
     this.eat('{');
@@ -65,7 +65,7 @@ export class InterfaceParserHelper extends BaseParser {
         case ParseState.comment:
           {
             // the initial * are always the first * of a comment, and will be treated as decorative
-            let asterisk = this.eatWhile('*');
+            var asterisk = this.eatWhile('*');
             if ((noClosingSymbolAsteriskPrereq || asterisk.length > 0) && this.eat('/')) {
               // encountered closing comment tag
               comment = bank.join('').trim();
@@ -76,7 +76,7 @@ export class InterfaceParserHelper extends BaseParser {
 
             noClosingSymbolAsteriskPrereq = false;
 
-            let tmp = this.eatUntil(/[\n\*@]/);
+            var tmp = this.eatUntil(/[\n\*@]/);
             bank.push(tmp);
 
             if (this.peek() === '*') {
@@ -111,7 +111,7 @@ export class InterfaceParserHelper extends BaseParser {
         case ParseState.declaration:
           {
             this.eatSpacesAndNewlines();
-            let tmp = this.eatUntil(/[\:\;=]/);
+            var tmp = this.eatUntil(/[\:\;=]/);
             identifierName = tmp.trim();
             if (this.eat(':')) {
               tmp = this.eatUntil(/\;/);
@@ -124,8 +124,8 @@ export class InterfaceParserHelper extends BaseParser {
 
             this.eat(';'); // actually eat the semicolon
 
-            let isOptional = identifierName[identifierName.length - 1] === '?';
-            let propType = isDeprecated ? InterfacePropertyType.deprecated : (isOptional ? InterfacePropertyType.optional : InterfacePropertyType.required);
+            var isOptional = identifierName[identifierName.length - 1] === '?';
+            var propType = isDeprecated ? InterfacePropertyType.deprecated : (isOptional ? InterfacePropertyType.optional : InterfacePropertyType.required);
 
             if (isOptional) {
               identifierName = identifierName.substr(0, identifierName.length - 1);

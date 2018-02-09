@@ -64,7 +64,7 @@ export default class Flows extends React.Component<any, any> {
 
   public render() {    
 
-    let { flows, selectedFlows, selectionDetails } = this.state
+    var { flows, selectedFlows, selectionDetails } = this.state
 
     return (
 
@@ -255,7 +255,7 @@ export default class Flows extends React.Component<any, any> {
   }
 
   private getSelectionDetails(): string {
-    let selectionCount = this.selection.getSelectedCount();
+    var selectionCount = this.selection.getSelectedCount();
     switch (selectionCount) {
       case 0:
         return 'No items selected';
@@ -267,7 +267,7 @@ export default class Flows extends React.Component<any, any> {
   }
 
   private renderItemColumn(item, index, column) {
-    let fieldContent = item[column.fieldName]
+    var fieldContent = item[column.fieldName]
     switch (column.key) {
       case 'name':
         return <a href="#" onClick={ e => this.loadFlow(e, item.id) }><strong>{item.name}</strong></a>

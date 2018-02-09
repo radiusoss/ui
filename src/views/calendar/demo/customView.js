@@ -7,9 +7,9 @@ import localizer from 'react-big-calendar/lib/localizer'
 import TimeGrid from 'react-big-calendar/lib/TimeGrid'
 
 const getRange = (date, culture) => {
-  let firstOfWeek = localizer.startOfWeek(culture)
-  let start = dates.startOf(date, 'week', firstOfWeek)
-  let end = dates.endOf(date, 'week', firstOfWeek)
+  var firstOfWeek = localizer.startOfWeek(culture)
+  var start = dates.startOf(date, 'week', firstOfWeek)
+  var end = dates.endOf(date, 'week', firstOfWeek)
 
   if (firstOfWeek === 1) {
     end = dates.subtract(end, 2, 'day')
@@ -23,8 +23,8 @@ const getRange = (date, culture) => {
 
 class MyWeek extends React.Component {
   render() {
-    let { date, culture } = this.props
-    let range = getRange(date, culture)
+    var { date, culture } = this.props
+    var range = getRange(date, culture)
 
     return <TimeGrid {...this.props} range={range} eventOffset={15} />
   }
@@ -47,7 +47,7 @@ MyWeek.title = (date, { formats, culture }) => {
   return `My awesome week: ${Date.toLocaleString()}`
 }
 
-let CustomView = () => (
+var CustomView = () => (
   <BigCalendar
     events={events}
     defaultDate={new Date(2015, 3, 1)}
