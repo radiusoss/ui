@@ -66,7 +66,7 @@ export default class OAuthGoogleCallback extends React.Component<any, any> {
     console.log("Google OAuth Callback", callback)
     if (callback) {
       localStorage.setItem(GoogleProfileStorageKey, JSON.stringify(callback))
-      this.notebookApi.updateGoogleProfile()
+      this.notebookApi.updateGoogleProfile("/")
     }
   }
 

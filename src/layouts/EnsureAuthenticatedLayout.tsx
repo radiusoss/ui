@@ -7,13 +7,14 @@ import Flows from './../views/flows/Flows'
 import FlowDetail from './../views/flow/FlowDetail'
 import FlowDag from './../views/flow/FlowDag'
 import NotesList from './../views/notes/NotesList'
-import NotesTiles from './../views/notes/NotesTiles'
+import NotesCover from './../views/notes/NotesCover'
 import NoteLinesLayout from './../views/note/NoteLinesLayout'
 import Scratchpad from './../views/scratchpad/Scratchpad'
-import NoteResultsLayout from './../views/note/NoteResultsLayout'
+import NoteCoverLayout from './../views/note/NoteCoverLayout'
 import Profile from './../views/profile/Profile'
 import Users from './../views/users/Users'
 import Calendar from './../views/calendar/Calendar'
+import History from './../views/history/History'
 import Settings from './../views/settings/Settings'
 import Simple from './../views/spl/Simple'
 import Lesson1 from '../views/school/lessons/1/Lesson1'
@@ -25,11 +26,29 @@ import Auth from './../views/spl/Auth'
 import Welcome from './../views/Welcome'
 import { connect } from 'react-redux'
 import history from './../routes/History'
+import NotebookApi from './../api/notebook/NotebookApi'
 import { NotebookStore } from './../store/NotebookStore'
-import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../actions/AuthActions'
+import * as isEqual from 'lodash.isequal'
+import { IConfig, emptyConfig } from './../api/config/ConfigApi'
+import { mapStateToPropsAuth, mapDispatchToPropsAuth } from './../actions/AuthActions'
+import { mapDispatchToPropsConfig, mapStateToPropsConfig } from './../actions/ConfigActions'
 
+@connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class EnsureAuthenticatedLayout extends React.Component<any, any> {
+  private config: IConfig = emptyConfig
+  private notebookApi: NotebookApi
+
+  state = {
+    initialPath: ''
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      initialPath: props.location.pathname
+    }
+  }
 
   public render() {
     const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
@@ -38,11 +57,11 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
         <div>
           <Route exact path="/dla" component={Welcome}/>
           <Route path="/dla/board" name="Board" component={Board}/>
-          <Route path="/dla/notes/list" name="Notes" component={NotesList}/>
-          <Route path="/dla/notes/tiles" name="Notes" component={NotesTiles}/>
-          <Route path="/dla/note/lines/:noteId" name="Note Lines Layout" component={NoteLinesLayout}/>
+          <Route path="/dla/notes/list" name="Notes List" component={NotesList}/>
+          <Route path="/dla/notes/cover" name="Notes Cover" component={NotesCover}/>
           <Route path="/dla/note/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
-          <Route path="/dla/note/results/:noteId" name="Note Results Layout" component={NoteResultsLayout}/>
+          <Route path="/dla/note/lines/:noteId" name="Note Lines Layout" component={NoteLinesLayout}/>
+          <Route path="/dla/note/cover/:noteId" name="Note Cover Layout" component={NoteCoverLayout}/>
           <Route path="/dla/stories" name="Stories" component={Stories}/>
           <Route path="/dla/datasets" name="Datasets" component={Datasets} />
           <Route path="/dla/flows" name="Flows" component={Flows}/>
@@ -50,7 +69,8 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/flow/detail/:flowId" name="Flow Detail" component={FlowDetail}/>
           <Route path="/dla/profile" name="Profile" component={Profile}/>
           <Route path="/dla/users" name="Profile" component={Users}/>
-          <Route path="/dla/calendar" name="Profile" component={Calendar}/>
+          <Route path="/dla/calendar" name="Calendar" component={Calendar}/>
+          <Route path="/dla/history" name="History" component={History}/>
           <Route path="/dla/settings" name="Settings" component={Settings}/>
           <Route path="/dla/school/lessons/1" name="Lesson 1" component={Lesson1}/>
           <Route path="/dla/school/lessons/2" name="Lesson 2" component={Lesson2}/>
@@ -65,16 +85,23 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
   }
 
   public componentDidMount() {
-    const { dispatch, currentURL, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
-    if (!isGoogleAuthenticated && !isMicrosoftAuthenticated && !isTwitterAuthenticated) {
-      // Set the current url/path for future redirection (we use a Redux action),
-      // then redirect (we use a React Router method).
-//      history.push(currentURL)
-      history.push("/")
-    }
-    else {
-      history.push(currentURL)
-   }
+    this.notebookApi = window["NotebookApi"]
+  }
+
+  public componentWillReceiveProps(nextProps) {    
+    const { config, dispatch, location, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
+    if (config && ! isEqual(config, this.config)) {
+      this.config = config
+      if (!isGoogleAuthenticated && !isMicrosoftAuthenticated && !isTwitterAuthenticated) {
+    //      history.push("/")
+          this.notebookApi.updateGoogleProfile(this.state.initialPath)
+        }
+/*
+        else {
+          history.push(this.state.initialPath)
+        }
+*/
+      }
   }
 
 }

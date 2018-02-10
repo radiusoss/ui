@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResultsRenderer from './paragraph/ParagraphResultsRenderer'
+import ParagraphResultsRenderer from './ParagraphResults'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteResultsRenderer extends React.Component<any, any> {
+export default class NoteResults extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
   state = {
@@ -40,10 +40,6 @@ export default class NoteResultsRenderer extends React.Component<any, any> {
           note.paragraphs.map( p => {
             return (
               <div key={p.id}>
-{/*
-                <br/>
-                <div className="ms-fontSize-xl">{p.title}</div>
-*/}
                 <ParagraphResultsRenderer paragraph={p} showCommandBar={showCommandBar}/>
               </div>
             )

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { toastr } from 'react-redux-toastr'
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import NoteResultsRenderer from './../renderer/NoteResultsRenderer'
+import NoteResultsRenderer from './../results/NoteResults'
 import { connect } from 'react-redux'
 import { Rating, RatingSize } from 'office-ui-fabric-react/lib/Rating'
 import { Facepile, IFacepilePersona, IFacepileProps } from 'office-ui-fabric-react/lib/Facepile'
@@ -13,7 +13,7 @@ import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteResultsLayout extends React.Component<any, any> {
+export default class NoteCoverLayout extends React.Component<any, any> {
   private notebookApi: NotebookApi
 
   state = {

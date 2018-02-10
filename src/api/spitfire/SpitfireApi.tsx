@@ -89,7 +89,9 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, config } = nextProps
 
     if (config && ! isEqual(config, this.config)) {
+
       this.config = config
+
       this.restClient = new RestClient({
         name: 'SpitfireApi',
         url: this.config.spitfireRest,
@@ -97,8 +99,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
         username: '',
         password: ''
       })
-    }
-
+/*
     if (
       (!this.state.isGoogleAuthenticated && isGoogleAuthenticated)
       ||
@@ -106,7 +107,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       ||
       (!this.state.isTwitterAuthenticated && isTwitterAuthenticated)
     ) {
-
+*/
       this.webSocketClient = new WebSocket(this.config.spitfireWs + '/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
         console.log("Spitfire WebSocket has been opened.");
@@ -131,8 +132,11 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       setInterval( _ => {
         this.ping()
       }, 10000 )
+/*
     }
-
+*/
+    }
+  
     if (this.state.isGoogleAuthenticated != isGoogleAuthenticated) {
       this.setState({
         isGoogleAuthenticated: isGoogleAuthenticated

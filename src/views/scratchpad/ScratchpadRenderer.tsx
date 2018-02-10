@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResultsRenderer from './../renderer/paragraph/ParagraphResultsRenderer'
+import ParagraphResultsRenderer from './../results/ParagraphResults'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class ScratchpadRenderer extends React.Component<any, any> {
@@ -61,44 +61,24 @@ export default class ScratchpadRenderer extends React.Component<any, any> {
   public componentWillReceiveProps(nextProps) {
     const { note, webSocketMessageSent, webSocketMessageReceived, clearScratchpad } = nextProps
     if (clearScratchpad) {
-      var n = this.state.note
-      n.paragraphs = []
-      this.setState({
-        note: n
-      })
+      this.state.note.paragraphs = []
     }
     if (webSocketMessageSent) {
       if (webSocketMessageSent.op == "RUN_ALL_PARAGRAPHS_SPITFIRE") {
-        this.setState({
-          note: {
-            id: webSocketMessageSent.data.noteId,
-            paragraphs: webSocketMessageSent.data.paragraphs
-          }
+        webSocketMessageSent.data.paragraphs.map(p => {
+          this.state.note.paragraphs.unshift(p)
         })
-        return
       }
     }
     if (webSocketMessageReceived) {
       if (webSocketMessageReceived.op == "PARAGRAPH") {
         var paragraph = webSocketMessageReceived.data.paragraph
         var n = this.state.note
-        var pid = -1
         for (var i = 0; i < n.paragraphs.length; i++) {
           if (n.paragraphs[i].id == paragraph.id) {
-            pid = i
+            this.state.note.paragraphs[i] = paragraph
           }
         }
-        if (pid == -1) {
-          n.paragraphs.unshift(paragraph)
-        } else {
-          n.paragraphs[pid] = paragraph
-        }
-        console.log('---', pid)
-        console.log('---', n)
-        this.setState({
-          note: n
-        })
-        return
       }
     }
   }

@@ -181,7 +181,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
 
 // ----------------------------------------------------------------------------
   
-  public updateGoogleProfile() {
+  public updateGoogleProfile(path: string) {
     var me: any
     try {
      me = JSON.parse(localStorage.getItem(MeStorageKey))
@@ -190,20 +190,20 @@ export default class NotebookApi extends React.Component<any, any> implements IN
       console.log(e)
     }
     if (me && me.resourceName) {
-      this.processGoogleMe(me)
+      this.processGoogleMe(me, path)
     }
     else {
       var cred = localStorage.getItem(GoogleProfileStorageKey)
       if (cred) {
         this.googleApi.getMe()
           .then(me => {
-            this.processGoogleMe(me.result)
+            this.processGoogleMe(me.result, path)
           })
         }
       }
   }
 
-  private processGoogleMe(me: any) {
+  private processGoogleMe(me: any, path: string) {
     console.log('Google Me', me)
     NotebookStore.state().me = me
     localStorage.setItem(MeStorageKey, JSON.stringify(me))
@@ -240,8 +240,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
               NotebookStore.state().profilePhotoBlob = photoBlob
               console.log("Google Photo Blob", photoBlob)
               this.props.dispatchIsGoogleAuthenticatedAction()
-//              history.push("/")
-              history.push("/dla/note/scratchpad")
+              history.push(path)
             })
           }
       })

@@ -92,10 +92,10 @@ export default class ScratchpadEditor extends React.Component<any, any> {
     }
   }
 
-  private newParagraph(noteId, i, code) {
+  private newParagraph(noteId, paragraphId, code) {
     return {
-      'id': noteId + '_' + i,
-      'jobName': 'paragraph_' + noteId + '_' + i,
+      'id': noteId + '_' + paragraphId,
+      'jobName': 'paragraph_' + noteId + '_' + paragraphId,
       'text': code.replace(/^\s+|\s+$/g, ''),
       'params': {},
       'user': 'anonymous',

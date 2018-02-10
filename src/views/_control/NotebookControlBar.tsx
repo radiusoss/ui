@@ -127,14 +127,14 @@ export default class NotebookControlBar extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-    this.notebookApi.listNotes()
-    this.notebookApi.listFlows()
   }
 
   public componentWillReceiveProps(nextProps) {
     const { config, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, webSocketMessageReceived, note, runningParagraphs } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
+      this.notebookApi.listNotes()
+      this.notebookApi.listFlows()
     }
     if (! this.state.isGoogleAuthenticated != isGoogleAuthenticated) {
       this.setState({
@@ -244,7 +244,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
       },      
       {
         key: 'notes',
-        name: 'Notes',
+        name: 'Notebook',
         icon: 'ReadingMode',
         items: this.state.notes
       },
@@ -255,11 +255,11 @@ export default class NotebookControlBar extends React.Component<any, any> {
         title: 'More...',
         items: [
           {
-            key: 'tiles',
-            name: 'Notes Tiles',
+            key: 'cover',
+            name: 'Notes Cover',
             icon: 'Tiles',
-            title: 'Notes Tiles View',
-            onClick: () => history.push(`/dla/notes/tiles`)
+            title: 'Notes Cover View',
+            onClick: () => history.push(`/dla/notes/cover`)
           },
           {
             key: 'list',
@@ -267,6 +267,13 @@ export default class NotebookControlBar extends React.Component<any, any> {
             icon: 'ViewList',
             title: 'Notes List View',
             onClick: () => history.push(`/dla/notes/list`)
+          },
+          {
+            key: 'history',
+            name: 'History',
+            icon: 'BranchCommit',
+            title: 'History',
+            onClick: () => history.push(`/dla/history`)
           },
           {
             key: 'calendar',
@@ -320,7 +327,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
             key: 'SingleColumn',
             icon: 'SingleColumn',
             title: 'Note Results Layout',
-            onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'results')
+            onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'cover')
           }
         )
       }
