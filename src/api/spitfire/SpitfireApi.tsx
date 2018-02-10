@@ -61,6 +61,8 @@ export interface ISpitfireApi {
   commitParagraphWithGraph(p: any, graph: any): void
   insertParagraph(index: number)
   moveParagraph(paragraphId: string, index: number)
+  removeParagraph(paragraphId: string)
+  clearParagraphOutput(paragraphId: string)
 }
 
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
@@ -346,8 +348,17 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   public insertParagraph(index: number): void {
     this.sendWebSocketMessage(JSON.stringify(this.INSERT_PARAGRAPH(index)))
   }
+
   public moveParagraph(paragraphId: string, index: number): void {
     this.sendWebSocketMessage(JSON.stringify(this.MOVE_PARAGRAPH(paragraphId, index)))
+  }
+
+  public removeParagraph(paragraphId: string): void {
+    this.sendWebSocketMessage(JSON.stringify(this.PARAGRAPH_REMOVE(paragraphId)))
+  }
+
+  public clearParagraphOutput(paragraphId: string): void {
+    this.sendWebSocketMessage(JSON.stringify(this.PARAGRAPH_CLEAR_OUTPUT(paragraphId)))
   }
 
 // ----------------------------------------------------------------------------
@@ -751,6 +762,31 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       }
     }
   }
+
+  private PARAGRAPH_CLEAR_OUTPUT(paragraphId: string) {
+    return {
+      'op':	'PARAGRAPH_CLEAR_OUTPUT',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data':	{
+        "id": paragraphId
+      }
+    }
+  }
+
+  private PARAGRAPH_REMOVE(paragraphId: string) { 
+    return {
+      'op':	'PARAGRAPH_REMOVE',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data':	{
+        "id": paragraphId
+      }
+    }
+  }
+
 
 // ----------------------------------------------------------------------------
 

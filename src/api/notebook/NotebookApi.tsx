@@ -191,6 +191,14 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     this.spitfireApi.moveParagraph(paragraphId, index)
   }
 
+  public removeParagraph(paragraphId: string): void {
+    this.spitfireApi.removeParagraph(paragraphId)
+  }
+
+  public clearParagraphOutput(paragraphId: string): void {
+    this.spitfireApi.clearParagraphOutput(paragraphId)
+  }
+
 // ----------------------------------------------------------------------------
   
   public updateGoogleProfile(path: string) {

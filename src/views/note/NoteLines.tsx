@@ -91,7 +91,7 @@ export default class NoteLines extends React.Component<any, any> {
                 <div className="ms-Grid" key={ note.id + '-' + p.id }>
                   <div className="ms-Grid-row">
                     <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px' }}>
-                      <ParagraphEditor note={note} paragraph={p} index={i-1} showControlBar={true} showParagraphTitle={false} key={note.id + '-pe-' + p.id} focus={i==1}/>
+                      <ParagraphEditor note={note} paragraph={p} index={i-1} showControlBar={true} showParagraphTitle={false} key={note.id + '-pe-' + p.id + new Date().getTime} focus={i==1}/>
                     </div>
                     <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }} >
                       <ParagraphResult paragraph={p} showControlBar={false} showGraphBar={true} showParagraphTitle={true} key={note.id + '-pr-' + p.id}/>

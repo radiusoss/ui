@@ -41,7 +41,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
       note: props.note,
       paragraph: props.paragraph,
       index: props.index,
-      focus: props.focus, 
+      focus: props.focus,
       code: '',
       showControlBar: props.showControlBar,
       showParagraphTitle: props.showParagraphTitle
@@ -60,16 +60,16 @@ export default class ParagraphEditor extends React.Component<any, any> {
         onClick: () => this.insertParagraph()
       },
       {
-        key: 'move-up-indicator',
-        icon: 'ChevronUp',
-        title: 'Move paragraph up',
-        onClick: () => this.moveParagraphUp()
-      },
-      {
         key: 'move-down-indicator',
         icon: 'ChevronDown',
         title: 'Move paragraph down',
         onClick: () => this.moveParagraphDown()
+      },
+      {
+        key: 'move-up-indicator',
+        icon: 'ChevronUp',
+        title: 'Move paragraph up',
+        onClick: () => this.moveParagraphUp()
       },
       {
         key: '...',
@@ -84,18 +84,18 @@ export default class ParagraphEditor extends React.Component<any, any> {
             onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           },
           {
-            key: 'clean',
+            key: 'clear',
             icon: 'ClearFormatting',
             name: 'Clear',
             title: 'Clear Content',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
+            onClick: () => this.clearParagraphOutput()
           },
           {
             key: 'delete',
             name: 'Delete',
             icon: 'Delete',
             title: 'Delete',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
+            onClick: () => this.removeParagraph()
           }
         ]
       }
@@ -226,6 +226,16 @@ export default class ParagraphEditor extends React.Component<any, any> {
 
   private moveParagraphDown() {
     this.notebookApi.moveParagraph(this.state.paragraph.id, this.state.index + 1)
+    this.notebookApi.getNote(this.state.note.id)
+  }
+
+  private removeParagraph() {
+    this.notebookApi.removeParagraph(this.state.paragraph.id)
+    this.notebookApi.getNote(this.state.note.id)
+  }
+
+  private clearParagraphOutput() {
+    this.notebookApi.clearParagraphOutput(this.state.paragraph.id)
     this.notebookApi.getNote(this.state.note.id)
   }
 
