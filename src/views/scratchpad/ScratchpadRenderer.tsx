@@ -41,6 +41,7 @@ export default class ScratchpadRenderer extends React.Component<any, any> {
             return (
               <div key={p.id}>
                 <ParagraphResult paragraph={p} showControlBar={showControlBar} showParagraphTitle={false}/>
+                <hr/>
               </div>
             )
           })
