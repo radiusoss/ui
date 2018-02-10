@@ -2,7 +2,7 @@ import * as React from 'react'
 import { toastr } from 'react-redux-toastr'
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import NoteResultsRenderer from './../results/NoteResults'
+import NoteResults from './../results/NoteResults'
 import { connect } from 'react-redux'
 import { Rating, RatingSize } from 'office-ui-fabric-react/lib/Rating'
 import { Facepile, IFacepilePersona, IFacepileProps } from 'office-ui-fabric-react/lib/Facepile'
@@ -66,7 +66,7 @@ export default class NoteCover extends React.Component<any, any> {
           <div className="ms-Grid">
             <div className="ms-Grid-row">
               <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px'}} >
-                <NoteResultsRenderer note={note} showCommandBar={false} />
+                <NoteResults note={note} showControlBar={false} showGraphBar={false} showParagraphTitle={true} />
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@ export default class NoteCover extends React.Component<any, any> {
         <div className="ms-Grid">
           <div className="ms-Grid-row">
            <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }} >
-             <NoteResultsRenderer note={note} />
+             <NoteResults note={note} showControlBar={true} showGraphBar={true} showParagraphTitle={true} />
            </div>
           </div>
         </div>

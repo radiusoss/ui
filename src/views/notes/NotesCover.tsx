@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { WidthProvider, Responsive } from "react-grid-layout"
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResults from './../results/ParagraphResults'
+import ParagraphResult from './../results/ParagraphResult'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 /*
@@ -153,10 +153,6 @@ export default class NotesCover extends React.Component<any, any> {
     }
     var note = this.state.notesMap[el.i]
     var p = note.p
-//    var msg = ''
-//    if (p.results && p.results.msg && p.results.msg[0]) {
-//      msg = p.results.msg[0].data
-//    }
     return (
       <div key={el.i} data-grid={el}>
         <a className='ms-fontWeight-semibold' href='#' onClick={ e => this.loadNote(e, el.i) }>
@@ -166,7 +162,7 @@ export default class NotesCover extends React.Component<any, any> {
           {p.title}
         </div>
         <div>
-          <ParagraphResults paragraph={p} showCommandBar={false} showParagraphTitle={true} />
+          <ParagraphResult paragraph={p} showControlBar={false} showParagraphTitle={true} />
         </div>
         <span
           className="remove"

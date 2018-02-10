@@ -439,6 +439,7 @@ export default class CodeEditor extends React.Component<any, any> {
     this.refEditor = item;
   }
 
+  @autobind
   getValue() {
     return this.editor.getValue()
   }

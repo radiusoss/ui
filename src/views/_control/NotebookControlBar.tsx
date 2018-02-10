@@ -250,8 +250,8 @@ export default class NotebookControlBar extends React.Component<any, any> {
       },
       {
         key: 'more',
-        name: 'More',
-        icon: 'CollapseMenu',
+        name: 'More...',
+//        icon: 'CollapseMenu',
         title: 'More...',
         items: [
           {

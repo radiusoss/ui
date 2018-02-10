@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResults from './ParagraphResults'
+import ParagraphResult from './ParagraphResult'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class NoteResults extends React.Component<any, any> {
@@ -17,20 +17,24 @@ export default class NoteResults extends React.Component<any, any> {
         title: ''
       }]
     },
-    showCommandBar: true
+    showControlBar: false,
+    showGraphBar: false,
+    showParagraphTitle: false
   }
 
   public constructor(props) {
     super(props)
     this.state = {
       note: props.note,
-      showCommandBar: props.showCommandBar
+      showControlBar: props.showControlBar,
+      showGraphBar: props.showGraphBar,
+      showParagraphTitle: props.showParagraphTitle
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    var {note, showCommandBar} = this.state
+    var {note, showControlBar, showGraphBar, showParagraphTitle} = this.state
     if (!note.paragraphs) {
       return <div></div>
     }
@@ -40,7 +44,7 @@ export default class NoteResults extends React.Component<any, any> {
           note.paragraphs.map( p => {
             return (
               <div key={p.id}>
-                <ParagraphResults paragraph={p} showCommandBar={showCommandBar} showParagraphTitle={true} />
+                <ParagraphResult paragraph={p} showControlBar={showControlBar} showGraphBar={showGraphBar} showParagraphTitle={showParagraphTitle} />
               </div>
             )
           })

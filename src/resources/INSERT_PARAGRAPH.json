@@ -1,0 +1,9 @@
+{
+    "op": "INSERT_PARAGRAPH",
+    "data": {
+        "index": 2
+    },
+    "principal": "anonymous",
+    "ticket": "anonymous",
+    "roles": "[]"
+}

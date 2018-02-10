@@ -1,0 +1,25 @@
+{
+    "op": "PARAGRAPH_ADDED",
+    "data": {
+        "paragraph": {
+            "text": "%mathjax\n",
+            "user": "anonymous",
+            "dateUpdated": "2018-02-10T17:08:22+0100",
+            "config": {},
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "apps": [],
+            "jobName": "paragraph_1518278902757_-414183984",
+            "id": "20180210-170822_554985947",
+            "dateCreated": "2018-02-10T17:08:22+0100",
+            "status": "READY",
+            "progressUpdateIntervalMs": 500
+        },
+        "index": 2
+    },
+    "ticket": "anonymous",
+    "principal": "anonymous",
+    "roles": ""
+}

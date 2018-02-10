@@ -118,7 +118,7 @@ export default class TableRenderer extends React.Component<any, any> {
       columns: columns,
       items: items,
       columnsData: columnsData,
-      showCommandBar: props.showCommandBar,
+      showGraphBar: props.showGraphBar,
       format: format
     }
 
@@ -134,14 +134,14 @@ export default class TableRenderer extends React.Component<any, any> {
 
   public render() {
 
-    var { columns, items, format, showCommandBar } = this.state
+    var { columns, items, format, showGraphBar } = this.state
 
     return (
 
       <div>
 
        {
-          (showCommandBar == true) && 
+          (showGraphBar == true) && 
           <CommandBar
             isSearchBoxVisible={ false }
             items={ this.leftItems }
@@ -191,7 +191,7 @@ export default class TableRenderer extends React.Component<any, any> {
     this.setState({
       format: format
     })
-    this.notebookApi.commitParagraph(this.state.p, this.graph(format))
+    this.notebookApi.commitParagraphWithGraph(this.state.p, this.graph(format))
   }
 
   private graph(format: string) {

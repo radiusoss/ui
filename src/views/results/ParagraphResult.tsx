@@ -7,6 +7,7 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import HtmlRenderer from './../renderer/HtmlRenderer'
 import ReactjsRenderer from './../renderer/ReactjsRenderer'
 import { toastr } from 'react-redux-toastr'
+import InlineEditor from './../editor/InlineEditor'
 import ImageRenderer from './../renderer/ImageRenderer'
 import MathjaxRenderer from './../renderer/MathjaxRenderer'
 import TableRenderer from './../renderer/TableRenderer'
@@ -19,7 +20,7 @@ import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ParagraphResults extends React.Component<any, any> {
+export default class ParagraphResult extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private leftItems: any[] = []
   private rightItems: any[] = []
@@ -36,16 +37,18 @@ export default class ParagraphResults extends React.Component<any, any> {
         }
       }
     },
-    showCommandBar: true,
-    showParagraphTitle: false
+    showControlBar: false,
+    showParagraphTitle: false,
+    showGraphBar: false
   }
 
   public constructor(props) {
     super(props)
     this.state = {
       paragraph: props.paragraph,
-      showCommandBar: props.showCommandBar,
-      showParagraphTitle: props.showParagraphTitle
+      showControlBar: props.showControlBar,
+      showParagraphTitle: props.showParagraphTitle,
+      showGraphBar: props.showGraphBar
     }
     this.leftItems = [
       {
@@ -90,6 +93,13 @@ export default class ParagraphResults extends React.Component<any, any> {
             name: 'Clear',
             title: 'Clear Content',
             onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
+          },
+          {
+            key: 'delete',
+            name: 'Delete',
+            icon: 'Delete',
+            title: 'Delete',
+            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           }
         ]
       }
@@ -100,7 +110,7 @@ export default class ParagraphResults extends React.Component<any, any> {
   }
 
   public render() {
-    const { paragraph, showCommandBar, showParagraphTitle } = this.state
+    const { paragraph, showControlBar, showGraphBar, showParagraphTitle } = this.state
     var results = paragraph.results
     if (!results) {
       if (paragraph.status == 'FINISHED') {
@@ -125,10 +135,16 @@ export default class ParagraphResults extends React.Component<any, any> {
     if (!msg) return <div></div>
     const data = msg.data
     const type = msg.type
+    var title = 'Define a nice title...'
+    var cl = "ms-font-xl ms-fontWeight-light"
+    if (paragraph.title && (paragraph.title.length > 0)) {
+      title = paragraph.title
+      cl = "ms-font-xl ms-fontWeight-semibold"
+    }
     return (
       <div>
         {
-        (showCommandBar == true) && 
+        (showControlBar == true) && 
         <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
           <div style={{marginLeft: '-20px'}}>
             <CommandBar
@@ -143,7 +159,16 @@ export default class ParagraphResults extends React.Component<any, any> {
         {
         (showParagraphTitle == true) && 
         <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
-          <div className="ms-font-xl">{paragraph.title}</div>
+          <div className={cl}>
+            <InlineEditor
+              text={title}
+              paramName="title"
+              change={this.updateTitle}
+              minLength={0}
+              maxLength={33}
+              activeClassName="ms-font-xl"
+            />
+          </div>
         </div>
         }
         <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }} key={paragraph.id}>
@@ -161,7 +186,7 @@ export default class ParagraphResults extends React.Component<any, any> {
           }
           {
             (type == 'TABLE') &&
-            <TableRenderer data={data} id={id} p={paragraph} showCommandBar={showCommandBar} />
+            <TableRenderer data={data} id={id} p={paragraph} showGraphBar={showGraphBar} />
           }
           {
             (type == 'MATHJAX') &&
@@ -210,15 +235,6 @@ export default class ParagraphResults extends React.Component<any, any> {
         })
       }
     }
-/*
-    if (webSocketMessageSent && (webSocketMessageSent.op == "RUN_PARAGRAPH")) {
-      var p = this.state.paragraph
-      p.results = null
-      this.setState({
-        paragraph: p
-      })
-    }
-*/
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
       var paragraph = webSocketMessageReceived.data.paragraph
       if (paragraph.id == this.state.paragraph.id) {
@@ -227,6 +243,12 @@ export default class ParagraphResults extends React.Component<any, any> {
         })
       }
     }
+  }
+
+  @autobind
+  private updateTitle(message) {
+    this.state.paragraph.title = message.title
+    this.notebookApi.commitParagraph(this.state.paragraph)
   }
 
 }

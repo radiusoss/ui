@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom';
 import FabricIcon from '../components/FabricIcon'
 
 export default class Footer extends React.Component<any, any> {

@@ -57,7 +57,10 @@ export interface ISpitfireApi {
   deleteFlow(id: string): void
   runFlow(id: string)
   configuration(): any
-  commitParagraph(p: any, graph: any): void
+  commitParagraph(p: any): void
+  commitParagraphWithGraph(p: any, graph: any): void
+  insertParagraph(index: number)
+  moveParagraph(paragraphId: string, index: number)
 }
 
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
@@ -332,10 +335,21 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 //    this.sendWebSocketMessage(JSON.stringify(this.RUN_FLOW(id)))
   }
 
-  public commitParagraph(p: any, graph: any): void {
-    this.sendWebSocketMessage(JSON.stringify(this.COMMIT_PARAGRAPH(p, graph)))
+  public commitParagraph(p: any): void {
+    this.sendWebSocketMessage(JSON.stringify(this.COMMIT_PARAGRAPH(p)))
   }
         
+  public commitParagraphWithGraph(p: any, graph: any): void {
+    this.sendWebSocketMessage(JSON.stringify(this.COMMIT_PARAGRAPH_WITH_GRAPH(p, graph)))
+  }
+
+  public insertParagraph(index: number): void {
+    this.sendWebSocketMessage(JSON.stringify(this.INSERT_PARAGRAPH(index)))
+  }
+  public moveParagraph(paragraphId: string, index: number): void {
+    this.sendWebSocketMessage(JSON.stringify(this.MOVE_PARAGRAPH(paragraphId, index)))
+  }
+
 // ----------------------------------------------------------------------------
 /*
   private async wrapOutcome(action: () => Promise<boolean>): Promise<Outcome> {
@@ -674,8 +688,17 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     }
   }
 
-  private COMMIT_PARAGRAPH(p: any, graph: any) {
-    console.log('pppppppp', p)
+  private COMMIT_PARAGRAPH(p: any) {
+    return {
+      'op':	'COMMIT_PARAGRAPH',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data':	p
+    }
+  }
+
+  private COMMIT_PARAGRAPH_WITH_GRAPH(p: any, graph: any) {
     return {
       'op':	'COMMIT_PARAGRAPH',
       'principal': this.principalValue(),
@@ -700,6 +723,31 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
             'fontSize': 9
         },
         'params': {}
+      }
+    }
+  }
+
+  private INSERT_PARAGRAPH(index: number) {
+    return {
+      'op':	'INSERT_PARAGRAPH',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data':	{
+        "index": index
+      }
+    }
+  }
+
+  private MOVE_PARAGRAPH(paragraphId: string, index: number) {
+    return {
+      'op':	'MOVE_PARAGRAPH',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data':	{
+        "id": paragraphId,
+        "index": index
       }
     }
   }

@@ -175,8 +175,20 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.runFlow(id)
   }
 
-  public commitParagraph(p: any, graph: any): void {
-    this.spitfireApi.commitParagraph(p, graph)
+  public commitParagraph(p: any): void {
+    this.spitfireApi.commitParagraph(p)
+  }
+
+  public commitParagraphWithGraph(p: any, graph: any): void {
+    this.spitfireApi.commitParagraphWithGraph(p, graph)
+  }
+
+  public insertParagraph(index: number): void {
+    this.spitfireApi.insertParagraph(index)
+  }
+
+  public moveParagraph(paragraphId: string, index: number): void {
+    this.spitfireApi.moveParagraph(paragraphId, index)
   }
 
 // ----------------------------------------------------------------------------
