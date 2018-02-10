@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { NotebookStore } from './../../store/NotebookStore'
 import CodeEditor from './../editor/CodeEditor'
+import InlineEditor from './../editor/InlineEditor'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import * as isEqual from 'lodash.isequal'
 import * as stylesImport from './../_styles/Styles.scss'
@@ -24,7 +25,8 @@ export default class ParagraphEditor extends React.Component<any, any> {
       text: ''
     },
     focus: false,
-    code: ''
+    code: '',
+    showParagraphTitle: false
   }
 
   constructor(props) {    
@@ -34,16 +36,31 @@ export default class ParagraphEditor extends React.Component<any, any> {
       note: props.note,
       paragraph: props.paragraph,
       focus: props.focus, 
-      code: ''
+      code: '',
+      showParagraphTitle: props.showParagraphTitle
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    const { note, paragraph, code, focus } = this.state
+    const { note, paragraph, code, focus, showParagraphTitle } = this.state
+    var title = '> Define a nice title...'
+    if (paragraph.title && (paragraph.title.length > 0)) {
+      title = paragraph.title
+    }
     return (
       <div key={paragraph.id}>
-        <div className="ms-fontSize-xl">{paragraph.title}</div>
+        {
+          (showParagraphTitle == true) &&
+          <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
+            <div className="ms-font-l ms-fontWeight-semibold">
+              <InlineEditor
+                text={title}
+                activeClassName="ms-font-l"
+              />
+            </div>
+          </div>
+        }
         <CodeEditor
           name={paragraph.id}
           note={note}
@@ -54,7 +71,8 @@ export default class ParagraphEditor extends React.Component<any, any> {
           maxLines={60}
           width="100%"
           mode="scala"
-          theme="tomorrow"
+          theme="tomorrow-night-eighties"
+//          theme="tomorrow"
           showGutter={false}
           fontSize="14px"
           focus={focus}

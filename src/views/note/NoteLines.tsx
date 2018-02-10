@@ -3,9 +3,9 @@ import * as ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { toastr } from 'react-redux-toastr'
 import ParagraphEditor from './../paragraph/ParagraphEditor'
-import ParagraphResultsRenderer from './../results/ParagraphResults'
+import ParagraphResults from './../results/ParagraphResults'
+import InlineEditor from './../editor/InlineEditor'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import { goToTop } from 'react-scrollable-anchor'
 import { Rating, RatingSize } from 'office-ui-fabric-react/lib/Rating'
 import { Facepile, IFacepilePersona, IFacepileProps } from 'office-ui-fabric-react/lib/Facepile'
 import { PersonaSize, PersonaInitialsColor } from 'office-ui-fabric-react/lib/Persona'
@@ -14,7 +14,7 @@ import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteLinesLayout extends React.Component<any, any> {
+export default class NoteLines extends React.Component<any, any> {
 
   state = {
     note: {
@@ -41,7 +41,12 @@ export default class NoteLinesLayout extends React.Component<any, any> {
           <div className="ms-Grid">
             <div className="ms-Grid-row">
               <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 ms-textAlignCenter">
-                <div className="ms-font-xxl">{note.name}</div>
+                <div className="ms-font-xxl">
+                  <InlineEditor
+                    text={note.name}
+                    activeClassName="ms-font-xxl"
+                  />                
+                </div>
               </div>
             </div>
 {/*
@@ -77,10 +82,15 @@ export default class NoteLinesLayout extends React.Component<any, any> {
                   <div className="ms-Grid" key={note.id + '-' + p.id}>
                     <div className="ms-Grid-row">
                       <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px' }}>
-                        <ParagraphEditor note={note} paragraph={p} key={note.id + '-pe-' + p.id} focus={i==1}/>
+                        <ParagraphEditor note={note} paragraph={p} showParagraphTitle={true} key={note.id + '-pe-' + p.id} focus={i==1}/>
                       </div>
                       <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }} >
-                        <ParagraphResultsRenderer paragraph={p} showCommandBar={true} key={note.id + '-pr-' + p.id}/>
+                        <ParagraphResults paragraph={p} showCommandBar={true} showParagraphTitle={false} key={note.id + '-pr-' + p.id}/>
+                      </div>
+                      <div className="ms-Grid-row">
+                        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }}>
+                          <hr/>
+                        </div>
                       </div>
                     </div>
                  </div>
@@ -88,21 +98,12 @@ export default class NoteLinesLayout extends React.Component<any, any> {
               )
             })
           }
+          {window.scrollTo(0, 0)}
         </div>
       )
     }
     else {
       return <div></div>
-    }
-  }
-
-  public componentDidMount() {
-    this.scrollTop()
-  }
-
-  public componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      this.scrollTop()
     }
   }
 
@@ -114,21 +115,6 @@ export default class NoteLinesLayout extends React.Component<any, any> {
         note: webSocketMessageReceived.data.note
       })
     }
-  }
-
-  private scrollTop() {
-    console.log('Scrolling to Top of the page...')
-    goToTop()
-/*
-    var renderer = ReactDOM.findDOMNode(this.refs['table-renderer-command-bar'])
-    if (renderer) {
-      var domNode = ReactDOM.findDOMNode(renderer)
-      domNode.scrollIntoView({
-        block: "start", 
-        behavior: "smooth"
-      })
-    }
-*/
   }
 
 }

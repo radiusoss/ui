@@ -13,7 +13,7 @@ import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteCoverLayout extends React.Component<any, any> {
+export default class NoteCover extends React.Component<any, any> {
   private notebookApi: NotebookApi
 
   state = {

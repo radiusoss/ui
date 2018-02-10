@@ -19,7 +19,7 @@ import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ParagraphResultsRenderer extends React.Component<any, any> {
+export default class ParagraphResults extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private leftItems: any[] = []
   private rightItems: any[] = []
@@ -27,6 +27,7 @@ export default class ParagraphResultsRenderer extends React.Component<any, any> 
   state = {
     paragraph: {
       id: '',
+      title: '',
       status: '',
       results: {
         msg: {
@@ -35,54 +36,52 @@ export default class ParagraphResultsRenderer extends React.Component<any, any> 
         }
       }
     },
-    showCommandBar: true
+    showCommandBar: true,
+    showParagraphTitle: false
   }
 
   public constructor(props) {
     super(props)
     this.state = {
       paragraph: props.paragraph,
-      showCommandBar: props.showCommandBar
+      showCommandBar: props.showCommandBar,
+      showParagraphTitle: props.showParagraphTitle
     }
     this.leftItems = [
+      {
+        key: 'run-indicator',
+        icon: 'Play',
+        title: 'Run the paragraph [SHIFT+Enter]',
+        onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
+      },
+      {
+        key: 'add-indicator',
+        icon: 'Add',
+        title: 'Add a paragraph',
+        onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
+      },
+      {
+        key: 'move-up-indicator',
+        icon: 'ChevronUp',
+        title: 'Move paragraph up',
+        onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
+      },
+      {
+        key: 'move-down-indicator',
+        icon: 'ChevronDown',
+        title: 'Move paragraph down',
+        onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
+      },
       {
         key: '...',
         name: '...',
         title: 'Actions',
         items: [
           {
-            key: 'run-indicator',
-            name: 'Run',
-            icon: 'Play',
-            title: 'Run the paragraph [SHIFT+Enter]',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-          },
-          {
-            key: 'add-indicator',
-            name: 'Add',
-            icon: 'Add',
-            title: 'Add',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-          },
-          {
             key: 'to-cover',
             name: 'Cover',
             icon: 'Heart',
             title: 'Cover',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-          },
-          {
-            key: 'move-up-indicator',
-            name: 'Up',
-            icon: 'ChevronUp',
-            title: 'Move Paragraph Up',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-          },
-          {
-            key: 'move-down-indicator',
-            name: 'Down',
-            icon: 'ChevronDown',
-            title: 'Move Paragraph Down',
             onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           },
           {
@@ -101,7 +100,7 @@ export default class ParagraphResultsRenderer extends React.Component<any, any> 
   }
 
   public render() {
-    const { paragraph, showCommandBar } = this.state
+    const { paragraph, showCommandBar, showParagraphTitle } = this.state
     var results = paragraph.results
     if (!results) {
       if (paragraph.status == 'FINISHED') {
@@ -131,23 +130,20 @@ export default class ParagraphResultsRenderer extends React.Component<any, any> 
         {
         (showCommandBar == true) && 
         <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
-          <div className='ms-textAlignLeft'>
-            <div className="ms-Grid-row">
-              <div style={{ float: "left" }}>
-                <span style={{display: "inline"}}>
-                  <CommandBar
-                    isSearchBoxVisible={ false }
-                    items={ this.leftItems }
-                    farItems={ this.rightItems }
-                    className={ styles.commandBarBackgroundTransparent }
-                  />
-                </span>
-                <span style={{ display: "inline"}}>
-                  Note Title
-                </span>
-              </div>
-            </div>
+          <div style={{marginLeft: '-20px'}}>
+            <CommandBar
+              isSearchBoxVisible={ false }
+              items={ this.leftItems }
+              farItems={ this.rightItems }
+              className={ styles.commandBarBackgroundTransparent }
+            />
           </div>
+        </div>
+        }
+        {
+        (showParagraphTitle == true) && 
+        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
+          <div className="ms-font-xl">{paragraph.title}</div>
         </div>
         }
         <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }} key={paragraph.id}>

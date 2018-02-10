@@ -103,7 +103,7 @@ export default class CodeEditor extends React.Component<any, any> {
     maxLines: null,
     readOnly: false,
     highlightActiveLine: true,
-    showPrintMargin: true,
+    showPrintMargin: false,
     tabSize: 2,
     cursorStart: -1,
     editorProps: {},

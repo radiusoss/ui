@@ -48,7 +48,9 @@ export default class ScratchpadEditor extends React.Component<any, any> {
           height="100%"
           width="100%"
           mode="scala"
-          theme="tomorrow"
+//          theme="tomorrow-night-eighties"
+//          theme="tomorrow"
+          theme="monokai"
           showGutter={true}
           fontSize="14px"
           focus={true}

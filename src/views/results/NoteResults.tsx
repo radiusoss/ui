@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResultsRenderer from './ParagraphResults'
+import ParagraphResults from './ParagraphResults'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class NoteResults extends React.Component<any, any> {
@@ -40,7 +40,7 @@ export default class NoteResults extends React.Component<any, any> {
           note.paragraphs.map( p => {
             return (
               <div key={p.id}>
-                <ParagraphResultsRenderer paragraph={p} showCommandBar={showCommandBar}/>
+                <ParagraphResults paragraph={p} showCommandBar={showCommandBar} showParagraphTitle={true} />
               </div>
             )
           })

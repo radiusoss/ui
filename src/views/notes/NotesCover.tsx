@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { WidthProvider, Responsive } from "react-grid-layout"
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResultsRenderer from './../results/ParagraphResults'
+import ParagraphResults from './../results/ParagraphResults'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 /*
@@ -166,10 +166,7 @@ export default class NotesCover extends React.Component<any, any> {
           {p.title}
         </div>
         <div>
-{/*
-          <Html data={msg}/>
-*/}
-          <ParagraphResultsRenderer paragraph={p} showCommandBar={false} />
+          <ParagraphResults paragraph={p} showCommandBar={false} showParagraphTitle={true} />
         </div>
         <span
           className="remove"
