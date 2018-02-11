@@ -65,8 +65,8 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/stories" name="Stories" component={Stories}/>
           <Route path="/dla/datasets" name="Datasets" component={Datasets} />
           <Route path="/dla/explorer/flows" name="Flows" component={Flows}/>
-          <Route path="/dla/flow/dag/:flowId" name="Flow Dag" component={FlowDag}/>
-          <Route path="/dla/flow/detail/:flowId" name="Flow Detail" component={FlowDetail}/>
+          <Route path="/dla/explorer/flow/dag/:flowId" name="Flow Dag" component={FlowDag}/>
+          <Route path="/dla/explorer/flow/detail/:flowId" name="Flow Detail" component={FlowDetail}/>
           <Route path="/dla/kuber/profile" name="Profile" component={Profile}/>
           <Route path="/dla/kuber/users" name="Profile" component={Users}/>
           <Route path="/dla/kuber/calendar" name="Calendar" component={Calendar}/>

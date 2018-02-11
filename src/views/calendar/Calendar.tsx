@@ -1,9 +1,8 @@
 import * as React from 'react'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
-import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContext } from 'react-dnd';
-import CalendarSlotsSpl from './../../spl/CalendarSlotsSpl'
+import HTML5Backend from 'react-dnd-html5-backend'
+import { DragDropContext } from 'react-dnd'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 
@@ -22,7 +21,7 @@ export default class Calendar extends React.Component<CalendarProps, any> {
   public static defaultProps: Partial<CalendarProps> = {
     defaultView: 'week',
     toolbar: true,
-    events: CalendarSlotsSpl
+    events: []
   }
 
   public constructor(props) {
@@ -64,12 +63,23 @@ export default class Calendar extends React.Component<CalendarProps, any> {
 
   @autobind
   private onSelectEvent(event) {
-    console.log('---', event)
+    console.log('onSelectEvent', event)
   }
 
   @autobind
   private onSelectSlot(slotInfo) {
-    console.log('---', slotInfo)
+    console.log('onSelectSlot', slotInfo)
+    var events = this.state.events
+    events.push({
+      id: events.length + 1,
+      title: 'CLUSTER UP',
+      start: slotInfo.start,
+      end: slotInfo.end,
+      desc: 'CLUSTER UP',
+    })
+    this.setState({
+      events: events
+    })
   }
 
   @autobind

@@ -155,7 +155,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   }
 
   public getFlow(id: string): void {
-    history.push(`/dla/flow/dag/${id}`)
+    history.push(`/dla/explorer/flow/dag/${id}`)
     this.spitfireApi.getFlow(id)
   }
 

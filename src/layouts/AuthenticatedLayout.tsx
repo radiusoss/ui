@@ -62,7 +62,7 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
       this.props.location.pathname.indexOf("/dla/explorer/note/") > -1 ||
       this.props.location.pathname.indexOf("/dla/docs") > -1 ||
       this.props.location.pathname.indexOf("/dla/explorer/flows") > -1 ||
-      this.props.location.pathname.indexOf("/dla/flow/dag") > -1 
+      this.props.location.pathname.indexOf("/dla/explorer/flow/dag") > -1 
       ) {
       return '0px'
     }

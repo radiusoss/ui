@@ -180,7 +180,7 @@ export default class Flows extends React.Component<any, any> {
   private loadFlow(e: React.MouseEvent<HTMLAnchorElement>, flowId) {
     e.stopPropagation()
     e.preventDefault()
-    history.push(`/dla/flow/dag/${flowId}`)
+    history.push(`/dla/explorer/flow/dag/${flowId}`)
   }
 
   private showDeletePanel(e: React.MouseEvent<HTMLAnchorElement>, flowId, flowName) {

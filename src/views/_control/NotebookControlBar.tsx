@@ -230,6 +230,13 @@ export default class NotebookControlBar extends React.Component<any, any> {
     const {note, runningParagraphs} = this.state
     this.leftItems = [
       {
+        key: 'calendar',
+        name: 'Calendar',
+        icon: 'Calendar',
+        title: 'Calendar',
+        onClick: () => history.push(`/dla/kuber/calendar`)
+      },
+      {
         key: 'board',
         name: 'Board',
         icon: 'ViewDashboard',
@@ -237,48 +244,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
         onClick: () => history.push(`/dla/board`)
       },
       {
-        key: 'flows',
-        name: 'Flows',
-        icon: 'Flow',
-        items: this.state.flows
-      },      
-      {
-        key: 'notes',
-        name: 'Notebook',
-        icon: 'ReadingMode',
-        items: this.state.notes
-      },
-      {
-        key: 'more',
-        name: 'Explorer',
-        icon: 'BarChart4',
-        title: 'Explorer',
-        items: [
-          {
-            key: 'notebook-cover',
-            name: 'Notebook Cover',
-            icon: 'Tiles',
-            title: 'Notebook Cover View',
-            onClick: () => history.push(`/dla/explorer/notes/cover`)
-          },
-          {
-            key: 'list',
-            name: 'Notes List',
-            icon: 'ViewList',
-            title: 'Notes List View',
-            onClick: () => history.push(`/dla/explorer/notes/list`)
-          },
-          {
-            key: 'history',
-            name: 'History',
-            icon: 'GitGraph',
-            title: 'History',
-            onClick: () => history.push(`/dla/explorer/history`)
-          }
-        ]
-      },
-      {
-        key: 'more',
+        key: 'kuber',
         name: 'Kuber',
         icon: 'EngineeringGroup',
         title: 'Kuber',
@@ -324,6 +290,47 @@ export default class NotebookControlBar extends React.Component<any, any> {
             icon: 'Help',
             title: 'Help',
             onClick: () => history.push(`/dla/help`)
+          }
+        ]
+      },
+      {
+        key: 'flows',
+        name: 'Flows',
+        icon: 'Flow',
+        items: this.state.flows
+      },      
+      {
+        key: 'notes',
+        name: 'Notebook',
+        icon: 'ReadingMode',
+        items: this.state.notes
+      },
+      {
+        key: 'explorer',
+        name: 'Explorer',
+        icon: 'BarChart4',
+        title: 'Explorer',
+        items: [
+          {
+            key: 'notebook-cover',
+            name: 'Notebook Cover',
+            icon: 'Tiles',
+            title: 'Notebook Cover View',
+            onClick: () => history.push(`/dla/explorer/notes/cover`)
+          },
+          {
+            key: 'list',
+            name: 'Notes List',
+            icon: 'ViewList',
+            title: 'Notes List View',
+            onClick: () => history.push(`/dla/explorer/notes/list`)
+          },
+          {
+            key: 'history',
+            name: 'History',
+            icon: 'GitGraph',
+            title: 'History',
+            onClick: () => history.push(`/dla/explorer/history`)
           }
         ]
       },
