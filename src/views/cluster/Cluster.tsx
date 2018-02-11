@@ -8,6 +8,7 @@ import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/
 import JSONTree from 'react-json-tree'
 import { Slider } from 'office-ui-fabric-react/lib/Slider'
 import { toastr } from 'react-redux-toastr'
+import ClusterHealth from './ClusterHealth'
 import { emailRegexp } from './../../util/msc/regexp'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { LayoutGroup } from '@uifabric/experiments/lib/LayoutGroup';
@@ -50,7 +51,7 @@ export default class Cluster extends React.Component<any, IKuberState> {
     return (
       <div>
         <br/>
-        <h3>Cluster</h3>
+        <div className="ms-font-su">Cluster</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
@@ -64,6 +65,8 @@ export default class Cluster extends React.Component<any, IKuberState> {
                 disabled={ true }
                 onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + ' worker(s).') }
               />
+              <div className="ms-font-xxl">Health</div>
+              <ClusterHealth/>
             </div>
             <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
             <Form 

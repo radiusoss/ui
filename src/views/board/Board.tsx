@@ -6,7 +6,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import NotYetAvailable from './../message/NotYetAvailable'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import ScratchpadRenderer from './../scratchpad/ScratchpadRenderer'
-import ClusterStatus from './../cluster/ClusterStatus'
+import ClusterHealth from './../cluster/ClusterHealth'
 import Calendar from './../calendar/Calendar'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -45,7 +45,19 @@ export default class Board extends React.Component<any, any> {
             <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/calendar")}}>
               <Icon iconName='Calendar' className='ms-Icon50' />
             </a>
-            <Calendar defaultView='day'/>
+            <Calendar 
+              defaultView='day' 
+              toolbar={false}
+              events={[
+                {
+                  id: 0,
+                  title: 'A Day Event very long title',
+                  allDay: false,
+                  start: new Date(2018, 2, 12, 10, 0, 0, 0),
+                  end: new Date(2018, 2, 12, 19, 0, 0, 0),
+                }
+              ]}
+            />
           </div>
 
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
@@ -54,9 +66,9 @@ export default class Board extends React.Component<any, any> {
             </a>
             { (note.paragraphs.length > 0)  && 
               <ScratchpadRenderer 
-                  showGraphBar={true}
+                  showGraphBar={false}
                   showControlBar={false}
-                  showParagraphTitle={false} 
+                  showParagraphTitle={false}
                   note={note} 
                 />
             }
@@ -64,9 +76,9 @@ export default class Board extends React.Component<any, any> {
 
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
             <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/settings")}}>
-              <Icon iconName='World' className='ms-Icon50' />
+              <Icon iconName='Health' className='ms-Icon50' />
             </a>
-            <ClusterStatus/>
+            <ClusterHealth/>
           </div>
 
         </div>

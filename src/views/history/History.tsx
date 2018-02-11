@@ -8,7 +8,7 @@ export default class History extends React.Component<any, any> {
     return (
       <div>
         <div style={{float: "left"}}>
-          <Icon iconName='BranchCommit' className='ms-Icon50' />
+          <Icon iconName='GitGraph' className='ms-Icon50' />
         </div>
         <div style={{float: "left"}}>
           <div className='ms-font-su'>History</div>

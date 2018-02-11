@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default class ClusterStatus extends React.Component<any, any> {
+export default class ClusterHealth extends React.Component<any, any> {
 
   public render() {
     return (
@@ -65,7 +65,6 @@ export default class ClusterStatus extends React.Component<any, any> {
     bg-warning
     bg-danger
 */}
-        <h6>Cluster</h6>
         <div className="text-uppercase mb-q mt-2">
           <small><b>CPU Usage</b></small>
         </div>

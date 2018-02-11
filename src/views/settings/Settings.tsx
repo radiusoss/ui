@@ -16,7 +16,7 @@ export default class Settings extends React.Component<any, any> {
     return (
       <div>
         <Pivot>
-          <PivotItem linkText='Cluster' itemIcon='World'>
+          <PivotItem linkText='Cluster' itemIcon='TFVCLogo'>
             <Cluster />
           </PivotItem>
           <PivotItem linkText='AWS' itemIcon='Cloud'>

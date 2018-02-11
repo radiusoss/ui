@@ -1,15 +1,17 @@
 import * as React from 'react'
+import NotYetAvailable from './../message/NotYetAvailable'
+import * as stylesImport from './../_styles/Styles.scss'
+const styles: any = stylesImport
 
-import { connect } from 'react-redux'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-
-@connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Help extends React.Component<any, any> {
 
   render() {
     return (
       <div>
-        <img src="/img/datalayer/pipes.svg"/>
+        <NotYetAvailable/>
+        <div className={styles.editorHeight} style={{ width: "100%" }}>
+          <iframe src="http://github.com/datalayer/datalayer/issues" className={styles.editorHeight} style={{ width: "100%" }}></iframe>
+        </div>
       </div>
     )
   }

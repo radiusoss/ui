@@ -43,7 +43,7 @@ export default class Sidebar extends React.Component<any, any> {
               <NavLink to={'/dla/note/scratchpad'} className="nav-link" activeClassName="active"><FabricIcon name="NoteForward"/> Scratchpad</NavLink>
           </li>
           <li className="nav-item">
-              <NavLink to={'/dla/history'} className="nav-link" activeClassName="active"><FabricIcon name="BranchCommit"/> History</NavLink>
+              <NavLink to={'/dla/history'} className="nav-link" activeClassName="active"><FabricIcon name="GitGraph"/> History</NavLink>
           </li>
 {/*
             <li className="nav-item">
@@ -53,6 +53,7 @@ export default class Sidebar extends React.Component<any, any> {
             <li className="nav-title">
               Deploy
             </li>
+            <li className="divider"></li>
 */}
             <li className="nav-item">
               <NavLink to={'/dla/calendar'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Calendar</NavLink>
@@ -66,32 +67,13 @@ export default class Sidebar extends React.Component<any, any> {
             <li className="nav-item">
               <NavLink to={'/dla/settings'} className="nav-link" activeClassName="active"><FabricIcon name="Settings"/> Settings</NavLink>
             </li>
+            <li className="divider"></li>
             <li className="nav-item">
               <NavLink to={'/dla/docs'} className="nav-link" activeClassName="active"><FabricIcon name="Documentation"/> Docs</NavLink>
              </li>
-{/*
-            <li className="nav-item nav-dropdown">
-              <a className="nav-link nav-dropdown-toggle" href="/dla/admin" onClick={this.handleClick.bind(this)}><i className="ms-Icon ms-Icon--Equalizer"></i> Admin</a>
-              <ul className="nav-dropdown-items">
-                <li className="nav-item">
-                  <NavLink to={'/dla/admin/microsoft'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--AzureLogo"></i> Azure</NavLink>
-                  <NavLink to={'/dla/admin/social'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--SocialListeningLogo"></i> Social</NavLink>
-                  <NavLink to={'/dla/admin/settings'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--Settings"></i> Settings</NavLink>
-                  <NavLink to={'/dla/admin/users'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--People"></i> Users</NavLink>
-                </li>
-              </ul>
-            </li>
             <li className="nav-item">
-              <NavLink to={'/help'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--Hospital"></i> Help</NavLink>
+              <NavLink to={'/dla/help'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--Help"></i> Help</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink to={'/about'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--Heart"></i> About</NavLink>
-            </li>
-            <li className="divider"></li>
-            <li className="nav-title">
-              Misc
-            </li>
-*/}
             <li className={this.activeRoute("/dla/school/lessons")}>
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--Work"></i> School</a>
               <ul className="nav-dropdown-items">

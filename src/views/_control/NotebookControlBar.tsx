@@ -230,6 +230,13 @@ export default class NotebookControlBar extends React.Component<any, any> {
     const {note, runningParagraphs} = this.state
     this.leftItems = [
       {
+        key: 'calendar',
+        name: 'Calendar',
+        icon: 'Calendar',
+        title: 'Calendar',
+        onClick: () => history.push(`/dla/calendar`)
+      },
+      {
         key: 'board',
         name: 'Board',
         icon: 'ViewDashboard',
@@ -271,7 +278,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
           {
             key: 'history',
             name: 'History',
-            icon: 'BranchCommit',
+            icon: 'GitGraph',
             title: 'History',
             onClick: () => history.push(`/dla/history`)
           },
