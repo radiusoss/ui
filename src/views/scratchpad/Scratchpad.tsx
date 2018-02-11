@@ -33,7 +33,12 @@ export default class NoteScratchpad extends React.Component<any, any> {
               <ScratchpadEditor note={note} />
             </div>
             <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
-              <ScratchpadRenderer note={note} />
+              <ScratchpadRenderer 
+                showGraphBar={true}
+                showControlBar={false}
+                showParagraphTitle={false} 
+                note={note} 
+              />
             </div>
           </div>
         </div>

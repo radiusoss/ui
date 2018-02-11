@@ -109,7 +109,7 @@ export default class Welcome extends React.Component<any, any> {
                 </div>
                 <div className="ms-Grid-row">
                   <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-                    <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onInClick(e) }>Explore</a>
+                    <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.explore(e) }>Explore</a>
                   </div>
                   <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
                     <a href="#" className={ css(styles.button, styles.button) } onClick={ (e) => this.onLogoutClick(e) }>Logout</a>
@@ -274,9 +274,9 @@ export default class Welcome extends React.Component<any, any> {
     this.props.dispatchToTwitterAction()
   }
 
-  private onInClick = (e) =>  {
+  private explore = (e) =>  {
     e.preventDefault()
-    history.push("/dla/board")
+    history.push("/dla/calendar")
   }
 
   private onLogoutClick = (e) =>  {

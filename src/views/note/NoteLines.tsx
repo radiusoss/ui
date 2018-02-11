@@ -6,6 +6,7 @@ import ParagraphEditor from './../paragraph/ParagraphEditor'
 import ParagraphResult from './../paragraph/ParagraphResult'
 import InlineEditor from './../editor/InlineEditor'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import MockContent from './../message/MockContent'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { Rating, RatingSize } from 'office-ui-fabric-react/lib/Rating'
 import { Facepile, IFacepilePersona, IFacepileProps } from 'office-ui-fabric-react/lib/Facepile'
@@ -85,6 +86,11 @@ export default class NoteLines extends React.Component<any, any> {
                 />
               </div>
             </div>
+            <div className="ms-Grid-row">
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 ms-textAlignCenter">
+                <MockContent/>
+              </div>
+            </div>
           </div>
           {
             note.paragraphs.map(p => {
@@ -107,7 +113,7 @@ export default class NoteLines extends React.Component<any, any> {
                       <ParagraphResult 
                         paragraph={p} 
                         showControlBar={false} 
-                        showGraphBar={true} 
+                        showGraphBar={true}
                         showParagraphTitle={true} 
                         key={note.id + '-pr-' + p.id + "-" + new Date().getTime}
                       />

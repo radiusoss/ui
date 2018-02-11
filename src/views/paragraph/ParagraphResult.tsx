@@ -135,7 +135,7 @@ export default class ParagraphResult extends React.Component<any, any> {
     if (!msg) return <div></div>
     const data = msg.data
     const type = msg.type
-    var title = 'Define a nice title...'
+    var title = '[Add an awesome title]'
     var cl = "ms-font-l ms-fontWeight-light dla-ParagraphTitle"
     if (paragraph.title && (paragraph.title.length > 0)) {
       title = paragraph.title

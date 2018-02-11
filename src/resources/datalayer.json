@@ -1,6 +1,6 @@
 {
   "name": "datalayer-ui",
-  "description": "datalayer-ui for Kubernetes",
+  "description": "Datalayer UI for Kubernetes",
   "version": "1.0.0",
   "license": "Datalayer Commercial License",
   "typings": "typings.d.ts",

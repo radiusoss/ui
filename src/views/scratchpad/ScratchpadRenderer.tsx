@@ -17,20 +17,24 @@ export default class ScratchpadRenderer extends React.Component<any, any> {
         title: ''
       }]
     },
-    showControlBar: true
+    showGraphBar: true,
+    showParagraphTitle: false,
+    showControlBar: false
   }
 
   public constructor(props) {
     super(props)
     this.state = {
       note: props.note,
-      showControlBar: props.showControlBar
+      showGraphBar: props.showGraphBar,
+      showControlBar: props.showControlBar,
+      showParagraphTitle: props.showParagraphTitle
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    var { note, showControlBar } = this.state
+    var { note, showGraphBar, showControlBar, showParagraphTitle } = this.state
     if (!note.paragraphs) {
       return <div></div>
     }
@@ -40,7 +44,12 @@ export default class ScratchpadRenderer extends React.Component<any, any> {
           note.paragraphs.map( p => {
             return (
               <div key={p.id}>
-                <ParagraphResult paragraph={p} showControlBar={showControlBar} showParagraphTitle={false}/>
+                <ParagraphResult 
+                  paragraph={p} 
+                  showGraphBar={showGraphBar} 
+                  showControlBar={showControlBar} 
+                  showParagraphTitle={showParagraphTitle} 
+                />
                 <hr/>
               </div>
             )

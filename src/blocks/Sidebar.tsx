@@ -92,7 +92,6 @@ export default class Sidebar extends React.Component<any, any> {
               Misc
             </li>
 */}
-{/*
             <li className={this.activeRoute("/dla/school/lessons")}>
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--Work"></i> School</a>
               <ul className="nav-dropdown-items">
@@ -107,7 +106,6 @@ export default class Sidebar extends React.Component<any, any> {
                 </li>
               </ul>
             </li>
-*/}
             <li className={this.activeRoute("/dla/about")}>
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--AnalyticsQuery"></i> About</a>
               <ul className="nav-dropdown-items">
