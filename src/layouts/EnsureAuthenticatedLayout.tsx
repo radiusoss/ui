@@ -57,21 +57,21 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
         <div>
           <Route exact path="/dla" component={Welcome}/>
           <Route path="/dla/board" name="Board" component={Board}/>
-          <Route path="/dla/notes/list" name="Notes List" component={NotesList}/>
-          <Route path="/dla/notes/cover" name="Notebook Cover" component={NotebookCover}/>
-          <Route path="/dla/note/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
-          <Route path="/dla/note/lines/:noteId" name="Note Lines Layout" component={NoteLines}/>
-          <Route path="/dla/note/cover/:noteId" name="Note Cover Layout" component={NoteCover}/>
+          <Route path="/dla/explorer/notes/list" name="Notes List" component={NotesList}/>
+          <Route path="/dla/explorer/notes/cover" name="Notebook Cover" component={NotebookCover}/>
+          <Route path="/dla/explorer/note/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
+          <Route path="/dla/explorer/note/lines/:noteId" name="Note Lines Layout" component={NoteLines}/>
+          <Route path="/dla/explorer/note/cover/:noteId" name="Note Cover Layout" component={NoteCover}/>
           <Route path="/dla/stories" name="Stories" component={Stories}/>
           <Route path="/dla/datasets" name="Datasets" component={Datasets} />
-          <Route path="/dla/flows" name="Flows" component={Flows}/>
+          <Route path="/dla/explorer/flows" name="Flows" component={Flows}/>
           <Route path="/dla/flow/dag/:flowId" name="Flow Dag" component={FlowDag}/>
           <Route path="/dla/flow/detail/:flowId" name="Flow Detail" component={FlowDetail}/>
-          <Route path="/dla/profile" name="Profile" component={Profile}/>
-          <Route path="/dla/users" name="Profile" component={Users}/>
-          <Route path="/dla/calendar" name="Calendar" component={Calendar}/>
-          <Route path="/dla/history" name="History" component={History}/>
-          <Route path="/dla/settings" name="Settings" component={Settings}/>
+          <Route path="/dla/kuber/profile" name="Profile" component={Profile}/>
+          <Route path="/dla/kuber/users" name="Profile" component={Users}/>
+          <Route path="/dla/kuber/calendar" name="Calendar" component={Calendar}/>
+          <Route path="/dla/explorer/history" name="History" component={History}/>
+          <Route path="/dla/kuber/settings" name="Settings" component={Settings}/>
           <Route path="/dla/school/lessons/1" name="Lesson 1" component={Lesson1}/>
           <Route path="/dla/school/lessons/2" name="Lesson 2" component={Lesson2}/>
           <Route path="/dla/school/lessons/3" name="Lesson 3" component={Lesson3}/>

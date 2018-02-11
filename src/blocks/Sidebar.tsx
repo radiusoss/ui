@@ -33,39 +33,51 @@ export default class Sidebar extends React.Component<any, any> {
           <li className="nav-item">
             <NavLink to={'/dla/board'} className="nav-link" activeClassName="active"><FabricIcon name="ViewDashboard"/> Board</NavLink>
           </li>
-          <li className="nav-item">
-              <NavLink to={'/dla/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
-          </li>
-          <li className="nav-item">
-              <NavLink to={'/dla/notes/list'} className="nav-link" activeClassName="active"><FabricIcon name="ReadingMode"/> Notebook</NavLink>
-          </li>
-          <li className="nav-item">
-              <NavLink to={'/dla/note/scratchpad'} className="nav-link" activeClassName="active"><FabricIcon name="NoteForward"/> Scratchpad</NavLink>
-          </li>
-          <li className="nav-item">
-              <NavLink to={'/dla/history'} className="nav-link" activeClassName="active"><FabricIcon name="GitGraph"/> History</NavLink>
-          </li>
+          <li className={this.activeRoute("/dla/explorer")}>
+              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--BarChart4"></i> Explorer </a>
+              <ul className="nav-dropdown-items">
+                <li className="nav-item">
+                  <NavLink to={'/dla/explorer/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/explorer/notes/list'} className="nav-link" activeClassName="active"><FabricIcon name="ReadingMode"/> Notebook</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/explorer/note/scratchpad'} className="nav-link" activeClassName="active"><FabricIcon name="NoteForward"/> Scratchpad</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/explorer/history'} className="nav-link" activeClassName="active"><FabricIcon name="GitGraph"/> History</NavLink>
+                </li>
 {/*
-            <li className="nav-item">
-              <NavLink to={'/dla/stories'} className="nav-link" activeClassName="active"><FabricIcon name="InternetSharing"/> Stories</NavLink>
+                <li className="nav-item">
+                  <NavLink to={'/dla/stories'} className="nav-link" activeClassName="active"><FabricIcon name="InternetSharing"/> Stories</NavLink>
+                </li>
+*/}
+              </ul>
             </li>
+{/*
             <li className="divider"></li>
             <li className="nav-title">
               Deploy
             </li>
             <li className="divider"></li>
 */}
-            <li className="nav-item">
-              <NavLink to={'/dla/calendar'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Calendar</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to={'/dla/users'} className="nav-link" activeClassName="active"><FabricIcon name="People"/> Users</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to={'/dla/profile'} className="nav-link" activeClassName="active"><FabricIcon name="Accounts"/> Profile</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to={'/dla/settings'} className="nav-link" activeClassName="active"><FabricIcon name="Settings"/> Settings</NavLink>
+          <li className={this.activeRoute("/dla/kuber")}>
+              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--EngineeringGroup"></i> Kuber</a>
+              <ul className="nav-dropdown-items">
+                <li className="nav-item">
+                  <NavLink to={'/dla/kuber/calendar'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Calendar</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/kuber/users'} className="nav-link" activeClassName="active"><FabricIcon name="People"/> Users</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/kuber/profile'} className="nav-link" activeClassName="active"><FabricIcon name="Accounts"/> Profile</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/kuber/settings'} className="nav-link" activeClassName="active"><FabricIcon name="Settings"/> Settings</NavLink>
+                </li>
+              </ul>
             </li>
             <li className="divider"></li>
             <li className="nav-item">

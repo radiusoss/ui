@@ -64,7 +64,7 @@ export default class NotebookCover extends React.Component<any, any> {
           isOpen={ this.state.showPanel }
           type={ PanelType.smallFluid }
 //          onDismiss={ () => this.setState({ showPanel: false }) }
-          onDismiss={ () => history.push(`/dla/notes/list`) }
+          onDismiss={ () => history.push(`/dla/explorer/notes/list`) }
           headerText={'Notebook Cover - ' + new Date()}
         >
           <ResponsiveReactGridLayout

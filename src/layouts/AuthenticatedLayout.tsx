@@ -58,10 +58,10 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
 
   private getPadding() {
     if (
-      this.props.location.pathname.indexOf("/dla/notes") > -1 || 
-      this.props.location.pathname.indexOf("/dla/note/") > -1 ||
+      this.props.location.pathname.indexOf("/dla/explorer/notes") > -1 || 
+      this.props.location.pathname.indexOf("/dla/explorer/note/") > -1 ||
       this.props.location.pathname.indexOf("/dla/docs") > -1 ||
-      this.props.location.pathname.indexOf("/dla/flows") > -1 ||
+      this.props.location.pathname.indexOf("/dla/explorer/flows") > -1 ||
       this.props.location.pathname.indexOf("/dla/flow/dag") > -1 
       ) {
       return '0px'
@@ -72,7 +72,7 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
   }
 
   private getOverflowY() {
-    return this.props.location.pathname.indexOf("/dla/note/") > -1 ? 'hidden' : 'auto'
+    return this.props.location.pathname.indexOf("/dla/explorer/note/") > -1 ? 'hidden' : 'auto'
   }
 
 }

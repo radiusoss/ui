@@ -77,7 +77,7 @@ function start(): void {
 /*
     if (window.location.hostname.endsWith("localhost")) {
       setTimeout(function () {
-      history.push('/dla/notes')
+      history.push('/dla/explorer/notes')
       history.push(window.location.hash.substr(1))
       history.goBack()
       window.location.reload

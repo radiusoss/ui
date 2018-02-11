@@ -78,12 +78,12 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   }
 
   public showNoteLayout(id: string, layout: string) {
-    history.push(`/dla/note/${layout}/${id}`)
+    history.push(`/dla/explorer/note/${layout}/${id}`)
     return this.spitfireApi.getNote(id)
   }
 
   public showNoteScratchpad(id) {
-    history.push(`/dla/note/scratchpad`)
+    history.push(`/dla/explorer/note/scratchpad`)
   }
 
   public getNote(id: string) {

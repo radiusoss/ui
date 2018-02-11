@@ -42,7 +42,7 @@ export default class Board extends React.Component<any, any> {
         <div className="ms-Grid-row">
 
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/calendar")}}>
+            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/calendar")}}>
               <Icon iconName='Calendar' className='ms-Icon50' />
             </a>
             <Calendar 
@@ -61,7 +61,7 @@ export default class Board extends React.Component<any, any> {
           </div>
 
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/note/scratchpad")}}>
+            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/explorer/note/scratchpad")}}>
               <Icon iconName='NoteForward' className='ms-Icon50' />
             </a>
             { (note.paragraphs.length > 0)  && 
@@ -75,7 +75,7 @@ export default class Board extends React.Component<any, any> {
           </div>
 
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/settings")}}>
+            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/settings")}}>
               <Icon iconName='Health' className='ms-Icon50' />
             </a>
             <ClusterHealth/>

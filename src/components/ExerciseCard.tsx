@@ -142,7 +142,7 @@ export default class ExerciseCard extends React.Component<IExerciseCardProps, IE
     e.stopPropagation()
     e.preventDefault()
     this.notebookApi.showNoteLayout(this.props.noteId, 'lines')
-//    history.push(`/dla/note/lines/${this.props.noteId}`)
+//    history.push(`/dla/explorer/note/lines/${this.props.noteId}`)
   }
 
 }

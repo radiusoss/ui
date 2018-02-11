@@ -230,13 +230,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
     const {note, runningParagraphs} = this.state
     this.leftItems = [
       {
-        key: 'calendar',
-        name: 'Calendar',
-        icon: 'Calendar',
-        title: 'Calendar',
-        onClick: () => history.push(`/dla/calendar`)
-      },
-      {
         key: 'board',
         name: 'Board',
         icon: 'ViewDashboard',
@@ -257,58 +250,66 @@ export default class NotebookControlBar extends React.Component<any, any> {
       },
       {
         key: 'more',
-        name: 'More...',
-//        icon: 'CollapseMenu',
-        title: 'More...',
+        name: 'Explorer',
+        icon: 'BarChart4',
+        title: 'Explorer',
         items: [
           {
             key: 'notebook-cover',
             name: 'Notebook Cover',
             icon: 'Tiles',
             title: 'Notebook Cover View',
-            onClick: () => history.push(`/dla/notes/cover`)
+            onClick: () => history.push(`/dla/explorer/notes/cover`)
           },
           {
             key: 'list',
             name: 'Notes List',
             icon: 'ViewList',
             title: 'Notes List View',
-            onClick: () => history.push(`/dla/notes/list`)
+            onClick: () => history.push(`/dla/explorer/notes/list`)
           },
           {
             key: 'history',
             name: 'History',
             icon: 'GitGraph',
             title: 'History',
-            onClick: () => history.push(`/dla/history`)
-          },
+            onClick: () => history.push(`/dla/explorer/history`)
+          }
+        ]
+      },
+      {
+        key: 'more',
+        name: 'Kuber',
+        icon: 'EngineeringGroup',
+        title: 'Kuber',
+        items: [
           {
             key: 'calendar',
             name: 'Calendar',
             icon: 'Calendar',
             title: 'Calendar',
-            onClick: () => history.push(`/dla/calendar`)
+            onClick: () => history.push(`/dla/kuber/calendar`)
           },
           {
             key: 'people',
             name: 'People',
             icon: 'People',
             title: 'Users',
-            onClick: () => history.push(`/dla/users`)
+            onClick: () => history.push(`/dla/kuber/users`)
           },
           {
             key: 'profile',
             name: 'Profile',
             icon: 'Accounts',
             title: 'Profile',
-            onClick: () => history.push(`/dla/profile`)
+            onClick: () => history.push(`/dla/kuber/profile`)
           },
           {
             key: 'settings',
             name: 'Settings',
             icon: 'Settings',
             title: 'Settings',
-            onClick: () => history.push(`/dla/settings`)
+            onClick: () => history.push(`/dla/kuber/settings`)
           },
           {
             key: 'docs',
@@ -316,6 +317,13 @@ export default class NotebookControlBar extends React.Component<any, any> {
             icon: 'Documentation',
             title: 'Documentation',
             onClick: () => history.push(`/dla/docs`)
+          },
+          {
+            key: 'help',
+            name: 'Help',
+            icon: 'Help',
+            title: 'Help',
+            onClick: () => history.push(`/dla/help`)
           }
         ]
       },
@@ -327,8 +335,8 @@ export default class NotebookControlBar extends React.Component<any, any> {
       },
       this.runIndicator
     ]
-    if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") != -1) {
-      if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/scratchpad") == -1) {
+    if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/note/") != -1) {
+      if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/note/scratchpad") == -1) {
         this.leftItems.push(
           {
             key: 'SingleColumn',
@@ -353,7 +361,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
 
   private updateRunIndicator() {
     const {note, runningParagraphs} = this.state
-    if (window.location.hash.replace(/\/$/, '').indexOf("dla/note/") == -1) {
+    if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/note/") == -1) {
       this.runIndicator = {}
       return
     }

@@ -49,7 +49,7 @@ export default class Calendar extends React.Component<CalendarProps, any> {
           defaultView={defaultView}
           toolbar={toolbar}
           step={15}
-          timeslots={4}
+          timeslots={2}
           scrollToTime={new Date(2018, 0, 1)}
           defaultDate={new Date()}
           onEventDrop={this.moveEvent}

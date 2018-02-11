@@ -22,7 +22,7 @@ export default class Settings extends React.Component<any, any> {
           <PivotItem linkText='AWS' itemIcon='Cloud'>
             <Aws />
           </PivotItem>
-          <PivotItem linkText='Kuber Config' itemIcon='ConfigurationSolid'>
+          <PivotItem linkText='Kuber Config' itemIcon='Equalizer'>
             <Config />
           </PivotItem>
           <PivotItem linkText='Apps' itemIcon='MapPin'>
