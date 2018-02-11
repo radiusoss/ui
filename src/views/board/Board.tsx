@@ -42,12 +42,16 @@ export default class Board extends React.Component<any, any> {
         <div className="ms-Grid-row">
 
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-            <Icon iconName='Calendar' className='ms-Icon50' onClick={(e) => {history.push("/dla/calendar")}}/>
+            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/calendar")}}>
+              <Icon iconName='Calendar' className='ms-Icon50' />
+            </a>
             <Calendar defaultView='day'/>
           </div>
 
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-            <Icon iconName='NoteForward' className='ms-Icon50' onClick={(e) => {history.push("/dla/note/scratchpad")}}/>
+            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/note/scratchpad")}}>
+              <Icon iconName='NoteForward' className='ms-Icon50' />
+            </a>
             { (note.paragraphs.length > 0)  && 
               <ScratchpadRenderer 
                   showGraphBar={true}
@@ -59,7 +63,9 @@ export default class Board extends React.Component<any, any> {
           </div>
 
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-            <Icon iconName='World' className='ms-Icon50' onClick={(e) => {history.push("/dla/settings")}}/>
+            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/settings")}}>
+              <Icon iconName='World' className='ms-Icon50' />
+            </a>
             <ClusterStatus/>
           </div>
 

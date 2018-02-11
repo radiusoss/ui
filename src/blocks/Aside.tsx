@@ -3,9 +3,9 @@ import * as classNames from 'classnames';
 import { connect, redux } from 'react-redux'
 import { NotebookStore } from './../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
-import Aside1 from '../views/_aside/Aside1'
-import Aside2 from '../views/_aside/Aside2'
-import Aside3 from '../views/_aside/Aside3'
+import AsideActivity from '../views/_aside/AsideActivity'
+import AsideChat from '../views/_aside/AsideChat'
+import AsideCluster from '../views/_aside/AsideCluster'
 
 export interface AsideState { 
   activeTab: string
@@ -47,14 +47,14 @@ export default class Aside extends React.Component<any, AsideState> {
           <div className="tab-content">
 {/*
               <div className={classNames({ active: this.state.activeTab === '1' }, 'tab-pane')} id="timeline" role="tabpanel">
-                <Aside1 />
+                <AsideActivity />
               </div>
               <div className={classNames({ active: this.state.activeTab === '2' }, 'tab-pane', 'p-1')} id="messages" role="tabpanel">
-                <Aside2 />
+                <AsideChat />
               </div>
 */}
               <div className={classNames({ active: this.state.activeTab === '3' }, 'tab-pane', 'p-1')} id="settings" role="tabpanel">
-                <Aside3 />
+                <AsideCluster />
               </div>
           </div>
         </aside>

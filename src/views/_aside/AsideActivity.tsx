@@ -4,7 +4,7 @@ import { NotebookStore } from './../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class Aside1 extends React.Component<any, any> {
+export default class AsideActivity extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)

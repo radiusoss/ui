@@ -5,7 +5,7 @@ import MockContent from './../message/MockContent'
 import ClusterStatus from './../cluster/ClusterStatus'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class Aside3 extends React.Component<any, any> {
+export default class AsideCluster extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
