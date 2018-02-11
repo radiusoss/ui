@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResult from './ParagraphResult'
+import ParagraphResult from './../paragraph/ParagraphResult'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class NoteResults extends React.Component<any, any> {

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { NotebookStore } from './../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
@@ -23,8 +24,16 @@ export default class Users extends React.Component<any, any> {
   public render() {
     return (      
       <div>
-        <div className='ms-font-su'>Users</div>
-        <div className="ms-Grid" style={{ padding: 0 }}>
+        <div>
+          <div style={{float: "left"}}>
+            <Icon iconName='People' className='ms-Icon50' />
+          </div>
+          <div style={{float: "left"}}>
+            <div className='ms-font-su'>Users</div>
+          </div>
+        </div>
+        <div className="ms-clearfix"/>
+        <div className="ms-Grid" style={{ padding: 0}}>
           <div className="ms-Grid-row">
             {
               this.state.users.map((c) => {

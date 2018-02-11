@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { WidthProvider, Responsive } from "react-grid-layout"
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResult from './../results/ParagraphResult'
+import ParagraphResult from './../paragraph/ParagraphResult'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 /*
@@ -35,7 +35,7 @@ import Grid14ErrorCase from '../spl/grid/Grid14ErrorCase'
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NotesCover extends React.Component<any, any> {
+export default class NotebookCover extends React.Component<any, any> {
   static defaultProps = {
     className: "layout",
     rowHeight: 100

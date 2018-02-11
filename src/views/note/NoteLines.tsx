@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { toastr } from 'react-redux-toastr'
 import ParagraphEditor from './../paragraph/ParagraphEditor'
-import ParagraphResult from './../results/ParagraphResult'
+import ParagraphResult from './../paragraph/ParagraphResult'
 import InlineEditor from './../editor/InlineEditor'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
@@ -55,9 +55,11 @@ export default class NoteLines extends React.Component<any, any> {
                   <InlineEditor
                     text={note.name}
                     paramName="title"
+                    minLength={3}
+                    maxLength={33}
                     change={this.updateTitle}
                     activeClassName="ms-font-xxl"
-                  />                
+                  />
                 </div>
               </div>
             </div>
@@ -91,10 +93,24 @@ export default class NoteLines extends React.Component<any, any> {
                 <div className="ms-Grid" key={ note.id + '-' + p.id }>
                   <div className="ms-Grid-row">
                     <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px' }}>
-                      <ParagraphEditor note={note} paragraph={p} index={i-1} showControlBar={true} showParagraphTitle={false} key={note.id + '-pe-' + p.id + "-" + new Date().getTime} focus={i==1}/>
+                      <ParagraphEditor 
+                        note={note} 
+                        paragraph={p} 
+                        index={i-1} 
+                        showControlBar={true} 
+                        showParagraphTitle={false} 
+                        key={note.id + '-pe-' + p.id + "-" + new Date().getTime} 
+                        focus={i==1}
+                      />
                     </div>
                     <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }} >
-                      <ParagraphResult paragraph={p} showControlBar={false} showGraphBar={true} showParagraphTitle={true} key={note.id + '-pr-' + p.id + "-" + new Date().getTime}/>
+                      <ParagraphResult 
+                        paragraph={p} 
+                        showControlBar={false} 
+                        showGraphBar={true} 
+                        showParagraphTitle={true} 
+                        key={note.id + '-pr-' + p.id + "-" + new Date().getTime}
+                      />
                     </div>
                     <div className="ms-Grid-row">
                       <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }}>

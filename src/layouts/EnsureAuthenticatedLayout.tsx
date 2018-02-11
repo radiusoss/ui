@@ -6,8 +6,8 @@ import Board from './../views/board/Board'
 import Flows from './../views/flows/Flows'
 import FlowDetail from './../views/flow/FlowDetail'
 import FlowDag from './../views/flow/FlowDag'
-import NotesList from './../views/notes/NotesList'
-import NotesCover from './../views/notes/NotesCover'
+import NotesList from './../views/notebook/NotesList'
+import NotebookCover from './../views/notebook/NotebookCover'
 import NoteLines from './../views/note/NoteLines'
 import Scratchpad from './../views/scratchpad/Scratchpad'
 import NoteCover from './../views/note/NoteCover'
@@ -58,7 +58,7 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route exact path="/dla" component={Welcome}/>
           <Route path="/dla/board" name="Board" component={Board}/>
           <Route path="/dla/notes/list" name="Notes List" component={NotesList}/>
-          <Route path="/dla/notes/cover" name="Notes Cover" component={NotesCover}/>
+          <Route path="/dla/notes/cover" name="Notebook Cover" component={NotebookCover}/>
           <Route path="/dla/note/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
           <Route path="/dla/note/lines/:noteId" name="Note Lines Layout" component={NoteLines}/>
           <Route path="/dla/note/cover/:noteId" name="Note Cover Layout" component={NoteCover}/>

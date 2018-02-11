@@ -136,7 +136,7 @@ export default class ParagraphResult extends React.Component<any, any> {
     const data = msg.data
     const type = msg.type
     var title = 'Define a nice title...'
-    var cl = "ms-font-xl ms-fontWeight-light"
+    var cl = "ms-font-l ms-fontWeight-light dla-ParagraphTitle"
     if (paragraph.title && (paragraph.title.length > 0)) {
       title = paragraph.title
       cl = "ms-font-xl ms-fontWeight-semibold"
@@ -237,9 +237,9 @@ export default class ParagraphResult extends React.Component<any, any> {
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
       var paragraph = webSocketMessageReceived.data.paragraph
-      if (paragraph.id == this.state.paragraph.id) {
+      if (paragraph.id == this.state.paragraph.id) {        
         this.setState({
-          paragraph: webSocketMessageReceived.data.paragraph
+          paragraph: paragraph
         })
       }
     }

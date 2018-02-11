@@ -693,13 +693,17 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       'principal': this.principalValue(),
       'ticket':	this.ticketValue(),
       'roles': this.rolesValue(),
-      'data':	{ 
+      'data':	{
         'flowId': id
       }
     }
   }
 
   private COMMIT_PARAGRAPH(p: any) {
+    // TODO(ECH) This is a hack to overcome Apache Zeppelin bug in NotebookServer#updateParagraph
+    // The issue is when Zeppelin does p.setText((String) fromMessage.get("paragraph"))
+    // It should be p.setText((String) fromMessage.get("text"))
+    p.paragraph = p.text
     return {
       'op':	'COMMIT_PARAGRAPH',
       'principal': this.principalValue(),
