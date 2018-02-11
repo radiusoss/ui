@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect, redux } from 'react-redux'
 import { NotebookStore } from './../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
+import MockContent from './../message/MockContent'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Aside3 extends React.Component<any, any> {
@@ -13,6 +14,7 @@ export default class Aside3 extends React.Component<any, any> {
   public render() {
     return (
       <div>
+        <MockContent/>
 {/*
         <h6>Settings</h6>
         <div className="aside-options">

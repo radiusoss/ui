@@ -13,6 +13,8 @@ import MicrosoftApi from './api/microsoft/MicrosoftApi'
 import TwitterApi from './api/twitter/TwitterApi'
 import NotebookApi from './api/notebook/NotebookApi'
 import SpitfireApi from './api/spitfire/SpitfireApi'
+import BigCalendar from 'react-big-calendar'
+import * as moment from 'moment'
 import KuberApi from './api/kuber/KuberApi'
 import { loadTheme } from 'office-ui-fabric-react/lib/Styling';
 
@@ -31,6 +33,8 @@ loadTheme({
 //    'themeDarkAlt': '#20a8d8'
   }
 })
+
+BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
 
 document.getElementById('preloader').style.display = 'none'
 
