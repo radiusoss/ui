@@ -276,7 +276,7 @@ export default class Welcome extends React.Component<any, any> {
 
   private explore = (e) =>  {
     e.preventDefault()
-    history.push("/dla/calendar")
+    history.push("/dla/board")
   }
 
   private onLogoutClick = (e) =>  {

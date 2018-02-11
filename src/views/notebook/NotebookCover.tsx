@@ -36,10 +36,12 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class NotebookCover extends React.Component<any, any> {
+/*
   static defaultProps = {
     className: "layout",
     rowHeight: 100
   }
+*/
   private readonly notebookApi: NotebookApi
 
   constructor(props) {

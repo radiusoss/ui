@@ -8,15 +8,19 @@ const styles: any = stylesImport
 export default class NotYetAvailable extends React.Component<any, any> {
 
   state = {
+    showMessageBar: true,
     showReleases: false
   }
 
   public render() {
-    const { showReleases } = this.state
+    const { showMessageBar, showReleases } = this.state
     return (
       <div>
-        <MessageBar
+        {
+        (showMessageBar) &&
+         <MessageBar
           messageBarType={ MessageBarType.severeWarning }
+          onDismiss={ () => this.setState({showMessageBar: false, showReleases: false}) }
           actions={
             <div>
               <MessageBarButton
@@ -25,8 +29,9 @@ export default class NotYetAvailable extends React.Component<any, any> {
             </div>
           }
         >
-          <span>SevereWarning - This feature is not yet available. Send comments or questions to our Twitter account <a href="https://twitter.com/datalayerio" target="_blank">@datalayerio</a>.</span>
+          <span>Severe Warning - This feature is not yet available. Send comments or questions to our Twitter account <a href="https://twitter.com/datalayerio" target="_blank">@datalayerio</a>.</span>
         </MessageBar>
+        }
         {
           (showReleases) &&
           <div className={styles.editorHeight} style={{ width: "100%" }}>

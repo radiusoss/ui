@@ -35,6 +35,7 @@ export default class ScratchpadRenderer extends React.Component<any, any> {
 
   public render() {
     var { note, showGraphBar, showControlBar, showParagraphTitle } = this.state
+    console.log('---', note)
     if (!note.paragraphs) {
       return <div></div>
     }

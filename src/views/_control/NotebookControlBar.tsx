@@ -255,10 +255,10 @@ export default class NotebookControlBar extends React.Component<any, any> {
         title: 'More...',
         items: [
           {
-            key: 'cover',
-            name: 'Notes Cover',
+            key: 'notebook-cover',
+            name: 'Notebook Cover',
             icon: 'Tiles',
-            title: 'Notes Cover View',
+            title: 'Notebook Cover View',
             onClick: () => history.push(`/dla/notes/cover`)
           },
           {
