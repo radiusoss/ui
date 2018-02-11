@@ -11,7 +11,7 @@ const DragAndDropCalendar = withDragAndDrop(BigCalendar)
 export interface CalendarProps {
   defaultView?: string
   toolbar: boolean
-  events: any
+  slots: any
 }
 
 @DragDropContext(HTML5Backend)
@@ -21,7 +21,7 @@ export default class Calendar extends React.Component<CalendarProps, any> {
   public static defaultProps: Partial<CalendarProps> = {
     defaultView: 'week',
     toolbar: true,
-    events: []
+    slots: []
   }
 
   public constructor(props) {
@@ -29,22 +29,22 @@ export default class Calendar extends React.Component<CalendarProps, any> {
     this.state = {
       defaultView: props.defaultView,
       toolbar: props.toolbar,
-      events: props.events
+      slots: props.slots
     }
     this.notebookApi = window['NotebookApi']
   }
 
   public render() {
 
-    const { events, defaultView, toolbar } = this.state
+    const { slots, defaultView, toolbar } = this.state
 
     return (
       <div style={{ height: 1000}}>
         <DragAndDropCalendar
-          selectable
-          resizable
-          popup
-          events={events}
+          selectable={true}
+          resizable={true}
+          popup={true}
+          events={slots}
           defaultView={defaultView}
           toolbar={toolbar}
           step={15}
@@ -69,41 +69,43 @@ export default class Calendar extends React.Component<CalendarProps, any> {
   @autobind
   private onSelectSlot(slotInfo) {
     console.log('onSelectSlot', slotInfo)
-    var events = this.state.events
-    events.push({
-      id: events.length + 1,
+    var slots = this.state.slots
+    slots.push({
+      id: slots.length + 1,
       title: 'CLUSTER UP',
       start: slotInfo.start,
       end: slotInfo.end,
       desc: 'CLUSTER UP',
     })
     this.setState({
-      events: events
+      slots: slots
     })
   }
 
   @autobind
   private moveEvent({ event, start, end }) {
-    const { events } = this.state
-    const idx = events.indexOf(event)
+    const { slots } = this.state
+    const idx = slots.indexOf(event)
     const updatedEvent = { ...event, start, end }
-    const nextEvents = [...events]
+    const nextEvents = [...slots]
     nextEvents.splice(idx, 1, updatedEvent)
     this.setState({
-      events: nextEvents
+      slots: nextEvents
     })
   }
 
-  @autobind
-  private resizeEvent(resizeType, { event, start, end }) {
-    const { events } = this.state
-    const nextEvents = events.map(existingEvent => {
+//  @autobind
+//  private resizeEvent(resizeType, { event, start, end }) {
+  private resizeEvent = (resizeType, { event, start, end }) => {
+    console.log('resizeEvent', event)
+    const { slots } = this.state
+    const nextEvents = slots.map(existingEvent => {
       return existingEvent.id == event.id
         ? { ...existingEvent, start, end }
         : existingEvent
     })
     this.setState({
-      events: nextEvents
+      slots: nextEvents
     })
   }
 

@@ -48,13 +48,13 @@ export default class Board extends React.Component<any, any> {
             <Calendar 
               defaultView='day' 
               toolbar={false}
-              events={[
+              slots={[
                 {
                   id: 0,
                   title: 'A Day Event very long title',
                   allDay: false,
-                  start: new Date(2018, 2, 12, 10, 0, 0, 0),
-                  end: new Date(2018, 2, 12, 19, 0, 0, 0),
+                  start: new Date(2018, 1, 11, 10, 0, 0, 0),
+                  end: new Date(2018, 1, 11, 19, 0, 0, 0),
                 }
               ]}
             />

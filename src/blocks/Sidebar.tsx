@@ -33,9 +33,11 @@ export default class Sidebar extends React.Component<any, any> {
           <li className="nav-item">
             <NavLink to={'/dla/board'} className="nav-link" activeClassName="active"><FabricIcon name="ViewDashboard"/> Board</NavLink>
           </li>
+{/*
           <li className={this.activeRoute("/dla/explorer")}>
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--BarChart4"></i> Explorer </a>
               <ul className="nav-dropdown-items">
+*/}
                 <li className="nav-item">
                   <NavLink to={'/dla/explorer/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
                 </li>
@@ -53,8 +55,10 @@ export default class Sidebar extends React.Component<any, any> {
                   <NavLink to={'/dla/stories'} className="nav-link" activeClassName="active"><FabricIcon name="InternetSharing"/> Stories</NavLink>
                 </li>
 */}
+{/*
               </ul>
             </li>
+*/}
 {/*
             <li className="divider"></li>
             <li className="nav-title">
@@ -65,7 +69,7 @@ export default class Sidebar extends React.Component<any, any> {
           <li className={this.activeRoute("/dla/kuber")}>
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--EngineeringGroup"></i> Kuber</a>
               <ul className="nav-dropdown-items">
-                <li className="nav-item">
+              <li className="nav-item">
                   <NavLink to={'/dla/kuber/calendar'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Calendar</NavLink>
                 </li>
                 <li className="nav-item">
@@ -77,9 +81,14 @@ export default class Sidebar extends React.Component<any, any> {
                 <li className="nav-item">
                   <NavLink to={'/dla/kuber/settings'} className="nav-link" activeClassName="active"><FabricIcon name="Settings"/> Settings</NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/kuber/costs'} className="nav-link" activeClassName="active"><FabricIcon name="Money"/> Costs</NavLink>
+                </li>
               </ul>
             </li>
+{/*
             <li className="divider"></li>
+*/}
             <li className="nav-item">
               <NavLink to={'/dla/docs'} className="nav-link" activeClassName="active"><FabricIcon name="Documentation"/> Docs</NavLink>
              </li>
