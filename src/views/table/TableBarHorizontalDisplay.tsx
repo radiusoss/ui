@@ -1,8 +1,8 @@
 import * as React from 'react'
-import TableBaseRenderer from './_TableBaseRenderer'
+import TableBaseDisplay from './_TableBaseDisplay'
 import {HorizontalBar} from 'react-chartjs-2'
 
-export default class TableBarHorizontalRenderer extends TableBaseRenderer {
+export default class TableBarHorizontalDisplay extends TableBaseDisplay {
   barHorizontalData = {}
 
   data3 = {

@@ -91,7 +91,7 @@ export default class CodeEditor extends React.Component<any, any> {
   
   public static defaultProps: Partial<CodeEditorProps> = {
     name: 'brace-editor',
-    focus: true,
+    focus: false,
     mode: 'scala',
     theme: 'monokai',
 //    height: '100%',
@@ -157,6 +157,8 @@ export default class CodeEditor extends React.Component<any, any> {
       annotations,
       markers,
     } = this.props
+
+    console.log('---focus', focus)
 
     this.editor = ace.edit(this.refEditor)
 
@@ -268,7 +270,7 @@ export default class CodeEditor extends React.Component<any, any> {
     var text = texts.join('\n\n')
 
     this.editor.setValue(text, cursorStart)
-    this.editor.focus()
+//    this.editor.focus()
 /*
     this.setState({
       note: note,

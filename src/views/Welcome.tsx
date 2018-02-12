@@ -50,7 +50,7 @@ export default class Welcome extends React.Component<any, any> {
 
         <div className={ styles.hero } style={{ margin: '0px' }}>
 
-          <h1 className={ styles.title }>Datalayer</h1>
+          <h1 className={ styles.title }>Datalayer Explorer</h1>
 
           <span className={ styles.tagline }>The easy way to run Big Data Science on Kubernetes.</span>
 

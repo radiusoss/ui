@@ -30,22 +30,22 @@ export default class Sidebar extends React.Component<any, any> {
               </ul>
             </li>
 */}
-          <li className="nav-item">
-            <NavLink to={'/dla/board'} className="nav-link" activeClassName="active"><FabricIcon name="ViewDashboard"/> Board</NavLink>
-          </li>
 {/*
           <li className={this.activeRoute("/dla/explorer")}>
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--BarChart4"></i> Explorer </a>
               <ul className="nav-dropdown-items">
 */}
                 <li className="nav-item">
+                  <NavLink to={'/dla/explorer/notes/list'} className="nav-link" activeClassName="active"><FabricIcon name="ReadingMode"/> Notes</NavLink>
+                </li>
+                <li className="nav-item">
                   <NavLink to={'/dla/explorer/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to={'/dla/explorer/notes/list'} className="nav-link" activeClassName="active"><FabricIcon name="ReadingMode"/> Notebook</NavLink>
+                  <NavLink to={'/dla/explorer/note/scratchpad'} className="nav-link" activeClassName="active"><FabricIcon name="NoteForward"/> Scratchpad</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to={'/dla/explorer/note/scratchpad'} className="nav-link" activeClassName="active"><FabricIcon name="NoteForward"/> Scratchpad</NavLink>
+                  <NavLink to={'/dla/board'} className="nav-link" activeClassName="active"><FabricIcon name="ViewDashboard"/> Board</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink to={'/dla/explorer/history'} className="nav-link" activeClassName="active"><FabricIcon name="GitGraph"/> History</NavLink>
@@ -67,7 +67,7 @@ export default class Sidebar extends React.Component<any, any> {
             <li className="divider"></li>
 */}
           <li className={this.activeRoute("/dla/kuber")}>
-              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--EngineeringGroup"></i> Kuber</a>
+              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className=""></i> Kuber</a>
               <ul className="nav-dropdown-items">
               <li className="nav-item">
                   <NavLink to={'/dla/kuber/calendar'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Calendar</NavLink>
@@ -84,17 +84,17 @@ export default class Sidebar extends React.Component<any, any> {
                 <li className="nav-item">
                   <NavLink to={'/dla/kuber/costs'} className="nav-link" activeClassName="active"><FabricIcon name="Money"/> Costs</NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/docs'} className="nav-link" activeClassName="active"><FabricIcon name="Documentation"/> Documentation</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/help'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--Help"></i> Help</NavLink>
+                </li>
               </ul>
             </li>
 {/*
             <li className="divider"></li>
 */}
-            <li className="nav-item">
-              <NavLink to={'/dla/docs'} className="nav-link" activeClassName="active"><FabricIcon name="Documentation"/> Docs</NavLink>
-             </li>
-            <li className="nav-item">
-              <NavLink to={'/dla/help'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--Help"></i> Help</NavLink>
-            </li>
             <li className={this.activeRoute("/dla/school/lessons")}>
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--Work"></i> School</a>
               <ul className="nav-dropdown-items">
@@ -121,10 +121,12 @@ export default class Sidebar extends React.Component<any, any> {
                 <li className="nav-item">
                   <NavLink to={'/dla/about/release-notes'} className="nav-link" activeClassName="active"><FabricIcon name="History"/> Release Notes</NavLink>
                 </li>
+{/*
                 <li className="nav-item">
-                  <NavLink to={'/dla/about/hall-of-fame'} className="nav-link" activeClassName="active"><FabricIcon name="Crown"/> Hall of Fame</NavLink>
+                  <NavLink to={'/dla/about/hall-of-fame'} className="nav-link" activeClassName="active"><FabricIcon name="Teamwork"/> Hall of Fame</NavLink>
                 </li>
-              </ul>
+*/}
+                </ul>
             </li>
           </ul>
         </nav>

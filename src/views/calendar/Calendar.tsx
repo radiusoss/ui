@@ -3,6 +3,7 @@ import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from 'react-dnd'
+import { NotebookStore } from './../../store/NotebookStore'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 
@@ -72,10 +73,10 @@ export default class Calendar extends React.Component<CalendarProps, any> {
     var slots = this.state.slots
     slots.push({
       id: slots.length + 1,
-      title: 'CLUSTER UP',
+      title: 'Cluster UP - ' + NotebookStore.state().profileDisplayName,
       start: slotInfo.start,
       end: slotInfo.end,
-      desc: 'CLUSTER UP',
+      desc: 'Cluster UP - ' + NotebookStore.state().profileDisplayName
     })
     this.setState({
       slots: slots

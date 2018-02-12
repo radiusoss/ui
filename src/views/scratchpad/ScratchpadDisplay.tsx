@@ -6,7 +6,7 @@ import NotebookApi from './../../api/notebook/NotebookApi'
 import ParagraphResult from './../paragraph/ParagraphResult'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ScratchpadRenderer extends React.Component<any, any> {
+export default class ScratchpadDisplay extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
   state = {
@@ -49,6 +49,7 @@ export default class ScratchpadRenderer extends React.Component<any, any> {
                   showGraphBar={showGraphBar} 
                   showControlBar={showControlBar} 
                   showParagraphTitle={showParagraphTitle} 
+                  stripDisplay={true}
                 />
                 <hr/>
               </div>

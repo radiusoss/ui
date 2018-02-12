@@ -107,7 +107,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
 
   public render() {
     const { note, paragraph, code, focus, showControlBar, showParagraphTitle } = this.state
-    var title = '[Add an awesome title]'
+    var title = 'Add an awesome title...'
     if (paragraph.title && (paragraph.title.length > 0)) {
       title = paragraph.title
     }

@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import JSONTree from 'react-json-tree'
 
-export default class ReactjsRenderer extends React.Component<any, any> {
+export default class ReactjsDisplay extends React.Component<any, any> {
 
   constructor(props) {
     super(props)

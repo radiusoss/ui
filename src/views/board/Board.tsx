@@ -5,7 +5,7 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import NotYetAvailable from './../message/NotYetAvailable'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ScratchpadRenderer from './../scratchpad/ScratchpadRenderer'
+import ScratchpadDisplay from './../scratchpad/ScratchpadDisplay'
 import ClusterHealth from './../cluster/ClusterHealth'
 import Calendar from './../calendar/Calendar'
 
@@ -65,7 +65,7 @@ export default class Board extends React.Component<any, any> {
               <Icon iconName='NoteForward' className='ms-Icon50' />
             </a>
             { (note.paragraphs.length > 0)  && 
-              <ScratchpadRenderer 
+              <ScratchpadDisplay 
                   showGraphBar={false}
                   showControlBar={false}
                   showParagraphTitle={false}

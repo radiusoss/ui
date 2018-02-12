@@ -1,8 +1,8 @@
 import * as React from 'react'
-import TableBaseRenderer from './_TableBaseRenderer'
+import TableBaseDisplay from './_TableBaseDisplay'
 import {Pie} from 'react-chartjs-2'
 
-export default class TablePieRenderer extends TableBaseRenderer {
+export default class TablePieDisplay extends TableBaseDisplay {
   pieData = {}
 
   constructor(props) {

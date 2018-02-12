@@ -5,7 +5,7 @@ import {XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries} from 'react-vis'
 import 'react-vis/dist/style.css'
 import {ForceGraph, ForceGraphNode, ForceGraphLink} from 'react-vis-force'
 
-export default class GraphRenderer extends React.Component<any, any> {
+export default class GraphDisplay extends React.Component<any, any> {
 
 //    "react-vis": "2.0.0-beta.4",
 //    "react-vis-force": "0.1.4",
@@ -65,7 +65,7 @@ const data = {
   ]
 };
 
-export default class TableUberGraphRenderer extends React.Component<any, any> {
+export default class TableUberGraphDisplay extends React.Component<any, any> {
   displayName: 'BarExample'
 
   render() {

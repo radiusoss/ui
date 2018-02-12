@@ -34,10 +34,20 @@ export default class NotebookControlBar extends React.Component<any, any> {
     isMicrosoftAuthenticated: false,
     isTwitterAuthenticated: false,
     note: undefined,
-    notes: [],
+    notes: [{
+      key: 'new-note',
+      name: 'New note...',
+      icon: 'QuickNote',
+      onClick: () => this.setState({ showNewNotePanel: true })
+    }],
     noteScratchpadId: '_conf',
     runningParagraphs: [],
-    flows: [],
+    flows: [{
+      key: 'new-flow',
+      name: 'New flow...',
+      icon: 'Flow',
+      onClick: () => this.setState({ showNewFlowPanel: true })
+    }],
     showNewNotePanel: false,
     newNoteName: "",
     isNewNoteNameValid: false,
@@ -230,12 +240,17 @@ export default class NotebookControlBar extends React.Component<any, any> {
     const {note, runningParagraphs} = this.state
     this.leftItems = [
       {
-        key: 'calendar',
-        name: 'Calendar',
-        icon: 'Calendar',
-        title: 'Calendar',
-        onClick: () => history.push(`/dla/kuber/calendar`)
+        key: 'notes',
+        name: 'Notes',
+        icon: 'ReadingMode',
+        items: this.state.notes
       },
+      {
+        key: 'flows',
+        name: 'Flows',
+        icon: 'Flow',
+        items: this.state.flows
+      },      
       {
         key: 'board',
         name: 'Board',
@@ -246,7 +261,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
       {
         key: 'kuber',
         name: 'Kuber',
-        icon: 'EngineeringGroup',
+//        icon: 'EngineeringGroup',
         title: 'Kuber',
         items: [
           {
@@ -278,6 +293,13 @@ export default class NotebookControlBar extends React.Component<any, any> {
             onClick: () => history.push(`/dla/kuber/settings`)
           },
           {
+            key: 'costs',
+            name: 'Costs',
+            icon: 'Money',
+            title: 'Costs',
+            onClick: () => history.push(`/dla/kuber/costs`)
+          },
+          {
             key: 'docs',
             name: 'Documentation',
             icon: 'Documentation',
@@ -294,21 +316,9 @@ export default class NotebookControlBar extends React.Component<any, any> {
         ]
       },
       {
-        key: 'flows',
-        name: 'Flows',
-        icon: 'Flow',
-        items: this.state.flows
-      },      
-      {
-        key: 'notes',
-        name: 'Notebook',
-        icon: 'ReadingMode',
-        items: this.state.notes
-      },
-      {
         key: 'explorer',
         name: 'Explorer',
-        icon: 'BarChart4',
+//        icon: 'BarChart4',
         title: 'Explorer',
         items: [
           {

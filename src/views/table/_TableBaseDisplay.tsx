@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default class TableBaseRenderer extends React.Component<any, any> {
+export default class TableBaseDisplay extends React.Component<any, any> {
 
  options = {
   responsive: true,
@@ -49,9 +49,11 @@ export default class TableBaseRenderer extends React.Component<any, any> {
   protected prepareData(columns, items, data) {
 
     var labels = []
+
     for (var i = 0; i < items.length; i++) {
       labels = labels.concat(items[i][columns[0]['name']])
     }
+
     data['labels'] = labels
 
     var datasets = []

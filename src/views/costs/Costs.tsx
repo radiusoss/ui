@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
-import TableBarRenderer from './../format/TableBarRenderer'
-import TableDoughnutRenderer from './../format/TableDoughnutRenderer'
+import TableBarDisplay from './../table/TableBarDisplay'
+import TableDoughnutDisplay from './../table/TableDoughnutDisplay'
 import NotYetAvailable from './../message/NotYetAvailable'
 
 const columns = JSON.parse(`
@@ -41,10 +41,10 @@ export default class Costs extends React.Component<any, any> {
 
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-              <TableBarRenderer columns={columns} items={items} />
+              <TableBarDisplay columns={columns} items={items} />
             </div>
             <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-              <TableDoughnutRenderer columns={columns} items={items} />
+              <TableDoughnutDisplay columns={columns} items={items} />
             </div>
           </div>
 

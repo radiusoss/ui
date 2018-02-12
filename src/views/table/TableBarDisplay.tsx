@@ -1,8 +1,8 @@
 import * as React from 'react'
-import TableBaseRenderer from './_TableBaseRenderer'
+import TableBaseDisplay from './_TableBaseDisplay'
 import {Bar} from 'react-chartjs-2';
 
-export default class TableBarRenderer extends TableBaseRenderer {
+export default class TableBarDisplay extends TableBaseDisplay {
   barData = {}
 
   constructor(props) {

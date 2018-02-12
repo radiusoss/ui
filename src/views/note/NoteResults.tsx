@@ -44,7 +44,13 @@ export default class NoteResults extends React.Component<any, any> {
           note.paragraphs.map( p => {
             return (
               <div key={p.id}>
-                <ParagraphResult paragraph={p} showControlBar={showControlBar} showGraphBar={showGraphBar} showParagraphTitle={showParagraphTitle} />
+                <ParagraphResult 
+                  paragraph={p} 
+                  showControlBar={showControlBar} 
+                  showGraphBar={showGraphBar} 
+                  showParagraphTitle={showParagraphTitle} 
+                  stripDisplay={false}
+                  />
               </div>
             )
           })

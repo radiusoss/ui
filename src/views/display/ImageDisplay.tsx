@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-export default class HtmlRenderer extends React.Component<any, any> {
+export default class ImageDisplay extends React.Component<any, any> {
 
   constructor(props) {
     super(props)
@@ -9,12 +9,9 @@ export default class HtmlRenderer extends React.Component<any, any> {
 
   public render() {
     const { data } = this.props
-    var html = {
-      __html: data
-    }
     return (
       <div>
-        <div dangerouslySetInnerHTML={html}/>
+        <img src={`data:image/png;base64,${data as string}`} />
       </div>
     )
   }

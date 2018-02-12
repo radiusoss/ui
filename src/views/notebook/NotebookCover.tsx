@@ -164,7 +164,12 @@ export default class NotebookCover extends React.Component<any, any> {
           {p.title}
         </div>
         <div>
-          <ParagraphResult paragraph={p} showControlBar={false} showParagraphTitle={true} />
+          <ParagraphResult 
+            paragraph={p} 
+            showControlBar={false} 
+            showParagraphTitle={true}
+            stripDisplay={true}
+          />
         </div>
         <span
           className="remove"

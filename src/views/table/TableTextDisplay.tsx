@@ -8,7 +8,7 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import * as isEqual from 'lodash.isequal'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class TableTextRenderer extends React.Component<any, any> {
+export default class TableTextDisplay extends React.Component<any, any> {
   private detailsList: DetailsList
 //  private selection: Selection;
   private readonly notebookApi: NotebookApi

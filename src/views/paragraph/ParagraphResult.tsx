@@ -4,14 +4,14 @@ import history from './../../routes/History'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
-import HtmlRenderer from './../renderer/HtmlRenderer'
-import ReactjsRenderer from './../renderer/ReactjsRenderer'
+import HtmlDisplay from './../display/HtmlDisplay'
+import ReactjsDisplay from './../display/ReactjsDisplay'
 import { toastr } from 'react-redux-toastr'
 import InlineEditor from './../editor/InlineEditor'
-import ImageRenderer from './../renderer/ImageRenderer'
-import MathjaxRenderer from './../renderer/MathjaxRenderer'
-import TableRenderer from './../renderer/TableRenderer'
-import TextRenderer from './../renderer/TextRenderer'
+import ImageDisplay from './../display/ImageDisplay'
+import MathjaxDisplay from './../display/MathjaxDisplay'
+import TableDisplay from './../display/TableDisplay'
+import TextDisplay from './../display/TextDisplay'
 import Spinner from './../../_widget/Spinner'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
@@ -39,7 +39,8 @@ export default class ParagraphResult extends React.Component<any, any> {
     },
     showControlBar: false,
     showParagraphTitle: false,
-    showGraphBar: false
+    showGraphBar: false,
+    stripDisplay: false
   }
 
   public constructor(props) {
@@ -48,7 +49,8 @@ export default class ParagraphResult extends React.Component<any, any> {
       paragraph: props.paragraph,
       showControlBar: props.showControlBar,
       showParagraphTitle: props.showParagraphTitle,
-      showGraphBar: props.showGraphBar
+      showGraphBar: props.showGraphBar,
+      stripDisplay: props.stripDisplay
     }
     this.leftItems = [
       {
@@ -110,10 +112,13 @@ export default class ParagraphResult extends React.Component<any, any> {
   }
 
   public render() {
-    const { paragraph, showControlBar, showGraphBar, showParagraphTitle } = this.state
+    const { paragraph, showControlBar, showGraphBar, showParagraphTitle, stripDisplay } = this.state
     var results = paragraph.results
     if (!results) {
       if (paragraph.status == 'FINISHED') {
+        return <div></div>
+      }
+      if (paragraph.status == 'READY') {
         return <div></div>
       }
       else {
@@ -158,8 +163,8 @@ export default class ParagraphResult extends React.Component<any, any> {
         }
         {
         (showParagraphTitle == true) && 
-        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
-          <div className={cl}>
+        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '10px', margin: '0px', overflow: 'hidden' }}>
+          <div className={cl} style={{paddingLeft: "10px"}}>
             <InlineEditor
               text={title}
               paramName="title"
@@ -173,28 +178,67 @@ export default class ParagraphResult extends React.Component<any, any> {
         }
         <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }} key={paragraph.id}>
           {
-            (type == 'TEXT') &&
-            <TextRenderer data={data} />
+            ((type == 'TEXT') && (stripDisplay)) && 
+            <div style = {{fontSize: "80%", maxHeight: "800px", overflowY: "auto"}}>
+              <TextDisplay
+                data={data}
+                stripDisplay={stripDisplay}
+              />
+            </div>
           }
           {
-            (type == 'HTML') &&
-            <HtmlRenderer data={data} />
+            ((type == 'TEXT') && (!stripDisplay)) && 
+            <TextDisplay
+              data={data}
+              stripDisplay={stripDisplay}
+            />
+          }
+          {
+            ((type == 'HTML') && (stripDisplay)) && 
+            <div style = {{fontSize: "80%", maxHeight: "800px", overflowY: "auto"}}>
+              <HtmlDisplay
+                data={data} 
+                stripDisplay={stripDisplay}
+              />
+            </div>
+          }
+          {
+            ((type == 'HTML') && (!stripDisplay)) && 
+            <HtmlDisplay
+                data={data} 
+                stripDisplay={stripDisplay}
+              />
           }
           {
             (type == 'IMG') &&
-            <ImageRenderer data={data} />
+            <ImageDisplay
+              data={data} 
+              stripDisplay={stripDisplay}
+            />
           }
           {
             (type == 'TABLE') &&
-            <TableRenderer data={data} id={id} p={paragraph} showGraphBar={showGraphBar} />
+            <TableDisplay
+              data={data} 
+              id={id} 
+              p={paragraph} 
+              showGraphBar={showGraphBar}
+              stripDisplay={stripDisplay}
+            />
           }
           {
             (type == 'MATHJAX') &&
-            <MathjaxRenderer data={data} />
+            <MathjaxDisplay
+              data={data}
+              stripDisplay={stripDisplay}
+            />
           }
           {
             (type == 'REACTJS') &&
-            <ReactjsRenderer data={data} />
+            <ReactjsDisplay
+              data={data}
+              stripDisplay={stripDisplay}
+            />
           }
         </div>
       </div>

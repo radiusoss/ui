@@ -1,8 +1,8 @@
 import * as React from 'react'
-import TableBaseRenderer from './_TableBaseRenderer'
+import TableBaseDisplay from './_TableBaseDisplay'
 import {Bubble} from 'react-chartjs-2/lib'
 
-export default class TableBubbleRenderer extends TableBaseRenderer {
+export default class TableBubbleDisplay extends TableBaseDisplay {
   bubbleData = {}
 
   spl = {

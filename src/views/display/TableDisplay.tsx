@@ -2,14 +2,14 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import TableData from './../../util/data/TableData'
-import TableTextRenderer from './../format/TableTextRenderer'
-import TableLineRenderer from './../format/TableLineRenderer'
-import TablePieRenderer from './../format/TablePieRenderer'
-import TableBarRenderer from './../format/TableBarRenderer'
-import TableBarHorizontalRenderer from './../format/TableBarHorizontalRenderer'
-import TableBubbleRenderer from './../format/TableBubbleRenderer'
-import TableDoughnutRenderer from './../format/TableDoughnutRenderer'
-import TableScatterRenderer from './../format/TableScatterRenderer'
+import TableTextDisplay from './../table/TableTextDisplay'
+import TableLineDisplay from './../table/TableLineDisplay'
+import TablePieDisplay from './../table/TablePieDisplay'
+import TableBarDisplay from './../table/TableBarDisplay'
+import TableBarHorizontalDisplay from './../table/TableBarHorizontalDisplay'
+import TableBubbleDisplay from './../table/TableBubbleDisplay'
+import TableDoughnutDisplay from './../table/TableDoughnutDisplay'
+import TableScatterDisplay from './../table/TableScatterDisplay'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import NotebookApi from './../../api/notebook/NotebookApi'
 import * as stylesImport from './../_styles/Styles.scss'
@@ -17,7 +17,7 @@ const styles: any = stylesImport
 import * as isEqual from 'lodash.isequal'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class TableRenderer extends React.Component<any, any> {
+export default class TableDisplay extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
   private leftItems = [
@@ -124,12 +124,6 @@ export default class TableRenderer extends React.Component<any, any> {
 
     this.notebookApi = window["NotebookApi"]
 
-    this.updateTable()
-
-  }
-
-  componentDidMount() {
-    this.updateTable()
   }
 
   public render() {
@@ -152,37 +146,34 @@ export default class TableRenderer extends React.Component<any, any> {
         }
 
         {
-          (format == 'text') && <TableTextRenderer columns={this.state.columns} items={this.state.items} />
+          (format == 'text') && <TableTextDisplay columns={this.state.columns} items={this.state.items} />
         }
         {
-          (format == 'line') && <TableLineRenderer columns={this.state.columns} items={this.state.items} />
+          (format == 'line') && <TableLineDisplay columns={this.state.columns} items={this.state.items} />
         }
         {
-          (format == 'barchart') && <TableBarRenderer columns={this.state.columns} items={this.state.items} />
+          (format == 'barchart') && <TableBarDisplay columns={this.state.columns} items={this.state.items} />
         }
         {
-          (format == 'barchart-horizontal') && <TableBarHorizontalRenderer columns={this.state.columns} items={this.state.items} />
+          (format == 'barchart-horizontal') && <TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} />
         }
         {
-          (format == 'pie') && <TablePieRenderer columns={this.state.columns} items={this.state.items} />
+          (format == 'pie') && <TablePieDisplay columns={this.state.columns} items={this.state.items} />
         }
         {
-          (format == 'doughnut') && <TableDoughnutRenderer columns={this.state.columns} items={this.state.items} />
+          (format == 'doughnut') && <TableDoughnutDisplay columns={this.state.columns} items={this.state.items} />
         }
         {
-          (format == 'scatter') && <TableScatterRenderer columns={this.state.columns} items={this.state.items} />
+          (format == 'scatter') && <TableScatterDisplay columns={this.state.columns} items={this.state.items} />
         }
         {
-          (format == 'bubble') && <TableBubbleRenderer columns={this.state.columns} items={this.state.items} />
+          (format == 'bubble') && <TableBubbleDisplay columns={this.state.columns} items={this.state.items} />
         }
 
       </div>
 
     )
 
-  }
-
-  private updateTable() {
   }
 
   private updateFormat(e: MouseEvent, format) {

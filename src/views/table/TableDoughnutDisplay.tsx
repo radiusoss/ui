@@ -1,8 +1,8 @@
 import * as React from 'react'
-import TableBaseRenderer from './_TableBaseRenderer'
+import TableBaseDisplay from './_TableBaseDisplay'
 import {Doughnut} from 'react-chartjs-2'
 
-export default class TableDoughnutRenderer extends TableBaseRenderer {
+export default class TableDoughnutDisplay extends TableBaseDisplay {
 
   spl = {
     labels: [

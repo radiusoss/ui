@@ -43,14 +43,12 @@ export default class NoteLines extends React.Component<any, any> {
     if (note.id) {
       var i = 0
       return (
-        <div style={{ backgroundColor: "white", overflowX: "hidden"}}>
-{/*
-*/}
+        <div className={styles.rendererHeight} style={{ backgroundColor: "white", overflowX: "hidden"}}>
           <div className="ms-Grid">
 {/*
           <div className="ms-Grid ms-clearfix" style={{ padding: 0 }}>
 */}
-          <div className="ms-Grid-row">
+            <div className="ms-Grid-row">
               <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 ms-textAlignCenter">
                 <div className="ms-font-xxl">
                   <InlineEditor
@@ -96,12 +94,12 @@ export default class NoteLines extends React.Component<any, any> {
             note.paragraphs.map(p => {
               i++
               return (
-                <div className="ms-Grid" key={ note.id + '-' + p.id }>
-                  <div className="ms-Grid-row">
-                    <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px' }}>
-                      <ParagraphEditor 
+                <div className="ms-Grid">
+                  <div className="ms-Grid-row" key={ note.id + '-' + p.id }>
+                    <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ padding: '0px 0px 0px 10px', margin: '0px' }}>
+                      <ParagraphEditor
                         note={note} 
-                        paragraph={p} 
+                        paragraph={p}
                         index={i-1} 
                         showControlBar={true} 
                         showParagraphTitle={false} 
@@ -109,26 +107,26 @@ export default class NoteLines extends React.Component<any, any> {
                         focus={i==1}
                       />
                     </div>
-                    <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }} >
-                      <ParagraphResult 
+                    <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ paddingLeft: '0px', margin: '0px' }} >
+                      <ParagraphResult
                         paragraph={p} 
                         showControlBar={false} 
                         showGraphBar={true}
-                        showParagraphTitle={true} 
+                        showParagraphTitle={true}
+                        stripDisplay={true}
                         key={note.id + '-pr-' + p.id + "-" + new Date().getTime}
                       />
                     </div>
-                    <div className="ms-Grid-row">
-                      <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }}>
-                        <hr/>
-                      </div>
+                  </div>
+                  <div className="ms-Grid-row">
+                    <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '0px', margin: '0px' }}>
+                      <hr/>
                     </div>
                   </div>
                 </div>
               )
             })
           }
-          <div style={{ display: "none"}}>{this.state.scrollTop = this.state.scrollTop + 1}</div>
         </div>
       )
     }
@@ -143,19 +141,23 @@ export default class NoteLines extends React.Component<any, any> {
 
   public componentWillUpdate(nextProps, nextState) {
     if (nextState.scrollTop == 1) {
+/*
       var sc = Scroll.animateScroll
       sc.scrollToTop({
         smooth: true
       })
+*/
     }
   }
 
   public componentDidUpdate(prevProps, prevState) {
     if (prevState.scrollTop == 1) {
+/*
       var sc = Scroll.animateScroll
       sc.scrollToTop({
         smooth: true
       })
+*/
     }
   }
 

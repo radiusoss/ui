@@ -1,8 +1,8 @@
 import * as React from 'react'
-import TableBaseRenderer from './_TableBaseRenderer'
+import TableBaseDisplay from './_TableBaseDisplay'
 import {Line} from 'react-chartjs-2'
 
-export default class TableLineRenderer extends TableBaseRenderer {
+export default class TableLineDisplay extends TableBaseDisplay {
   lineData = {}
 
   constructor(props) {
