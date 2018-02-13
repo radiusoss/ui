@@ -2,10 +2,15 @@ import * as React from 'react'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import HTML5Backend from 'react-dnd-html5-backend'
+import { connect } from 'react-redux'
 import { DragDropContext } from 'react-dnd'
+import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import { NotebookStore } from './../../store/NotebookStore'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
+import KuberApi from '../../api/kuber/KuberApi'
+import * as stylesImport from './../_styles/Styles.scss'
+const styles: any = stylesImport
 
 const DragAndDropCalendar = withDragAndDrop(BigCalendar)
 
@@ -16,8 +21,10 @@ export interface CalendarProps {
 }
 
 @DragDropContext(HTML5Backend)
+@connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 export default class Calendar extends React.Component<CalendarProps, any> {
   private notebookApi: NotebookApi
+  private k8sApi: KuberApi
 
   public static defaultProps: Partial<CalendarProps> = {
     defaultView: 'week',
@@ -33,14 +40,13 @@ export default class Calendar extends React.Component<CalendarProps, any> {
       slots: props.slots
     }
     this.notebookApi = window['NotebookApi']
+    this.k8sApi = window['KuberApi']
   }
 
   public render() {
-
     const { slots, defaultView, toolbar } = this.state
-
     return (
-      <div style={{ height: 1000}}>
+      <div className={styles.rendererHeight}>
         <DragAndDropCalendar
           selectable={true}
           resizable={true}
@@ -59,7 +65,25 @@ export default class Calendar extends React.Component<CalendarProps, any> {
         />
       </div>
     )
+  }
+  public async componentDidMount() {
+    this.k8sApi.getSlots()
+  }
 
+  public componentWillReceiveProps(nextProps) {
+    const { kuberMessageReceived } = nextProps
+    if (kuberMessageReceived && kuberMessageReceived.op) {
+      console.log('---', kuberMessageReceived)
+      if (kuberMessageReceived.op == "GET_SLOTS") {
+        this.setState({
+          slots: kuberMessageReceived.slots.map(s => {
+            s.start = new Date(s.start)
+            s.end = new Date(s.end)
+            return s
+          })
+        })
+      }
+    }
   }
 
   @autobind
@@ -81,6 +105,7 @@ export default class Calendar extends React.Component<CalendarProps, any> {
     this.setState({
       slots: slots
     })
+    this.k8sApi.putSlots(slots)
   }
 
   @autobind

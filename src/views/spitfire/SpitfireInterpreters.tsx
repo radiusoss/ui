@@ -32,7 +32,6 @@ export default class SpitfireInterpreters extends React.Component<any, any> {
   public render() {
     return (
       <div>
-        <br/>
         <div>
           <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
         </div>

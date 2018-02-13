@@ -44,7 +44,6 @@ export default class Apps extends React.Component<any, IKuberState> {
   public render() {
     return (
       <div>
-        <br/>
         <div className="ms-font-su">Applications</div>
         <Form 
           onSubmit={ this.submit } 

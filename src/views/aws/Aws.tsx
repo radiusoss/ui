@@ -48,7 +48,6 @@ export default class Aws extends React.Component<any, IAwsState> {
   public render() {
     return (
       <div>
-        <br/>
         <div className="ms-font-su">Amazon AWS</div>
         <Form
           onSubmit={ this.submit }

@@ -156,6 +156,14 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
     this.sendWebSocketMessage(JSON.stringify(this.PING()))
   }
 
+  public putSlots(slots): void {
+    this.sendWebSocketMessage(JSON.stringify(this.PUT_SLOTS(slots)))
+  }
+
+  public getSlots(): void {
+    this.sendWebSocketMessage(JSON.stringify(this.GET_SLOTS()))
+  }
+
   public command(command: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.COMMAND(command)))
   }
@@ -211,6 +219,25 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
   public PING() {
     return {
       'op':	'PING',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue()
+    }
+  }
+
+  public PUT_SLOTS(slots) {
+    return {
+      'op':	'PUT_SLOTS',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'slots': slots
+    }
+  }
+
+  public GET_SLOTS() {
+    return {
+      'op':	'GET_SLOTS',
       'principal': this.principalValue(),
       'ticket':	this.ticketValue(),
       'roles': this.rolesValue()

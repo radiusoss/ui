@@ -47,7 +47,6 @@ export default class Cluster extends React.Component<any, IClusterState> {
   public render() {
     return (
       <div>
-        <br/>
         <div className="ms-font-su">Cluster</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row" style={{ maxWidth: "500px" }}>
@@ -111,8 +110,9 @@ export default class Cluster extends React.Component<any, IClusterState> {
                         />
                       </div>
                     </div>
-                    <div className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 ms-clearfix">
+                  </div>
 {/*
+                    <div className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 ms-clearfix">
                       <FormConditionalSubmitButton
                         buttonProps={{
                           onClick: (e) => {
@@ -147,9 +147,8 @@ export default class Cluster extends React.Component<any, IClusterState> {
                         >
                         WS Delete Cluster
                       </FormConditionalSubmitButton>
-*/}
                     </div>
-                  </div>
+*/}
                 </div>
               </LayoutGroup>
             </Form>

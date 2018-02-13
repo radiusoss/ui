@@ -13,6 +13,7 @@ import { LayoutGroup } from '@uifabric/experiments/lib/LayoutGroup';
 import { Form, FormConditionalSubmitButton, FormDatePicker, FormDropdown, FormCheckBox, FormTextInput, Validators } from '@uifabric/experiments/lib/Form'
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { Label } from 'office-ui-fabric-react/lib/Label'
+import CalendarSlotsSpl from './../../spl/CalendarSlotsSpl'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
 import KuberApi from '../../api/kuber/KuberApi'
 import ConfigApi from '../../api/config/ConfigApi'
@@ -49,7 +50,7 @@ export default class Config extends React.Component<any, IKuberState> {
   }
 
   public componentDidMount() {
-    this.configApi = window['ConfigApi'] 
+    this.configApi = window['ConfigApi']
     this.k8sApi = window['KuberApi']
   }
 
@@ -57,7 +58,6 @@ export default class Config extends React.Component<any, IKuberState> {
     const { disabled, checked } = this.state
     return (
       <div>
-        <br/>
         <div className="ms-font-su">Kuber Configuration</div>
         <Form 
           onSubmit={ this.submit } 
@@ -93,7 +93,27 @@ export default class Config extends React.Component<any, IKuberState> {
                         }
                       }}
                     >
-                    Ping Kuber Server
+                    PING
+                  </FormConditionalSubmitButton>
+                  <FormConditionalSubmitButton
+                      buttonProps={{
+                        onClick: (e) => {
+                          this.method = 'GET_SLOTS'
+                          this.wsMessage = this.k8sApi.GET_SLOTS()
+                        }
+                      }}
+                    >
+                    GET_SLOTS
+                  </FormConditionalSubmitButton>
+                  <FormConditionalSubmitButton
+                      buttonProps={{
+                        onClick: (e) => {
+                          this.method = 'PUT_SLOTS'
+                          this.wsMessage = this.k8sApi.PUT_SLOTS(CalendarSlotsSpl)
+                        }
+                      }}
+                    >
+                    PUT_SLOTS
                   </FormConditionalSubmitButton>
                   <div style={{ padding: "10px", backgroundColor: "black", color: "rgb(0, 187, 0)"}}>
                     {
@@ -141,6 +161,14 @@ export default class Config extends React.Component<any, IKuberState> {
     values.name = values.name_input
     if (this.method == 'PING') {
       this.k8sApi.send(this.wsMessage)
+      return
+    }
+    if (this.method == 'PUT_SLOTS') {
+      this.k8sApi.putSlots(CalendarSlotsSpl)
+      return
+    }
+    if (this.method == 'GET_SLOTS') {
+      this.k8sApi.getSlots()
       return
     }
     if (this.method == 'LOAD_CONFIG') {
