@@ -16,7 +16,7 @@ var items: any[]
 var groups: IGroup[]
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class Interpreters extends React.Component<any, any> {
+export default class SpitfireInterpreters extends React.Component<any, any> {
   private notebookApi: NotebookApi
 
   public constructor(props) {
@@ -30,17 +30,12 @@ export default class Interpreters extends React.Component<any, any> {
   }
 
   public render() {
-
     return (
-
       <div>
-        
         <br/>
-
         <div>
           <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
         </div>
-
         <div style={{ padding: "10px", backgroundColor: "black" }}>
           <JSONTree 
             data={this.state.interpreterSettings} 
@@ -79,9 +74,7 @@ export default class Interpreters extends React.Component<any, any> {
         />
 */}
       </div>
-
     )
-
   }
 
   public async componentDidMount() {

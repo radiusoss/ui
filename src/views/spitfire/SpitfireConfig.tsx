@@ -25,7 +25,7 @@ var columns = [{
   }]
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class Configuration extends React.Component<any, any> {
+export default class SpitfireConfig extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private selection: Selection
 

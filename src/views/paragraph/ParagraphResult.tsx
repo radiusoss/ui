@@ -164,16 +164,14 @@ export default class ParagraphResult extends React.Component<any, any> {
         {
         (showParagraphTitle == true) && 
         <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '10px', margin: '0px', overflow: 'hidden' }}>
-          <div className={cl} style={{paddingLeft: "10px"}}>
-            <InlineEditor
-              text={title}
-              paramName="title"
-              change={this.updateTitle}
-              minLength={0}
-              maxLength={33}
-              activeClassName="ms-font-xl"
-            />
-          </div>
+          <InlineEditor
+            text={title}
+            paramName="title"
+            change={this.updateTitle}
+            minLength={0}
+            maxLength={33}
+            activeClassName="ms-font-xl"
+          />
         </div>
         }
         <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }} key={paragraph.id}>

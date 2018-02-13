@@ -96,7 +96,10 @@ export default class Sidebar extends React.Component<any, any> {
             <li className="divider"></li>
 */}
             <li className={this.activeRoute("/dla/school/lessons")}>
-              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--Work"></i> School</a>
+{/*
+            <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--Work"></i> School</a>
+*/}
+            <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className=""></i> School</a>
               <ul className="nav-dropdown-items">
                 <li className="nav-item">
                   <NavLink to={'/dla/school/lessons/1'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--CalendarWorkWeek"></i> Lesson 1</NavLink>
@@ -110,7 +113,10 @@ export default class Sidebar extends React.Component<any, any> {
               </ul>
             </li>
             <li className={this.activeRoute("/dla/about")}>
+{/*
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--AnalyticsQuery"></i> About</a>
+*/}
+              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className=""></i> About</a>
               <ul className="nav-dropdown-items">
                 <li className="nav-item">
                   <NavLink to={'/dla/about/platform'} className="nav-link" activeClassName="active"><FabricIcon name="GlobalNavButton"/> Platform</NavLink>

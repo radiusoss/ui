@@ -21,14 +21,14 @@ import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
 
 const MAX_LENGTH = 20
 
-export type IKuberState = {
+export type IClusterState = {
   clusterDef: Result<KuberResponse>,
   overview: Result<KuberResponse>
 }
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Cluster extends React.Component<any, IKuberState> {
+export default class Cluster extends React.Component<any, IClusterState> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
   private k8sApi: KuberApi
@@ -39,11 +39,8 @@ export default class Cluster extends React.Component<any, IKuberState> {
     overview: null
   } 
 
-  public constructor(props) {    
+  public constructor(props) {
     super(props)
-  }
-
-  public async componentDidMount() {
     this.k8sApi = window['KuberApi']
   }
 
@@ -53,8 +50,8 @@ export default class Cluster extends React.Component<any, IKuberState> {
         <br/>
         <div className="ms-font-su">Cluster</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+          <div className="ms-Grid-row" style={{ maxWidth: "500px" }}>
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <Slider
                 label='Number of Workers'
                 min={ 0 }
@@ -68,7 +65,9 @@ export default class Cluster extends React.Component<any, IKuberState> {
               <div className="ms-font-xxl">Health</div>
               <ClusterHealth/>
             </div>
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
+          </div>
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
             <Form 
               onSubmit={ this.submit } 
               showErrorsWhenPristine={ true }
@@ -113,7 +112,7 @@ export default class Cluster extends React.Component<any, IKuberState> {
                       </div>
                     </div>
                     <div className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 ms-clearfix">
-    {/*
+{/*
                       <FormConditionalSubmitButton
                         buttonProps={{
                           onClick: (e) => {
@@ -148,7 +147,7 @@ export default class Cluster extends React.Component<any, IKuberState> {
                         >
                         WS Delete Cluster
                       </FormConditionalSubmitButton>
-    */}
+*/}
                     </div>
                   </div>
                 </div>
@@ -178,10 +177,10 @@ export default class Cluster extends React.Component<any, IKuberState> {
           .then(json => { this.setState({clusterDef: json})})
         break
       case 'GET_OVERVIEW':
-      this.setState({overview: loading})
-      this.k8sApi.getOverview()
-          .then(json => { this.setState({overview: json})})
-        break
+        this.setState({overview: loading})
+        this.k8sApi.getOverview()
+            .then(json => { this.setState({overview: json})})
+          break
     }
   }
 

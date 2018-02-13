@@ -48,9 +48,9 @@ export default class Config extends React.Component<any, IKuberState> {
     super(props)
   }
 
-  public async componentDidMount() {
-    this.k8sApi = window['KuberApi']
+  public componentDidMount() {
     this.configApi = window['ConfigApi'] 
+    this.k8sApi = window['KuberApi']
   }
 
   public render() {
@@ -58,7 +58,7 @@ export default class Config extends React.Component<any, IKuberState> {
     return (
       <div>
         <br/>
-        <h3>Kuber Configuration</h3>
+        <div className="ms-font-su">Kuber Configuration</div>
         <Form 
           onSubmit={ this.submit } 
           showErrorsWhenPristine={ true }
@@ -88,7 +88,7 @@ export default class Config extends React.Component<any, IKuberState> {
                   <FormConditionalSubmitButton
                       buttonProps={{
                         onClick: (e) => {
-                          this.method = 'WS'
+                          this.method = 'PING'
                           this.wsMessage = this.k8sApi.PING()
                         }
                       }}
@@ -139,7 +139,7 @@ export default class Config extends React.Component<any, IKuberState> {
   @autobind
   private submit(values: any): void {
     values.name = values.name_input
-    if (this.method == 'WS') {
+    if (this.method == 'PING') {
       this.k8sApi.send(this.wsMessage)
       return
     }

@@ -14,70 +14,54 @@ import { Form, FormConditionalSubmitButton, FormDatePicker, FormDropdown, FormCh
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
-import KuberApi from '../../api/kuber/KuberApi'
+import ConfigApi from '../../api/config/ConfigApi'
+import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
 
-const MAX_LENGTH = 20
-
-export type IKuberState = {
-  wsMessages: any[]
-  restResponse: any
-  formResults: any
-  disabled: boolean
-  checked: boolean
+export type IAwsState = {
+  config: IConfig
+  volumes: any
+  kuberWsResponse: Result<KuberResponse>
 }
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Aws extends React.Component<any, IKuberState> {
+export default class Aws extends React.Component<any, IAwsState> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
+  private configApi: ConfigApi
   private k8sApi: KuberApi
-  private method: string
-  private url: string
+  private action: string
   private wsMessage: any
 
   state = {
-    wsMessages: new Array(),
-    restResponse: {},
-    formResults: null,
-    disabled: false,
-    checked: false
+    config: emptyConfig,
+    volumes: {},
+    kuberWsResponse: null
   } 
 
   public constructor(props) {    
     super(props)
-  }
-
-  public async componentDidMount() {
     this.k8sApi = window['KuberApi']
+    this.configApi = window['ConfigApi'] 
   }
 
   public render() {
-
-    const { disabled, checked } = this.state
-
     return (
-
       <div>
-
         <br/>
-        <h3>Amazon AWS</h3>
-
-        <Form 
-          onSubmit={ this.submit } 
+        <div className="ms-font-su">Amazon AWS</div>
+        <Form
+          onSubmit={ this.submit }
           showErrorsWhenPristine={ true }
         >
-
           <LayoutGroup layoutGap={ 20 } direction='vertical'>
-
             <div className="ms-Grid	ms-slideRightIn40 ms-clearfix">
               <div className="ms-Grid-row ms-clearfix">
                 <div className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 ms-clearfix">
                   <FormConditionalSubmitButton
                     buttonProps={{
                       onClick: (e) => {
-                        this.method = 'GET'
-                        this.url = 'http://localhost:9091/api/v1/cloud/aws/eu-central-1/volumes'
+                        this.action = 'GET_EBS_VOLUMES'
                       }
                     }}
                     >
@@ -85,7 +69,7 @@ export default class Aws extends React.Component<any, IKuberState> {
                   </FormConditionalSubmitButton>
                   <div style={{ padding: "10px", backgroundColor: "black" }}>
                     <JSONTree 
-                      data={this.state.restResponse} 
+                      data={this.state.volumes} 
                       theme='greenscreen'
                       invertTheme={false}
                     />
@@ -94,52 +78,32 @@ export default class Aws extends React.Component<any, IKuberState> {
               </div>
             </div>
           </LayoutGroup>
-
         </Form>
-
       </div>
-
     )
 
   }
 
-  public componentWillReceiveProps(nextProps) {
-    const { config, kuberMessageReceived } = nextProps
-    if (config && ! isEqual(config, this.config)) {
-      this.config = config
-    }
-  }
-
-  private newRestClient(url: string) {
-    this.setState({restResponse: {}})
-    return new RestClient({
-      name: 'KuberAws',
-      url: url,
-      path: '/'
+  public componentDidMount() {
+    this.configApi = window['ConfigApi'] 
+    this.k8sApi = window['KuberApi']
+    this.setState({
+      config: this.configApi.getConfig()
     })
   }
 
   @autobind
   private submit(values: any): void {
-    values.name = values.name_input
-    this.restClient = this.newRestClient(this.url)
-    switch (this.method) {
-      case 'GET':
-        this.restClient.get<{}>(values, jsonOpt, "")
-          .then(json => { this.setState({restResponse: json})})
+    this.restClient = new RestClient({
+      name: 'KuberRestAws',
+      url: this.config.kuberRest,
+      path: '/api/v1/cloud/aws'
+    })
+    switch (this.action) {
+      case 'GET_EBS_VOLUMES':
+        this.restClient.get<{}>(values, jsonOpt, "/eu-central-1/volumes")
+          .then(json => { this.setState({volumes: json})})
         break
-      case 'POST':
-        this.restClient.post<{}>(values, {}, jsonOpt, "")
-          .then(json => { this.setState({restResponse: json})})
-        break
-      case 'PUT':
-        this.restClient.put<{}>(values, {}, jsonOpt, "")
-          .then(json => { this.setState({restResponse: json})})
-        break
-      case 'DELETE':
-        this.restClient.delete<{}>(values, jsonOpt, "")
-          .then(json => { this.setState({restResponse: json})})
-      break
     }
   }
 

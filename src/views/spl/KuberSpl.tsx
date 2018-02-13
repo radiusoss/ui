@@ -423,16 +423,12 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
 
   @autobind
   private submit(values: any): void {
-
     values.name = values.name_input
-
     if (this.method == 'WS') {
       this.k8sApi.send(this.wsMessage)
       return
     }
-
     this.restClient = this.newRestClient(this.url)
-
     switch (this.method) {
       case 'GET':
         this.restClient.get<{}>(values, jsonOpt, "")

@@ -72,7 +72,7 @@ export interface CodeEditorProps {
   enableBasicAutocompletion?: boolean | [string],
   enableLiveAutocompletion?: boolean | [string],
   commands?: [EditorCommand],
-  scrollMargin?: [number]
+  scrollMargin?: [number, number, number, number]
 }
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook, null, { withRef: true })
@@ -111,7 +111,7 @@ export default class CodeEditor extends React.Component<any, any> {
     wrapEnabled: true,
     enableBasicAutocompletion: false,
     enableLiveAutocompletion: false,
-    scrollMargin: [0,0,0,0]
+    scrollMargin: [0, 0, 0, 0]
   }
 
   public constructor(props) {
@@ -157,8 +157,6 @@ export default class CodeEditor extends React.Component<any, any> {
       annotations,
       markers,
     } = this.props
-
-    console.log('---focus', focus)
 
     this.editor = ace.edit(this.refEditor)
 
