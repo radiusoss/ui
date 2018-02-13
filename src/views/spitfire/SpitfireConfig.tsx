@@ -48,7 +48,7 @@ export default class SpitfireConfig extends React.Component<any, any> {
     return (
       <div>
         <br/>
-        <h3>Spitfire Configuration</h3>
+        <div className="ms-font-su">Spitfire Configuration</div>
         <h4>For security reasons, some key/value pairs will not be shown.</h4>
         <div>
           <div>{ selectionDetails }</div>

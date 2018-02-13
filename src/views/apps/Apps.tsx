@@ -45,7 +45,7 @@ export default class Apps extends React.Component<any, IKuberState> {
     return (
       <div>
         <br/>
-        <h3>Applications</h3>
+        <div className="ms-font-su">Applications</div>
         <Form 
           onSubmit={ this.submit } 
           showErrorsWhenPristine={ true }
