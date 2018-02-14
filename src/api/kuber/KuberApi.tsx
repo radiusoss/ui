@@ -8,6 +8,7 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/C
 import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import { NotebookStore } from './../../store/NotebookStore'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
+import * as moment from 'moment'
 
 export interface BooleanResponse {
   boolean: boolean
@@ -226,12 +227,22 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
   }
 
   public PUT_SLOTS(slots) {
+    var slt = slots.map(s => {
+      return {
+      id: s.id,
+      title: s.title,
+      start: moment(s.start).toISOString(),
+      end: moment(s.end).toISOString(),
+      desc: s.desc,
+      allDay: s.allDay
+      }
+    })    
     return {
       'op':	'PUT_SLOTS',
       'principal': this.principalValue(),
       'ticket':	this.ticketValue(),
       'roles': this.rolesValue(),
-      'slots': slots
+      'slots': slt
     }
   }
 

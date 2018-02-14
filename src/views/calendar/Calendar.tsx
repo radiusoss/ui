@@ -73,14 +73,14 @@ export default class Calendar extends React.Component<CalendarProps, any> {
   public componentWillReceiveProps(nextProps) {
     const { kuberMessageReceived } = nextProps
     if (kuberMessageReceived && kuberMessageReceived.op) {
-      console.log('---', kuberMessageReceived)
       if (kuberMessageReceived.op == "GET_SLOTS") {
+        var slots = kuberMessageReceived.slots.map(s => {
+          s.start = new Date(s.start)
+          s.end = new Date(s.end)
+          return s
+        })
         this.setState({
-          slots: kuberMessageReceived.slots.map(s => {
-            s.start = new Date(s.start)
-            s.end = new Date(s.end)
-            return s
-          })
+          slots: slots
         })
       }
     }
@@ -100,7 +100,8 @@ export default class Calendar extends React.Component<CalendarProps, any> {
       title: 'Cluster UP - ' + NotebookStore.state().profileDisplayName,
       start: slotInfo.start,
       end: slotInfo.end,
-      desc: 'Cluster UP - ' + NotebookStore.state().profileDisplayName
+      desc: 'Cluster UP - ' + NotebookStore.state().profileDisplayName,
+      allDay: false
     })
     this.setState({
       slots: slots
@@ -118,6 +119,7 @@ export default class Calendar extends React.Component<CalendarProps, any> {
     this.setState({
       slots: nextEvents
     })
+    this.k8sApi.putSlots(nextEvents)
   }
 
 //  @autobind

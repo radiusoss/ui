@@ -84,12 +84,6 @@ export default class Sidebar extends React.Component<any, any> {
                 <li className="nav-item">
                   <NavLink to={'/dla/kuber/costs'} className="nav-link" activeClassName="active"><FabricIcon name="Money"/> Costs</NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink to={'/dla/docs'} className="nav-link" activeClassName="active"><FabricIcon name="Documentation"/> Documentation</NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to={'/dla/help'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--Help"></i> Help</NavLink>
-                </li>
               </ul>
             </li>
 {/*
@@ -109,6 +103,17 @@ export default class Sidebar extends React.Component<any, any> {
                 </li>
                 <li className="nav-item">
                   <NavLink to={'/dla/school/lessons/3'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--CalendarWorkWeek"></i> Lesson 3</NavLink>
+                </li>
+              </ul>
+            </li>
+            <li className={this.activeRoute("/dla/support")}>
+              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className=""></i> Support</a>
+              <ul className="nav-dropdown-items">
+                <li className="nav-item">
+                  <NavLink to={'/dla/support/docs'} className="nav-link" activeClassName="active"><FabricIcon name="Documentation"/> Documentation</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/support/help'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--Help"></i> Help</NavLink>
                 </li>
               </ul>
             </li>

@@ -304,14 +304,14 @@ export default class NotebookControlBar extends React.Component<any, any> {
             name: 'Documentation',
             icon: 'Documentation',
             title: 'Documentation',
-            onClick: () => history.push(`/dla/docs`)
+            onClick: () => history.push(`/dla/support/docs`)
           },
           {
             key: 'help',
             name: 'Help',
             icon: 'Help',
             title: 'Help',
-            onClick: () => history.push(`/dla/help`)
+            onClick: () => history.push(`/dla/support/help`)
           }
         ]
       },

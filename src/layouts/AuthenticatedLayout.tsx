@@ -41,8 +41,8 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
               <Route exact path="/dla/about/highlights" name="About" component={About} />
               <Route exact path="/dla/about/release-notes" name="Release Notes" component={ReleaseNotes} />
               <Route exact path="/dla/about/hall-of-fame" name="About" component={HallOfFame} />
-              <Route exact path="/dla/docs" name="Docs" component={Docs} />
-              <Route exact path="/dla/help" name="Help" component={Help} />
+              <Route exact path="/dla/support/docs" name="Docs" component={Docs} />
+              <Route exact path="/dla/support/help" name="Help" component={Help} />
               <Route exact path="/dla/check" name="Check" component={Check} />
               <Route exact path="/dla/k8s" name="Kubernetes" component={Kuber} />
               <Route exact path="/dla/kuberspl" name="Kuber Spl" component={KuberSpl} />
@@ -60,7 +60,7 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
     if (
       this.props.location.pathname.indexOf("/dla/explorer/notes") > -1 || 
       this.props.location.pathname.indexOf("/dla/explorer/note/") > -1 ||
-      this.props.location.pathname.indexOf("/dla/docs") > -1 ||
+      this.props.location.pathname.indexOf("/dla/support/docs") > -1 ||
       this.props.location.pathname.indexOf("/dla/explorer/flows") > -1 ||
       this.props.location.pathname.indexOf("/dla/explorer/flow/dag") > -1 
       ) {
