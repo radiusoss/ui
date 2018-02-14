@@ -139,22 +139,22 @@ export default class Highlights extends React.Component<any, any> {
               </li>
               <li className="text-center">
                 <a href='http://datalayer.io' target="_blank">
-                  <img src={ 'img/studio/studio.svg' } alt='' />
-                  <span>Data Studio</span>
+                  <img src={ 'img/explorer/explorer.svg' } alt='' />
+                  <span>Explorer</span>
                 </a>
               </li>
               <li className="text-center">
                 <a href='http://datalayer.io' target="_blank">
-                  <img src={ 'img/kuber/kuber-board.svg' } alt='' />
-                  <span>Kuber Board</span>
+                  <img src={ 'img/studio/studio.svg' } alt='' />
+                  <span>Studio</span>
                 </a>
               </li>
             </ul>
             <ul className={ styles.featureList } aria-label='List of highlighted features'>
               <li className="text-center">
                 <a href='http://datalayer.io' target="_blank">
-                  <img src={ 'img/kuber/kuber-cli.svg' } alt='' />
-                  <span>Kuber CLI</span>
+                  <img src={ 'img/kuber/kuber.svg' } alt='' />
+                  <span>Kuber</span>
                 </a>
               </li>
               <li className="text-center">
