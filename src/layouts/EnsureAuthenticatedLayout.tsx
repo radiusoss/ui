@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Route } from 'react-router-dom'
 import Check from './../views/spl/Check'
 import Datasets from './../views/dataset/Datasets'
-import Board from './../views/board/Board'
+import Home from './../views/home/Home'
 import Flows from './../views/flows/Flows'
 import FlowDetail from './../views/flow/FlowDetail'
 import FlowDag from './../views/flow/FlowDag'
@@ -57,7 +57,7 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
       return (
         <div>
           <Route exact path="/dla" component={Welcome}/>
-          <Route path="/dla/board" name="Board" component={Board}/>
+          <Route path="/dla/home" name="Home" component={Home}/>
           <Route path="/dla/explorer/notes/list" name="Notes List" component={NotesList}/>
           <Route path="/dla/explorer/notes/cover" name="Notebook Cover" component={NotebookCover}/>
           <Route path="/dla/explorer/note/scratchpad" name="Note Scratchpad" component={Scratchpad}/>

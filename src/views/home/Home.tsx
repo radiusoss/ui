@@ -12,7 +12,7 @@ import { Slider } from 'office-ui-fabric-react/lib/Slider'
 import { toastr } from 'react-redux-toastr'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class Board extends React.Component<any, any> {
+export default class Home extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
   state = {

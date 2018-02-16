@@ -10,7 +10,7 @@ export default class Help extends React.Component<any, any> {
       <div>
         <NotYetAvailable/>
         <div className={styles.editorHeight} style={{ width: "100%" }}>
-          <iframe src="http://github.com/datalayer/datalayer/issues" className={styles.editorHeight} style={{ width: "100%" }}></iframe>
+          <iframe src="https://github.com/datalayer/datalayer/issues" className={styles.editorHeight} style={{ width: "100%" }}></iframe>
         </div>
       </div>
     )

@@ -66,7 +66,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
     this.updateMenu()
     return (
       <div style = {{ backgroundColor: "white !important"}} >
-
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
@@ -77,6 +76,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
                 className={ styles.commandBarBackgroundTransparentLarge }
               />
             </div>
+{/*
             <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-textAlignRight">
               <SearchBox
                 onFocus={ () => toastr.warning('Search is not available', 'Looks like you are eager for the next release...') }
@@ -84,9 +84,9 @@ export default class NotebookControlBar extends React.Component<any, any> {
                 underlined={ true }
               />
             </div>
-          </div>
+*/}
+            </div>
         </div>
-
         <Panel
           isOpen={ this.state.showNewNotePanel }
           type={ PanelType.smallFixedNear }
@@ -244,7 +244,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
         name: 'Home',
         icon: 'Home',
         title: 'Home',
-        onClick: () => history.push(`/dla/board`)
+        onClick: () => history.push(`/dla/home`)
       },
       {
         key: 'notes',
@@ -298,7 +298,8 @@ export default class NotebookControlBar extends React.Component<any, any> {
             icon: 'Money',
             title: 'Costs',
             onClick: () => history.push(`/dla/kuber/costs`)
-          },
+          }
+/*
           {
             key: 'docs',
             name: 'Documentation',
@@ -313,6 +314,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
             title: 'Help',
             onClick: () => history.push(`/dla/support/help`)
           }
+*/
         ]
       },
       {
