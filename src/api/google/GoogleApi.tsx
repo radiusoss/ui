@@ -40,7 +40,7 @@ export default class GoogleApi extends React.Component<any, any> {
       this.restClient = new RestClient({
         name: 'GoogleApi',
         url: this.config.kuberRest,
-        path: '/api/v1/google',
+        path: '/kuber/api/v1/google',
         username: '',
         password: ''
       })
@@ -49,7 +49,7 @@ export default class GoogleApi extends React.Component<any, any> {
 
   public toGoogle() {
     console.log("Start Login with Google...")
-    window.location.href = this.config.kuberRest + "/api/v1/google?"
+    window.location.href = this.config.kuberRest + "/kuber/api/v1/google?"
        + "client_id=" + this.config.googleClientId
        + "&access_type=offline"
        + "&include_granted_scopes=true"

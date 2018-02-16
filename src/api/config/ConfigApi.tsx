@@ -12,7 +12,7 @@ export const KuberRestStorageKey = 'kuber_rest'
 
 export type IConfig = {
 	hdfs: string
-	kuberBoard: string
+	kuberUi: string
 	kuberRest: string
 	kuberWs: string
 	googleApiKey: string
@@ -29,7 +29,7 @@ export type IConfig = {
 
 export const emptyConfig: IConfig = {
   hdfs: '',
-  kuberBoard: '',
+  kuberUi: '',
   kuberRest: '',
   kuberWs: '',
 	googleApiKey: '',
@@ -91,7 +91,7 @@ export default class ConfigApi extends React.Component<any, any> {
     var restClient = new RestClient({
       name: 'Config',
       url: kuberRest,
-      path: '/api/v1',
+      path: '/kuber/api/v1',
       username: '',
       password: ''
     })
@@ -101,8 +101,8 @@ export default class ConfigApi extends React.Component<any, any> {
       console.log('Config', config)
       var currentBaseUrl = this.currentBaseUrl()
       config.kuberRest = kuberRest
-      if (config.kuberBoard == '') {
-        config.kuberBoard = currentBaseUrl
+      if (config.kuberUi == '') {
+        config.kuberUi = currentBaseUrl
       }
       if (config.kuberRest == '') {
         config.kuberRest = currentBaseUrl
@@ -111,13 +111,13 @@ export default class ConfigApi extends React.Component<any, any> {
         config.kuberWs = currentBaseUrl.replace('http', 'ws')
       }
       if (config.googleRedirect == '') {
-        config.googleRedirect = currentBaseUrl + "/auth/google/callback"
+        config.googleRedirect =  config.kuberUi + "/kuber/auth/google/redirect"
       }
       if (config.microsoftRedirect == '') {
-        config.microsoftRedirect = currentBaseUrl + "/auth/microsoft/callback"
+        config.microsoftRedirect = config.kuberUi + "/kuber/auth/microsoft/redirect"
       }
       if (config.twitterRedirect == '') {
-        config.twitterRedirect = currentBaseUrl + "/api/v1/twitter/maketoken"
+        config.twitterRedirect = config.kuberUi + "/kuber/api/v1/twitter/maketoken"
       }
       console.log('Updated Config', config)
       this.setState({

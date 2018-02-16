@@ -111,7 +111,7 @@ export default class Spl extends React.Component<any, IKuberState> {
                 description = { 'GET ' + this.config.kuberRest }
                 disabled = { disabled }
                 checked = { checked }
-                onClick =  { (e) => this.getAllSpl(e, this.config.kuberRest + "/api/v1/spl") }
+                onClick =  { (e) => this.getAllSpl(e, this.config.kuberRest + "/kuber/api/v1/spl") }
                 >
                 Get All Samples
               </CompoundButton>
@@ -122,7 +122,7 @@ export default class Spl extends React.Component<any, IKuberState> {
                 description = { 'GET ' + this.config.kuberRest }
                 disabled = { disabled }
                 checked = { checked }
-                onClick = { (e) => this.getSpl(e, this.config.kuberRest + "/api/v1/spl/name-1") }
+                onClick = { (e) => this.getSpl(e, this.config.kuberRest + "/kuber/api/v1/spl/name-1") }
                 >
                 Get Sample
               </CompoundButton>
@@ -133,7 +133,7 @@ export default class Spl extends React.Component<any, IKuberState> {
                 description = { 'PUT ' + this.config.kuberRest }
                 disabled = { disabled }
                 checked = { checked }
-                onClick = { (e) => this.updateSpl(e, this.config.kuberRest + "/api/v1/spl/name-1") }
+                onClick = { (e) => this.updateSpl(e, this.config.kuberRest + "/kuber/api/v1/spl/name-1") }
                 >
                 Update Sample
               </CompoundButton>
@@ -144,7 +144,7 @@ export default class Spl extends React.Component<any, IKuberState> {
                 description = { 'DELETE ' + this.config.kuberRest }
                 disabled = { disabled }
                 checked = { checked }
-                onClick = { (e) => this.deleteSpl(e, this.config.kuberRest + "/api/v1/spl/name-1") }
+                onClick = { (e) => this.deleteSpl(e, this.config.kuberRest + "/kuber/api/v1/spl/name-1") }
                 >
                 Delete Sample
               </CompoundButton>
@@ -198,7 +198,7 @@ export default class Spl extends React.Component<any, IKuberState> {
     return new RestClient({
       name: 'Kuber',
       url: this.config.kuberRest,
-      path: '/api/v1/spl'
+      path: '/kuber/api/v1/spl'
     })
   }
 

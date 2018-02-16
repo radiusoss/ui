@@ -52,7 +52,7 @@ export default class ScratchpadEditor extends React.Component<any, any> {
 //          theme="tomorrow"
           theme="monokai"
           showGutter={true}
-          fontSize="18px"
+          fontSize="14px"
           focus={true}
           readOnly={false}
 //          onLoad={this.onLoad}

@@ -96,7 +96,7 @@ export default class Aws extends React.Component<any, IAwsState> {
     this.restClient = new RestClient({
       name: 'KuberRestAws',
       url: this.config.kuberRest,
-      path: '/api/v1/cloud/aws'
+      path: '/kuber/api/v1/cloud/aws'
     })
     switch (this.action) {
       case 'GET_EBS_VOLUMES':

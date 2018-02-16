@@ -43,7 +43,7 @@ export default class MicrosoftApi extends React.Component<any, any> {
 
   public toMicrosoft() {
     console.log("Start Login with Microsoft...")
-    window.location.href = this.config.kuberRest + "/api/v1/microsoft?"
+    window.location.href = this.config.kuberRest + "/kuber/api/v1/microsoft?"
        + "client_id=" + this.config.microsoftApplicationId
        + "&tenant=common"
        + "&response_type=code"

@@ -8,6 +8,8 @@ import NotebookApi from './../../api/notebook/NotebookApi'
 import ScratchpadDisplay from './../scratchpad/ScratchpadDisplay'
 import ClusterHealth from './../cluster/ClusterHealth'
 import Calendar from './../calendar/Calendar'
+import { Slider } from 'office-ui-fabric-react/lib/Slider'
+import { toastr } from 'react-redux-toastr'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Board extends React.Component<any, any> {
@@ -42,25 +44,6 @@ export default class Board extends React.Component<any, any> {
         <div className="ms-Grid-row">
 
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/calendar")}}>
-              <Icon iconName='Calendar' className='ms-Icon50' />
-            </a>
-            <Calendar 
-              defaultView='day' 
-              toolbar={false}
-              slots={[
-                {
-                  id: 0,
-                  title: 'A Day Event very long title',
-                  allDay: false,
-                  start: new Date(2018, 1, 11, 10, 0, 0, 0),
-                  end: new Date(2018, 1, 11, 19, 0, 0, 0),
-                }
-              ]}
-            />
-          </div>
-
-          <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
             <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/explorer/note/scratchpad")}}>
               <Icon iconName='NoteForward' className='ms-Icon50' />
             </a>
@@ -79,6 +62,35 @@ export default class Board extends React.Component<any, any> {
               <Icon iconName='Health' className='ms-Icon50' />
             </a>
             <ClusterHealth/>
+            <Slider
+                label='Number of Workers'
+                min={ 0 }
+                max={ 3 }
+                step={ 1 }
+                defaultValue={ 2 }
+                showValue={ true }
+                disabled={ true }
+                onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + ' worker(s).') }
+              />
+          </div>
+
+          <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/calendar")}}>
+              <Icon iconName='Calendar' className='ms-Icon50' />
+            </a>
+            <Calendar 
+              defaultView='agenda' 
+              toolbar={false}
+              slots={[
+                {
+                  id: 0,
+                  title: 'A Day Event very long title',
+                  allDay: false,
+                  start: new Date(2018, 1, 11, 10, 0, 0, 0),
+                  end: new Date(2018, 1, 11, 19, 0, 0, 0),
+                }
+              ]}
+            />
           </div>
 
         </div>

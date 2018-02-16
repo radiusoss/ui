@@ -13,9 +13,7 @@ export default class HtmlDisplay extends React.Component<any, any> {
       __html: data
     }
     return (
-      <div style={{paddingLeft: "10px"}}>
-        <div dangerouslySetInnerHTML={html}/>
-      </div>
+      <div dangerouslySetInnerHTML={html}/>
     )
   }
 

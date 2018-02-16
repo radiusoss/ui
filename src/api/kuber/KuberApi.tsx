@@ -66,7 +66,7 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
 
       this.config = config
 
-      this.webSocketClient = new WebSocket(this.config.kuberWs + '/api/v1/ws')
+      this.webSocketClient = new WebSocket(this.config.kuberWs + '/kuber/api/v1/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
         console.log("Kuber WebSocket has been opened.")
         toastr.success('Kuber', 'Connected to Kuber API.')
@@ -94,7 +94,7 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
       this.restClient = new RestClient({
         name: 'KuberApi',
         url: this.config.kuberRest,
-        path: '/api',
+        path: '/kuber/api',
         username: '',
         password: ''
       })

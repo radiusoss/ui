@@ -6,6 +6,7 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/C
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
+import NotYetAvailable from './../message/NotYetAvailable'
 import { Slider } from 'office-ui-fabric-react/lib/Slider'
 import { toastr } from 'react-redux-toastr'
 import ClusterHealth from './ClusterHealth'
@@ -49,16 +50,21 @@ export default class Cluster extends React.Component<any, IClusterState> {
       <div>
         <div className="ms-font-su">Cluster</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <NotYetAvailable/>
+            </div>
+          </div>
           <div className="ms-Grid-row" style={{ maxWidth: "500px" }}>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <Slider
                 label='Number of Workers'
                 min={ 0 }
                 max={ 3 }
-                step={ 1 }
+                step={ 2 }
                 defaultValue={ 0 }
                 showValue={ true }
-                disabled={ true }
+                disabled={ false }
                 onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + ' worker(s).') }
               />
               <div className="ms-font-xxl">Health</div>

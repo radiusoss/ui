@@ -100,7 +100,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       this.restClient = new RestClient({
         name: 'SpitfireApi',
         url: this.config.spitfireRest,
-        path: '/api',
+        path: '/spitfire/api',
         username: '',
         password: ''
       })
@@ -113,7 +113,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       (!this.state.isTwitterAuthenticated && isTwitterAuthenticated)
     ) {
 */
-      this.webSocketClient = new WebSocket(this.config.spitfireWs + '/ws')
+      this.webSocketClient = new WebSocket(this.config.spitfireWs + '/spitfire/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
         console.log("Spitfire WebSocket has been opened.");
         toastr.success('Spitfire', 'Connected to Spitfire API.')

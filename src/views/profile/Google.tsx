@@ -273,7 +273,7 @@ export default class Google extends React.Component<any, IGoogleProfileState> {
         return <DefaultButton
           primary={ true }
           disabled={ true }
-          text='No contact selected.'
+          text='No contact selected'
           onClick={ () => this.addUsers(this.selection.getSelection()) }
         />
       case 1:

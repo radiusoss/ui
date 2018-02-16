@@ -97,10 +97,10 @@ export default class Calendar extends React.Component<CalendarProps, any> {
     var slots = this.state.slots
     slots.push({
       id: slots.length + 1,
-      title: 'Cluster UP - ' + NotebookStore.state().profileDisplayName,
+      title: NotebookStore.state().profileDisplayName,
       start: slotInfo.start,
       end: slotInfo.end,
-      desc: 'Cluster UP - ' + NotebookStore.state().profileDisplayName,
+      desc: NotebookStore.state().profileDisplayName,
       allDay: false
     })
     this.setState({

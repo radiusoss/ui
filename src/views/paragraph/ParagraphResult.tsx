@@ -150,7 +150,7 @@ export default class ParagraphResult extends React.Component<any, any> {
       <div>
         {
         (showControlBar == true) && 
-        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
+        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
           <div style={{marginLeft: '-20px'}}>
             <CommandBar
               isSearchBoxVisible={ false }
@@ -163,7 +163,7 @@ export default class ParagraphResult extends React.Component<any, any> {
         }
         {
         (showParagraphTitle == true) && 
-        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '10px', margin: '0px', overflow: 'hidden' }}>
+        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 ms-fontSize-xl" style={{ paddingLeft: '10px', margin: '0px', overflow: 'hidden' }}>
           <InlineEditor
             text={title}
             paramName="title"
@@ -174,10 +174,10 @@ export default class ParagraphResult extends React.Component<any, any> {
           />
         </div>
         }
-        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }} key={paragraph.id}>
+        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '10px', margin: '0px' }} key={paragraph.id}>
           {
             ((type == 'TEXT') && (stripDisplay)) && 
-            <div style = {{fontSize: "80%", maxHeight: "800px", overflowY: "auto"}}>
+            <div style = {{maxHeight: "500px", overflowY: "auto"}}>
               <TextDisplay
                 data={data}
                 stripDisplay={stripDisplay}
@@ -193,7 +193,7 @@ export default class ParagraphResult extends React.Component<any, any> {
           }
           {
             ((type == 'HTML') && (stripDisplay)) && 
-            <div style = {{fontSize: "80%", maxHeight: "800px", overflowY: "auto"}}>
+            <div style = {{maxHeight: "500px", overflowY: "auto"}}>
               <HtmlDisplay
                 data={data} 
                 stripDisplay={stripDisplay}

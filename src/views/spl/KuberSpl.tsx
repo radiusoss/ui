@@ -74,7 +74,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                     buttonProps={{
                       onClick: (e) => {
                         this.method = 'GET'
-                        this.url = 'http://localhost:9091/api/v1/cluster?filterBy=&itemsPerPage=10&name=&namespace=&page=1&sortBy=d,creationTimestamp'
+                        this.url = 'http://localhost:9091/kuber/api/v1/cluster?filterBy=&itemsPerPage=10&name=&namespace=&page=1&sortBy=d,creationTimestamp'
                       }
                     }}
                   >
@@ -86,7 +86,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                     buttonProps={{
                       onClick: (e) => {
                         this.method = 'GET'
-                        this.url = 'http://localhost:9091/api/v1/overview?filterBy=&itemsPerPage=10&name=&page=1&sortBy=d,creationTimestamp'
+                        this.url = 'http://localhost:9091/kuber/api/v1/overview?filterBy=&itemsPerPage=10&name=&page=1&sortBy=d,creationTimestamp'
                       }
                     }}
                   >
@@ -98,7 +98,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                     buttonProps={{
                       onClick: (e) => {
                         this.method = 'GET'
-                        this.url = 'http://localhost:9091/api/v1/helm'
+                        this.url = 'http://localhost:9091/kuber/api/v1/helm'
                       }
                     }}
                   >
@@ -110,7 +110,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                     buttonProps={{
                       onClick: (e) => {
                         this.method = 'GET'
-                        this.url = 'http://localhost:9091/api/v1/config'
+                        this.url = 'http://localhost:9091/kuber/api/v1/config'
                       }
                     }}
                     >
@@ -122,7 +122,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                     buttonProps={{
                       onClick: (e) => {
                         this.method = 'GET'
-                        this.url = 'http://localhost:9091/api/v1/cloud/aws/eu-central-1/volumes'
+                        this.url = 'http://localhost:9091/kuber/api/v1/cloud/aws/eu-central-1/volumes'
                       }
                     }}
                     >
@@ -134,7 +134,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                         buttonProps={{
                           onClick: (e) => {
                             this.method = 'GET'
-                            this.url = 'http://localhost:9091/api/v1/user'
+                            this.url = 'http://localhost:9091/kuber/api/v1/user'
                           }
                         }}
                       >
@@ -146,7 +146,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                       buttonProps={{
                         onClick: (e) => {
                           this.method = 'POST'
-                          this.url = 'http://localhost:9091/api/v1/user/name-1'
+                          this.url = 'http://localhost:9091/kuber/api/v1/user/name-1'
                         }
                       }}
                       >
@@ -158,7 +158,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                       buttonProps={{
                         onClick: (e) => {
                           this.method = 'DELETE'
-                          this.url = 'http://localhost:9091/api/v1/user/name-1'
+                          this.url = 'http://localhost:9091/kuber/api/v1/user/name-1'
                         }
                       }}
                       >
@@ -170,7 +170,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                       buttonProps={{
                         onClick: (e) => {
                           this.method = 'GET'
-                          this.url = 'http://localhost:9091/api/v1/spl'
+                          this.url = 'http://localhost:9091/kuber/api/v1/spl'
                         }
                       }}
                     >

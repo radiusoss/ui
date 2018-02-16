@@ -240,6 +240,13 @@ export default class NotebookControlBar extends React.Component<any, any> {
     const {note, runningParagraphs} = this.state
     this.leftItems = [
       {
+        key: 'home',
+        name: 'Home',
+        icon: 'Home',
+        title: 'Home',
+        onClick: () => history.push(`/dla/board`)
+      },
+      {
         key: 'notes',
         name: 'Notes',
         icon: 'ReadingMode',
@@ -251,13 +258,6 @@ export default class NotebookControlBar extends React.Component<any, any> {
         icon: 'Flow',
         items: this.state.flows
       },      
-      {
-        key: 'board',
-        name: 'Board',
-        icon: 'ViewDashboard',
-        title: 'Board',
-        onClick: () => history.push(`/dla/board`)
-      },
       {
         key: 'kuber',
         name: 'Kuber',

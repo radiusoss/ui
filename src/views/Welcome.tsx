@@ -16,6 +16,9 @@ import Highlights from './about/Highlights'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 
+// const DEFAUL_PROFILE_PHOTO = 'img/datalayer/datalayer-square.png'
+const DEFAUL_PROFILE_PHOTO = 'img/datalayer/explorer_white.svg'
+
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class Welcome extends React.Component<any, any> {
@@ -126,7 +129,7 @@ export default class Welcome extends React.Component<any, any> {
           <div className={ styles.flavor }>
 
             { (!isGoogleAuthenticated && !isMicrosoftAuthenticated && !isTwitterAuthenticated) && 
-              <img src={ 'img/datalayer/datalayer-square-white.png' } width='72' alt='Datalayer Logo' />
+              <img src={ DEFAUL_PROFILE_PHOTO } width='72' alt='Datalayer Logo' />
             }
 
             { (isGoogleAuthenticated || isMicrosoftAuthenticated || isTwitterAuthenticated) && 
@@ -206,7 +209,7 @@ export default class Welcome extends React.Component<any, any> {
       this.setState({
         isMicrosoftAuthenticated: false,
         profileDisplayName: '',
-        profilePhoto: 'img/datalayer/datalayer-square.png'
+        profilePhoto: DEFAUL_PROFILE_PHOTO
       })
     }
     else if ((this.state.isMicrosoftAuthenticated == false) && (isMicrosoftAuthenticated == true)) {
@@ -225,7 +228,7 @@ export default class Welcome extends React.Component<any, any> {
       this.setState({
         isTwitterAuthenticated: false,
         profileDisplayName: '',
-        profilePhoto: 'img/datalayer/datalayer-square.png'
+        profilePhoto: DEFAUL_PROFILE_PHOTO
       })
     }
     else if ((this.state.isTwitterAuthenticated == false) && (isTwitterAuthenticated == true)) {
@@ -244,7 +247,7 @@ export default class Welcome extends React.Component<any, any> {
       this.setState({
         isGoogleAuthenticated: false,
         profileDisplayName: '',
-        profilePhoto: 'img/datalayer/datalayer-square.png'
+        profilePhoto: DEFAUL_PROFILE_PHOTO
       })
     }
     else if ((this.state.isGoogleAuthenticated == false) && (isGoogleAuthenticated == true)) {

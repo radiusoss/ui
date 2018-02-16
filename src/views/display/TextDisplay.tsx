@@ -11,11 +11,9 @@ export default class TextDisplay extends React.Component<any, any> {
   public render() {
     const { data } = this.props
     return (
-      <div style={{paddingLeft: "10px"}}>
-        <pre>
-          {data}
-        </pre>
-      </div>      
+      <pre>
+        {data}
+      </pre>
     )
   }
 

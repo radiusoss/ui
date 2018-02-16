@@ -59,7 +59,7 @@ export default class TwitterApi extends React.Component<any, any>  implements IT
       this.restClient = new RestClient({
         name: 'TwitterApi',
         url: this.config.kuberRest,
-        path: '/api/v1/twitter',
+        path: '/kuber/api/v1/twitter',
         username: '',
         password: ''
       })
@@ -68,7 +68,7 @@ export default class TwitterApi extends React.Component<any, any>  implements IT
 
   private redirectToTwitterAuth() {
     console.log("Start Login with Twitter...")
-    window.location.href = this.config.kuberRest + "/api/v1/twitter"
+    window.location.href = this.config.kuberRest + "/kuber/api/v1/twitter"
   }
 
   // ----------------------------------------------------------------------------
