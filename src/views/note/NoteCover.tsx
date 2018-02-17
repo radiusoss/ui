@@ -42,7 +42,7 @@ export default class NoteCover extends React.Component<any, any> {
         <Panel
           isOpen={ this.state.showPanel }
           type={ PanelType.smallFluid }
-          onDismiss={ () => this.notebookApi.showNoteLayout(this.state.note.id, 'lines') }
+          onDismiss={ () => this.notebookApi.showNoteLayout(this.state.note.id, 'workbench') }
           headerText={note.name + ' - ' + new Date()}
         >
 {/*

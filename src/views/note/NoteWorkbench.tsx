@@ -18,7 +18,7 @@ import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteLines extends React.Component<any, any> {
+export default class NoteWorkbench extends React.Component<any, any> {
   private notebookApi: NotebookApi
 
   state = {

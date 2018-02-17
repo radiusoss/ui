@@ -35,7 +35,7 @@ import Grid14ErrorCase from '../spl/grid/Grid14ErrorCase'
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NotebookCover extends React.Component<any, any> {
+export default class NotesCover extends React.Component<any, any> {
 /*
   static defaultProps = {
     className: "layout",
@@ -135,7 +135,7 @@ export default class NotebookCover extends React.Component<any, any> {
   private loadNote(e: React.MouseEvent<HTMLAnchorElement>, noteId) {
     e.stopPropagation()
     e.preventDefault()
-    this.notebookApi.showNoteLayout(noteId, 'lines')
+    this.notebookApi.showNoteLayout(noteId, 'workbench')
   }
 
   @autobind

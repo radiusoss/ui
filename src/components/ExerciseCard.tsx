@@ -141,8 +141,7 @@ export default class ExerciseCard extends React.Component<IExerciseCardProps, IE
   private goToNote(e: React.MouseEvent<HTMLAnchorElement>) {
     e.stopPropagation()
     e.preventDefault()
-    this.notebookApi.showNoteLayout(this.props.noteId, 'lines')
-//    history.push(`/dla/explorer/note/lines/${this.props.noteId}`)
+    this.notebookApi.showNoteLayout(this.props.noteId, 'workbench')
   }
 
 }

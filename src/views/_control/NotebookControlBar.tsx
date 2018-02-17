@@ -174,7 +174,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NEW_NOTE") {
       this.notebookApi.listNotes()
       var noteId = webSocketMessageReceived.data.note.id
-      this.notebookApi.showNoteLayout(noteId, 'lines')
+      this.notebookApi.showNoteLayout(noteId, 'workbench')
     }
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NOTES_INFO") {
       var notes = webSocketMessageReceived.data.notes
@@ -208,7 +208,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
         var note = { 
           key: id,
           name: n.name,
-          onClick: () => this.notebookApi.showNoteLayout(id, 'lines')
+          onClick: () => this.notebookApi.showNoteLayout(id, 'workbench')
         }
         ns.push(note)
       }

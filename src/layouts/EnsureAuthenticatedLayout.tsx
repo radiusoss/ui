@@ -6,9 +6,9 @@ import Home from './../views/home/Home'
 import Flows from './../views/flows/Flows'
 import FlowDetail from './../views/flow/FlowDetail'
 import FlowDag from './../views/flow/FlowDag'
-import NotesList from './../views/notebook/NotesList'
-import NotebookCover from './../views/notebook/NotebookCover'
-import NoteLines from './../views/note/NoteLines'
+import NotesList from './../views/notes/NotesList'
+import NotebookCover from './../views/notes/NotesCover'
+import NoteWorkbench from './../views/note/NoteWorkbench'
 import Scratchpad from './../views/scratchpad/Scratchpad'
 import NoteCover from './../views/note/NoteCover'
 import Profile from './../views/profile/Profile'
@@ -61,8 +61,8 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/explorer/notes/list" name="Notes List" component={NotesList}/>
           <Route path="/dla/explorer/notes/cover" name="Notebook Cover" component={NotebookCover}/>
           <Route path="/dla/explorer/note/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
-          <Route path="/dla/explorer/note/lines/:noteId" name="Note Lines Layout" component={NoteLines}/>
-          <Route path="/dla/explorer/note/cover/:noteId" name="Note Cover Layout" component={NoteCover}/>
+          <Route path="/dla/explorer/note/workbench/:noteId" name="Note Workbench" component={NoteWorkbench}/>
+          <Route path="/dla/explorer/note/cover/:noteId" name="Note Cover" component={NoteCover}/>
           <Route path="/dla/stories" name="Stories" component={Stories}/>
           <Route path="/dla/datasets" name="Datasets" component={Datasets} />
           <Route path="/dla/explorer/flows" name="Flows" component={Flows}/>

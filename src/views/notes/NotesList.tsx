@@ -177,7 +177,7 @@ export default class NotesList extends React.Component<any, any> {
   private loadNote(e: React.MouseEvent<HTMLAnchorElement>, noteId) {
     e.stopPropagation()
     e.preventDefault()
-    this.notebookApi.showNoteLayout(noteId, 'lines')
+    this.notebookApi.showNoteLayout(noteId, 'workbench')
   }
 
   private showDeletePanel(e: React.MouseEvent<HTMLAnchorElement>, noteId, noteName) {
