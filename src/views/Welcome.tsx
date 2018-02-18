@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as queryString from 'query-string'
-import history from './../routes/History'
+import history from './../history/History'
 import { connect } from 'react-redux'
 import { AuthDispatchers, AuthProps, mapStateToPropsAuth, mapDispatchToPropsAuth } from '../actions/AuthActions'
 import { NotebookStore } from './../store/NotebookStore'

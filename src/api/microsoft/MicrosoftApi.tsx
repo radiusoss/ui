@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as isEqual from 'lodash.isequal'
-import history from './../../routes/History'
+import history from './../../history/History'
 import async from 'async'
 import { connect } from 'react-redux'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'

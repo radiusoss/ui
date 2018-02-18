@@ -1,5 +1,5 @@
 import * as React from 'react'
-import history from './../../routes/History'
+import history from './../../history/History'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
@@ -44,7 +44,7 @@ export default class Home extends React.Component<any, any> {
         <div className="ms-Grid-row">
 
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/explorer/note/scratchpad")}}>
+            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/explorer/scratchpad")}}>
               <Icon iconName='NoteForward' className='ms-Icon50' />
             </a>
             { (note.paragraphs.length > 0)  && 

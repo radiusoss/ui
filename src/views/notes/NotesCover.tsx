@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as _ from "lodash"
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { DefaultButton, PrimaryButton, CompoundButton } from 'office-ui-fabric-react/lib/Button'
-import history from './../../routes/History'
+import history from './../../history/History'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-react/lib/DetailsList'

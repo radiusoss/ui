@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { initializeIcons } from '@uifabric/icons'
-import routerHistory from './routes/History'
+import routerHistory from './history/History'
 import Routes from './routes/Routes'
 import ReduxToastr from 'react-redux-toastr'
 import { Provider } from 'react-redux'

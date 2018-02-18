@@ -1,12 +1,11 @@
 import * as React from 'react'
 import ExerciseCard from '../../../../components/ExerciseCard'
 import { Code, Code1Text, Code2Text, Code3Text } from './Code'
-import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import MockContent from './../../../message/MockContent'
 
-const CodeText = require('!raw-loader!./../../../../../src/views/school/lessons/1/Code.tsx') as string
+const CodeText = require('!raw-loader!./../../../../../src/views/school/lessons/lesson3/Code.tsx') as string
 
-export default class Lesson1 extends React.Component<any, any> {
+export default class Lesson3 extends React.Component<any, any> {
 
   public render() {
 
@@ -14,9 +13,9 @@ export default class Lesson1 extends React.Component<any, any> {
       
       <div>
 
-       <MockContent/>
+        <MockContent/>
 
-        <h1>Lesson 1: xxx</h1>
+        <h1>Lesson 3: xxx</h1>
 
         <ExerciseCard 
           content={

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import history from './../../routes/History'
+import history from './../../history/History'
 import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
 import { NotebookStore } from './../../store/NotebookStore'
@@ -25,8 +25,15 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   private microsoftApi: MicrosoftApi
   private twitterApi: TwitterApi
 
+  state = {
+    initialPath: ''
+  }
+
   public constructor(props) {
     super(props)
+    this.state = {
+      initialPath: window.location.hash.replace(/\/$/, '').replace('#', '')
+    }
     window['NotebookApi'] = this
   }
 
@@ -83,7 +90,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   }
 
   public showNoteScratchpad(id) {
-    history.push(`/dla/explorer/note/scratchpad`)
+    history.push(`/dla/explorer/scratchpad`)
   }
 
   public getNote(id: string) {
@@ -201,7 +208,16 @@ export default class NotebookApi extends React.Component<any, any> implements IN
 
 // ----------------------------------------------------------------------------
   
-  public updateGoogleProfile(path: string) {
+  public componentWillReceiveProps(nextProps) {
+    const { goTo, dispatch, location, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
+    if (goTo) {
+      history.push(goTo)
+    }
+  }
+
+// ----------------------------------------------------------------------------
+  
+  public updateGoogleProfile(goPath: string) {
     var me: any
     try {
      me = JSON.parse(localStorage.getItem(MeStorageKey))
@@ -210,20 +226,20 @@ export default class NotebookApi extends React.Component<any, any> implements IN
       console.log(e)
     }
     if (me && me.resourceName) {
-      this.processGoogleMe(me, path)
+      this.processGoogleMe(me, goPath)
     }
     else {
       var cred = localStorage.getItem(GoogleProfileStorageKey)
       if (cred) {
         this.googleApi.getMe()
           .then(me => {
-            this.processGoogleMe(me.result, path)
+            this.processGoogleMe(me.result, goPath)
           })
         }
       }
   }
 
-  private processGoogleMe(me: any, path: string) {
+  private processGoogleMe(me: any, goPath: string) {
     console.log('Google Me', me)
     NotebookStore.state().me = me
     localStorage.setItem(MeStorageKey, JSON.stringify(me))
@@ -260,7 +276,10 @@ export default class NotebookApi extends React.Component<any, any> implements IN
               NotebookStore.state().profilePhotoBlob = photoBlob
               console.log("Google Photo Blob", photoBlob)
               this.props.dispatchIsGoogleAuthenticatedAction()
-              history.push(path)
+              if (this.state.initialPath.startsWith('/auth/')) {
+                history.push(goPath)
+//              this.props.dispatchGoToAction(goPath)
+              }
             })
           }
       })

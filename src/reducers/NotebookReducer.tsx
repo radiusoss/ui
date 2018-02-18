@@ -18,6 +18,10 @@ export const webSocketMessageSentReducer = (state: any = initialState.webSocketM
         NotebookStore.state().runningParagraphs = NotebookStore.state().runningParagraphs.concat(action.message.data.paragraphs)
         return action.message
       }
+      if (action.message.op == 'RUN_PARAGRAPH') {
+        NotebookStore.state().runningParagraphs = NotebookStore.state().runningParagraphs.concat(action.message.data)
+        return action.message
+      }
       return {}
     default:
       return {}
@@ -85,4 +89,14 @@ export const clearScratchpadReducer = (state: boolean = initialState.clearScratc
     default:
       return false
   }
+}
+
+export const goToReducer = (state: string = initialState.goTo, action: NotebookAction): string => {
+  switch (action.type) {
+    case 'GO_HOME':
+      return action.message
+    default:
+      return null
+  }
+
 }

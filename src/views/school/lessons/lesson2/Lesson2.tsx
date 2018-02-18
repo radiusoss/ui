@@ -3,7 +3,7 @@ import ExerciseCard from '../../../../components/ExerciseCard'
 import { Code, Code1Text, Code2Text, Code3Text } from './Code'
 import MockContent from './../../../message/MockContent'
 
-const CodeText = require('!raw-loader!./../../../../../src/views/school/lessons/2/Code.tsx') as string
+const CodeText = require('!raw-loader!./../../../../../src/views/school/lessons/lesson2/Code.tsx') as string
 
 export default class Lesson2 extends React.Component<any, any> {
 

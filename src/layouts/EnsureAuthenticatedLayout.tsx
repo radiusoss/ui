@@ -18,37 +18,32 @@ import History from './../views/history/History'
 import Settings from './../views/settings/Settings'
 import Costs from './../views/costs/Costs'
 import Simple from './../views/spl/Simple'
-import Lesson1 from '../views/school/lessons/1/Lesson1'
-import Lesson2 from '../views/school/lessons/2/Lesson2'
-import Lesson3 from '../views/school/lessons/3/Lesson3'
+import Lesson1 from '../views/school/lessons/lesson1/Lesson1'
+import Lesson2 from '../views/school/lessons/lesson2/Lesson2'
+import Lesson3 from '../views/school/lessons/lesson3/Lesson3'
 import Stories from './../views/stories/Stories'
 import Login from './../views/spl/Login'
 import Auth from './../views/spl/Auth'
 import Welcome from './../views/Welcome'
 import { connect } from 'react-redux'
-import history from './../routes/History'
+import history from './../history/History'
 import NotebookApi from './../api/notebook/NotebookApi'
 import { NotebookStore } from './../store/NotebookStore'
 import * as isEqual from 'lodash.isequal'
 import { IConfig, emptyConfig } from './../api/config/ConfigApi'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../actions/NotebookActions'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from './../actions/AuthActions'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from './../actions/ConfigActions'
 
+@connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class EnsureAuthenticatedLayout extends React.Component<any, any> {
   private config: IConfig = emptyConfig
   private notebookApi: NotebookApi
 
-  state = {
-    initialPath: ''
-  }
-
-  constructor(props) {
+  public constructor(props) {
     super(props)
-    this.state = {
-      initialPath: props.location.pathname
-    }
   }
 
   public render() {
@@ -58,25 +53,27 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
         <div>
           <Route exact path="/dla" component={Welcome}/>
           <Route path="/dla/home" name="Home" component={Home}/>
-          <Route path="/dla/explorer/notes/list" name="Notes List" component={NotesList}/>
-          <Route path="/dla/explorer/notes/cover" name="Notebook Cover" component={NotebookCover}/>
-          <Route path="/dla/explorer/note/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
-          <Route path="/dla/explorer/note/workbench/:noteId" name="Note Workbench" component={NoteWorkbench}/>
-          <Route path="/dla/explorer/note/cover/:noteId" name="Note Cover" component={NoteCover}/>
-          <Route path="/dla/stories" name="Stories" component={Stories}/>
-          <Route path="/dla/datasets" name="Datasets" component={Datasets} />
-          <Route path="/dla/explorer/flows" name="Flows" component={Flows}/>
-          <Route path="/dla/explorer/flow/dag/:flowId" name="Flow Dag" component={FlowDag}/>
-          <Route path="/dla/explorer/flow/detail/:flowId" name="Flow Detail" component={FlowDetail}/>
+          <Route path="/dla/kuber/calendar" name="Calendar" component={Calendar}/>
           <Route path="/dla/kuber/profile" name="Profile" component={Profile}/>
           <Route path="/dla/kuber/users" name="Profile" component={Users}/>
-          <Route path="/dla/kuber/calendar" name="Calendar" component={Calendar}/>
-          <Route path="/dla/explorer/history" name="History" component={History}/>
           <Route path="/dla/kuber/settings" name="Settings" component={Settings}/>
           <Route path="/dla/kuber/costs" name="Costs" component={Costs}/>
-          <Route path="/dla/school/lessons/1" name="Lesson 1" component={Lesson1}/>
-          <Route path="/dla/school/lessons/2" name="Lesson 2" component={Lesson2}/>
-          <Route path="/dla/school/lessons/3" name="Lesson 3" component={Lesson3}/>
+          <Route path="/dla/explorer/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
+          <Route path="/dla/explorer/note/cover/:noteId" name="Note Cover" component={NoteCover}/>
+          <Route path="/dla/explorer/note/workbench/:noteId" name="Note Workbench" component={NoteWorkbench}/>
+          <Route path="/dla/explorer/notes/list" name="Notes List" component={NotesList}/>
+          <Route path="/dla/explorer/notes/cover" name="Notebook Cover" component={NotebookCover}/>
+          <Route path="/dla/explorer/flow/dag/:flowId" name="Flow Dag" component={FlowDag}/>
+          <Route path="/dla/explorer/flow/detail/:flowId" name="Flow Detail" component={FlowDetail}/>
+          <Route path="/dla/explorer/flows" name="Flows" component={Flows}/>
+          <Route path="/dla/explorer/history" name="History" component={History}/>
+{/*
+          <Route path="/dla/kuber/datasets" name="Datasets" component={Datasets} />
+          <Route path="/dla/explorer/stories" name="Stories" component={Stories}/>
+*/}
+          <Route path="/dla/school/lessons/lesson1" name="Lesson 1" component={Lesson1}/>
+          <Route path="/dla/school/lessons/lesson2" name="Lesson 2" component={Lesson2}/>
+          <Route path="/dla/school/lessons/lesson3" name="Lesson 3" component={Lesson3}/>
         </div>
       )
     }
@@ -91,19 +88,13 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
   }
 
   public componentWillReceiveProps(nextProps) {    
-    const { config, dispatch, location, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
+    const { config, goTo, dispatch, location, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
     if (config && ! isEqual(config, this.config)) {
       this.config = config
       if (!isGoogleAuthenticated && !isMicrosoftAuthenticated && !isTwitterAuthenticated) {
-    //      history.push("/")
-          this.notebookApi.updateGoogleProfile(this.state.initialPath)
-        }
-/*
-        else {
-          history.push(this.state.initialPath)
-        }
-*/
+        this.notebookApi.updateGoogleProfile("/")
       }
+    }
   }
 
 }

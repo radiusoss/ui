@@ -3,7 +3,7 @@ import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import { css } from 'office-ui-fabric-react/lib/Utilities'
 import NotebookApi from './../api/notebook/NotebookApi'
 import FabricIcon from '../components/FabricIcon'
-import history from './../routes/History'
+import history from './../history/History'
 import * as stylesImport from './ExerciseCard.scss'
 const styles: any = stylesImport
 

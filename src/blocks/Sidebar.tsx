@@ -1,7 +1,7 @@
 import * as React from 'react'
 import FabricIcon from '../components/FabricIcon'
 import { NavLink } from 'react-router-dom'
-import history from './../routes/History'
+import history from './../history/History'
 
 export default class Sidebar extends React.Component<any, any> {
 
@@ -44,7 +44,7 @@ export default class Sidebar extends React.Component<any, any> {
                   <NavLink to={'/dla/explorer/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to={'/dla/explorer/note/scratchpad'} className="nav-link" activeClassName="active"><FabricIcon name="NoteForward"/> Scratchpad</NavLink>
+                  <NavLink to={'/dla/explorer/scratchpad'} className="nav-link" activeClassName="active"><FabricIcon name="NoteForward"/> Scratchpad</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink to={'/dla/explorer/history'} className="nav-link" activeClassName="active"><FabricIcon name="GitGraph"/> History</NavLink>
@@ -95,13 +95,13 @@ export default class Sidebar extends React.Component<any, any> {
             <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className=""></i> School</a>
               <ul className="nav-dropdown-items">
                 <li className="nav-item">
-                  <NavLink to={'/dla/school/lessons/1'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--CalendarWorkWeek"></i> Lesson 1</NavLink>
+                  <NavLink to={'/dla/school/lessons/lesson1'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--CalendarWorkWeek"></i> Lesson 1</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to={'/dla/school/lessons/2'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--CalendarWorkWeek"></i> Lesson 2</NavLink>
+                  <NavLink to={'/dla/school/lessons/lesson2'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--CalendarWorkWeek"></i> Lesson 2</NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to={'/dla/school/lessons/3'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--CalendarWorkWeek"></i> Lesson 3</NavLink>
+                  <NavLink to={'/dla/school/lessons/lesson3'} className="nav-link" activeClassName="active"><i className="ms-Icon ms-Icon--CalendarWorkWeek"></i> Lesson 3</NavLink>
                 </li>
               </ul>
             </li>

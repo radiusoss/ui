@@ -6,7 +6,7 @@ import KuberSpl from './../views/spl/KuberSpl'
 
 export default class SimpleLayout extends React.Component<any, any> {
 
-  render() {
+  public render() {
     return (
       <div className="app">
 {/*
@@ -17,9 +17,9 @@ export default class SimpleLayout extends React.Component<any, any> {
         <Route path="{this.props.location.pathname}/about" name="Simple About" component={About}/> 
         <Route path="{`${this.props.location.pathname}/tmp`}" name="Simple Temporary" component={Tmp}/> 
 */}
-        <Route exact path="/simple" name="Simple Simple" component={Simple} />
+        <Route exact path="/simple" name="Simple" component={Simple} />
         <Route path="/simple/about" name="Simple About" component={About} />
-        <Route exact path="/simple/kuberspl" name="Simple KuberSpl" component={KuberSpl} />
+        <Route exact path="/simple/kuber/spl" name="Simple Kuber Spl" component={KuberSpl} />
       </div>
     )
   }

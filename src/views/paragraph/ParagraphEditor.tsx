@@ -29,22 +29,42 @@ export default class ParagraphEditor extends React.Component<any, any> {
       text: ''
     },
     index: -1,
+    maxIndex: -1,
     focus: false,
     code: '',
     showControlBar: true,
     showParagraphTitle: false
   }
 
-  constructor(props) {
+  public constructor(props) {
     super(props)
     this.state = {
       note: props.note,
       paragraph: props.paragraph,
       index: props.index,
+      maxIndex: props.maxIndex,
       focus: props.focus,
       code: '',
       showControlBar: props.showControlBar,
       showParagraphTitle: props.showParagraphTitle
+    }
+    var moveDown = {}
+    if (props.index != props.maxIndex) {
+      moveDown = {
+        key: 'move-down-indicator',
+        icon: 'ChevronDown',
+        title: 'Move paragraph down',
+        onClick: () => this.moveParagraphDown()
+      }
+    }
+    var moveUp = {}
+    if (props.index != 0) {
+      moveUp = {
+        key: 'move-up-indicator',
+        icon: 'ChevronUp',
+        title: 'Move paragraph up',
+        onClick: () => this.moveParagraphUp()
+      }
     }
     this.leftItems = [
       {
@@ -59,23 +79,14 @@ export default class ParagraphEditor extends React.Component<any, any> {
         title: 'Add a paragraph',
         onClick: () => this.insertParagraph()
       },
-      {
-        key: 'move-down-indicator',
-        icon: 'ChevronDown',
-        title: 'Move paragraph down',
-        onClick: () => this.moveParagraphDown()
-      },
-      {
-        key: 'move-up-indicator',
-        icon: 'ChevronUp',
-        title: 'Move paragraph up',
-        onClick: () => this.moveParagraphUp()
-      },
+      moveDown,
+      moveUp,
       {
         key: '...',
         name: '...',
         title: 'Actions',
         items: [
+/*
           {
             key: 'to-cover',
             name: 'Cover',
@@ -83,6 +94,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
             title: 'Cover',
             onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
           },
+*/
           {
             key: 'clear',
             icon: 'ClearFormatting',
@@ -100,22 +112,34 @@ export default class ParagraphEditor extends React.Component<any, any> {
         ]
       }
     ]
-    this.rightItems = [
-    ]
+    this.rightItems = []
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    const { note, paragraph, code, focus, showControlBar, showParagraphTitle } = this.state
+    const { index, note, paragraph, code, focus, showControlBar, showParagraphTitle } = this.state
     var title = 'Add an awesome title...'
     if (paragraph.title && (paragraph.title.length > 0)) {
       title = paragraph.title
     }
     return (
+      <div className="ms-Grid" style={{margin: 0, padding: 0}}>
+      <div className="ms-Grid-row" style={{margin: 0, padding: 0}}>
       <div key={paragraph.id}>
         {
+        (showParagraphTitle == true) &&
+        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 ms-textAlignLeft" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
+          <div className="ms-font-l ms-fontWeight-semibold">
+            <InlineEditor
+              text={title}
+              activeClassName="ms-font-l ms-fontWeight-semibold"
+            />
+          </div>
+        </div>
+        }
+        {
         (showControlBar == true) && 
-        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
+        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 ms-textAlignRight" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
           <div style={{marginLeft: '-20px'}}>
             <CommandBar
               isSearchBoxVisible={ false }
@@ -126,40 +150,34 @@ export default class ParagraphEditor extends React.Component<any, any> {
           </div>
         </div>
         }
-        {
-        (showParagraphTitle == true) &&
-        <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
-          <div className="ms-font-xl">
-            <InlineEditor
-              text={title}
-              activeClassName="ms-font-xl"
-            />
-          </div>
+        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{borderLeft: "4px solid #DDD"}}>
+          <CodeEditor
+            name={paragraph.id}
+            note={note}
+            paragraphs={[paragraph]}
+            value={code}
+            defaultValue=""
+            minLines={1}
+            maxLines={30}
+            width="100%"
+            mode="scala"
+  //          theme="tomorrow"
+            theme="tomorrow-night-eighties"
+            fontSize="14px"
+            showGutter={false}
+            focus={focus}
+  //          onLoad={this.onLoad}
+  //          onChange={this.onChange}
+            setOptions={{
+              enableBasicAutocompletion: false,
+              enableLiveAutocompletion: false
+            }}
+            ref={ ref => { this.codeEditor = ref }}
+            key={note.id + '-' + paragraph.id}
+          />
         </div>
-        }
-        <CodeEditor
-          name={paragraph.id}
-          note={note}
-          paragraphs={[paragraph]}
-          value={code}
-          defaultValue=""
-          minLines={5}
-          maxLines={60}
-          width="100%"
-          mode="scala"
-          theme="tomorrow-night-eighties"
-//          theme="tomorrow"
-          showGutter={false}
-          fontSize="14px"
-          focus={focus}
-//          onLoad={this.onLoad}
-//          onChange={this.onChange}
-          setOptions={{
-            enableBasicAutocompletion: false,
-            enableLiveAutocompletion: false
-          }}
-          ref={ ref => { this.codeEditor = ref }}
-        />
+      </div>
+      </div>
       </div>
     )
 

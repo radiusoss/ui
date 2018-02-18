@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { toastr } from 'react-redux-toastr'
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle'
 import ParagraphEditor from './../paragraph/ParagraphEditor'
 import ParagraphResult from './../paragraph/ParagraphResult'
 import InlineEditor from './../editor/InlineEditor'
@@ -27,11 +28,11 @@ export default class NoteWorkbench extends React.Component<any, any> {
       name: '',
       paragraphs: []
     },
+    vertical: false,
     numberOfFaces: 3,
     imagesFadeIn: true,
     extraDataType: ExtraDataType.none,
-    personaSize: PersonaSize.extraSmall,
-    scrollTop: 0
+    personaSize: PersonaSize.extraSmall
   }
 
   public constructor(props) {
@@ -39,27 +40,41 @@ export default class NoteWorkbench extends React.Component<any, any> {
   }
 
   public render() {
-    const { note } = this.state
+    const { note, vertical } = this.state
     if (note.id) {
-      var i = 0
+      var index = 0
+      var maxIndex = note.paragraphs.length - 1
       return (
-        <div className={styles.rendererHeight} style={{ backgroundColor: "white", overflowX: "hidden"}}>
-          <div className="ms-Grid">
+/*
+        <div className={styles.rendererHeight} style={{ overflowX: "hidden", fontSize: "small" }}>
+*/
+        <div style={{ overflowX: "hidden", fontSize: "small" }}>
+          <div className="ms-Grid" style={{ backgroundColor: 'white', padding: 0, margin: 0 }}>
 {/*
           <div className="ms-Grid ms-clearfix" style={{ padding: 0 }}>
 */}
-            <div className="ms-Grid-row">
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 ms-textAlignCenter">
-                <div className="ms-font-xxl">
+            <div className="ms-Grid-row" style={{ padding: 0, margin: 0 }}>
+              <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignLeft" style={{ padding: '0px 0px 10px 10px', margin: 0 }}>
+                <div className="ms-font-xxl ms-fontWeight-semibold">
                   <InlineEditor
                     text={note.name}
                     paramName="title"
                     minLength={3}
-                    maxLength={33}
+                    maxLength={20}
                     change={this.updateTitle}
-                    activeClassName="ms-font-xxl"
+                    activeClassName="ms-font-xxl ms-fontWeight-semibold"
                   />
                 </div>
+              </div>
+              <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-textAlignRight">
+{/*
+                <Toggle
+                  defaultChecked={ true }
+                  onText='Horizontal'
+                  offText='Vertical'
+                  onChanged={ (checked: boolean) => this.setState({vertical: checked}) }
+                />
+*/}
               </div>
             </div>
 {/*
@@ -92,31 +107,32 @@ export default class NoteWorkbench extends React.Component<any, any> {
             </div>
 */}
           </div>
-          {
+          { (vertical) &&
             note.paragraphs.map(p => {
-              i++
+              index++
               return (
-                <div className="ms-Grid">
-                  <div className="ms-Grid-row" key={ note.id + '-' + p.id }>
+                <div className="ms-Grid" key={ note.id + '-' + p.id + '-' + index}>
+                  <div className="ms-Grid-row">
                     <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ padding: '0px 0px 0px 10px', margin: '0px' }}>
                       <ParagraphEditor
-                        note={note} 
+                        note={note}
                         paragraph={p}
-                        index={i-1} 
-                        showControlBar={true} 
-                        showParagraphTitle={false} 
-                        key={note.id + '-pe-' + p.id + "-" + new Date().getTime} 
-                        focus={i==1}
+                        index={index-1}
+                        maxIndex={maxIndex}
+                        showParagraphTitle={true}
+                        showControlBar={true}
+                        key={note.id + '-pe-' + p.id + "-" + index}
+                        focus={index==1}
                       />
                     </div>
-                    <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ paddingLeft: '0px', margin: '0px' }} >
+                    <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ paddingLeft: '0px', margin: '0px' }}>
                       <ParagraphResult
                         paragraph={p} 
+                        showParagraphTitle={false}
                         showControlBar={false} 
                         showGraphBar={true}
-                        showParagraphTitle={true}
                         stripDisplay={true}
-                        key={note.id + '-pr-' + p.id + "-" + new Date().getTime}
+                        key={note.id + '-pr-' + p.id + "-" + index}
                       />
                     </div>
                   </div>
@@ -128,6 +144,60 @@ export default class NoteWorkbench extends React.Component<any, any> {
                 </div>
               )
             })
+          }
+          { (!vertical) && 
+          <div className="ms-Grid" style={{margin: 0, padding: 0}}>
+            <div className="ms-Grid-row" style={{margin: 0, padding: 0}}>
+             {
+              note.paragraphs.map(p => {
+                index++
+                var colWidth = p.config.colWidth
+                return (
+                    /* 
+                    borderColor: '#e5e5e5', boxShadow: 'none'
+                          margin: '10px 10px 10px 10px'
+                    */
+                      <div className={"ms-Grid-col ms-u-sm" + colWidth + " ms-u-md" + colWidth + " ms-u-lg" + colWidth}
+                        style={{ 
+                          padding: '0px', 
+                          margin: '0px'
+                        }}
+                        key={ note.id + '-' + p.id + '-' + index} 
+                      >
+                        <div style={{ 
+                          background: 'white', 
+                          borderWidth: '1px 1px 2px',
+                          boxShadow: '0px 2px 7px rgba(0, 0, 0, 0.3)', 
+                          borderColor: 'white',
+                          borderRadius: '3px',
+                          padding: '10px 10px 20px 10px',
+                          margin: '10px 10px 0px 10px'
+                          }}>
+                          <ParagraphEditor
+                            note={note}
+                            paragraph={p}
+                            index={index-1}
+                            maxIndex={maxIndex}
+                            showParagraphTitle={true}
+                            showControlBar={true}
+                            key={note.id + '-pe-' + p.id + "-" + index}
+                            focus={index==1}
+                          />
+                          <ParagraphResult
+                            paragraph={p} 
+                            showParagraphTitle={false}
+                            showControlBar={false}
+                            showGraphBar={true}
+                            stripDisplay={true}
+                            key={note.id + '-pr-' + p.id + "-" + index}
+                          />
+                  </div>
+                 </div>
+                )
+              })
+            }
+            </div>
+          </div>
           }
         </div>
       )
@@ -141,36 +211,21 @@ export default class NoteWorkbench extends React.Component<any, any> {
     this.notebookApi = window['NotebookApi']
   }
 
-  public componentWillUpdate(nextProps, nextState) {
-    if (nextState.scrollTop == 1) {
-/*
-      var sc = Scroll.animateScroll
-      sc.scrollToTop({
-        smooth: true
-      })
-*/
-    }
-  }
-
-  public componentDidUpdate(prevProps, prevState) {
-    if (prevState.scrollTop == 1) {
-/*
-      var sc = Scroll.animateScroll
-      sc.scrollToTop({
-        smooth: true
-      })
-*/
-    }
-  }
-
   public componentWillReceiveProps(nextProps) {
     const { webSocketMessageReceived } = nextProps
     if (! webSocketMessageReceived) return
-    if (webSocketMessageReceived.op == "NOTE") {
+    var op = webSocketMessageReceived.op
+    if (op == "NOTE") {
       this.setState({
-        scrollTop: 0,
         note: webSocketMessageReceived.data.note
       })
+    }
+    if (
+      (op == "PARAGRAPH_MOVED") 
+      || (op == "PARAGRAPH_REMOVED")
+      || (op == "PARAGRAPH_ADDED")
+    ) {
+//      this.notebookApi.getNote(this.state.note.id)
     }
   }
 

@@ -1,7 +1,7 @@
 import * as redux from 'redux'
 import { Store } from 'redux'
 import thunk from 'redux-thunk'
-import routerHistory from './../routes/History'
+import routerHistory from './../history/History'
 import { routerMiddleware } from 'react-router-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { ApplicationState, initialState } from './../state/State'

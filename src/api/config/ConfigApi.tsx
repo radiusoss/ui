@@ -1,7 +1,8 @@
 import * as React from 'react'
 import * as isEqual from 'lodash.isequal'
 import { connect } from 'react-redux'
-import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '..//../actions/ConfigActions'
+import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
+import { mapDispatchToPropsNotebook, mapStateToPropsNotebook } from '../../actions/NotebookActions'
 import * as queryString from 'query-string'
 import { RestClient } from '..//../util/rest/RestClient'
 import { ConfigDispatchers } from '..//../actions/ConfigActions'
@@ -45,6 +46,7 @@ export const emptyConfig: IConfig = {
 }
 
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
+@connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class ConfigApi extends React.Component<any, any> {
   private notebookApi: NotebookApi
 
@@ -124,9 +126,8 @@ export default class ConfigApi extends React.Component<any, any> {
         kuberRest: kuberRest,
         config: config
       })
-
       this.props.dispatchNewConfigAction(config)
-
+//      this.props.dispatchGoToAction()
     })
 
   }

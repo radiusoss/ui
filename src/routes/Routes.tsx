@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Route } from 'react-router-dom'
-import history from './History'
+import history from './../history/History'
 import NotebookLayout from './../layouts/NotebookLayout'
 import SimpleLayout from './../layouts/SimpleLayout'
 import OAuthGoogleCallback from './../views/auth/OAuthGoogleCallback'

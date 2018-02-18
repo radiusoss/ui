@@ -6,7 +6,7 @@ import NotebookApi from './../../api/notebook/NotebookApi'
 import ParagraphResult from './../paragraph/ParagraphResult'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteResults extends React.Component<any, any> {
+export default class   extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
   state = {

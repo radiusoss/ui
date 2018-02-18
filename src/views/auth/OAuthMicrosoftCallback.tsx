@@ -1,5 +1,5 @@
 import * as React from 'react'
-import history from './../../routes/History'
+import history from './../../history/History'
 import * as queryString from 'query-string'
 import * as isEqual from 'lodash.isequal'
 import Spinner from './../../_widget/Spinner'

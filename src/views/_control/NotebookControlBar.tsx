@@ -8,7 +8,7 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import * as isEqual from 'lodash.isequal'
 import { toastr } from 'react-redux-toastr'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import history from './../../routes/History'
+import history from './../../history/History'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
@@ -323,6 +323,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
 //        icon: 'BarChart4',
         title: 'Explorer',
         items: [
+/*
           {
             key: 'notebook-cover',
             name: 'Notebook Cover',
@@ -330,6 +331,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
             title: 'Notebook Cover View',
             onClick: () => history.push(`/dla/explorer/notes/cover`)
           },
+*/
           {
             key: 'list',
             name: 'Notes List',
@@ -355,7 +357,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
       this.runIndicator
     ]
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/note/") != -1) {
-      if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/note/scratchpad") == -1) {
+      if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/scratchpad") == -1) {
         this.leftItems.push(
           {
             key: 'SingleColumn',
@@ -371,7 +373,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
             key: 'clear',
             icon: 'ClearFormatting',
             title: 'Clear Scratchpad',
-            onClick: () => this.props.dispatchClearScratchpad()
+            onClick: () => this.props.dispatchClearScratchpadAction()
           }
         )
       }
