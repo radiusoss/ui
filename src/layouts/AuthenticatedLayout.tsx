@@ -60,6 +60,7 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
     if (
       this.props.location.pathname.indexOf("/dla/explorer/notes") > -1 || 
       this.props.location.pathname.indexOf("/dla/explorer/note/") > -1 ||
+      this.props.location.pathname.indexOf("/dla/explorer/scratchpad") > -1 ||
       this.props.location.pathname.indexOf("/dla/support/docs") > -1 ||
       this.props.location.pathname.indexOf("/dla/explorer/flows") > -1 ||
       this.props.location.pathname.indexOf("/dla/explorer/flow/dag") > -1 

@@ -49,12 +49,21 @@ export const runningParagraphsReducer = (state: any[] = initialState.runningPara
   }
 }
 
-export const isStartRunReducer = (state: {noteId: any, paragraphId: any} = initialState.isStartRun, action: NotebookAction): {noteId: any, paragraphId: any} => {
+export const isStartNoteRunReducer = (state: {noteId: any} = initialState.isStartNoteRun, action: NotebookAction): {noteId: any} => {
   switch (action.type) {
     case 'RUN_NOTE':
+      return {noteId: action.message.noteId}
+    default:
+      return null
+  }
+}
+
+export const isStartParagraphRunReducer = (state: {noteId: any, paragraphId: any} = initialState.isStartParagraphRun, action: NotebookAction): {noteId: any, paragraphId: any} => {
+  switch (action.type) {
+    case 'RUN_PARAGRAPH':
       return {noteId: action.message.noteId, paragraphId: action.message.paragraphId}
     default:
-      return state
+      return null
   }
 }
 

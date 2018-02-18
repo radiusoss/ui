@@ -8,6 +8,7 @@ import HtmlDisplay from './../display/HtmlDisplay'
 import ReactjsDisplay from './../display/ReactjsDisplay'
 import { toastr } from 'react-redux-toastr'
 import InlineEditor from './../editor/InlineEditor'
+import { ParagraphStatus } from './ParagraphStatus'
 import ImageDisplay from './../display/ImageDisplay'
 import MathjaxDisplay from './../display/MathjaxDisplay'
 import TableDisplay from './../display/TableDisplay'
@@ -15,24 +16,14 @@ import TextDisplay from './../display/TextDisplay'
 import Spinner from './../../_widget/Spinner'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
+import { ProgressIndicator } from 'office-ui-fabric-react/lib/ProgressIndicator'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
-export const ParagraphStatus = {
-  READY: 'READY',
-  PENDING: 'PENDING',
-  RUNNING: 'RUNNING',
-  FINISHED: 'FINISHED',
-  ABORT: 'ABORT',
-  ERROR: 'ERROR',
-}
-
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class ParagraphResult extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
-  private leftItems: any[] = []
-  private rightItems: any[] = []
 
   state = {
     paragraph: {
@@ -53,7 +44,8 @@ export default class ParagraphResult extends React.Component<any, any> {
     showControlBar: false,
     showParagraphTitle: false,
     showGraphBar: false,
-    stripDisplay: false
+    stripDisplay: false,
+    percentComplete: 100
   }
 
   public constructor(props) {
@@ -63,9 +55,27 @@ export default class ParagraphResult extends React.Component<any, any> {
       showControlBar: props.showControlBar,
       showParagraphTitle: props.showParagraphTitle,
       showGraphBar: props.showGraphBar,
-      stripDisplay: props.stripDisplay
+      stripDisplay: props.stripDisplay,
+      percentComplete: 100
     }
-    this.leftItems = [
+    this.notebookApi = window["NotebookApi"]
+  }
+
+  public render() {
+
+    const { paragraph, showControlBar, showGraphBar, showParagraphTitle, stripDisplay, percentComplete } = this.state
+
+    var paragraphHeader = <div></div>
+    var title = '[Add an awesome title]'
+    var cl = "ms-font-l ms-fontWeight-light dla-ParagraphTitle"
+    if (paragraph.title && (paragraph.title.length > 0)) {
+      title = paragraph.title
+      cl = "ms-font-xl ms-fontWeight-semibold"
+    }
+
+    var leftItems: any[] = []
+    var rightItems: any[] = []
+    leftItems = [
       {
         key: 'run-indicator',
         icon: 'Play',
@@ -121,19 +131,8 @@ export default class ParagraphResult extends React.Component<any, any> {
         ]
       }
     ]
-    this.rightItems = []
-    this.notebookApi = window["NotebookApi"]
-  }
+    rightItems = []
 
-  public render() {
-    const { paragraph, showControlBar, showGraphBar, showParagraphTitle, stripDisplay } = this.state
-    var paragraphHeader = <div></div>
-    var title = '[Add an awesome title]'
-    var cl = "ms-font-l ms-fontWeight-light dla-ParagraphTitle"
-    if (paragraph.title && (paragraph.title.length > 0)) {
-      title = paragraph.title
-      cl = "ms-font-xl ms-fontWeight-semibold"
-    }
     paragraphHeader = 
       <div>
         {
@@ -155,14 +154,22 @@ export default class ParagraphResult extends React.Component<any, any> {
           <div style={{marginLeft: '-20px'}}>
             <CommandBar
               isSearchBoxVisible={ false }
-              items={ this.leftItems }
-              farItems={ this.rightItems }
+              items={ leftItems }
+              farItems={ rightItems }
               className={ styles.commandBarBackgroundTransparent }
             />
           </div>
         </div>
         }
       </div>
+    {
+      (this.isParagraphRunning(paragraph)) && 
+      <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
+        <ProgressIndicator
+          percentComplete={ percentComplete }
+        />
+      </div>
+    }
     var results = paragraph.results
     if (!results) {
       if (paragraph.status == 'FINISHED') {
@@ -177,9 +184,9 @@ export default class ParagraphResult extends React.Component<any, any> {
       }
       else {
         return <div style={{minHeight: 70, paddingLeft: '10px'}}>
-            {paragraphHeader}
-            <Spinner size={50} />
-          </div>
+          {paragraphHeader}
+          <Spinner size={50} />
+        </div>
       }
     }
     var msg = results.msg[0]
@@ -200,84 +207,84 @@ export default class ParagraphResult extends React.Component<any, any> {
     if (!results.msg) return <div></div>
     return (
       <div className="ms-Grid">
-      <div className="ms-Grid-row">
-        {paragraphHeader}
-        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '10px', margin: '0px' }} key={paragraph.id}>
-          {
-            ((type == 'TEXT') && (stripDisplay)) && 
-            <div style = {{maxHeight: "500px", overflowY: "auto"}}>
+        <div className="ms-Grid-row">
+          {paragraphHeader}
+          <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '10px', margin: '0px' }} key={paragraph.id}>
+            {
+              ((type == 'TEXT') && (stripDisplay)) && 
+              <div style = {{maxHeight: "500px", overflowY: "auto"}}>
+                <TextDisplay
+                  data={data}
+                  stripDisplay={stripDisplay}
+                />
+              </div>
+            }
+            {
+              ((type == 'TEXT') && (!stripDisplay)) && 
               <TextDisplay
                 data={data}
                 stripDisplay={stripDisplay}
               />
-            </div>
-          }
-          {
-            ((type == 'TEXT') && (!stripDisplay)) && 
-            <TextDisplay
-              data={data}
-              stripDisplay={stripDisplay}
-            />
-          }
-          {
-            ((type == 'HTML') && (stripDisplay)) && 
-            <div style = {{maxHeight: "500px", overflowY: "auto"}}>
+            }
+            {
+              ((type == 'HTML') && (stripDisplay)) && 
+              <div style = {{maxHeight: "500px", overflowY: "auto"}}>
+                <HtmlDisplay
+                  data={data} 
+                  stripDisplay={stripDisplay}
+                />
+              </div>
+            }
+            {
+              ((type == 'HTML') && (!stripDisplay)) && 
               <HtmlDisplay
+                  data={data} 
+                  stripDisplay={stripDisplay}
+                />
+            }
+            {
+              (type == 'IMG') &&
+              <ImageDisplay
                 data={data} 
                 stripDisplay={stripDisplay}
               />
+            }
+            {
+              (type == 'TABLE') &&
+              <TableDisplay
+                data={data} 
+                id={id} 
+                p={paragraph} 
+                showGraphBar={showGraphBar}
+                stripDisplay={stripDisplay}
+              />
+            }
+            {
+              (type == 'MATHJAX') &&
+              <MathjaxDisplay
+                data={data}
+                stripDisplay={stripDisplay}
+              />
+            }
+            {
+              (type == 'REACTJS') &&
+              <ReactjsDisplay
+                data={data}
+                stripDisplay={stripDisplay}
+              />
+            }
+            <div className="ms-fontColor-neutralTertiary" style={{ fontSize: "10px"}}>
+              Took {(new Date(paragraph.dateFinished).getTime() - new Date(paragraph.dateStarted).getTime()) / 1000} sec. Last updated by {paragraph.user} at {new Date(paragraph.dateUpdated).toLocaleString()}.
             </div>
-          }
-          {
-            ((type == 'HTML') && (!stripDisplay)) && 
-            <HtmlDisplay
-                data={data} 
-                stripDisplay={stripDisplay}
-              />
-          }
-          {
-            (type == 'IMG') &&
-            <ImageDisplay
-              data={data} 
-              stripDisplay={stripDisplay}
-            />
-          }
-          {
-            (type == 'TABLE') &&
-            <TableDisplay
-              data={data} 
-              id={id} 
-              p={paragraph} 
-              showGraphBar={showGraphBar}
-              stripDisplay={stripDisplay}
-            />
-          }
-          {
-            (type == 'MATHJAX') &&
-            <MathjaxDisplay
-              data={data}
-              stripDisplay={stripDisplay}
-            />
-          }
-          {
-            (type == 'REACTJS') &&
-            <ReactjsDisplay
-              data={data}
-              stripDisplay={stripDisplay}
-            />
-          }
-          <div className="ms-fontColor-neutralTertiary" style={{ fontSize: "10px"}}>
-            Took {(new Date(paragraph.dateFinished).getTime() - new Date(paragraph.dateStarted).getTime()) / 1000} sec. Last updated by {paragraph.user} at {new Date(paragraph.dateUpdated).toLocaleString()}.
           </div>
-        </div>
         </div>
       </div>
     )
   }
 /*
   public shouldComponentUpdate(nextProps, nextState) {
-    const { webSocketMessageSent, webSocketMessageReceived, isStartRun } = nextProps
-    if (isStartRun) {
+    const { webSocketMessageSent, webSocketMessageReceived, isStartNoteRun } = nextProps
+    if (isStartNoteRun) {
       return true
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
@@ -299,9 +306,9 @@ export default class ParagraphResult extends React.Component<any, any> {
   }
 */
   public componentWillReceiveProps(nextProps) {
-    const { isStartRun, webSocketMessageSent, webSocketMessageReceived } = nextProps
-    if (isStartRun) {
-      if (isStartRun.paragraphId == this.state.paragraph.id) {
+    const { isStartNoteRun, webSocketMessageSent, webSocketMessageReceived } = nextProps
+    if (isStartNoteRun) {
+      if (isStartNoteRun.paragraphId == this.state.paragraph.id) {
         var p = this.state.paragraph
         p.results = null
         this.setState({
@@ -317,6 +324,20 @@ export default class ParagraphResult extends React.Component<any, any> {
         })
       }
     }
+    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_APPEND_OUTPUT")) {
+      var data = webSocketMessageReceived.data.data
+      var p = this.state.paragraph
+//      console.log('PARAGRAPH_APPEND_OUTPUT', p, data)
+    }
+    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PROGRESS")) {
+      var progress = webSocketMessageReceived.data.progress
+      if (progress == 0) {
+        progress = 100
+      }
+      this.setState({
+        progress: progress
+      })
+    }
   }
 
   @autobind
@@ -325,11 +346,11 @@ export default class ParagraphResult extends React.Component<any, any> {
     this.notebookApi.commitParagraph(this.state.paragraph)
   }
 
-  private isParagraphRunning (paragraph) {
+  private isParagraphRunning(paragraph) {
     if (!paragraph) return false
-    const status = paragraph.status
+    var status = paragraph.status
     if (!status) return false
     return status === ParagraphStatus.PENDING || status === ParagraphStatus.RUNNING
-  }  
+  }
 
 }

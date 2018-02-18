@@ -45,6 +45,8 @@ export default class ScratchpadEditor extends React.Component<any, any> {
           paragraphs={paragraphs}
           value={code}
           defaultValue=""
+          minLines={100}
+          maxLines={200}
           height="100%"
           width="100%"
           mode="scala"
@@ -68,8 +70,8 @@ export default class ScratchpadEditor extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { isStartRun } = nextProps
-    if (isStartRun) {
+    const { isStartNoteRun } = nextProps
+    if (isStartNoteRun) {
       var lines = this.codeEditor.getWrappedInstance().getValue().split(/\r?\n/)
       var pid = this.state.lastParagraphId
       var paragraphs = []
@@ -86,7 +88,7 @@ export default class ScratchpadEditor extends React.Component<any, any> {
       }
       pid = pid + 1
       paragraphs.push(this.newParagraph(this.state.note.id, pid, code))
-      NotebookStore.state().isStartRun = null,
+      NotebookStore.state().isStartNoteRun = null,
       this.notebookApi.runNote(this.state.note.id, paragraphs)
       this.setState({
         lastParagraphId: pid

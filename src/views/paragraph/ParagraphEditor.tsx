@@ -1,12 +1,14 @@
 import * as React from 'react'
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { NotebookStore } from './../../store/NotebookStore'
 import CodeEditor from './../editor/CodeEditor'
 import { toastr } from 'react-redux-toastr'
+import { ParagraphStatus } from './ParagraphStatus'
 import InlineEditor from './../editor/InlineEditor'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import { SpinButton } from 'office-ui-fabric-react/lib/SpinButton'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import * as isEqual from 'lodash.isequal'
 import * as stylesImport from './../_styles/Styles.scss'
@@ -16,8 +18,6 @@ const styles: any = stylesImport
 export default class ParagraphEditor extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private codeEditor
-  private leftItems: any[] = []
-  private rightItems: any[] = []
 
   state = {
     note: {
@@ -26,7 +26,11 @@ export default class ParagraphEditor extends React.Component<any, any> {
     paragraph: {
       id: '',
       title: '',
-      text: ''
+      text: '',
+      status: '',
+      config: {
+        colWidth: '12'
+      }
     },
     index: -1,
     maxIndex: -1,
@@ -44,152 +48,201 @@ export default class ParagraphEditor extends React.Component<any, any> {
       index: props.index,
       maxIndex: props.maxIndex,
       focus: props.focus,
-      code: '',
+      code: props.paragraph.text,
       showControlBar: props.showControlBar,
       showParagraphTitle: props.showParagraphTitle
     }
-    var moveDown = {}
-    if (props.index != props.maxIndex) {
-      moveDown = {
-        key: 'move-down-indicator',
-        icon: 'ChevronDown',
-        title: 'Move paragraph down',
-        onClick: () => this.moveParagraphDown()
-      }
-    }
-    var moveUp = {}
-    if (props.index != 0) {
-      moveUp = {
-        key: 'move-up-indicator',
-        icon: 'ChevronUp',
-        title: 'Move paragraph up',
-        onClick: () => this.moveParagraphUp()
-      }
-    }
-    this.leftItems = [
-      {
-        key: 'run-indicator',
-        icon: 'Play',
-        title: 'Run the paragraph [SHIFT+Enter]',
-        onClick: () => this.runParagraph()
-      },
-      {
-        key: 'add-indicator',
-        icon: 'Add',
-        title: 'Add a paragraph',
-        onClick: () => this.insertParagraph()
-      },
-      moveDown,
-      moveUp,
-      {
-        key: '...',
-        name: '...',
-        title: 'Actions',
-        items: [
-/*
-          {
-            key: 'to-cover',
-            name: 'Cover',
-            icon: 'Heart',
-            title: 'Cover',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-          },
-*/
-          {
-            key: 'clear',
-            icon: 'ClearFormatting',
-            name: 'Clear',
-            title: 'Clear Content',
-            onClick: () => this.clearParagraphOutput()
-          },
-          {
-            key: 'delete',
-            name: 'Delete',
-            icon: 'Delete',
-            title: 'Delete',
-            onClick: () => this.removeParagraph()
-          }
-        ]
-      }
-    ]
-    this.rightItems = []
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    const { index, note, paragraph, code, focus, showControlBar, showParagraphTitle } = this.state
+
+    const { index, maxIndex, note, paragraph, code, focus, showControlBar, showParagraphTitle } = this.state
+
     var title = 'Add an awesome title...'
     if (paragraph.title && (paragraph.title.length > 0)) {
       title = paragraph.title
     }
+
+    var leftItems: any[] = []
+
+    if (this.isParagraphRunning(paragraph)) {
+      leftItems.push({
+        key: 'cancel-indicator',
+        icon: 'Pause',
+        title: 'Cancel',
+        onClick: () => this.cancelParagraph()
+      })
+    }
+    else {
+      leftItems.push({
+        key: 'run-indicator',
+        icon: 'Play',
+        title: 'Run the paragraph [SHIFT+Enter]',
+        onClick: () => this.runParagraph()
+      })
+    }
+    leftItems.push({
+      key: 'add-indicator',
+      icon: 'Add',
+      title: 'Add a paragraph',
+      onClick: () => this.insertParagraph()
+    })
+    if (index != maxIndex) {
+      leftItems.push({
+        key: 'move-down-indicator',
+        icon: 'ChevronDown',
+        title: 'Move paragraph down',
+        onClick: () => this.moveParagraphDown()
+      })
+    }
+    if (index != 0) {
+      leftItems.push({
+        key: 'move-up-indicator',
+        icon: 'ChevronUp',
+        title: 'Move paragraph up',
+        onClick: () => this.moveParagraphUp()
+      })
+    }
+/*
+    {
+      key: 'to-cover',
+      name: 'Cover',
+      icon: 'Heart',
+      title: 'Cover',
+      onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
+    },
+*/
+    leftItems.push({
+      key: 'clear',
+      icon: 'ClearFormatting',
+      title: 'Clear Paragraph Output',
+      onClick: () => this.clearParagraphOutput()
+    })
+    leftItems.push({
+      key: 'delete',
+      icon: 'Delete',
+      title: 'Delete Paragraph',
+      onClick: () => this.removeParagraph()
+    })
+
+    var rightItems: any[] = []
+
     return (
-      <div className="ms-Grid" style={{margin: 0, padding: 0}}>
-      <div className="ms-Grid-row" style={{margin: 0, padding: 0}}>
-      <div key={paragraph.id}>
-        {
-        (showParagraphTitle == true) &&
-        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 ms-textAlignLeft" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
-          <div className="ms-font-l ms-fontWeight-semibold">
-            <InlineEditor
-              text={title}
-              activeClassName="ms-font-l ms-fontWeight-semibold"
-            />
+      <div className="ms-Grid" 
+        style={{margin: 0, padding: 0}}
+//        key={'pe_' + note.id + '-' + paragraph.id + "-" + index + '-' + paragraph.status + '-' + paragraph.config.colWidth}
+        >
+        <div className="ms-Grid-row" style={{margin: 0, padding: 0}}>
+          <div>
+            {
+            (showParagraphTitle == true) &&
+            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-textAlignLeft" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
+              <div className="ms-font-l ms-fontWeight-semibold">
+                <InlineEditor
+                  text={title}
+                  paramName="title"
+                  minLength={3}
+                  maxLength={20}
+                  change={this.updateTitle}
+                activeClassName="ms-font-l ms-fontWeight-semibold"
+                />
+              </div>
+            </div>
+            }
+            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignRight" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
+              {
+              (showControlBar == true) && 
+                <div style={{ marginLeft: '-20px', float: 'left', width: '400px' }}>
+                  <CommandBar
+                    isSearchBoxVisible={ false }
+                    items={ leftItems }
+                    farItems={ rightItems }
+                    className={ styles.commandBarBackgroundTransparent }
+                  />
+                </div>
+              }
+              <div style={{ width: '10px', float: 'left'}}>
+                <SpinButton
+                  value={ parseInt(paragraph.config.colWidth).toString() }
+//                  defaultValue='12'
+                  label={ '' }
+                  min={ 3 }
+                  max={ 12 }
+                  step={ 3 }
+                  onIncrement={(value) => {
+                    var nextValue = (parseInt(value) + 3).toString()
+                    this.updateColWidth(nextValue)
+                    return nextValue
+                  }}
+                  onDecrement={(value) => {
+                    var nextValue = (parseInt(value) - 3).toString()
+                    this.updateColWidth(nextValue)
+                    return nextValue
+                  }}
+                  onValidate={(value) => {
+                    var v = parseInt(value)
+                    if (isNaN(v)) {
+                      return
+                    } else {
+                      var vs = v.toString()
+                      this.updateColWidth(vs)
+                      return vs
+                    }
+                  }}
+                />
+              </div>
+              <div className="ms-fontColor-neutralTertiary" style={{ float: 'right' }}>
+                {paragraph.status}
+              </div>
+            </div>
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{borderLeft: "4px solid #DDD", padding: 0, margin: 0}}>
+              <CodeEditor
+                name={paragraph.id}
+                note={note}
+                paragraphs={[paragraph]}
+                value={code}
+                defaultValue=""
+                minLines={1}
+                maxLines={30}
+                width="100%"
+                mode="scala"
+                theme="tomorrow"
+//              theme="tomorrow-night-eighties"
+                fontSize="14px"
+                showGutter={false}
+                focus={focus}
+//              onLoad={this.onLoad}
+//              onChange={this.onChange}
+                setOptions={{
+                  enableBasicAutocompletion: false,
+                  enableLiveAutocompletion: false
+                }}
+                ref={ ref => { this.codeEditor = ref }}
+              />
+            </div>
           </div>
         </div>
-        }
-        {
-        (showControlBar == true) && 
-        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 ms-textAlignRight" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
-          <div style={{marginLeft: '-20px'}}>
-            <CommandBar
-              isSearchBoxVisible={ false }
-              items={ this.leftItems }
-              farItems={ this.rightItems }
-              className={ styles.commandBarBackgroundTransparent }
-            />
-          </div>
-        </div>
-        }
-        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{borderLeft: "4px solid #DDD"}}>
-          <CodeEditor
-            name={paragraph.id}
-            note={note}
-            paragraphs={[paragraph]}
-            value={code}
-            defaultValue=""
-            minLines={1}
-            maxLines={30}
-            width="100%"
-            mode="scala"
-  //          theme="tomorrow"
-            theme="tomorrow-night-eighties"
-            fontSize="14px"
-            showGutter={false}
-            focus={focus}
-  //          onLoad={this.onLoad}
-  //          onChange={this.onChange}
-            setOptions={{
-              enableBasicAutocompletion: false,
-              enableLiveAutocompletion: false
-            }}
-            ref={ ref => { this.codeEditor = ref }}
-            key={note.id + '-' + paragraph.id}
-          />
-        </div>
-      </div>
-      </div>
       </div>
     )
 
   }
   public componentWillReceiveProps(nextProps) {
-    const { isStartRun } = nextProps
-    if (isStartRun) {
-      if (isStartRun.paragraphId == this.state.paragraph.id) {
+    const { isStartParagraphRun, webSocketMessageReceived } = nextProps
+    if (isStartParagraphRun) {
+      if (isStartParagraphRun.paragraphId == this.state.paragraph.id) {
         var code = this.codeEditor.getWrappedInstance().getValue()
-        NotebookStore.state().isStartRun = null
+        NotebookStore.state().isStartParagraphRun = null
         var p = this.state.paragraph
         this.notebookApi.runParagraph(p, code)
+      }
+    }
+    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
+      var paragraph = webSocketMessageReceived.data.paragraph
+      if (paragraph.id == this.state.paragraph.id) {        
+        this.setState({
+          paragraph: paragraph
+        })
       }
     }
   }
@@ -202,34 +255,21 @@ export default class ParagraphEditor extends React.Component<any, any> {
   private onChange(newValue) {
   }
 
-  private newParagraph(noteId, i, text) {
-    return {
-      'id': noteId + '_' + i,
-      'jobName': 'paragraph_' + noteId + '_' + i,
-      'text': text.replace(/^\s+|\s+$/g, ''),
-      'params': {},
-      'user': 'anonymous',
-      'config': {
-        'colWidth': 12.0,
-        'enabled': true,
-        'results': {},
-        'editorSetting': {
-          'language': 'scala'
-        },
-        'editorMode': 'ace/mode/scala'
-      },
-      'settings': {
-        'params': {},
-        'forms': {}
-      },
-      'apps': []
-    }
+  private updateColWidth(colWidth: string) {
+    var paragraph = this.state.paragraph
+    paragraph.config.colWidth = colWidth
+    this.notebookApi.commitParagraph(paragraph)
+    this.notebookApi.getNote(this.state.note.id)
   }
 
   private runParagraph() {
     var code = this.codeEditor.getWrappedInstance().editor.getValue()
     this.notebookApi.runParagraph(this.state.paragraph, code)
     this.state.paragraph.text = code
+  }
+
+  private cancelParagraph() {
+    this.notebookApi.cancelParagraph(this.state.paragraph.id)
   }
 
   private insertParagraph() {
@@ -256,5 +296,42 @@ export default class ParagraphEditor extends React.Component<any, any> {
     this.notebookApi.clearParagraphOutput(this.state.paragraph.id)
     this.notebookApi.getNote(this.state.note.id)
   }
+
+  private newParagraph(noteId, i, text) {
+    return {
+      'id': noteId + '_' + i,
+      'jobName': 'paragraph_' + noteId + '_' + i,
+      'text': text.replace(/^\s+|\s+$/g, ''),
+      'params': {},
+      'user': 'anonymous',
+      'config': {
+        'colWidth': "12",
+        'enabled': true,
+        'results': {},
+        'editorSetting': {
+          'language': 'scala'
+        },
+        'editorMode': 'ace/mode/scala'
+      },
+      'settings': {
+        'params': {},
+        'forms': {}
+      },
+      'apps': []
+    }
+  }
+
+  @autobind
+  private updateTitle(message) {
+    this.state.paragraph.title = message.title
+    this.notebookApi.commitParagraph(this.state.paragraph)
+  }
+
+  private isParagraphRunning(paragraph) {
+    if (!paragraph) return false
+    var status = paragraph.status
+    if (!status) return false
+    return status === ParagraphStatus.PENDING || status === ParagraphStatus.RUNNING
+  }  
 
 }

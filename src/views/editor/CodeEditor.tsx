@@ -231,7 +231,7 @@ export default class CodeEditor extends React.Component<any, any> {
       onLoad(this.editor)
     }
 
-    this.editor.runCode = () => this.props.dispatchRunNoteAction(this.state.note.id, this.state.paragraphs[0].id)
+    this.editor.runCode = () => this.props.dispatchRunParagraphAction(this.state.note.id, this.state.paragraphs[0].id)
 
     this.editor.commands.addCommand({
       name: "runCode",

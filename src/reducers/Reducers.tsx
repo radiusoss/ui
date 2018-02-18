@@ -14,7 +14,8 @@ import { isGoogleAuthenticatedReducer, isToGoogleReducer, googleTokenReducer,
  } from './AuthReducer'
 import { notebookLoginReducer, webSocketMessageSentReducer, 
   webSocketMessageReceivedReducer, noteReducer, clearScratchpadReducer,
-  runningParagraphsReducer, notesReducer, isStartRunReducer, goToReducer
+  runningParagraphsReducer, notesReducer, isStartNoteRunReducer,
+  goToReducer, isStartParagraphRunReducer
 } from './NotebookReducer'
 
 export const reducers = combineReducers<ApplicationState.State>({
@@ -40,7 +41,8 @@ export const reducers = combineReducers<ApplicationState.State>({
   note: noteReducer,
   notes: notesReducer,
   runningParagraphs: runningParagraphsReducer,
-  isStartRun: isStartRunReducer,
+  isStartNoteRun: isStartNoteRunReducer,
+  isStartParagraphRun: isStartParagraphRunReducer,
   toastr: toastrReducer,
   routing: routerReducer,
   me: meReducer,

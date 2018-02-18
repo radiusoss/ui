@@ -191,7 +191,7 @@ export default class NotebookControlBar extends React.Component<any, any> {
   }
 
   private runNote() {
-    this.props.dispatchRunNoteAction(this.state.note.id, '')
+    this.props.dispatchRunNoteAction(this.state.note.id)
   }
 
   private asNotes(notes) {
@@ -382,7 +382,12 @@ export default class NotebookControlBar extends React.Component<any, any> {
 
   private updateRunIndicator() {
     const {note, runningParagraphs} = this.state
-    if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/note/") == -1) {
+    if (
+       (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/note/") == -1)
+       &&
+       (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/scratchpad") == -1)
+    )
+    {
       this.runIndicator = {}
       return
     }

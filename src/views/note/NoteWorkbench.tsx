@@ -148,51 +148,55 @@ export default class NoteWorkbench extends React.Component<any, any> {
           { (!vertical) && 
           <div className="ms-Grid" style={{margin: 0, padding: 0}}>
             <div className="ms-Grid-row" style={{margin: 0, padding: 0}}>
-             {
+            {
               note.paragraphs.map(p => {
                 index++
                 var colWidth = p.config.colWidth
+                if (!colWidth) {
+                  colWidth = "12"
+                  p.config.colWidth = colWidth
+                }
                 return (
-                    /* 
-                    borderColor: '#e5e5e5', boxShadow: 'none'
-                          margin: '10px 10px 10px 10px'
-                    */
-                      <div className={"ms-Grid-col ms-u-sm" + colWidth + " ms-u-md" + colWidth + " ms-u-lg" + colWidth}
-                        style={{ 
-                          padding: '0px', 
-                          margin: '0px'
-                        }}
-                        key={ note.id + '-' + p.id + '-' + index} 
-                      >
-                        <div style={{ 
-                          background: 'white', 
-                          borderWidth: '1px 1px 2px',
-                          boxShadow: '0px 2px 7px rgba(0, 0, 0, 0.3)', 
-                          borderColor: 'white',
-                          borderRadius: '3px',
-                          padding: '10px 10px 20px 10px',
-                          margin: '10px 10px 0px 10px'
-                          }}>
-                          <ParagraphEditor
-                            note={note}
-                            paragraph={p}
-                            index={index-1}
-                            maxIndex={maxIndex}
-                            showParagraphTitle={true}
-                            showControlBar={true}
-                            key={note.id + '-pe-' + p.id + "-" + index}
-                            focus={index==1}
+                  /* 
+                  borderColor: '#e5e5e5', boxShadow: 'none'
+                        margin: '10px 10px 10px 10px'
+                  */
+                    <div className={"ms-Grid-col ms-u-sm" + colWidth + " ms-u-md" + colWidth + " ms-u-lg" + colWidth}
+                      style={{ 
+                        padding: '0px', 
+                        margin: '0px'
+                      }}
+                      key={'k1_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
+                    >
+                      <div style={{ 
+                        background: 'white', 
+                        borderWidth: '1px 1px 2px',
+                        boxShadow: '0px 2px 7px rgba(0, 0, 0, 0.3)', 
+                        borderColor: 'white',
+                        borderRadius: '3px',
+                        padding: '10px 10px 20px 10px',
+                        margin: '10px 10px 0px 10px'
+                        }}>
+                        <ParagraphEditor
+                          note={note}
+                          paragraph={p}
+                          index={index-1}
+                          maxIndex={maxIndex}
+                          showParagraphTitle={true}
+                          showControlBar={true}
+                          focus={index==1}
+                          key={'k2_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
                           />
-                          <ParagraphResult
-                            paragraph={p} 
-                            showParagraphTitle={false}
-                            showControlBar={false}
-                            showGraphBar={true}
-                            stripDisplay={true}
-                            key={note.id + '-pr-' + p.id + "-" + index}
+                        <ParagraphResult
+                          paragraph={p} 
+                          showParagraphTitle={false}
+                          showControlBar={false}
+                          showGraphBar={true}
+                          stripDisplay={true}
+                          key={'k3_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
                           />
+                    </div>
                   </div>
-                 </div>
                 )
               })
             }
@@ -212,7 +216,10 @@ export default class NoteWorkbench extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { webSocketMessageReceived } = nextProps
+    const { webSocketMessageReceived, isStartNoteRun } = nextProps
+    if (isStartNoteRun) {
+      this.notebookApi.runNote(this.state.note.id, this.state.note.paragraphs)
+    }
     if (! webSocketMessageReceived) return
     var op = webSocketMessageReceived.op
     if (op == "NOTE") {
