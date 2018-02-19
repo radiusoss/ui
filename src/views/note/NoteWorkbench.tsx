@@ -17,7 +17,14 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import * as Scroll from 'react-scroll'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
-
+/*
+TODO(ECH)
++ Note Results Attributes (State...) and Actions (Cancel..)
++ Show PENDING State as soon as Note is Running
++ Add Progress Bar while Note is Running
++ Manage and Display PROGRESS Messages while Note is Running
++ Clone Note
+*/
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class NoteWorkbench extends React.Component<any, any> {
   private notebookApi: NotebookApi
@@ -48,7 +55,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
 /*
         <div className={styles.rendererHeight} style={{ overflowX: "hidden", fontSize: "small" }}>
 */
-        <div style={{ overflowX: "hidden", fontSize: "small" }}>
+        <div style={{ overflowX: "hidden" }}>
           <div className="ms-Grid" style={{ backgroundColor: 'white', padding: 0, margin: 0 }}>
 {/*
           <div className="ms-Grid ms-clearfix" style={{ padding: 0 }}>
@@ -166,8 +173,9 @@ export default class NoteWorkbench extends React.Component<any, any> {
                         padding: '0px', 
                         margin: '0px'
                       }}
-                      key={'k1_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
-                    >
+//                      key={'k1_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
+                      key={note.id + '-' + p.id + "-" + index}
+                      >
                       <div style={{ 
                         background: 'white', 
                         borderWidth: '1px 1px 2px',
@@ -185,7 +193,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
                           showParagraphTitle={true}
                           showControlBar={true}
                           focus={index==1}
-                          key={'k2_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
+//                          key={'k2_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
                           />
                         <ParagraphResult
                           paragraph={p} 
@@ -193,7 +201,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
                           showControlBar={false}
                           showGraphBar={true}
                           stripDisplay={true}
-                          key={'k3_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
+//                          key={'k3_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
                           />
                     </div>
                   </div>
@@ -202,6 +210,9 @@ export default class NoteWorkbench extends React.Component<any, any> {
             }
             </div>
           </div>
+          }
+          {
+            <div style={{ height: 10}} />
           }
         </div>
       )

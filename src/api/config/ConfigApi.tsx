@@ -68,8 +68,9 @@ export default class ConfigApi extends React.Component<any, any> {
 
     this.notebookApi = window['NotebookApi'] 
 
-    // TODO(ECH) move this config class to the config view to use parse(this.props.location.search).
-    // Moreover, all the config stuff should be locate at the same place...
+    // TODO(ECH)
+    // + Move this config class to the config view to use parse(this.props.location.search).
+    // + Moreover, all the config stuff should be locate at the same place...
     const params = queryString.parse(location.search)
     console.log('URL Params', params)
     

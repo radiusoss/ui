@@ -3,7 +3,9 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import NotYetAvailable from './../message/NotYetAvailable'
 
 export default class History extends React.Component<any, any> {
-
+/*
+TODO(ECH) History Views with Commit
+*/
   public render() {
     return (
       <div>

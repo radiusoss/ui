@@ -190,7 +190,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   public async restartInterpreter(id: string): Promise<Result<SpitfireResponse>> {
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,
-      async () => this.restClient.put<SpitfireResponse>({}, jsonOpt, `/interpreter/setting/restart/${id}`)
+      async () => this.restClient.put<SpitfireResponse>({}, {}, jsonOpt, `/interpreter/setting/restart/${id}`)
     )
   }
 

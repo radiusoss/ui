@@ -200,7 +200,7 @@ export class HdfsClient implements IHdfsClient {
     var params = { op: op, renewer: renewer }
     return this.wrapResult<DelegationTokenResponse, Token>(
       r => r.Token,
-      async () => this.restClient.get<DelegationTokenResponse>(params, this.jsonOpt)
+      async () => this.restClient.get<DelegationTokenResponse>(params, this.jsonOpt, '')
     )
   }
 
@@ -233,7 +233,7 @@ export class HdfsClient implements IHdfsClient {
     const op: string = 'GETHOMEDIRECTORY';
     return this.wrapResult<HomeDirectoryResponse, string>(
       r => r.Path,
-      async () => this.restClient.getOp<HomeDirectoryResponse>(op)
+      async () => this.restClient.getOp<HomeDirectoryResponse>(op, '')
     )
   }
 
@@ -254,7 +254,7 @@ export class HdfsClient implements IHdfsClient {
     const op: string = 'MKDIRS'
     var reqParams = { op, permission: permissionOctal }
     return this.wrapOutcome(async () => {
-      var raw = await this.restClient.put<BooleanResponse>(reqParams, this.jsonOpt, path)
+      var raw = await this.restClient.put<BooleanResponse>(reqParams, this.jsonOpt, path, '')
       return raw.boolean
     });
   }
@@ -281,7 +281,7 @@ export class HdfsClient implements IHdfsClient {
     const op: string = 'RENAME'
     var reqParam = { op, destination }
     return this.wrapOutcome(async () => {
-      var raw = await this.restClient.put<BooleanResponse>(reqParam, this.jsonOpt, source)
+      var raw = await this.restClient.put<BooleanResponse>(reqParam, this.jsonOpt, source, '')
       return raw.boolean
     })
   }

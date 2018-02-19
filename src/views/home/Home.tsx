@@ -1,15 +1,14 @@
 import * as React from 'react'
 import history from './../../history/History'
 import { connect } from 'react-redux'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
+import { toastr } from 'react-redux-toastr'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import NotYetAvailable from './../message/NotYetAvailable'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import ScratchpadDisplay from './../scratchpad/ScratchpadDisplay'
-import ClusterHealth from './../cluster/ClusterHealth'
+import ClusterHealthWidget from './../cluster/ClusterHealthWidget'
 import Calendar from './../calendar/Calendar'
-import { Slider } from 'office-ui-fabric-react/lib/Slider'
-import { toastr } from 'react-redux-toastr'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Home extends React.Component<any, any> {
@@ -42,10 +41,10 @@ export default class Home extends React.Component<any, any> {
         </div>
 
         <div className="ms-Grid-row">
-
-          <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+          <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
             <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/explorer/scratchpad")}}>
-              <Icon iconName='NoteForward' className='ms-Icon50' />
+              <Icon iconName='NoteForward' className='ms-Icon25' />
+              <span className='ms-font-su'> Notebook</span>
             </a>
             { (note.paragraphs.length > 0)  && 
               <ScratchpadDisplay 
@@ -57,26 +56,38 @@ export default class Home extends React.Component<any, any> {
             }
           </div>
 
-          <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+          <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
             <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/settings")}}>
-              <Icon iconName='Health' className='ms-Icon50' />
+              <Icon iconName='Health' className='ms-Icon25' />
+              <span className='ms-font-su'> Cluster</span>
             </a>
-            <ClusterHealth/>
-            <Slider
-                label='Number of Workers'
-                min={ 0 }
-                max={ 3 }
-                step={ 1 }
-                defaultValue={ 2 }
-                showValue={ true }
-                disabled={ true }
-                onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + ' worker(s).') }
-              />
+            <ClusterHealthWidget />
           </div>
 
-          <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+          <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
             <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/calendar")}}>
-              <Icon iconName='Calendar' className='ms-Icon50' />
+              <Icon iconName='Calendar' className='ms-Icon25' />
+              <span className='ms-font-su'> Interpreters</span>
+            </a>
+            <Calendar 
+              defaultView='agenda' 
+              toolbar={false}
+              slots={[
+                {
+                  id: 0,
+                  title: 'A Day Event very long title',
+                  allDay: false,
+                  start: new Date(2018, 1, 11, 10, 0, 0, 0),
+                  end: new Date(2018, 1, 11, 19, 0, 0, 0),
+                }
+              ]}
+            />
+          </div>
+
+          <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
+            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/calendar")}}>
+              <Icon iconName='Calendar' className='ms-Icon25' />
+              <span className='ms-font-su'> Reservations</span>
             </a>
             <Calendar 
               defaultView='agenda' 
@@ -94,7 +105,6 @@ export default class Home extends React.Component<any, any> {
           </div>
 
         </div>
-
       </div>
       
 

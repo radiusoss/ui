@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import JSONTree from 'react-json-tree'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { Link } from 'office-ui-fabric-react/lib/Link'
@@ -30,11 +29,13 @@ export default class SpitfireInterpreters extends React.Component<any, any> {
   }
 
   public render() {
+{/*
+TODO(ECH) Per-User Interpreter Settings</div>
+TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart</div>
+*/}
     return (
       <div>
-        <div>
-          <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
-        </div>
+        <div className="ms-font-xxl">Spitfire Interpreters</div>
         <div style={{ padding: "10px", backgroundColor: "black" }}>
           <JSONTree 
             data={this.state.interpreterSettings} 
@@ -85,22 +86,6 @@ export default class SpitfireInterpreters extends React.Component<any, any> {
     this.setState({
       interpreterSettings: interpreterSettings
     })
-  }
-
-  private async restartInterpreters(e) {
-    e.stopPropagation()
-    e.preventDefault()
-    var interpreterSettings = this.state.interpreterSettings
-    this.setState({
-        interpreterSettings: {}
-    })
-    var body = interpreterSettings.result.body
-    for (var i in body) {
-      var id = body[i].id
-      var name = body[i].name
-      var interpreter = await this.notebookApi.restartInterpreter(id)
-    }
-    this.loadInterpreterSettings()
   }
 
 }

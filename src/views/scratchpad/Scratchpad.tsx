@@ -22,7 +22,12 @@ export default class NoteScratchpad extends React.Component<any, any> {
     super(props)
     this.notebookApi = window["NotebookApi"]
   }
-
+/*
+TODO(ECH) Developer Overlay
++ Scratchpad Editor
++ Variables List
++  Number of Spark Executors
+*/
   public render() {
     const { note } = this.state
     if (note.id) {

@@ -69,7 +69,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
     if (this.isParagraphRunning(paragraph)) {
       leftItems.push({
         key: 'cancel-indicator',
-        icon: 'Pause',
+        icon: 'CirclePause',
         title: 'Cancel',
         onClick: () => this.cancelParagraph()
       })

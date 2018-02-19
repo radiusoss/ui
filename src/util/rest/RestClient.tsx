@@ -15,7 +15,7 @@ export const jsonOpt = { json: true }
 export interface ClientOptions {
   name? : string
   url?: string
-  path?: string
+  path: string
   username?: string
   password?: string
 }
@@ -32,13 +32,13 @@ export interface IRestClient {
   readonly baseUri: string
   readonly baseParameters: {}
   readonly options: ClientOptions
-  buildRequestUri(path?: string, params?: {}): string
-  get<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn>
-  getOp<TReturn>(op: string, path?: string): Promise<TReturn>
-  post<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn>
-  postForm<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn>
-  put<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn>
-  delete<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn>
+  buildRequestUri(path: string, params?: {}): string
+  get<TReturn>(reqParams: {}, config: any, path: string): Promise<TReturn>
+  getOp<TReturn>(op: string, path: string): Promise<TReturn>
+  post<TReturn>(body: {}, reqParams: {}, config: any, path: string): Promise<TReturn>
+  postForm<TReturn>(body: {}, reqParams: {}, config: any, path: string): Promise<TReturn>
+  put<TReturn>(body: {}, reqParams: {}, config: any, path: string): Promise<TReturn>
+  delete<TReturn>(reqParams: {}, config: any, path: string): Promise<TReturn>
 //  getStream(reqParams: {}, config: any, path: string): stream.Stream
 }
 
@@ -55,7 +55,7 @@ export class RestClient implements IRestClient {
     }
   }
 
-  public async get<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn> {
+  public async get<TReturn>(reqParams: {}, config: any, path: string): Promise<TReturn> {
     var uri: string = this.buildRequestUriWithParams(path, reqParams);
     return fetch(uri, {
       method: 'GET',
@@ -70,13 +70,13 @@ export class RestClient implements IRestClient {
     .then(json => json as TReturn)
   }
 
-  public async getOp<TReturn>(op: string, path?: string): Promise<TReturn> {
+  public async getOp<TReturn>(op: string, path: string): Promise<TReturn> {
     var params: {} = { op: op }
     var config: any = { json: true }
     return this.get<TReturn>(params, config, path)
   }
 
-  public async post<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn> {
+  public async post<TReturn>(body: {}, reqParams: {}, config: any, path: string): Promise<TReturn> {
     var uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'POST',
@@ -92,7 +92,7 @@ export class RestClient implements IRestClient {
     .then(json => json as TReturn)
   }
 
-  public async put<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn> {
+  public async put<TReturn>(body: {}, reqParams: {}, config: any, path: string): Promise<TReturn> {
     var uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'PUT',
@@ -108,7 +108,7 @@ export class RestClient implements IRestClient {
     .then(json => json as TReturn)
   }
 
-  public async postForm<TReturn>(body: {}, reqParams: {}, config: any, path?: string): Promise<TReturn> {
+  public async postForm<TReturn>(body: {}, reqParams: {}, config: any, path: string): Promise<TReturn> {
     var uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'POST',
@@ -124,7 +124,7 @@ export class RestClient implements IRestClient {
     .then(json => json as TReturn)
   }
 
-  public async delete<TReturn>(reqParams: {}, config: any, path?: string): Promise<TReturn> {
+  public async delete<TReturn>(reqParams: {}, config: any, path: string): Promise<TReturn> {
     var uri: string = this.buildRequestUriWithParams(path, reqParams)
     return fetch(uri, {
       method: 'DELETE',
@@ -154,7 +154,7 @@ export class RestClient implements IRestClient {
     .then(response => response.body as stream.Stream)
   }
 */
-public buildRequestUri(path?: string): string {
+public buildRequestUri(path: string): string {
     path = path || ''
     if (path[0] === '/') {
       path = path.substr(1)
@@ -166,7 +166,7 @@ public buildRequestUri(path?: string): string {
     return uri
   }
 
-  public buildRequestUriWithParams(path?: string, params?: {}): string {
+  public buildRequestUriWithParams(path: string, params?: {}): string {
     var uri = this.buildRequestUri(path)
     params = params || {}
     var reqparams: {} = { ...this.baseParameters, ...params }

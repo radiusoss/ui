@@ -7,7 +7,6 @@ import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
 import NotYetAvailable from './../message/NotYetAvailable'
-import { Slider } from 'office-ui-fabric-react/lib/Slider'
 import { toastr } from 'react-redux-toastr'
 import ClusterHealth from './ClusterHealth'
 import { emailRegexp } from './../../util/msc/regexp'
@@ -53,22 +52,6 @@ export default class Cluster extends React.Component<any, IClusterState> {
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <NotYetAvailable/>
-            </div>
-          </div>
-          <div className="ms-Grid-row" style={{ maxWidth: "500px" }}>
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <Slider
-                label='Number of Workers'
-                min={ 0 }
-                max={ 3 }
-                step={ 2 }
-                defaultValue={ 0 }
-                showValue={ true }
-                disabled={ false }
-                onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + ' worker(s).') }
-              />
-              <div className="ms-font-xxl">Health</div>
-              <ClusterHealth/>
             </div>
           </div>
           <div className="ms-Grid-row">

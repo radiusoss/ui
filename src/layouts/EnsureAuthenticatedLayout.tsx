@@ -16,7 +16,8 @@ import Users from './../views/users/Users'
 import Calendar from './../views/calendar/Calendar'
 import History from './../views/history/History'
 import Settings from './../views/settings/Settings'
-import Costs from './../views/costs/Costs'
+import Status from './../views/status/Status'
+import Budget from './../views/budget/Budget'
 import Simple from './../views/spl/Simple'
 import Lesson1 from '../views/school/lessons/lesson1/Lesson1'
 import Lesson2 from '../views/school/lessons/lesson2/Lesson2'
@@ -57,7 +58,8 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/profile" name="Profile" component={Profile}/>
           <Route path="/dla/kuber/users" name="Profile" component={Users}/>
           <Route path="/dla/kuber/settings" name="Settings" component={Settings}/>
-          <Route path="/dla/kuber/costs" name="Costs" component={Costs}/>
+          <Route path="/dla/kuber/status" name="Status" component={Status}/>
+          <Route path="/dla/kuber/budget" name="Budget" component={Budget}/>
           <Route path="/dla/explorer/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
           <Route path="/dla/explorer/note/cover/:noteId" name="Note Cover" component={NoteCover}/>
           <Route path="/dla/explorer/note/workbench/:noteId" name="Note Workbench" component={NoteWorkbench}/>

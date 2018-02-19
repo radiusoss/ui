@@ -286,18 +286,25 @@ export default class NotebookControlBar extends React.Component<any, any> {
             onClick: () => history.push(`/dla/kuber/profile`)
           },
           {
+            key: 'status',
+            name: 'Status',
+            icon: 'AutoRacing',
+            title: 'Status',
+            onClick: () => history.push(`/dla/kuber/status`)
+          },
+          {
+            key: 'budget',
+            name: 'Budget',
+            icon: 'Money',
+            title: 'Budget',
+            onClick: () => history.push(`/dla/kuber/budget`)
+          },
+          {
             key: 'settings',
             name: 'Settings',
             icon: 'Settings',
             title: 'Settings',
             onClick: () => history.push(`/dla/kuber/settings`)
-          },
-          {
-            key: 'costs',
-            name: 'Costs',
-            icon: 'Money',
-            title: 'Costs',
-            onClick: () => history.push(`/dla/kuber/costs`)
           }
 /*
           {

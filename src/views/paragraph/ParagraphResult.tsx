@@ -324,6 +324,7 @@ export default class ParagraphResult extends React.Component<any, any> {
         })
       }
     }
+    // PARAGRAPH_UPDATE_OUTPUT
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_APPEND_OUTPUT")) {
       var data = webSocketMessageReceived.data.data
       var p = this.state.paragraph
