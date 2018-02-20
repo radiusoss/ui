@@ -113,8 +113,12 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.runParagraph(paragraph, code)
   }
     
-  public runNote(id: string, paragraphs: any[]) {
-    return this.spitfireApi.runNote(id, paragraphs)
+  public runAllParagraphs(id: string, paragraphs: any[]) {
+    return this.spitfireApi.runAllParagraphs(id, paragraphs)
+  }
+
+  public runAllParagraphsSpitfire(id: string, paragraphs: any[]) {
+    return this.spitfireApi.runAllParagraphsSpitfire(id, paragraphs)
   }
 
   public cancelParagraph(id: string) {

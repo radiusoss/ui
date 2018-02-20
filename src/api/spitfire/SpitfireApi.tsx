@@ -37,7 +37,8 @@ export interface ISpitfireApi {
   renameNote(id: string, newName: string)
   moveNoteToTrash(id: string): void
   deleteNote(id: string): void
-  runNote(id: string, paragraphs: any[])
+  runAllParagraphs(id: string, paragraphs: any[])
+  runAllParagraphsSpitfire(id: string, paragraphs: any[])
   runParagraph(paragraph: any, code: string)
   cancelParagraph(id: string)
   restartInterpreter(id: string)
@@ -238,7 +239,11 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     this.sendWebSocketMessage(JSON.stringify(this.DEL_NOTE(id)))
   }
 
-  public runNote(id: string, paragraphs: any[]): void {
+  public runAllParagraphs(id: string, paragraphs: any[]): void {
+    this.sendWebSocketMessage(JSON.stringify(this.RUN_ALL_PARAGRAPHS(id, paragraphs)))
+  }
+
+  public runAllParagraphsSpitfire(id: string, paragraphs: any[]): void {
     this.sendWebSocketMessage(JSON.stringify(this.RUN_ALL_PARAGRAPHS_SPITFIRE(id, paragraphs)))
   }
 
@@ -507,6 +512,18 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     }
   }
 
+  private RUN_PARAGRAPH(paragraph: any, code: string) {
+    paragraph.params = {}
+    paragraph.paragraph = code
+    return {
+      'op':	'RUN_PARAGRAPH',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data':	paragraph
+    }
+  }
+
   private RUN_ALL_PARAGRAPHS(noteId: string, paragraphs: any[]) {
     return {
       'op':	'RUN_ALL_PARAGRAPHS',
@@ -517,18 +534,6 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
         'noteId': noteId,
         'paragraphs': paragraphs
       }
-    }
-  }
-
-  private RUN_PARAGRAPH(paragraph: any, code: string) {
-    paragraph.params = {}
-    paragraph.paragraph = code
-    return {
-      'op':	'RUN_PARAGRAPH',
-      'principal': this.principalValue(),
-      'ticket':	this.ticketValue(),
-      'roles': this.rolesValue(),
-      'data':	paragraph
     }
   }
 
@@ -689,7 +694,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
   private RUN_FLOW(id: string) {
     return {
-      'op':	'RUN_ALL_PARAGRAPHS_SPITFIRE',
+      'op':	'RUN_FLOW',
       'principal': this.principalValue(),
       'ticket':	this.ticketValue(),
       'roles': this.rolesValue(),

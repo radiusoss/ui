@@ -29,11 +29,21 @@ TODO(ECH)
 export default class NoteWorkbench extends React.Component<any, any> {
   private notebookApi: NotebookApi
 
+  private paragraphEditors = new Map<string, any>()
+
   state = {
     note: {
       id: '',
       name: '',
-      paragraphs: []
+      paragraphs: [{
+        id: '',
+        title: '',
+        text: '',
+        status: '',
+        config: {
+          colWidth: '12'
+        }
+      }]
     },
     vertical: false,
     numberOfFaces: 3,
@@ -193,6 +203,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
                           showParagraphTitle={true}
                           showControlBar={true}
                           focus={index==1}
+                          ref={ ref => { this.paragraphEditors.set(note.id + '-' + p.id, ref) }}
 //                          key={'k2_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
                           />
                         <ParagraphResult
@@ -229,7 +240,22 @@ export default class NoteWorkbench extends React.Component<any, any> {
   public componentWillReceiveProps(nextProps) {
     const { webSocketMessageReceived, isStartNoteRun } = nextProps
     if (isStartNoteRun) {
-      this.notebookApi.runNote(this.state.note.id, this.state.note.paragraphs)
+      var i = 0
+      if (isStartNoteRun.noteId) {
+        if (isStartNoteRun.noteId == this.state.note.id) {
+          this.state.note.paragraphs.map(p => {
+            var editor = this.paragraphEditors.get(this.state.note.id + '-' + p.id)
+            if (editor) {
+              var content = editor.getWrappedInstance().getCodeEditorContent()
+              p.text = content
+            }
+            else {
+              console.warn("Something is wrong while fetching editor for paragraph from map.", p, this.paragraphEditors)
+            }
+          })
+        }
+        this.notebookApi.runAllParagraphsSpitfire(this.state.note.id, this.state.note.paragraphs)
+      }
     }
     if (! webSocketMessageReceived) return
     var op = webSocketMessageReceived.op

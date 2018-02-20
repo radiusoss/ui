@@ -17,7 +17,7 @@ export default class Status extends React.Component<any, any> {
   public render() {
     return (
       <div>
-        <div className="ms-font-su">Status</div>
+        <div className="ms-font-su">Platform Status</div>
         <Pivot>
           <PivotItem linkText='Capacity' itemIcon='CircleFill'>
             <ClusterCapacity />
@@ -31,6 +31,9 @@ export default class Status extends React.Component<any, any> {
           <PivotItem linkText='Reservations' itemIcon='Calendar'>
             <ClusterReservations />
           </PivotItem>
+          <PivotItem linkText='Interpreters' itemIcon='Light'>
+            <SpitfireInterpretersStatus />
+          </PivotItem>
           <PivotItem linkText='Spark REPL' itemIcon='EngineeringGroup'>
             <SparkStatus />
           </PivotItem>
@@ -39,9 +42,6 @@ export default class Status extends React.Component<any, any> {
           </PivotItem>
           <PivotItem linkText='Spark UI' itemIcon='Hospital'>
             <SparkUI />
-          </PivotItem>
-          <PivotItem linkText='Interpreters' itemIcon='Light'>
-            <SpitfireInterpretersStatus />
           </PivotItem>
         </Pivot>
       </div>

@@ -11,7 +11,7 @@ export default class TextDisplay extends React.Component<any, any> {
   public render() {
     const { data } = this.props
     return (
-      <pre>
+      <pre style={{fontSize: 'small'}}>
         {data}
       </pre>
     )

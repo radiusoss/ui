@@ -15,7 +15,7 @@ import * as isEqual from 'lodash.isequal'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
-@connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
+@connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook, null, { withRef: true })
 export default class ParagraphEditor extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private codeEditor
@@ -256,11 +256,16 @@ export default class ParagraphEditor extends React.Component<any, any> {
     )
 
   }
+
+  public getCodeEditorContent() {
+    return this.codeEditor.getWrappedInstance().getValue()
+  }
+
   public componentWillReceiveProps(nextProps) {
     const { isStartParagraphRun, webSocketMessageReceived } = nextProps
     if (isStartParagraphRun) {
       if (isStartParagraphRun.paragraphId == this.state.paragraph.id) {
-        var code = this.codeEditor.getWrappedInstance().getValue()
+        var code = this.getCodeEditorContent()
         NotebookStore.state().isStartParagraphRun = null
         var p = this.state.paragraph
         this.notebookApi.runParagraph(p, code)

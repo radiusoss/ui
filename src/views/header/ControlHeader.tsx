@@ -81,7 +81,6 @@ export default class ControlHeader extends React.Component<any, any> {
               <div style={{ float: 'left' }}>
                 <SearchBox
                   onFocus={ () => toastr.warning('Search is not available', 'Looks like you are eager for the next release...') }
-                  onBlur={ () => console.log('onBlur called') }
                   underlined={ true }
                 />
               </div>

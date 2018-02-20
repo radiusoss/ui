@@ -35,10 +35,10 @@ export default class ParagraphResult extends React.Component<any, any> {
       dateUpdated: '',
       status: '',
       results: {
-        msg: {
+        msg: [{
           data: '',
           type: '',
-        }
+        }]
       }
     },
     showControlBar: false,
@@ -189,7 +189,19 @@ export default class ParagraphResult extends React.Component<any, any> {
         </div>
       }
     }
-    var msg = results.msg[0]
+    var msgs = results.msg
+    if (!msgs) return <div></div>
+    if (msgs.length == 0) return <div></div>
+
+    var rendered = msgs.map( msg => {
+      return <div key={paragraph.id}>{this.renderMsg(paragraph, results, msg, paragraphHeader, stripDisplay, showGraphBar)}</div>
+    })
+
+    return rendered
+
+  }
+
+  private renderMsg(paragraph, results, msg, paragraphHeader, stripDisplay, showGraphBar) {
     if (!msg) return <div></div>
     const id = paragraph.id
     const data = msg.data
@@ -308,12 +320,14 @@ export default class ParagraphResult extends React.Component<any, any> {
   public componentWillReceiveProps(nextProps) {
     const { isStartNoteRun, webSocketMessageSent, webSocketMessageReceived } = nextProps
     if (isStartNoteRun) {
-      if (isStartNoteRun.paragraphId == this.state.paragraph.id) {
-        var p = this.state.paragraph
-        p.results = null
-        this.setState({
-          paragraph: p
-        })
+      if (!isStartNoteRun.noteId) {
+        if (isStartNoteRun.paragraphId == this.state.paragraph.id) {
+          var p = this.state.paragraph
+          p.results = null
+          this.setState({
+            paragraph: p
+          })
+        }
       }
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
@@ -324,13 +338,19 @@ export default class ParagraphResult extends React.Component<any, any> {
         })
       }
     }
-    // PARAGRAPH_UPDATE_OUTPUT
+    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_UPDATE_OUTPUT")) {
+      var data = webSocketMessageReceived.data.data
+      var p = this.state.paragraph
+      console.log('PARAGRAPH_UPDATE_OUTPUT', p, data)
+    }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_APPEND_OUTPUT")) {
       var data = webSocketMessageReceived.data.data
       var p = this.state.paragraph
-//      console.log('PARAGRAPH_APPEND_OUTPUT', p, data)
+      console.log('PARAGRAPH_APPEND_OUTPUT', p, data)
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PROGRESS")) {
+      var data = webSocketMessageReceived.data.data
+      console.log('PROGRESS', p, data)
       var progress = webSocketMessageReceived.data.progress
       if (progress == 0) {
         progress = 100

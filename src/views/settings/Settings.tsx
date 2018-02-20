@@ -15,7 +15,7 @@ export default class Settings extends React.Component<any, any> {
   public render() {
     return (
       <div>
-        <div className="ms-font-su">Settings</div>
+        <div className="ms-font-su">Platform Settings</div>
         <Pivot>
           <PivotItem linkText='Cluster' itemIcon='TFVCLogo'>
             <Cluster />

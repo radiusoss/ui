@@ -89,7 +89,7 @@ export default class ScratchpadEditor extends React.Component<any, any> {
       pid = pid + 1
       paragraphs.push(this.newParagraph(this.state.note.id, pid, code))
       NotebookStore.state().isStartNoteRun = null,
-      this.notebookApi.runNote(this.state.note.id, paragraphs)
+      this.notebookApi.runAllParagraphsSpitfire(this.state.note.id, paragraphs)
       this.setState({
         lastParagraphId: pid
       })
