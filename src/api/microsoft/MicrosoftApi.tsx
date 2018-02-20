@@ -221,16 +221,17 @@ export default class MicrosoftApi extends React.Component<any, any> {
   private getClient() {
     var profile = JSON.parse(localStorage.getItem(MicrosoftProfileStorageKey))
     console.log('Microsoft Profile', profile)
-    // TODO(ECH) Lazy instance...
     if (profile) {
+      if (!this.client) {
         // Initialize the Microsoft Graph Client.
-      this.client = Client.init({
-        debugLogging: true,
-        authProvider: (done) => {
-          var access_token = profile.access_token
-          done(null, access_token)
-        }
-      })
+        this.client = Client.init({
+          debugLogging: true,
+          authProvider: (done) => {
+            var access_token = profile.access_token
+            done(null, access_token)
+          }
+        })
+      }
     }
     else {
       this.client = null

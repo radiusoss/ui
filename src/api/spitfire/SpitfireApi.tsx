@@ -166,7 +166,6 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 // ----------------------------------------------------------------------------
 
   public async login(userName, password): Promise<Result<SpitfireResponse>> {
-    // TODO(ECH)
     password = "spitfire-shared"
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,

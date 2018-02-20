@@ -26,7 +26,7 @@ export default class NoteScratchpad extends React.Component<any, any> {
 TODO(ECH) Developer Overlay
 + Scratchpad Editor
 + Variables List
-+  Number of Spark Executors
++ Number of Spark Executors
 */
   public render() {
     const { note } = this.state

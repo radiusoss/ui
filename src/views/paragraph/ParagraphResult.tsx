@@ -197,8 +197,14 @@ export default class ParagraphResult extends React.Component<any, any> {
       return <div key={paragraph.id}>{this.renderMsg(paragraph, results, msg, paragraphHeader, stripDisplay, showGraphBar)}</div>
     })
 
-    return rendered
+    rendered.push(
+      <div className="ms-fontColor-neutralSecondary" style={{ fontSize: "10px"}}>
+        Took {(new Date(paragraph.dateFinished).getTime() - new Date(paragraph.dateStarted).getTime()) / 1000} sec. Last updated by {paragraph.user} at {new Date(paragraph.dateUpdated).toLocaleString()}.
+      </div>
+    )
 
+    return rendered
+  
   }
 
   private renderMsg(paragraph, results, msg, paragraphHeader, stripDisplay, showGraphBar) {
@@ -238,6 +244,7 @@ export default class ParagraphResult extends React.Component<any, any> {
                 stripDisplay={stripDisplay}
               />
             }
+{/*
             {
               ((type == 'HTML') && (stripDisplay)) && 
               <div style = {{maxHeight: "500px", overflowY: "auto"}}>
@@ -253,6 +260,14 @@ export default class ParagraphResult extends React.Component<any, any> {
                   data={data} 
                   stripDisplay={stripDisplay}
                 />
+            }
+*/}
+            {
+              (type == 'HTML') && 
+              <HtmlDisplay
+                data={data} 
+                stripDisplay={stripDisplay}
+              />
             }
             {
               (type == 'IMG') &&
@@ -285,9 +300,6 @@ export default class ParagraphResult extends React.Component<any, any> {
                 stripDisplay={stripDisplay}
               />
             }
-            <div className="ms-fontColor-neutralTertiary" style={{ fontSize: "10px"}}>
-              Took {(new Date(paragraph.dateFinished).getTime() - new Date(paragraph.dateStarted).getTime()) / 1000} sec. Last updated by {paragraph.user} at {new Date(paragraph.dateUpdated).toLocaleString()}.
-            </div>
           </div>
         </div>
       </div>

@@ -146,10 +146,11 @@ export default class ParagraphEditor extends React.Component<any, any> {
         <Panel
           isOpen={ showPanel }
           type={ PanelType.smallFixedFar }
-          headerText={paragraph.title}
+          headerText="Paragraph"
           onDismiss={() => this.setState({showPanel: false})}
         >
           <div>
+            <div className="ms-font-xl">{paragraph.title}</div>
             <div style={{ width: '10px', float: 'left'}}>
               <SpinButton
                 value={ parseInt(paragraph.config.colWidth).toString() }

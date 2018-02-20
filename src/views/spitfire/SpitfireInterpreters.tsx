@@ -27,12 +27,11 @@ export default class SpitfireInterpreters extends React.Component<any, any> {
     items = items || createListItems(500)
     groups = groups || createGroups(GROUP_COUNT, 1, 0, ITEMS_PER_GROUP)
   }
-
-  public render() {
-{/*
+/*
 TODO(ECH) Per-User Interpreter Settings</div>
 TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart</div>
-*/}
+*/
+public render() {
     return (
       <div>
         <div className="ms-font-xxl">Spitfire Interpreters</div>
