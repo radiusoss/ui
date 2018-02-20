@@ -58,7 +58,7 @@ export default class Config extends React.Component<any, IKuberState> {
     const { disabled, checked } = this.state
     return (
       <div>
-        <div className="ms-font-su">Kuber Configuration</div>
+        <div className="ms-font-xxl">Kuber Configuration</div>
         <Form 
           onSubmit={ this.submit } 
           showErrorsWhenPristine={ true }

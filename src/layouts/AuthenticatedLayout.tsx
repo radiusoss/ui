@@ -8,7 +8,7 @@ import Breadcrumbs from 'react-breadcrumbs'
 import EnsureAuthenticatedLayout from './../layouts/EnsureAuthenticatedLayout'
 import Kuber from './../views/spl/Spl'
 import Check from './../views/spl/Check'
-import About from './../views/about/About'
+import Highlights from './../views/about/Highlights'
 import HallOfFame from './../views/about/HallOfFame'
 import Docs from './../views/docs/Docs'
 import Platform from './../views/about/Platform'
@@ -38,7 +38,7 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
 */}
             <div className="container-fluid" style={{ padding: this.getPadding(), overflowY: 'hidden' }}>
               <Route exact path="/dla/about/platform" name="Datalayer" component={Platform} />
-              <Route exact path="/dla/about/highlights" name="About" component={About} />
+              <Route exact path="/dla/about/highlights" name="Highlights" component={Highlights} />
               <Route exact path="/dla/about/release-notes" name="Release Notes" component={ReleaseNotes} />
               <Route exact path="/dla/about/hall-of-fame" name="About" component={HallOfFame} />
               <Route exact path="/dla/support/docs" name="Docs" component={Docs} />

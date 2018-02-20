@@ -26,14 +26,14 @@ export default class Settings extends React.Component<any, any> {
           <PivotItem linkText='Kuber Config' itemIcon='Equalizer'>
             <Config />
           </PivotItem>
-          <PivotItem linkText='Apps' itemIcon='MapPin'>
-            <Apps />
-          </PivotItem>
           <PivotItem linkText='Spitfire Config' itemIcon='Airplane'>
             <SpitfireConfig />
           </PivotItem>
           <PivotItem linkText='Spitfire Interpreters' itemIcon='AirplaneSolid'>
             <SpitfireInterpreters />
+          </PivotItem>
+          <PivotItem linkText='Apps' itemIcon='MapPin'>
+            <Apps />
           </PivotItem>
         </Pivot>
       </div>

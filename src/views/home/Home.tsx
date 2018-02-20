@@ -9,6 +9,8 @@ import ScratchpadDisplay from './../scratchpad/ScratchpadDisplay'
 import ClusterHealthWidget from './../cluster/ClusterHealthWidget'
 import Calendar from './../calendar/Calendar'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
+import * as stylesImport from './../_styles/Styles.scss'
+const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Home extends React.Component<any, any> {
@@ -32,20 +34,13 @@ export default class Home extends React.Component<any, any> {
 
     return (
 
-      <div className="ms-Grid ms-fadeIn500">
+      <div className={`ms-Grid ms-fadeIn500`}>
 
         <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-            <NotYetAvailable/>
-          </div>
-        </div>
 
-        <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
-            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/explorer/scratchpad")}}>
-              <Icon iconName='NoteForward' className='ms-Icon25' />
-              <span className='ms-font-su'> Notebook</span>
-            </a>
+          <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
+            <Icon iconName='NoteForward' className='ms-Icon25' />
+            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/explorer/notes/list")}}>Notebook</a></span>
             { (note.paragraphs.length > 0)  && 
               <ScratchpadDisplay 
                   showGraphBar={false}
@@ -56,39 +51,20 @@ export default class Home extends React.Component<any, any> {
             }
           </div>
 
-          <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
-            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/settings")}}>
-              <Icon iconName='Health' className='ms-Icon25' />
-              <span className='ms-font-su'> Cluster</span>
-            </a>
+          <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
+            <Icon iconName='Health' className='ms-Icon25' />
+            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status")}}>Cluster</a></span>
             <ClusterHealthWidget />
           </div>
 
-          <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
-            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/calendar")}}>
-              <Icon iconName='Calendar' className='ms-Icon25' />
-              <span className='ms-font-su'> Interpreters</span>
-            </a>
-            <Calendar 
-              defaultView='agenda' 
-              toolbar={false}
-              slots={[
-                {
-                  id: 0,
-                  title: 'A Day Event very long title',
-                  allDay: false,
-                  start: new Date(2018, 1, 11, 10, 0, 0, 0),
-                  end: new Date(2018, 1, 11, 19, 0, 0, 0),
-                }
-              ]}
-            />
+          <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
+            <Icon iconName='Light' className='ms-Icon25' />
+            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status/interpreters")}}>Interpreters</a></span>
           </div>
 
-          <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
-            <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/calendar")}}>
-              <Icon iconName='Calendar' className='ms-Icon25' />
-              <span className='ms-font-su'> Reservations</span>
-            </a>
+          <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
+            <Icon iconName='Calendar' className='ms-Icon25' />
+            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/calendar")}}>Reservations</a></span>
             <Calendar 
               defaultView='agenda' 
               toolbar={false}
@@ -105,8 +81,8 @@ export default class Home extends React.Component<any, any> {
           </div>
 
         </div>
+
       </div>
-      
 
     )
 

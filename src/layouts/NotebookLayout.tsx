@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import history from './../history/History'
 import { Route } from 'react-router-dom'
 import AuthenticatedLayout from './../layouts/AuthenticatedLayout'
-import About from './../views/about/About'
+import Highlights from './../views/about/Highlights'
 import Check from './../views/spl/Check'
 import Welcome from './../views/Welcome'
 import Tmp from './../views/spl/Tmp'
@@ -29,7 +29,7 @@ export default class NotebookLayout extends React.Component<any, any> {
         <Route exact path="/" component={Welcome}/>
         <Route exact path="/index.html" component={Welcome}/>
         <Route exact path="/help" name="Help" component={Help} />
-        <Route exact path="/about" name="About" component={About} />
+        <Route exact path="/highlights" name="Highlights" component={Highlights} />
         <Route exact path="/check" name="Check" component={Check} />
         <Route exact path="/k8s" name="Kubernetes" component={Kuber} />
         <Route exact path="/kuber/spl" name="Kuber Spl" component={KuberSpl} />

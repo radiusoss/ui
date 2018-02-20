@@ -3,6 +3,7 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { NotebookStore } from './../../store/NotebookStore'
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import CodeEditor from './../editor/CodeEditor'
 import { toastr } from 'react-redux-toastr'
 import { ParagraphStatus } from './ParagraphStatus'
@@ -37,7 +38,8 @@ export default class ParagraphEditor extends React.Component<any, any> {
     focus: false,
     code: '',
     showControlBar: true,
-    showParagraphTitle: false
+    showParagraphTitle: false,
+    showPanel: false
   }
 
   public constructor(props) {
@@ -50,14 +52,15 @@ export default class ParagraphEditor extends React.Component<any, any> {
       focus: props.focus,
       code: props.paragraph.text,
       showControlBar: props.showControlBar,
-      showParagraphTitle: props.showParagraphTitle
+      showParagraphTitle: props.showParagraphTitle,
+      showPanel: false
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
 
-    const { index, maxIndex, note, paragraph, code, focus, showControlBar, showParagraphTitle } = this.state
+    const { index, maxIndex, note, paragraph, code, focus, showControlBar, showParagraphTitle, showPanel } = this.state
 
     var title = 'Add an awesome title...'
     if (paragraph.title && (paragraph.title.length > 0)) {
@@ -113,116 +116,142 @@ export default class ParagraphEditor extends React.Component<any, any> {
       onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
     },
 */
-    leftItems.push({
-      key: 'clear',
-      icon: 'ClearFormatting',
-      title: 'Clear Paragraph Output',
-      onClick: () => this.clearParagraphOutput()
-    })
-    leftItems.push({
-      key: 'delete',
-      icon: 'Delete',
-      title: 'Delete Paragraph',
-      onClick: () => this.removeParagraph()
-    })
+    leftItems.push(
+      {
+        key: 'clear',
+        icon: 'ClearFormatting',
+        title: 'Clear Paragraph Output',
+        onClick: () => this.clearParagraphOutput()
+      },
+      {
+        key: 'delete',
+        icon: 'Delete',
+        title: 'Delete Paragraph',
+        onClick: () => this.removeParagraph()
+      },
+      {
+        key: 'panel',
+        icon: 'SidePanelMirrored',
+        title: 'Show Control Panel',
+        onClick: () => this.setState({showPanel: true})
+      }
+    )
 
     var rightItems: any[] = []
 
     return (
-      <div className="ms-Grid" 
-        style={{margin: 0, padding: 0}}
-//        key={'pe_' + note.id + '-' + paragraph.id + "-" + index + '-' + paragraph.status + '-' + paragraph.config.colWidth}
+
+      <div>
+
+        <Panel
+          isOpen={ showPanel }
+          type={ PanelType.smallFixedFar }
+          headerText={paragraph.title}
+          onDismiss={() => this.setState({showPanel: false})}
         >
-        <div className="ms-Grid-row" style={{margin: 0, padding: 0}}>
           <div>
-            {
-            (showParagraphTitle == true) &&
-            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-textAlignLeft" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
-              <div className="ms-font-l ms-fontWeight-semibold">
-                <InlineEditor
-                  text={title}
-                  paramName="title"
-                  minLength={3}
-                  maxLength={20}
-                  change={this.updateTitle}
-                activeClassName="ms-font-l ms-fontWeight-semibold"
-                />
-              </div>
-            </div>
-            }
-            <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignRight" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
-              {
-              (showControlBar == true) && 
-                <div style={{ marginLeft: '-20px', float: 'left', width: '400px' }}>
-                  <CommandBar
-                    isSearchBoxVisible={ false }
-                    items={ leftItems }
-                    farItems={ rightItems }
-                    className={ styles.commandBarBackgroundTransparent }
-                  />
-                </div>
-              }
-              <div style={{ width: '10px', float: 'left'}}>
-                <SpinButton
-                  value={ parseInt(paragraph.config.colWidth).toString() }
+            <div style={{ width: '10px', float: 'left'}}>
+              <SpinButton
+                value={ parseInt(paragraph.config.colWidth).toString() }
 //                  defaultValue='12'
-                  label={ '' }
-                  min={ 3 }
-                  max={ 12 }
-                  step={ 3 }
-                  onIncrement={(value) => {
-                    var nextValue = (parseInt(value) + 3).toString()
-                    this.updateColWidth(nextValue)
-                    return nextValue
-                  }}
-                  onDecrement={(value) => {
-                    var nextValue = (parseInt(value) - 3).toString()
-                    this.updateColWidth(nextValue)
-                    return nextValue
-                  }}
-                  onValidate={(value) => {
-                    var v = parseInt(value)
-                    if (isNaN(v)) {
-                      return
-                    } else {
-                      var vs = v.toString()
-                      this.updateColWidth(vs)
-                      return vs
-                    }
-                  }}
-                />
-              </div>
-              <div className="ms-fontColor-neutralTertiary" style={{ float: 'right' }}>
-                {paragraph.status}
-              </div>
-            </div>
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{borderLeft: "4px solid #DDD", padding: 0, margin: 0}}>
-              <CodeEditor
-                name={paragraph.id}
-                note={note}
-                paragraphs={[paragraph]}
-                value={code}
-                defaultValue=""
-                minLines={1}
-                maxLines={30}
-                width="100%"
-                mode="scala"
-                theme="tomorrow"
-//              theme="tomorrow-night-eighties"
-                fontSize="14px"
-                showGutter={false}
-                focus={focus}
-//              onLoad={this.onLoad}
-//              onChange={this.onChange}
-                setOptions={{
-                  enableBasicAutocompletion: false,
-                  enableLiveAutocompletion: false
+                label={ 'Width' }
+                min={ 3 }
+                max={ 12 }
+                step={ 3 }
+                onIncrement={(value) => {
+                  var nextValue = (parseInt(value) + 3).toString()
+                  this.updateColWidth(nextValue)
+                  return nextValue
                 }}
-                ref={ ref => { this.codeEditor = ref }}
+                onDecrement={(value) => {
+                  var nextValue = (parseInt(value) - 3).toString()
+                  this.updateColWidth(nextValue)
+                  return nextValue
+                }}
+                onValidate={(value) => {
+                  var v = parseInt(value)
+                  if (isNaN(v)) {
+                    return
+                  } else {
+                    if ((v < 3) || (v > 12)) {
+                      return
+                    }
+                    var vs = v.toString()
+                    this.updateColWidth(vs)
+                    return vs
+                  }
+                }}
               />
             </div>
           </div>
+        </Panel>
+
+        <div className="ms-Grid" 
+          style={{margin: 0, padding: 0}}
+  //        key={'pe_' + note.id + '-' + paragraph.id + "-" + index + '-' + paragraph.status + '-' + paragraph.config.colWidth}
+          >
+          <div className="ms-Grid-row" style={{margin: 0, padding: 0}}>
+            <div>
+              {
+              (showParagraphTitle == true) &&
+              <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-textAlignLeft" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
+                <div className="ms-font-l ms-fontWeight-semibold">
+                  <InlineEditor
+                    text={title}
+                    paramName="title"
+                    minLength={3}
+                    maxLength={50}
+                    change={this.updateTitle}
+                  activeClassName="ms-font-l ms-fontWeight-semibold"
+                  />
+                </div>
+              </div>
+              }
+              <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignRight" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
+                <div className="ms-fontColor-neutralTertiary" style={{ float: 'right' }}>
+                  {paragraph.status}
+                </div>
+                {
+                (showControlBar == true) &&
+                  <div style={{ marginLeft: '-20px', float: 'right', width: '350px' }}>
+                    <CommandBar
+                      isSearchBoxVisible={ false }
+                      items={ leftItems }
+                      farItems={ rightItems }
+                      className={ styles.commandBarBackgroundTransparent }
+                    />
+                  </div>
+                }
+              </div>
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{borderLeft: "4px solid #DDD", padding: 0, margin: 0}}>
+                <CodeEditor
+                  name={paragraph.id}
+                  note={note}
+                  paragraphs={[paragraph]}
+                  value={code}
+                  defaultValue=""
+                  minLines={1}
+                  maxLines={30}
+                  width="100%"
+                  mode="scala"
+                  theme="tomorrow"
+  //              theme="tomorrow-night-eighties"
+                  fontSize="14px"
+                  showGutter={false}
+                  focus={focus}
+  //              onLoad={this.onLoad}
+  //              onChange={this.onChange}
+                  setOptions={{
+                    enableBasicAutocompletion: false,
+                    enableLiveAutocompletion: false
+                  }}
+                  ref={ ref => { this.codeEditor = ref }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     )
 

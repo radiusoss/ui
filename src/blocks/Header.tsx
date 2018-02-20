@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as classNames from 'classnames';
-import NotebookControlBar from './../views/_control/NotebookControlBar'
+import ControlHeader from './../views/header/ControlHeader'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
 
@@ -25,12 +25,12 @@ export default class Header extends React.Component<any, HeaderState> {
       <header className="app-header navbar">
         <button className="navbar-toggler mobile-sidebar-toggler hidden-lg-up" onClick={this.mobileSidebarToggle} type="button">&#9776;</button>
         <a className="navbar-brand" href="#"></a>
-        <ul className="nav navbar-nav hidden-md-down">
+        <ul className="nav navbar-nav hidden-md-down" style={{ width: '100%' }}>
           <li className="nav-item">
             <a className="nav-link navbar-toggler sidebar-toggler" onClick={this.sidebarToggle} href="#">&#9776;</a>
           </li>
-          <li className="nav-item" style={{ textAlign: 'left' }}>
-            <NotebookControlBar isSearchBoxVisible={ false } />
+          <li className="nav-item" style={{ textAlign: 'left', width: '100%' }}>
+            <ControlHeader isSearchBoxVisible={ false } />
           </li>
 {/*
           <li className="nav-item px-1">
@@ -122,9 +122,6 @@ export default class Header extends React.Component<any, HeaderState> {
             </div>
 {/*
           </li>
-*/}
-{/*
-TODO(ECH) Status Header: Cluster Status + Interpreter Status + Spark REPL Status
 */}
 {/*
           <li className="nav-item hidden-md-down">

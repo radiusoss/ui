@@ -12,7 +12,7 @@ import NotebookApi from './../api/notebook/NotebookApi'
 import GoogleApi from '../api/google/GoogleApi'
 import MicrosoftApi from '../api/microsoft/MicrosoftApi'
 import TwitterApi from '../api/twitter/TwitterApi'
-import Highlights from './about/Highlights'
+import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 
@@ -193,7 +193,7 @@ export default class Welcome extends React.Component<any, any> {
           <img className={ styles.productImage } src={ 'img/datalayer/pipes.svg' } width='496' height='300' alt='' />
         </div>
 
-        <Highlights showAll="false" />
+        <HighlightsWidget showAll="false" />
 
       </div>
 

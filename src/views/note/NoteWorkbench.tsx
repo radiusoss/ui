@@ -67,7 +67,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
                     text={note.name}
                     paramName="title"
                     minLength={3}
-                    maxLength={20}
+                    maxLength={50}
                     change={this.updateTitle}
                     activeClassName="ms-font-xxl ms-fontWeight-semibold"
                   />
