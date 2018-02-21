@@ -20,27 +20,35 @@ export default class Status extends React.Component<any, any> {
         <div className="ms-font-su">Platform Status</div>
         <Pivot>
           <PivotItem linkText='Capacity' itemIcon='CircleFill'>
+            <div className="ms-font-xxl">Cluster Capacity</div>
             <ClusterCapacity />
           </PivotItem>
           <PivotItem linkText='Usage' itemIcon='Frigid'>
+            <div className="ms-font-xxl">Cluster Usage</div>
             <ClusterUsage />
           </PivotItem>
           <PivotItem linkText='Health' itemIcon='Health'>
+            <div className="ms-font-xxl">Cluster Health</div>
             <ClusterHealth />
           </PivotItem>
           <PivotItem linkText='Reservations' itemIcon='Calendar'>
+            <div className="ms-font-xxl">Cluster Reservations</div>
             <ClusterReservations />
           </PivotItem>
           <PivotItem linkText='HDFS' itemIcon='OfflineStorageSolid'>
+            <div className="ms-font-xxl">HDFS Status</div>
             <HDFStatus />
           </PivotItem>
           <PivotItem linkText='Interpreters' itemIcon='Light'>
+            <div className="ms-font-xxl">Spitfire Interpreters</div>
             <SpitfireInterpretersStatus />
           </PivotItem>
           <PivotItem linkText='Spark REPL' itemIcon='EngineeringGroup'>
+            <div className="ms-font-xxl">Spark</div>
             <SparkStatus />
           </PivotItem>
           <PivotItem linkText='Network' itemIcon='NetworkTower'>
+            <div className="ms-font-xxl">Network Status</div>
             <NetworkStatus />
           </PivotItem>
         </Pivot>

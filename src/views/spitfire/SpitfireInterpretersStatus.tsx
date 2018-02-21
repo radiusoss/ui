@@ -25,7 +25,6 @@ TODO(ECH)
  public render() {
     return (
       <div>
-        <div className="ms-font-xxl">Spitfire Interpreters</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-row">

@@ -9,6 +9,7 @@ import * as isEqual from 'lodash.isequal'
 import { toastr } from 'react-redux-toastr'
 import { NotebookStore } from './../../store/NotebookStore'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import FabricIcon from '../../components/FabricIcon'
 import history from './../../history/History'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona'
@@ -117,11 +118,11 @@ export default class ControlHeader extends React.Component<any, any> {
                     [
                       { id: 'cluster-capacity', label: 'TODO Cluster Capacity', color: 'green' },
                       { id: 'cluster-usage', label: 'TODO Cluster Usage', color: 'green' },
-                      { id: 'cluster-health', label: 'TODO Cluster Usage', color: 'green' },
+                      { id: 'cluster-health', label: 'TODO Cluster Health', color: 'green' },
                       { id: 'reservations', label: 'TODO Reservations', color: 'yellow' },
                       { id: 'hdfs', label: 'TODO HDFS Status', color: 'green' },
-                      { id: 'spark-repl', label: 'TODO Spark REPL Status', color: 'yellow' },
                       { id: 'interpreters', label: 'TODO Interpreter Status', color: 'red' },
+                      { id: 'spark', label: 'TODO Spark Status', color: 'yellow' },
                       { id: 'network', label: 'TODO Network Status', color: 'green' }
                     ]
                   }
@@ -142,34 +143,61 @@ export default class ControlHeader extends React.Component<any, any> {
           type={ PanelType.medium }
           onDismiss={() => this.setState({statusPanel: ''})}
         >
-         <div>
-           {(statusPanel == 'profile') &&
-           <GoogleProfileWidget/>
-           }
-           {(statusPanel == 'cluster-capacity') &&
-           <ClusterCapacity/>
-           }
-           {(statusPanel == 'cluster-usage') &&
-           <ClusterUsage/>
-           }
-           {(statusPanel == 'cluster-health') &&
-           <ClusterHealth/>
-           }
-           {(statusPanel == 'reservations') &&
-           <ClusterReservations/>
-           }
-           {(statusPanel == 'hdfs') &&
-           <HDFStatus/>
-           }
-           {(statusPanel == 'spark-repl') &&
-           <SparkStatus/>
-           }
-           {(statusPanel == 'interpreters') &&
-           <SpitfireInterpretersStatus/>
-           }
-           {(statusPanel == 'network') &&
-           <NetworkStatus/>
-           }
+        <div>
+          {(statusPanel == 'profile') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="Accounts" /> Profile</div>
+            <GoogleProfileWidget/>
+          </div>
+          }
+          {(statusPanel == 'cluster-capacity') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="CircleFill" /> Cluster Capacity</div>
+            <ClusterCapacity/>
+          </div>
+          }
+          {(statusPanel == 'cluster-usage') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="Frigid" /> Cluster Usage</div>
+            <ClusterUsage/>
+          </div>
+          }
+          {(statusPanel == 'cluster-health') &&
+          <div>
+             <div className="ms-font-su"><FabricIcon name="Health" /> Cluser Health</div>
+             <ClusterHealth/>
+          </div>
+          }
+          {(statusPanel == 'reservations') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="Calendar" /> Reservations</div>
+            <ClusterReservations/>
+          </div>
+          }
+          {(statusPanel == 'hdfs') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="OfflineStorageSolid" /> HDFS</div>
+            <HDFStatus/>
+          </div>
+          }
+          {(statusPanel == 'interpreters') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="Light" /> Interpreters</div>
+            <SpitfireInterpretersStatus/>
+          </div>
+          }
+          {(statusPanel == 'spark') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="EngineeringGroup" /> Spark</div>
+            <SparkStatus/>
+          </div>
+          }
+          {(statusPanel == 'network') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="NetworkTower" /> Network</div>
+            <NetworkStatus/>
+          </div>
+          }
          </div>
         </Panel>
         <Panel
