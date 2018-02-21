@@ -165,6 +165,7 @@ export default class NotesCover extends React.Component<any, any> {
         </div>
         <div>
           <ParagraphResult 
+            note={note}
             paragraph={p} 
             showControlBar={false} 
             showParagraphTitle={true}

@@ -17,13 +17,8 @@ export default class InterpretersStatus extends React.Component<any, any> {
     }
     this.notebookApi = window["NotebookApi"]
   }
-/*
-TODO(ECH)
-+ Interpreter Status View
-+ Restart Interpreters in case of failure
-+ Restart http://localhost:8091/spitfire/api/interpreter/setting/restart/2CBEJNFR7
-*/
- public render() {
+
+  public render() {
     return (
       <div>
         <div className="ms-Grid" style={{ padding: 0 }}>

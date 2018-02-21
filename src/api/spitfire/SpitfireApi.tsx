@@ -60,10 +60,12 @@ export interface ISpitfireApi {
   configuration(): any
   commitParagraph(p: any): void
   commitParagraphWithGraph(p: any, graph: any): void
-  insertParagraph(index: number)
-  moveParagraph(paragraphId: string, index: number)
-  removeParagraph(paragraphId: string)
-  clearParagraphOutput(paragraphId: string)
+  insertParagraph(index: number): void
+  moveParagraph(paragraphId: string, index: number): void
+  removeParagraph(paragraphId: string): void
+  clearParagraphOutput(paragraphId: string): void
+  getInterpreterBindings(noteId: string): any
+  saveInterpreterBindings(noteId: string, interpreterIds: [string]): void
 }
 
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
@@ -364,6 +366,15 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   public clearParagraphOutput(paragraphId: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.PARAGRAPH_CLEAR_OUTPUT(paragraphId)))
   }
+
+  public getInterpreterBindings(noteId): any {
+    this.sendWebSocketMessage(JSON.stringify(this.GET_INTERPRETER_BINDINGS(noteId)))
+  }
+  
+  public saveInterpreterBindings(noteId: string, interpreterIds: [string]) {
+    this.sendWebSocketMessage(JSON.stringify(this.SAVE_INTERPRETER_BINDINGS(noteId, interpreterIds)))
+  }
+
 
 // ----------------------------------------------------------------------------
 /*
@@ -795,6 +806,30 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     }
   }
 
+  private GET_INTERPRETER_BINDINGS(noteId: string) { 
+    return {
+      "op": "GET_INTERPRETER_BINDINGS",
+      "data": {
+          "noteId": noteId
+      },
+      "principal": "anonymous",
+      "ticket": "anonymous",
+      "roles": "[]"
+    }
+  }
+
+  private SAVE_INTERPRETER_BINDINGS(noteId: string, interpreterIds: [string]) { 
+    return {
+      "op": "SAVE_INTERPRETER_BINDINGS",
+      "data": {
+          "noteId": noteId,
+          "selectedSettingIds": interpreterIds
+      },
+      "principal": "anonymous",
+      "ticket": "anonymous",
+      "roles": "[]"
+    }
+  }
 
 // ----------------------------------------------------------------------------
 

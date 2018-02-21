@@ -26,6 +26,9 @@ export default class ParagraphResult extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
   state = {
+    note: {
+      id: ''
+    },
     paragraph: {
       id: '',
       title: '',
@@ -53,6 +56,7 @@ export default class ParagraphResult extends React.Component<any, any> {
   public constructor(props) {
     super(props)
     this.state = {
+      note: props.note,
       paragraph: props.paragraph,
       showControlBar: props.showControlBar,
       showParagraphTitle: props.showParagraphTitle,
@@ -117,22 +121,33 @@ export default class ParagraphResult extends React.Component<any, any> {
       }
       return <div>
         {paragraphHeader}
+        <div><CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton></div>
+        <div><CommandButton iconProps={ { iconName: 'BackToWindow' } } onClick={ (e => this.bindNoteToAllInterpreters(e))} >Bind Interpreters</CommandButton></div>
         <MessageBar messageBarType={ MessageBarType.severeWarning }>
-          <div>{errorMessage}</div>
+          <div style = {{maxHeight: "350px", overflowY: "auto" }}>
+            <pre>
+              {errorMessage}
+            </pre>
+          </div>
           {
-            !this.state.showErrorDetail && <div>
-            <a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: true}) }}>Show Details</a>
+            (!this.state.showErrorDetail) && 
+            <div>
+              <a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: true}) }}>Show Details</a>
             </div>
           }
           {
-            this.state.showErrorDetail && <div className="ms-slideDownIn20">
+            (this.state.showErrorDetail) && 
+            <div className="ms-slideDownIn20">
               <div>
                 <a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: false}) }}>Hide Details</a>
               </div>
-              {detailedErrorMessage}
-          </div>
+              <div style = {{maxHeight: "450px", width: "100%", overflowY: "auto" }}>
+                <pre>
+                {detailedErrorMessage}
+                </pre>
+              </div>
+            </div>
           }
-          <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
         </MessageBar>
       </div>
     }
@@ -198,7 +213,7 @@ export default class ParagraphResult extends React.Component<any, any> {
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '10px', margin: '0px' }} key={paragraph.id}>
             {
               ((type == 'TEXT') && (stripDisplay)) && 
-              <div style = {{maxHeight: "350px", overflowY: "auto"}}>
+              <div style = {{maxHeight: "350px", overflowY: "auto" }}>
                 <TextDisplay
                   data={data}
                   stripDisplay={stripDisplay}
@@ -339,6 +354,18 @@ export default class ParagraphResult extends React.Component<any, any> {
         progress: progress
       })
     }
+    if (webSocketMessageReceived && (webSocketMessageReceived.op == "INTERPRETER_BINDINGS")) {
+      var bind = false
+      webSocketMessageReceived.data.interpreterBindings.map(intBind => {
+        if (intBind.selected == false) {
+          bind = true
+        }
+      })
+      if (bind) {
+        var ids = webSocketMessageReceived.data.interpreterBindings.map(intBind => {return intBind.id})
+        this.notebookApi.saveInterpreterBindings(this.state.note.id, ids)
+      }
+    }
   }
 
   @autobind
@@ -358,6 +385,12 @@ export default class ParagraphResult extends React.Component<any, any> {
     e.stopPropagation()
     e.preventDefault()
     this.notebookApi.restartInterpreters()
+  }
+
+  private async bindNoteToAllInterpreters(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.notebookApi.getInterpreterBindings(this.state.note.id)
   }
 
 }

@@ -144,6 +144,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
                     </div>
                     <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ paddingLeft: '0px', margin: '0px' }}>
                       <ParagraphResult
+                        note={note}
                         paragraph={p} 
                         showParagraphTitle={false}
                         showControlBar={false} 

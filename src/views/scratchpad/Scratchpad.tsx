@@ -39,10 +39,10 @@ TODO(ECH) Developer Overlay
             </div>
             <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
               <ScratchpadDisplay 
+                note={note} 
                 showGraphBar={true}
                 showControlBar={false}
                 showParagraphTitle={false} 
-                note={note} 
               />
             </div>
           </div>

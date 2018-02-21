@@ -1,0 +1,18 @@
+{
+    "op": "SAVE_INTERPRETER_BINDINGS",
+    "data": {
+        "noteId": "_conf",
+        "selectedSettingIds": [
+            "2CBEJNFR7",
+            "2CCMX5R9J",
+            "2CA9YJVBZ",
+            "2CBRBCK1E",
+            "2CC4ZU7DE",
+            "2CDPGFX2T",
+            "2CB2MEGR6"
+        ]
+    },
+    "principal": "anonymous",
+    "ticket": "anonymous",
+    "roles": "[]"
+}

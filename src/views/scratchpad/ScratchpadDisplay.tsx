@@ -45,6 +45,7 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
             return (
               <div key={p.id}>
                 <ParagraphResult 
+                  note={note}
                   paragraph={p} 
                   showGraphBar={showGraphBar} 
                   showControlBar={showControlBar} 
@@ -61,12 +62,14 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
   }
 
   public componentWillUnmount() {
+/*
     this.setState({
       note: {
         id: '',
         paragraphs: []
       }
     })
+*/
   }
 
   public componentWillReceiveProps(nextProps) {

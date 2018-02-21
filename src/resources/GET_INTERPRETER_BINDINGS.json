@@ -1,0 +1,9 @@
+{
+    "op": "GET_INTERPRETER_BINDINGS",
+    "data": {
+        "noteId": "_conf"
+    },
+    "principal": "anonymous",
+    "ticket": "anonymous",
+    "roles": "[]"
+}

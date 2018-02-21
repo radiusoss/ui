@@ -129,26 +129,6 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.restartInterpreter(id)
   }
 
-  public restartInterpreters() {
-    var interpreterSettings = this.interpreterSetting().then( result => {
-      var body = result.body
-      for (var i in body) {
-        var id = body[i].id
-        var name = body[i].name
-        var interpreter = this.restartInterpreter(id)
-        .then(result => {
-          console.log(result)
-          if (result.success == true) {
-            toastr.success('Restart', 'Interpreter ' + name + ' is restarted.')
-          } else {
-            toastr.error('Restart', 'Interpreter ' + name + ' failed to restart.')
-          }
-        })
-      }}
-    )
-
-  }
-
   public listConfigurations(): void {
     return this.spitfireApi.listConfigurations()
   }
@@ -228,6 +208,42 @@ export default class NotebookApi extends React.Component<any, any> implements IN
 
   public clearParagraphOutput(paragraphId: string): void {
     this.spitfireApi.clearParagraphOutput(paragraphId)
+  }
+
+  public getInterpreterBindings(noteId: string): any {
+    return this.spitfireApi.getInterpreterBindings(noteId)
+  }
+
+  public saveInterpreterBindings(noteId: string, interpreterIds: [string]) {
+    return this.spitfireApi.saveInterpreterBindings(noteId, interpreterIds)
+  }
+
+// ----------------------------------------------------------------------------
+  
+  public restartInterpreters() {
+    var interpreterSettings = this.interpreterSetting()
+    interpreterSettings.then(res => {
+      var interpreters = res.result.body
+      for (var i in interpreters) {
+        var id = interpreters[i].id
+        var name = interpreters[i].name
+        console.log('Requesting restart for Interpreter: ' + name + '(id: ' + id + ')')
+        var result = this.restartInterpreter(id).then(result => {
+          console.log(result)
+          const options = {
+            attention: true,
+            timeOut: 20000,
+            onOk: () => console.log('OK: clicked'),
+            onCancel: () => console.log('CANCEL: clicked')
+          }
+          if (result.success == true) {
+            toastr.success('Restart', 'Interpreters are restarted.', options)
+          } else {
+            toastr.error('Restart', 'Interpreters failed to restart.', options)
+          }
+        })
+      }
+    })
   }
 
 // ----------------------------------------------------------------------------

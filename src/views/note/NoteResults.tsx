@@ -45,6 +45,7 @@ export default class   extends React.Component<any, any> {
             return (
               <div key={p.id}>
                 <ParagraphResult 
+                  note={note}
                   paragraph={p} 
                   showControlBar={showControlBar} 
                   showGraphBar={showGraphBar} 

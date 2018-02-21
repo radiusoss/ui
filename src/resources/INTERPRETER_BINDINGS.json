@@ -1,0 +1,294 @@
+{
+  "op": "INTERPRETER_BINDINGS",
+  "data": {
+    "interpreterBindings": [
+      {
+        "id": "2CBEJNFR7",
+        "name": "spark",
+        "selected": true,
+        "interpreters": [
+          {
+            "name": "spark",
+            "class": "org.apache.zeppelin.spark.SparkInterpreter",
+            "defaultInterpreter": true,
+            "editor": {
+              "language": "scala"
+            }
+          },
+          {
+            "name": "sql",
+            "class": "org.apache.zeppelin.spark.SparkSqlInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sql"
+            }
+          },
+          {
+            "name": "dep",
+            "class": "org.apache.zeppelin.spark.DepInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "scala"
+            }
+          },
+          {
+            "name": "pyspark",
+            "class": "org.apache.zeppelin.spark.PySparkInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python"
+            }
+          },
+          {
+            "name": "r",
+            "class": "org.apache.zeppelin.spark.SparkRInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "r"
+            }
+          },
+          {
+            "name": "ipyspark",
+            "class": "org.apache.zeppelin.spark.IPySparkInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "2CCMX5R9J",
+        "name": "md",
+        "selected": true,
+        "interpreters": [
+          {
+            "name": "md",
+            "class": "org.apache.zeppelin.markdown.Markdown",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "markdown",
+              "editOnDblClick": true
+            }
+          }
+        ]
+      },
+      {
+        "id": "2CA9YJVBZ",
+        "name": "angular",
+        "selected": true,
+        "interpreters": [
+          {
+            "name": "angular",
+            "class": "org.apache.zeppelin.angular.AngularInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "editOnDblClick": true
+            }
+          }
+        ]
+      },
+      {
+        "id": "2CBRBCK1E",
+        "name": "sh",
+        "selected": true,
+        "interpreters": [
+          {
+            "name": "sh",
+            "class": "org.apache.zeppelin.shell.ShellInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sh",
+              "editOnDblClick": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "2CC4ZU7DE",
+        "name": "livy",
+        "selected": true,
+        "interpreters": [
+          {
+            "name": "spark",
+            "class": "org.apache.zeppelin.livy.LivySparkInterpreter",
+            "defaultInterpreter": true,
+            "editor": {
+              "language": "scala",
+              "editOnDblClick": false
+            }
+          },
+          {
+            "name": "sql",
+            "class": "org.apache.zeppelin.livy.LivySparkSQLInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sql",
+              "editOnDblClick": false
+            }
+          },
+          {
+            "name": "pyspark",
+            "class": "org.apache.zeppelin.livy.LivyPySparkInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false
+            }
+          },
+          {
+            "name": "pyspark3",
+            "class": "org.apache.zeppelin.livy.LivyPySpark3Interpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false
+            }
+          },
+          {
+            "name": "sparkr",
+            "class": "org.apache.zeppelin.livy.LivySparkRInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "r",
+              "editOnDblClick": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "2CB345NPA",
+        "name": "file",
+        "selected": true,
+        "interpreters": [
+          {
+            "name": "hdfs",
+            "class": "org.apache.zeppelin.file.HDFSFileInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "editOnDblClick": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "2CDPGFX2T",
+        "name": "jdbc",
+        "selected": true,
+        "interpreters": [
+          {
+            "name": "sql",
+            "class": "org.apache.zeppelin.jdbc.JDBCInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sql",
+              "editOnDblClick": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "2CB2MEGR6",
+        "name": "dev",
+        "selected": true,
+        "interpreters": [
+          {
+            "name": "dev",
+            "class": "org.apache.zeppelin.helium.DevInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "helium",
+              "editOnDblClick": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "2CVSX2957",
+        "name": "python",
+        "selected": false,
+        "interpreters": [
+          {
+            "name": "python",
+            "class": "org.apache.zeppelin.python.PythonInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false
+            }
+          },
+          {
+            "name": "ipython",
+            "class": "org.apache.zeppelin.python.IPythonInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false,
+              "completionKey": "TAB"
+            }
+          },
+          {
+            "name": "sql",
+            "class": "org.apache.zeppelin.python.PythonInterpreterPandasSql",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sql",
+              "editOnDblClick": false,
+              "completionKey": "TAB"
+            }
+          },
+          {
+            "name": "conda",
+            "class": "org.apache.zeppelin.python.PythonCondaInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sh",
+              "editOnDblClick": false
+            }
+          },
+          {
+            "name": "docker",
+            "class": "org.apache.zeppelin.python.PythonDockerInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sh",
+              "editOnDblClick": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "2CXK5Q76K",
+        "name": "groovy",
+        "selected": false,
+        "interpreters": [
+          {
+            "name": "groovy",
+            "class": "org.apache.zeppelin.groovy.GroovyInterpreter",
+            "defaultInterpreter": false
+          }
+        ]
+      },
+      {
+        "id": "2CXZPC6ZU",
+        "name": "mathjax",
+        "selected": false,
+        "interpreters": [
+          {
+            "name": "mathjax",
+            "class": "org.apache.zeppelin.mathjax.Mathjax",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "mathjax",
+              "editOnDblClick": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ticket": "anonymous",
+  "principal": "anonymous",
+  "roles": ""
+}
