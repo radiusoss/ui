@@ -101,16 +101,16 @@ export default class ParagraphResult extends React.Component<any, any> {
         />
       </div>
     }
+    if (paragraph.status == 'ERROR') {
+      return <div>
+        {paragraphHeader}
+        <MessageBar messageBarType={ MessageBarType.error }>
+          <span>{paragraph.errorMessage}</span>
+        </MessageBar>
+      </div>
+    }
     var results = paragraph.results
     if (!results) {
-      if (paragraph.status == 'ERROR') {
-        return <div>
-          {paragraphHeader}
-          <MessageBar messageBarType={ MessageBarType.error }>
-            <span>{paragraph.errorMessage}</span>
-          </MessageBar>
-        </div>
-      }
       if (paragraph.status == 'FINISHED') {
         return <div>
           {paragraphHeader}

@@ -249,7 +249,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
                 </div>
                 {
                 (showControlBar == true) &&
-                  <div style={{ width: '400px', marginLeft: '0px', float: 'right', maxHeight: '10px', marginBottom: '10px', transform: 'scale(0.85) translateY(-8px) translateX(60px)', }}>
+                  <div style={{ minWidth: '100px', marginLeft: '0px', float: 'right', maxHeight: '10px', marginBottom: '10px', transform: 'scale(0.85) translateY(-8px) translateX(60px)', }}>
                     <CommandBar
                       isSearchBoxVisible={ false }
                       items={ leftItems }

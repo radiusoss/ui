@@ -3,10 +3,10 @@ import { Label } from 'office-ui-fabric-react/lib/Label'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
 import { NotebookStore } from './../../store/NotebookStore'
-import Kerberos from './Kerberos'
-import Microsoft from './Microsoft'
-import Twitter from './Twitter'
-import Google from './Google'
+import KerberosProfile from './KerberosProfile'
+import MicrosoftProfile from './MicrosoftProfile'
+import TwitterProfile from './TwitterProfile'
+import GoogleProfile from './GoogleProfile'
 import { connect } from 'react-redux'
 import { MessageBarButton } from 'office-ui-fabric-react/lib/Button'
 import { Link } from 'office-ui-fabric-react/lib/Link'
@@ -36,13 +36,13 @@ export default class Profile extends React.Component<any, any> {
     return (
       <div>
         { (isGoogleAuthenticated) &&
-          <Google/>
+          <GoogleProfile/>
         }
         { (isMicrosoftAuthenticated) &&
-          <Microsoft />
+          <MicrosoftProfile />
         }
         { (isTwitterAuthenticated) &&
-          <Twitter/>
+          <TwitterProfile/>
         }
 {/*
         <Pivot selectedKey={ selectedKey }>

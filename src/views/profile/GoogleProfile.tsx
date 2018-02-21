@@ -6,6 +6,7 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 import GoogleApi from './../../api/google/GoogleApi'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { IUser } from './../../domain/Domain'
+import GoogleProfileWidget from './GoogleProfileWidget'
 import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTitle, IDocumentCardPreviewProps, DocumentCardActions } from 'office-ui-fabric-react/lib/DocumentCard'
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
 import { TextField } from 'office-ui-fabric-react/lib/TextField'
@@ -21,9 +22,6 @@ const styles: any = stylesImport
 var googleContacts: IUser[] = []
 
 export interface IGoogleProfileState {
-  me: any;
-  profileDisplayName: string;
-  profilePhoto: string;
   contacts: any[];
   columns: IColumn[];
   items: IUser[];
@@ -96,7 +94,7 @@ const columns: IColumn[] = [
 ]
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class Google extends React.Component<any, IGoogleProfileState> {
+export default class GoogleProfile extends React.Component<any, IGoogleProfileState> {
   private googleApi: GoogleApi
   private notebookApi: NotebookApi
   private selection: Selection = new Selection({
@@ -109,9 +107,6 @@ export default class Google extends React.Component<any, IGoogleProfileState> {
   })
 
   state = {
-    me: NotebookStore.state().me,
-    profileDisplayName: NotebookStore.state().profileDisplayName,
-    profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob),
     contacts: [],
     items: googleContacts,
     columns: null,
@@ -127,33 +122,10 @@ export default class Google extends React.Component<any, IGoogleProfileState> {
   }
 
   public render() {
-    var { columns, isCompactMode, items, selectionDetails, profileDisplayName, profilePhoto, me } = this.state
-    var previewProps: IDocumentCardPreviewProps = {
-      previewImages: [{
-        previewImageSrc: me.coverPhotos[0].url,
-        imageFit: ImageFit.cover,
-        width: 318,
-        height: 196
-      }]
-    }
+    var { columns, isCompactMode, items, selectionDetails } = this.state
     return (
       <div className={`${styles.homeHeight}`}>
-        <div className='ms-font-su'>{ profileDisplayName }</div>
-        <DocumentCard>
-          <DocumentCardPreview { ...previewProps } />
-          <DocumentCardTitle
-            title = { profileDisplayName }
-            shouldTruncate = { true } />
-          <DocumentCardActivity
-            activity={'@' + this.state.me.resourceName}
-            people={
-              [{ 
-                name: profileDisplayName, 
-                profileImageSrc: profilePhoto
-              }]
-            }
-          />
-        </DocumentCard>
+        <GoogleProfileWidget />
         <hr/>
         <div className='ms-font-xxl'>Contacts</div>
 {/*

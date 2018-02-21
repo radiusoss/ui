@@ -7,7 +7,7 @@ import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTi
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class Twitter extends React.Component<any, any> {
+export default class TwitterProfile extends React.Component<any, any> {
   private twitterApi: TwitterApi
 
   state = {

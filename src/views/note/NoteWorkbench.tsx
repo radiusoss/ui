@@ -130,7 +130,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
               return (
                 <div className="ms-Grid" key={ note.id + '-' + p.id + '-' + index}>
                   <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ padding: '0px 0px 0px 10px', margin: '0px' }}>
+                    <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
                       <ParagraphEditor
                         note={note}
                         paragraph={p}

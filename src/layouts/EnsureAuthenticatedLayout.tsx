@@ -32,8 +32,6 @@ import ClusterHealth from './../views/cluster/ClusterHealth'
 import ClusterReservations from './../views/cluster/ClusterReservations'
 import HDFSStatus from './../views/hdfs/HDFSStatus'
 import SparkStatus from './../views/spark/SparkStatus'
-import SparkJobs from './../views/spark/SparkJobs'
-import SparkUI from './../views/spark/SparkUI'
 import SpitfireInterpretersStatus from './../views/spitfire/SpitfireInterpretersStatus'
 import NetworkStatus from './../views/network/NetworkStatus'
 import history from './../history/History'
@@ -76,8 +74,6 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/status/hdfs" name="HDFS Status" component={HDFSStatus}/>
           <Route path="/dla/kuber/status/reservations" name="Cluster Reservations" component={ClusterReservations}/>
           <Route path="/dla/kuber/status/spark-repl" name="Spark Status" component={SparkStatus}/>
-          <Route path="/dla/kuber/status/spark-jobs" name="Spark Jobs" component={SparkJobs}/>
-          <Route path="/dla/kuber/status/spark-ui" name="Spark UI" component={SparkUI}/>
           <Route path="/dla/kuber/status/interpreters" name="Spitfire Interpreters Status" component={SpitfireInterpretersStatus}/>
           <Route path="/dla/kuber/status/network" name="Network Status" component={NetworkStatus}/>
           <Route path="/dla/explorer/scratchpad" name="Note Scratchpad" component={Scratchpad}/>

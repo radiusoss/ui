@@ -6,8 +6,6 @@ import ClusterHealth from './../cluster/ClusterHealth'
 import ClusterReservations from './../cluster/ClusterReservations'
 import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
-import SparkJobs from './../spark/SparkJobs'
-import SparkUI from './../spark/SparkUI'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
 import NetworkStatus from './../network/NetworkStatus'
 import { connect } from 'react-redux'
@@ -41,9 +39,6 @@ export default class Status extends React.Component<any, any> {
           </PivotItem>
           <PivotItem linkText='Spark REPL' itemIcon='EngineeringGroup'>
             <SparkStatus />
-          </PivotItem>
-          <PivotItem linkText='Spark Jobs' itemIcon='Parachute'>
-            <SparkJobs />
           </PivotItem>
           <PivotItem linkText='Network' itemIcon='NetworkTower'>
             <NetworkStatus />

@@ -81,6 +81,6 @@ export default class TableUberGraphDisplay extends React.Component<any, any> {
           }}
         />
       </div>
-    );
+    )
   }
 }

@@ -17,6 +17,15 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../act
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
 import { SwatchColorPicker } from 'office-ui-fabric-react/lib/SwatchColorPicker'
+import GoogleProfileWidget from './../profile/GoogleProfileWidget'
+import ClusterCapacity from './../cluster/ClusterCapacity'
+import ClusterUsage from './../cluster/ClusterUsage'
+import ClusterHealth from './../cluster/ClusterHealth'
+import ClusterReservations from './../cluster/ClusterReservations'
+import HDFStatus from './../hdfs/HDFSStatus'
+import SparkStatus from './../spark/SparkStatus'
+import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
+import NetworkStatus from './../network/NetworkStatus'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
@@ -51,6 +60,7 @@ export default class ControlHeader extends React.Component<any, any> {
       icon: 'Flow',
       onClick: () => this.setState({ showNewFlowPanel: true })
     }],
+    statusPanel: '',
     showNewNotePanel: false,
     newNoteName: "",
     isNewNoteNameValid: false,
@@ -66,7 +76,7 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public render() {
-    const { profilePhoto } = this.state
+    const { profilePhoto, statusPanel } = this.state
     this.updateRunIndicator()
     this.updateMenu()
     return (
@@ -89,7 +99,7 @@ export default class ControlHeader extends React.Component<any, any> {
                 />
               </div>
               <div style={{ float: 'right', padding: '0px 10px' }}>
-                <a href="#" onClick={(e) => { e.preventDefault(); history.push('/dla/kuber/profile')} }>
+                <a href="#" onClick={(e) => { e.preventDefault(); this.setState({statusPanel: 'profile'}) }}>
                   <Persona
                     imageUrl = { profilePhoto }
                     hidePersonaDetails = { true }
@@ -117,7 +127,9 @@ export default class ControlHeader extends React.Component<any, any> {
                   }
                   onCellFocused={(id?: string, color?: string) => {
                     if (id) {
-                      history.push('/dla/kuber/status/' + id)
+                      this.setState({
+                        statusPanel: id
+                      })
                     }
                   }}
                 />
@@ -125,6 +137,41 @@ export default class ControlHeader extends React.Component<any, any> {
             </div>
           </div>
         </div>
+        <Panel
+          isOpen={ statusPanel != '' }
+          type={ PanelType.medium }
+          onDismiss={() => this.setState({statusPanel: ''})}
+        >
+         <div>
+           {(statusPanel == 'profile') &&
+           <GoogleProfileWidget/>
+           }
+           {(statusPanel == 'cluster-capacity') &&
+           <ClusterCapacity/>
+           }
+           {(statusPanel == 'cluster-usage') &&
+           <ClusterUsage/>
+           }
+           {(statusPanel == 'cluster-health') &&
+           <ClusterHealth/>
+           }
+           {(statusPanel == 'reservations') &&
+           <ClusterReservations/>
+           }
+           {(statusPanel == 'hdfs') &&
+           <HDFStatus/>
+           }
+           {(statusPanel == 'spark-repl') &&
+           <SparkStatus/>
+           }
+           {(statusPanel == 'interpreters') &&
+           <SpitfireInterpretersStatus/>
+           }
+           {(statusPanel == 'network') &&
+           <NetworkStatus/>
+           }
+         </div>
+        </Panel>
         <Panel
           isOpen={ this.state.showNewNotePanel }
           type={ PanelType.smallFixedNear }
@@ -311,7 +358,7 @@ export default class ControlHeader extends React.Component<any, any> {
           },
           {
             key: 'people',
-            name: 'People',
+            name: 'Users',
             icon: 'People',
             title: 'Users',
             onClick: () => history.push(`/dla/kuber/users`)

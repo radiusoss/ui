@@ -44,7 +44,7 @@ export default class TableBubbleDisplay extends TableBaseDisplay {
         <Bubble
           data={this.spl}
 //          data={this.bubbleData}
-          //          options={this.options}
+//          options={this.options}
         />
       </div>
     )

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class Kerberos extends React.Component<any, any> {
+export default class KerberosProfile extends React.Component<any, any> {
 
   public render() {
     return (
