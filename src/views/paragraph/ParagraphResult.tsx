@@ -46,7 +46,8 @@ export default class ParagraphResult extends React.Component<any, any> {
     showParagraphTitle: false,
     showGraphBar: false,
     stripDisplay: false,
-    percentComplete: 100
+    percentComplete: 100,
+    showErrorDetail: false
   }
 
   public constructor(props) {
@@ -57,7 +58,8 @@ export default class ParagraphResult extends React.Component<any, any> {
       showParagraphTitle: props.showParagraphTitle,
       showGraphBar: props.showGraphBar,
       stripDisplay: props.stripDisplay,
-      percentComplete: 100
+      percentComplete: 100,
+      showErrorDetail: false
     }
     this.notebookApi = window["NotebookApi"]
   }
@@ -101,22 +103,41 @@ export default class ParagraphResult extends React.Component<any, any> {
         />
       </div>
     }
-    if (paragraph.status == 'ERROR') {
+    if (paragraph.status == ParagraphStatus.ERROR) {
+      var errorMessage = paragraph.errorMessage
+      var detailedErrorMessage = "No Detail Available for the Returned Message."
+      if (paragraph.results && paragraph.results.msg && paragraph.results.msg.length > 0) {
+        var data = paragraph.results.msg[0].data
+        if (data && data.length > 0) {
+          errorMessage = paragraph.results.msg[0].data
+          if (paragraph.errorMessage && paragraph.errorMessage.length > 0) {
+            detailedErrorMessage = paragraph.errorMessage
+          }
+        }
+      }
       return <div>
         {paragraphHeader}
-        <MessageBar messageBarType={ MessageBarType.error }>
-          <span>{paragraph.errorMessage}</span>
+        <MessageBar messageBarType={ MessageBarType.severeWarning }>
+          <div>{errorMessage}</div>
+          {!this.state.showErrorDetail && <div>
+            <a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: true}) }}>Show Details</a>
+          </div>
+          }
+          {this.state.showErrorDetail && <div className="ms-slideDownIn20">
+            <div><a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: false}) }}>Hide Details</a></div>
+            {detailedErrorMessage}
+          </div>}
         </MessageBar>
       </div>
     }
     var results = paragraph.results
     if (!results) {
-      if (paragraph.status == 'FINISHED') {
+      if (paragraph.status == ParagraphStatus.FINISHED) {
         return <div>
           {paragraphHeader}
         </div>
       }
-      if (paragraph.status == 'READY') {
+      if (paragraph.status == ParagraphStatus.READY) {
         return <div>
           {paragraphHeader}
         </div>
@@ -157,7 +178,7 @@ export default class ParagraphResult extends React.Component<any, any> {
       return (
         <div>
           {paragraphHeader}
-          <MessageBar messageBarType={ MessageBarType.error }>
+          <MessageBar messageBarType={ MessageBarType.severeWarning }>
             <span>{results}</span>
           </MessageBar>
         </div>

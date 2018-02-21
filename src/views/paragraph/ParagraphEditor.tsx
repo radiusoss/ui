@@ -165,6 +165,17 @@ export default class ParagraphEditor extends React.Component<any, any> {
       display = 'none'
     }
 
+    var statusColor = "tealLight"
+    if (paragraph.status == ParagraphStatus.ERROR) {
+      statusColor = "red"
+    }
+    else if (paragraph.status == ParagraphStatus.PENDING) {
+      statusColor = "magenta"
+    }
+    else if (paragraph.status == ParagraphStatus.ABORT) {
+      statusColor = "orangeLighter"
+    }
+
     return (
 
       <div>
@@ -244,7 +255,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
               </div>
               }
               <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignRight" style={{ padding: 0, margin: 0, overflow: 'hidden', maxHeight: '20px' }}>
-                <div className="ms-fontColor-neutralTertiary" style={{ float: 'right' }}>
+                <div className={`ms-fontColor-neutralTertiary ms-fontColor-` + statusColor} style={{ float: 'right' }}>
                   {paragraph.status}
                 </div>
                 {
