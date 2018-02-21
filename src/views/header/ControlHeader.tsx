@@ -88,16 +88,16 @@ export default class ControlHeader extends React.Component<any, any> {
                   underlined={ true }
                 />
               </div>
-              <div style={{ float: 'right' }}>
-                <a href="#" onClick={(e) => history.push('/dla/kuber/profile') }>
+              <div style={{ float: 'right', padding: '0px 10px' }}>
+                <a href="#" onClick={(e) => { e.preventDefault(); history.push('/dla/kuber/profile')} }>
                   <Persona
                     imageUrl = { profilePhoto }
                     hidePersonaDetails = { true }
                     presence = { PersonaPresence.online }
                     size = { PersonaSize.extraSmall }
                     className = "text-center"
-                    />
-                  </a>
+                  />
+                </a>
               </div>
               <div style={{ float: 'right' }}>
                 <SwatchColorPicker

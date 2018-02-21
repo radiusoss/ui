@@ -46,7 +46,7 @@ export default class Calendar extends React.Component<CalendarProps, any> {
   public render() {
     const { slots, defaultView, toolbar } = this.state
     return (
-      <div className={styles.rendererHeight}>
+      <div className={`${styles.homeHeight}`}>
         <DragAndDropCalendar
           selectable={true}
           resizable={true}

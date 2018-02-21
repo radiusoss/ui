@@ -231,7 +231,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
               {
               (showParagraphTitle == true) &&
               <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-textAlignLeft" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
-                <div className="ms-font-l ms-fontWeight-semibold">
+                <div className="ms-font-l ms-fontWeight-semibold" style={{transform: 'translateY(-7px)'}}>
                   <InlineEditor
                     text={paragraph.title}
                     paramName="title"

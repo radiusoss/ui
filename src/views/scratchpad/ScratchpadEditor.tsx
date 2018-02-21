@@ -70,8 +70,8 @@ export default class ScratchpadEditor extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { isStartNoteRun } = nextProps
-    if (isStartNoteRun) {
+    const { isStartNoteRun, isStartParagraphRun } = nextProps
+    if ((isStartNoteRun && isStartNoteRun.noteId ) || (isStartParagraphRun && isStartParagraphRun.paragraphId)) {
       var lines = this.codeEditor.getWrappedInstance().getValue().split(/\r?\n/)
       var pid = this.state.lastParagraphId
       var paragraphs = []

@@ -137,7 +137,7 @@ export default class Google extends React.Component<any, IGoogleProfileState> {
       }]
     }
     return (
-      <div className={`${styles.homeHeight}`} style={{overflowY: 'scroll'}}>
+      <div className={`${styles.homeHeight}`}>
         <div className='ms-font-su'>{ profileDisplayName }</div>
         <DocumentCard>
           <DocumentCardPreview { ...previewProps } />
