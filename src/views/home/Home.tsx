@@ -5,8 +5,9 @@ import { toastr } from 'react-redux-toastr'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import ScratchpadDisplay from './../scratchpad/ScratchpadDisplay'
-import ClusterHealthWidget from './../cluster/ClusterHealthWidget'
-import Calendar from './../calendar/Calendar'
+import ClusterHealth from './../cluster/ClusterHealth'
+import ClusterReservations from './../cluster/ClusterReservations'
+import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
@@ -53,30 +54,19 @@ export default class Home extends React.Component<any, any> {
           <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
             <Icon iconName='Health' className='ms-Icon25' />
             <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status")}}>Cluster</a></span>
-            <ClusterHealthWidget />
+            <ClusterHealth />
           </div>
 
           <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
             <Icon iconName='Light' className='ms-Icon25' />
             <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status/interpreters")}}>Interpreters</a></span>
+            <SpitfireInterpretersStatus/>
           </div>
 
           <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
             <Icon iconName='Calendar' className='ms-Icon25' />
             <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/calendar")}}>Reservations</a></span>
-            <Calendar 
-              defaultView='agenda' 
-              toolbar={false}
-              slots={[
-                {
-                  id: 0,
-                  title: 'A Day Event very long title',
-                  allDay: false,
-                  start: new Date(2018, 1, 11, 10, 0, 0, 0),
-                  end: new Date(2018, 1, 11, 19, 0, 0, 0),
-                }
-              ]}
-            />
+            <ClusterReservations/>
           </div>
 
         </div>

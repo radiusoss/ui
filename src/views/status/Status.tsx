@@ -43,7 +43,7 @@ export default class Status extends React.Component<any, any> {
             <div className="ms-font-xxl">Spitfire Interpreters</div>
             <SpitfireInterpretersStatus />
           </PivotItem>
-          <PivotItem linkText='Spark REPL' itemIcon='EngineeringGroup'>
+          <PivotItem linkText='Spark' itemIcon='LightningBolt'>
             <div className="ms-font-xxl">Spark</div>
             <SparkStatus />
           </PivotItem>

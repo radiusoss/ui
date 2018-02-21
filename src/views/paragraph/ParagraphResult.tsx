@@ -119,14 +119,20 @@ export default class ParagraphResult extends React.Component<any, any> {
         {paragraphHeader}
         <MessageBar messageBarType={ MessageBarType.severeWarning }>
           <div>{errorMessage}</div>
-          {!this.state.showErrorDetail && <div>
+          {
+            !this.state.showErrorDetail && <div>
             <a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: true}) }}>Show Details</a>
+            </div>
+          }
+          {
+            this.state.showErrorDetail && <div className="ms-slideDownIn20">
+              <div>
+                <a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: false}) }}>Hide Details</a>
+              </div>
+              {detailedErrorMessage}
           </div>
           }
-          {this.state.showErrorDetail && <div className="ms-slideDownIn20">
-            <div><a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: false}) }}>Hide Details</a></div>
-            {detailedErrorMessage}
-          </div>}
+          <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
         </MessageBar>
       </div>
     }
@@ -346,6 +352,12 @@ export default class ParagraphResult extends React.Component<any, any> {
     var status = paragraph.status
     if (!status) return false
     return status === ParagraphStatus.PENDING || status === ParagraphStatus.RUNNING
+  }
+
+  private async restartInterpreters(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.notebookApi.restartInterpreters()
   }
 
 }

@@ -1,43 +1,48 @@
 import * as React from 'react'
 import * as isEqual from 'lodash.isequal'
 import { NotebookStore } from '../../store/NotebookStore'
-import { connect } from 'react-redux'
-import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
-import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
-import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import KuberApi, { KuberResponse } from '../../api/kuber/KuberApi'
-
-const MAX_LENGTH = 20
+import KuberApi from '../../api/kuber/KuberApi'
+import ConfigApi from '../../api/config/ConfigApi'
+import { connect } from 'react-redux'
+import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
+import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 
 export type IKuberState = {
-  apps: Result<KuberResponse>
+  config: any
 }
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Apps extends React.Component<any, IKuberState> {
-  private config: IConfig = NotebookStore.state().config
+export default class KuberConfig extends React.Component<any, IKuberState> {
   private k8sApi: KuberApi
-  private method: string
+  private configApi: ConfigApi
+  private config: IConfig = NotebookStore.state().config
 
   state = {
-    apps: null
+    config: {}
   } 
 
   public constructor(props) {    
     super(props)
   }
 
+  public componentDidMount() {
+    this.configApi = window['ConfigApi']
+    this.k8sApi = window['KuberApi']
+    this.setState({
+      config: this.configApi.getConfig()
+    })
+  }
+
   public render() {
     return (
       <div>
-        <div className="ms-font-xxl">Applications</div>
         <div style={{ padding: "10px", backgroundColor: "black" }}>
           <JSONTree 
-            data={this.state.apps} 
+            data={this.state.config} 
             theme='greenscreen'
             invertTheme={false}
           />
@@ -47,16 +52,12 @@ export default class Apps extends React.Component<any, IKuberState> {
 
   }
 
-  public componentDidMount() {
-    this.k8sApi = window['KuberApi']
-    this.k8sApi.getApps().then(json => { this.setState({apps: json})})
-  }
-
   public componentWillReceiveProps(nextProps) {
     const { config, kuberMessageReceived } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
-    }
+      this.setState({config: config})
+    }    
   }
 
 }

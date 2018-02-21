@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
-import Cluster from './../cluster/Cluster'
+import ClusterDefinition from './../cluster/ClusterDefinition'
 import Aws from './../aws/Aws'
 import Apps from './../apps/Apps'
-import Config from './../config/Config'
+import KuberConfig from './../config/KuberConfig'
 import SpitfireConfig from './../spitfire/SpitfireConfig'
 import SpitfireInterpreters from './../spitfire/SpitfireInterpreters'
 import { connect } from 'react-redux'
@@ -18,13 +18,13 @@ export default class Settings extends React.Component<any, any> {
         <div className="ms-font-su">Platform Settings</div>
         <Pivot>
           <PivotItem linkText='Cluster' itemIcon='TFVCLogo'>
-            <Cluster />
+            <ClusterDefinition />
           </PivotItem>
           <PivotItem linkText='AWS' itemIcon='Cloud'>
             <Aws />
           </PivotItem>
           <PivotItem linkText='Kuber Config' itemIcon='Equalizer'>
-            <Config />
+            <KuberConfig />
           </PivotItem>
           <PivotItem linkText='Spitfire Config' itemIcon='Airplane'>
             <SpitfireConfig />

@@ -129,6 +129,26 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.restartInterpreter(id)
   }
 
+  public restartInterpreters() {
+    var interpreterSettings = this.interpreterSetting().then( result => {
+      var body = result.body
+      for (var i in body) {
+        var id = body[i].id
+        var name = body[i].name
+        var interpreter = this.restartInterpreter(id)
+        .then(result => {
+          console.log(result)
+          if (result.success == true) {
+            toastr.success('Restart', 'Interpreter ' + name + ' is restarted.')
+          } else {
+            toastr.error('Restart', 'Interpreter ' + name + ' failed to restart.')
+          }
+        })
+      }}
+    )
+
+  }
+
   public listConfigurations(): void {
     return this.spitfireApi.listConfigurations()
   }

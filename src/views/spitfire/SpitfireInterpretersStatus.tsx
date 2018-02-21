@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import { toastr } from 'react-redux-toastr'
 import JSONTree from 'react-json-tree'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
@@ -57,16 +58,8 @@ TODO(ECH)
   private async restartInterpreters(e) {
     e.stopPropagation()
     e.preventDefault()
-    var interpreterSettings = this.state.interpreterSettings
-    this.setState({
-        interpreterSettings: {}
-    })
-    var body = interpreterSettings.result.body
-    for (var i in body) {
-      var id = body[i].id
-      var name = body[i].name
-      var interpreter = await this.notebookApi.restartInterpreter(id)
-    }
+    this.notebookApi.restartInterpreters()
+    this.loadInterpreterSettings()
   }
 
 }

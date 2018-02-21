@@ -116,14 +116,14 @@ export default class ControlHeader extends React.Component<any, any> {
                   cellShape={ 'circle' }
                   colorCells={
                     [
-                      { id: 'cluster-capacity', label: 'TODO Cluster Capacity', color: 'green' },
-                      { id: 'cluster-usage', label: 'TODO Cluster Usage', color: 'green' },
-                      { id: 'cluster-health', label: 'TODO Cluster Health', color: 'green' },
-                      { id: 'reservations', label: 'TODO Reservations', color: 'yellow' },
-                      { id: 'hdfs', label: 'TODO HDFS Status', color: 'green' },
-                      { id: 'interpreters', label: 'TODO Interpreter Status', color: 'red' },
-                      { id: 'spark', label: 'TODO Spark Status', color: 'yellow' },
-                      { id: 'network', label: 'TODO Network Status', color: 'green' }
+                      { id: 'cluster-capacity', label: 'Cluster Capacity', color: 'green' },
+                      { id: 'cluster-usage', label: 'Cluster Usage', color: 'green' },
+                      { id: 'cluster-health', label: 'Cluster Health', color: 'green' },
+                      { id: 'reservations', label: 'Reservations', color: 'yellow' },
+                      { id: 'hdfs', label: 'HDFS Status', color: 'green' },
+                      { id: 'interpreters', label: 'Interpreter Status', color: 'red' },
+                      { id: 'spark', label: 'Spark Status', color: 'yellow' },
+                      { id: 'network', label: 'Network Status', color: 'green' }
                     ]
                   }
                   onCellFocused={(id?: string, color?: string) => {
@@ -164,7 +164,7 @@ export default class ControlHeader extends React.Component<any, any> {
           }
           {(statusPanel == 'cluster-health') &&
           <div>
-             <div className="ms-font-su"><FabricIcon name="Health" /> Cluser Health</div>
+             <div className="ms-font-su"><FabricIcon name="Health" /> Cluster Health</div>
              <ClusterHealth/>
           </div>
           }
@@ -188,7 +188,7 @@ export default class ControlHeader extends React.Component<any, any> {
           }
           {(statusPanel == 'spark') &&
           <div>
-            <div className="ms-font-su"><FabricIcon name="EngineeringGroup" /> Spark</div>
+            <div className="ms-font-su"><FabricIcon name="LightningBolt" /> Spark</div>
             <SparkStatus/>
           </div>
           }

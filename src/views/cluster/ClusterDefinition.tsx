@@ -14,19 +14,17 @@ import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
 const MAX_LENGTH = 20
 
 export type IClusterState = {
-  overview: Result<KuberResponse>
+  definition: Result<KuberResponse>
 }
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class ClusterUsage extends React.Component<any, IClusterState> {
+export default class ClusterDefinition extends React.Component<any, IClusterState> {
   private config: IConfig = NotebookStore.state().config
-  private restClient: RestClient
   private k8sApi: KuberApi
-  private method: string
 
   state = {
-    overview: null
+    definition: null
   }
 
   public constructor(props) {
@@ -42,7 +40,7 @@ export default class ClusterUsage extends React.Component<any, IClusterState> {
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <div style={{ padding: "10px", backgroundColor: "black" }}>
                 <JSONTree
-                  data={this.state.overview} 
+                  data={this.state.definition} 
                   theme='greenscreen'
                   invertTheme={false}
                 />
@@ -64,11 +62,11 @@ export default class ClusterUsage extends React.Component<any, IClusterState> {
 
   public componentDidMount() {
     this.k8sApi = window['KuberApi']
-    this.getOverview()
+    this.getClusterDef()
   }
 
-  private getOverview() {
-    this.k8sApi.getOverview().then(json => { this.setState({overview: json})})
+  private getClusterDef() {
+    this.k8sApi.getClusterDef().then(json => { this.setState({definition: json})})
   }
 
 }
