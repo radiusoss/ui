@@ -35,6 +35,7 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
 
   public render() {
     var { note, showGraphBar, showControlBar, showParagraphTitle } = this.state
+    var i = -1
     if (!note.paragraphs) {
       return <div></div>
     }
@@ -42,8 +43,9 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
       <div>
         {
           note.paragraphs.map( p => {
+            i++
             return (
-              <div key={p.id}>
+              <div key={p.id + '-' + i}>
                 <ParagraphResult 
                   note={note}
                   paragraph={p} 
@@ -51,6 +53,7 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
                   showControlBar={showControlBar} 
                   showParagraphTitle={showParagraphTitle} 
                   stripDisplay={true}
+                  key={p.id + '-' + i}
                 />
                 <hr/>
               </div>
@@ -59,17 +62,6 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
         }
       </div>
     )
-  }
-
-  public componentWillUnmount() {
-/*
-    this.setState({
-      note: {
-        id: '',
-        paragraphs: []
-      }
-    })
-*/
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -93,6 +85,18 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
             this.state.note.paragraphs[i] = paragraph
           }
         }
+      }
+    }
+    if (webSocketMessageReceived && (webSocketMessageReceived.op == "INTERPRETER_BINDINGS")) {
+      var bind = false
+      webSocketMessageReceived.data.interpreterBindings.map(intBind => {
+        if (intBind.selected == false) {
+          bind = true
+        }
+      })
+      if (bind) {
+        var ids = webSocketMessageReceived.data.interpreterBindings.map(intBind => {return intBind.id})
+        this.notebookApi.saveInterpreterBindings(this.state.note.id, ids)
       }
     }
   }
