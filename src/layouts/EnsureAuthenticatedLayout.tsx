@@ -30,10 +30,12 @@ import ClusterCapacity from './../views/cluster/ClusterCapacity'
 import ClusterUsage from './../views/cluster/ClusterUsage'
 import ClusterHealth from './../views/cluster/ClusterHealth'
 import ClusterReservations from './../views/cluster/ClusterReservations'
+import HDFSStatus from './../views/hdfs/HDFSStatus'
 import SparkStatus from './../views/spark/SparkStatus'
 import SparkJobs from './../views/spark/SparkJobs'
 import SparkUI from './../views/spark/SparkUI'
 import SpitfireInterpretersStatus from './../views/spitfire/SpitfireInterpretersStatus'
+import NetworkStatus from './../views/network/NetworkStatus'
 import history from './../history/History'
 import NotebookApi from './../api/notebook/NotebookApi'
 import { NotebookStore } from './../store/NotebookStore'
@@ -67,14 +69,17 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/users" name="Profile" component={Users}/>
           <Route path="/dla/kuber/settings" name="Settings" component={Settings}/>
           <Route exact path="/dla/kuber/status" name="Status" component={Status}/>
+          <Route path="/dla/kuber/budget" name="Budget" component={Budget}/>
           <Route path="/dla/kuber/status/cluster-capacity" name="Cluster Capacity" component={ClusterCapacity}/>
           <Route path="/dla/kuber/status/cluster-usage" name="Cluster Usage" component={ClusterUsage}/>
           <Route path="/dla/kuber/status/cluster-health" name="Cluster Health" component={ClusterHealth}/>
+          <Route path="/dla/kuber/status/hdfs" name="HDFS Status" component={HDFSStatus}/>
           <Route path="/dla/kuber/status/reservations" name="Cluster Reservations" component={ClusterReservations}/>
           <Route path="/dla/kuber/status/spark-repl" name="Spark Status" component={SparkStatus}/>
           <Route path="/dla/kuber/status/spark-jobs" name="Spark Jobs" component={SparkJobs}/>
           <Route path="/dla/kuber/status/spark-ui" name="Spark UI" component={SparkUI}/>
-          <Route path="/dla/kuber/status/interpreters" name="Spitfire Interpreters Status" component={SpitfireInterpretersStatus}/>          <Route path="/dla/kuber/budget" name="Budget" component={Budget}/>
+          <Route path="/dla/kuber/status/interpreters" name="Spitfire Interpreters Status" component={SpitfireInterpretersStatus}/>
+          <Route path="/dla/kuber/status/network" name="Network Status" component={NetworkStatus}/>
           <Route path="/dla/explorer/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
           <Route path="/dla/explorer/note/cover/:noteId" name="Note Cover" component={NoteCover}/>
           <Route path="/dla/explorer/note/workbench/:noteId" name="Note Workbench" component={NoteWorkbench}/>

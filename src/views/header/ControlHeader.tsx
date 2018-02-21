@@ -7,9 +7,11 @@ import { connect } from 'react-redux'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import * as isEqual from 'lodash.isequal'
 import { toastr } from 'react-redux-toastr'
+import { NotebookStore } from './../../store/NotebookStore'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import history from './../../history/History'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
+import { Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
@@ -54,7 +56,8 @@ export default class ControlHeader extends React.Component<any, any> {
     isNewNoteNameValid: false,
     showNewFlowPanel: false,
     newFlowName: "",
-    isNewFlowNameValid: false
+    isNewFlowNameValid: false,
+    profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob)
   }
 
   public constructor(props) {
@@ -63,6 +66,7 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public render() {
+    const { profilePhoto } = this.state
     this.updateRunIndicator()
     this.updateMenu()
     return (
@@ -85,8 +89,19 @@ export default class ControlHeader extends React.Component<any, any> {
                 />
               </div>
               <div style={{ float: 'right' }}>
+                <a href="#" onClick={(e) => history.push('/dla/kuber/profile') }>
+                  <Persona
+                    imageUrl = { profilePhoto }
+                    hidePersonaDetails = { true }
+                    presence = { PersonaPresence.online }
+                    size = { PersonaSize.extraSmall }
+                    className = "text-center"
+                    />
+                  </a>
+              </div>
+              <div style={{ float: 'right' }}>
                 <SwatchColorPicker
-                  columnCount={ 6 }
+                  columnCount={ 8 }
                   cellShape={ 'circle' }
                   colorCells={
                     [
@@ -94,8 +109,10 @@ export default class ControlHeader extends React.Component<any, any> {
                       { id: 'cluster-usage', label: 'TODO Cluster Usage', color: 'green' },
                       { id: 'cluster-health', label: 'TODO Cluster Usage', color: 'green' },
                       { id: 'reservations', label: 'TODO Reservations', color: 'yellow' },
+                      { id: 'hdfs', label: 'TODO HDFS Status', color: 'green' },
                       { id: 'spark-repl', label: 'TODO Spark REPL Status', color: 'yellow' },
-                      { id: 'interpreters', label: 'TODO Interpreter Status', color: 'red' }
+                      { id: 'interpreters', label: 'TODO Interpreter Status', color: 'red' },
+                      { id: 'network', label: 'TODO Network Status', color: 'green' }
                     ]
                   }
                   onCellFocused={(id?: string, color?: string) => {

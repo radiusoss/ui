@@ -6,7 +6,6 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/C
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
-import NotYetAvailable from './../message/NotYetAvailable'
 import { toastr } from 'react-redux-toastr'
 import ClusterHealth from './ClusterHealth'
 import { emailRegexp } from './../../util/msc/regexp'
@@ -49,11 +48,6 @@ export default class Cluster extends React.Component<any, IClusterState> {
       <div>
         <div className="ms-font-xxl">Cluster</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <NotYetAvailable/>
-            </div>
-          </div>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
             <Form 

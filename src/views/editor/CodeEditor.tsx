@@ -124,7 +124,6 @@ export default class CodeEditor extends React.Component<any, any> {
 
   public render() {
     const { name, width, maxWidth, height, style } = this.props
-//    const divStyle = { width, height, ...style }
     const divStyle = { width, height, ...style }
     return (
       <div ref={this.updateRef}
@@ -135,7 +134,6 @@ export default class CodeEditor extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-
     const {
       name,
       className,
@@ -159,20 +157,16 @@ export default class CodeEditor extends React.Component<any, any> {
     } = this.props
 
     this.editor = ace.edit(this.refEditor)
-
     this.editor.setAutoScrollEditorIntoView(true)
     this.editor.setOptions({
 //      autoScrollEditorIntoView: false,
       indentedSoftWrap: false
     })
     this.editor.$blockScrolling = Infinity
-
     this.handleOptions(this.props)
-
     if (onBeforeLoad) {
       onBeforeLoad(ace)
     }
-
     const editorProps = Object.keys(this.props.editorProps)
     for (var i = 0; i < editorProps.length; i++) {
       this.editor[editorProps[i]] = this.props.editorProps[editorProps[i]]
@@ -182,24 +176,18 @@ export default class CodeEditor extends React.Component<any, any> {
     this.editor.getSession().setMode(`ace/mode/${mode}`)
     this.editor.setTheme(`ace/theme/${theme}`)
     this.editor.setFontSize(fontSize)
-
 //    this.editor.setValue((value === undefined ? defaultValue : value), cursorStart)
-
     this.editor.renderer.setShowGutter(showGutter)
     this.editor.getSession().setUseWrapMode(wrapEnabled)
     this.editor.setShowPrintMargin(showPrintMargin)
-
     this.editor.on('focus', this.onFocus)
     this.editor.on('blur', this.onBlur)
     this.editor.on('copy', this.onCopy)
     this.editor.on('paste', this.onPaste)
     this.editor.on('change', this.onChange)
-
     this.editor.session.on('changeScrollTop', this.onScroll)
     this.editor.getSession().setAnnotations(annotations || [])
-
     this.handleMarkers(markers || []);
-
     // Get a list of possible options to avoid 'misspelled option errors'.
     const availableOptions = this.editor.getOptions;
     for (var i = 0; i < editorOptions.length; i++) {
@@ -208,34 +196,26 @@ export default class CodeEditor extends React.Component<any, any> {
         this.editor.setOption(option, this.props[option])
 //      }
     }
-
     if (Array.isArray(commands)) {
       commands.forEach((command) => {
         this.editor.commands.addCommand(command)
       })
     }
-
     if (keyboardHandler) {
       this.editor.setKeyboardHandler('ace/keyboard/' + keyboardHandler)
     }
-
     if (className) {
       this.refEditor.className += ' ' + className
     }
-
     if (focus) {
       this.editor.focus()
     }
-
     if (onLoad) {
       onLoad(this.editor)
     }
-
     this.editor.runCode = (noteId, paragraphId) => this.props.dispatchRunParagraphAction(noteId, paragraphId)
-
     this.editor.getNote = () => { return this.state.note }
     this.editor.getParagraphs = () => { return this.state.paragraphs }
-  
     this.editor.commands.addCommand({
       name: "runCode",
       bindKey: {
@@ -247,7 +227,6 @@ export default class CodeEditor extends React.Component<any, any> {
         editor.runCode(editor.getNote().id, editor.getParagraphs()[0].id)
       }
     })
-
 //  }
 /*
   public shouldComponentUpdate(nextProps, nextState) {
@@ -264,13 +243,10 @@ export default class CodeEditor extends React.Component<any, any> {
     const { note, paragraphs } = this.state
     if (!note.paragraphs) return
 //    if (this.state.note.id == note.id) return
-
     var texts = paragraphs.map(p => {
       return p.text
     })
-
     var text = texts.join('\n\n')
-
     this.editor.setValue(text, cursorStart)
 //    this.editor.focus()
 /*
@@ -355,17 +331,17 @@ export default class CodeEditor extends React.Component<any, any> {
 */
   }
 
-  handlescrollMargin(margins = [0, 0, 0, 0]) {
+  private handlescrollMargin(margins = [0, 0, 0, 0]) {
 //    this.editor.renderer.setscrollMargin(margins[0], margins[1], margins[2], margins[3])
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.editor.destroy()
     this.editor = null
   }
 
   @autobind
-  onChange() {
+  private onChange() {
     if (this.props.onChange && !this.silent) {
       const value = this.editor.getValue()
       this.props.onChange(value)
@@ -373,7 +349,7 @@ export default class CodeEditor extends React.Component<any, any> {
   }
 
   @autobind
-  onFocus() {
+  private onFocus() {
     if (this.props.onFocus) {
       this.props.onFocus()
     }
@@ -387,28 +363,28 @@ export default class CodeEditor extends React.Component<any, any> {
   }
 
   @autobind
-  onCopy(text) {
+  private onCopy(text) {
     if (this.props.onCopy) {
       this.props.onCopy(text)
     }
   }
 
   @autobind
-  onPaste(text) {
+  private onPaste(text) {
     if (this.props.onPaste) {
       this.props.onPaste(text)
     }
   }
 
   @autobind
-  onScroll() {
+  private onScroll() {
     if (this.props.onScroll) {
       this.props.onScroll(this.editor)
     }
   }
 
   @autobind
-  handleOptions(props) {
+  private handleOptions(props) {
     const setOptions = Object.keys(props.setOptions);
     for (var y = 0; y < setOptions.length; y++) {
       this.editor.setOption(setOptions[y], props.setOptions[setOptions[y]]);
@@ -416,7 +392,7 @@ export default class CodeEditor extends React.Component<any, any> {
   }
 
   @autobind
-  handleMarkers(markers) {
+  private handleMarkers(markers) {
     // remove foreground markers
     var currentMarkers = this.editor.getSession().getMarkers(true);
     for (const i in currentMarkers) {
@@ -439,12 +415,12 @@ export default class CodeEditor extends React.Component<any, any> {
   }
 
   @autobind
-  updateRef(item) {
+  private updateRef(item) {
     this.refEditor = item;
   }
 
   @autobind
-  getValue() {
+  public getValue() {
     return this.editor.getValue()
   }
 

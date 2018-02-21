@@ -174,16 +174,11 @@ export default class NoteWorkbench extends React.Component<any, any> {
                   p.config.colWidth = colWidth
                 }
                 return (
-                  /* 
-                  borderColor: '#e5e5e5', boxShadow: 'none'
-                        margin: '10px 10px 10px 10px'
-                  */
                     <div className={"ms-Grid-col ms-u-sm" + colWidth + " ms-u-md" + colWidth + " ms-u-lg" + colWidth}
                       style={{ 
                         padding: '0px', 
                         margin: '0px'
                       }}
-//                      key={'k1_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
                       key={note.id + '-' + p.id + "-" + index}
                       >
                       <div style={{ 
@@ -204,15 +199,14 @@ export default class NoteWorkbench extends React.Component<any, any> {
                           showControlBar={true}
                           focus={index==1}
                           ref={ ref => { this.paragraphEditors.set(note.id + '-' + p.id, ref) }}
-//                          key={'k2_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
                           />
+                        <div style={{height: '10px'}} />
                         <ParagraphResult
                           paragraph={p} 
                           showParagraphTitle={false}
                           showControlBar={false}
                           showGraphBar={true}
                           stripDisplay={true}
-//                          key={'k3_' + note.id + '-' + p.id + "-" + index + '-' + p.status + '-' + p.config.colWidth}
                           />
                     </div>
                   </div>

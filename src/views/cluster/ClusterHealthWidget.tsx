@@ -1,12 +1,10 @@
 import * as React from 'react'
-import NotYetAvailable from './../message/NotYetAvailable'
 
 export default class ClusterHealthWidget extends React.Component<any, any> {
 
   public render() {
     return (
       <div>
-              <NotYetAvailable/>
 {/*
         <h6>Settings</h6>
         <div className="aside-options">

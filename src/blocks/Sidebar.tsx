@@ -35,7 +35,7 @@ export default class Sidebar extends React.Component<any, any> {
               <NavLink to={'/dla/home'} className="nav-link" activeClassName="active"><FabricIcon name="Home"/> Home</NavLink>
             </li>
             <li className={this.activeRoute("/dla/explorer")}>
-              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className=""></i> Explorer</a>
+              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}>Explorer</a>
               <ul className="nav-dropdown-items">
                 <li className="nav-item">
                   <NavLink to={'/dla/explorer/notes/list'} className="nav-link" activeClassName="active"><FabricIcon name="ReadingMode"/> Notes</NavLink>
@@ -68,7 +68,7 @@ export default class Sidebar extends React.Component<any, any> {
             <li className="divider"></li>
 */}
           <li className={this.activeRoute("/dla/kuber")}>
-              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className=""></i> Kuber</a>
+              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}>Kuber</a>
               <ul className="nav-dropdown-items">
               <li className="nav-item">
                   <NavLink to={'/dla/kuber/calendar'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Calendar</NavLink>
@@ -123,7 +123,7 @@ export default class Sidebar extends React.Component<any, any> {
             </li>
 */}
             <li className={this.activeRoute("/dla/about")}>
-              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className=""></i> About</a>
+              <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}>About</a>
               <ul className="nav-dropdown-items">
                 <li className="nav-item">
                   <NavLink to={'/dla/about/platform'} className="nav-link" activeClassName="active"><FabricIcon name="GlobalNavButton"/> Platform</NavLink>

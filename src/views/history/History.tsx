@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
-import NotYetAvailable from './../message/NotYetAvailable'
 
 export default class History extends React.Component<any, any> {
 /*
@@ -15,8 +14,6 @@ TODO(ECH) History Views with Commit
         <div style={{float: "left"}}>
           <div className='ms-font-su'>History</div>
         </div>
-        <div className="ms-clearfix"/>
-        <NotYetAvailable/>
       </div>
     )
   }

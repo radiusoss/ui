@@ -4,10 +4,12 @@ import ClusterCapacity from './../cluster/ClusterCapacity'
 import ClusterUsage from './../cluster/ClusterUsage'
 import ClusterHealth from './../cluster/ClusterHealth'
 import ClusterReservations from './../cluster/ClusterReservations'
+import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
 import SparkJobs from './../spark/SparkJobs'
 import SparkUI from './../spark/SparkUI'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
+import NetworkStatus from './../network/NetworkStatus'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
@@ -31,6 +33,9 @@ export default class Status extends React.Component<any, any> {
           <PivotItem linkText='Reservations' itemIcon='Calendar'>
             <ClusterReservations />
           </PivotItem>
+          <PivotItem linkText='HDFS' itemIcon='OfflineStorageSolid'>
+            <HDFStatus />
+          </PivotItem>
           <PivotItem linkText='Interpreters' itemIcon='Light'>
             <SpitfireInterpretersStatus />
           </PivotItem>
@@ -40,8 +45,8 @@ export default class Status extends React.Component<any, any> {
           <PivotItem linkText='Spark Jobs' itemIcon='Parachute'>
             <SparkJobs />
           </PivotItem>
-          <PivotItem linkText='Spark UI' itemIcon='Hospital'>
-            <SparkUI />
+          <PivotItem linkText='Network' itemIcon='NetworkTower'>
+            <NetworkStatus />
           </PivotItem>
         </Pivot>
       </div>

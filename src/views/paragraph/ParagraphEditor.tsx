@@ -14,6 +14,8 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import * as isEqual from 'lodash.isequal'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
+// import * as stylesImport2 from './CommandBar.scss'
+// const styles2: any = stylesImport2
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook, null, { withRef: true })
 export default class ParagraphEditor extends React.Component<any, any> {
@@ -30,6 +32,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
       text: '',
       status: '',
       config: {
+        editorHide: false,
         colWidth: '12'
       }
     },
@@ -62,9 +65,9 @@ export default class ParagraphEditor extends React.Component<any, any> {
 
     const { index, maxIndex, note, paragraph, code, focus, showControlBar, showParagraphTitle, showPanel } = this.state
 
-    var title = 'Add an awesome title...'
+    var panelTitle = 'Add an awesome title...'
     if (paragraph.title && (paragraph.title.length > 0)) {
-      title = paragraph.title
+      panelTitle = paragraph.title
     }
 
     var leftItems: any[] = []
@@ -82,6 +85,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
         key: 'run-indicator',
         icon: 'Play',
         title: 'Run the paragraph [SHIFT+Enter]',
+        onRenderIcon: (iconProps) => { return <i className="my-button"></i>},
         onClick: () => this.runParagraph()
       })
     }
@@ -95,7 +99,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
       leftItems.push({
         key: 'move-down-indicator',
         icon: 'ChevronDown',
-        title: 'Move paragraph down',
+        title: 'Move Paragraph Down',
         onClick: () => this.moveParagraphDown()
       })
     }
@@ -103,7 +107,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
       leftItems.push({
         key: 'move-up-indicator',
         icon: 'ChevronUp',
-        title: 'Move paragraph up',
+        title: 'Move Paragraph Up',
         onClick: () => this.moveParagraphUp()
       })
     }
@@ -116,6 +120,23 @@ export default class ParagraphEditor extends React.Component<any, any> {
       onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
     },
 */
+    if (paragraph.config.editorHide) {
+      leftItems.push({
+        key: 'show-editor',
+        icon: 'FieldNotChanged',
+        title: 'Show Editor',
+        onClick: () => this.toggleEditorShow()
+      })
+    }
+    else {
+      leftItems.push({
+        key: 'hide-editor',
+        icon: 'FieldEmpty',
+        title: 'Hide Editor',
+        onClick: () => this.toggleEditorShow()
+      })
+    }
+    
     leftItems.push(
       {
         key: 'clear',
@@ -139,6 +160,11 @@ export default class ParagraphEditor extends React.Component<any, any> {
 
     var rightItems: any[] = []
 
+    var display = 'inline'
+    if (paragraph.config.editorHide == true) {
+      display = 'none'
+    }
+
     return (
 
       <div>
@@ -150,13 +176,22 @@ export default class ParagraphEditor extends React.Component<any, any> {
           onDismiss={() => this.setState({showPanel: false})}
         >
           <div>
-            <div className="ms-font-xl">{paragraph.title}</div>
+            <div className="ms-font-xl">
+              <InlineEditor
+                text={panelTitle}
+                paramName="title"
+                minLength={0}
+                maxLength={50}
+                change={this.updateTitle}
+                activeClassName="ms-font-xl"
+              />
+            </div>
             <div style={{ width: '10px', float: 'left'}}>
               <SpinButton
                 value={ parseInt(paragraph.config.colWidth).toString() }
-//                  defaultValue='12'
+//                defaultValue='12'
                 label={ 'Width' }
-                min={ 3 }
+                min={ 9 }
                 max={ 12 }
                 step={ 3 }
                 onIncrement={(value) => {
@@ -198,23 +233,23 @@ export default class ParagraphEditor extends React.Component<any, any> {
               <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-textAlignLeft" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
                 <div className="ms-font-l ms-fontWeight-semibold">
                   <InlineEditor
-                    text={title}
+                    text={paragraph.title}
                     paramName="title"
                     minLength={3}
                     maxLength={50}
                     change={this.updateTitle}
-                  activeClassName="ms-font-l ms-fontWeight-semibold"
+                    activeClassName="ms-font-l ms-fontWeight-semibold"
                   />
                 </div>
               </div>
               }
-              <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignRight" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
+              <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignRight" style={{ padding: 0, margin: 0, overflow: 'hidden', maxHeight: '20px' }}>
                 <div className="ms-fontColor-neutralTertiary" style={{ float: 'right' }}>
                   {paragraph.status}
                 </div>
                 {
                 (showControlBar == true) &&
-                  <div style={{ marginLeft: '-20px', float: 'right', width: '350px' }}>
+                  <div style={{ width: '400px', marginLeft: '0px', float: 'right', maxHeight: '10px', marginBottom: '10px', transform: 'scale(0.85) translateY(-8px) translateX(60px)', }}>
                     <CommandBar
                       isSearchBoxVisible={ false }
                       items={ leftItems }
@@ -224,30 +259,32 @@ export default class ParagraphEditor extends React.Component<any, any> {
                   </div>
                 }
               </div>
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{borderLeft: "4px solid #DDD", padding: 0, margin: 0}}>
-                <CodeEditor
-                  name={paragraph.id}
-                  note={note}
-                  paragraphs={[paragraph]}
-                  value={code}
-                  defaultValue=""
-                  minLines={1}
-                  maxLines={30}
-                  width="100%"
-                  mode="scala"
-                  theme="tomorrow"
-  //              theme="tomorrow-night-eighties"
-                  fontSize="14px"
-                  showGutter={false}
-                  focus={focus}
-  //              onLoad={this.onLoad}
-  //              onChange={this.onChange}
-                  setOptions={{
-                    enableBasicAutocompletion: false,
-                    enableLiveAutocompletion: false
-                  }}
-                  ref={ ref => { this.codeEditor = ref }}
-                />
+              <div style ={{display: display}}>
+                <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{borderLeft: "4px solid #DDD", padding: 0, margin: 0}}>
+                  <CodeEditor
+                    name={paragraph.id}
+                    note={note}
+                    paragraphs={[paragraph]}
+                    value={code}
+                    defaultValue=""
+                    minLines={1}
+                    maxLines={30}
+                    width="100%"
+                    mode="scala"
+                    theme="tomorrow"
+    //              theme="tomorrow-night-eighties"
+                    fontSize="14"
+                    showGutter={false}
+                    focus={focus}
+    //              onLoad={this.onLoad}
+    //              onChange={this.onChange}
+                    setOptions={{
+                      enableBasicAutocompletion: false,
+                      enableLiveAutocompletion: false
+                    }}
+                    ref={ ref => { this.codeEditor = ref }}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -314,6 +351,12 @@ export default class ParagraphEditor extends React.Component<any, any> {
 
   private moveParagraphUp() {
     this.notebookApi.moveParagraph(this.state.paragraph.id, this.state.index - 1)
+    this.notebookApi.getNote(this.state.note.id)
+  }
+
+  private toggleEditorShow() {
+    this.state.paragraph.config.editorHide = ! this.state.paragraph.config.editorHide
+    this.notebookApi.commitParagraph(this.state.paragraph)
     this.notebookApi.getNote(this.state.note.id)
   }
 

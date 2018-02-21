@@ -6,7 +6,7 @@ import { AuthDispatchers, AuthProps, mapStateToPropsAuth, mapDispatchToPropsAuth
 import { NotebookStore } from './../store/NotebookStore'
 import { css } from 'office-ui-fabric-react/lib/Utilities'
 import { CompoundButton } from 'office-ui-fabric-react/lib/Button'
-import { Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
+import { Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
 import NotebookApi from './../api/notebook/NotebookApi'
 import GoogleApi from '../api/google/GoogleApi'

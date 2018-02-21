@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
-import NotYetAvailable from './../message/NotYetAvailable'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import JSONTree from 'react-json-tree'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
@@ -20,6 +19,7 @@ export default class InterpretersStatus extends React.Component<any, any> {
 /*
 TODO(ECH)
 + Interpreter Status View
++ Restart Interpreters in case of failure
 + Restart http://localhost:8091/spitfire/api/interpreter/setting/restart/2CBEJNFR7
 */
  public render() {
@@ -28,9 +28,6 @@ TODO(ECH)
         <div className="ms-font-xxl">Spitfire Interpreters</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <NotYetAvailable/>
-            </div>
             <div className="ms-Grid-row">
               <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
             </div>

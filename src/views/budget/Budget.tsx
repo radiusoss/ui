@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import TableBarDisplay from './../table/TableBarDisplay'
 import TableDoughnutDisplay from './../table/TableDoughnutDisplay'
-import NotYetAvailable from './../message/NotYetAvailable'
 import {columns, items} from './../../spl/TableSpl'
 
 export default class Budget extends React.Component<any, any> {
@@ -17,7 +16,6 @@ export default class Budget extends React.Component<any, any> {
           <div className='ms-font-su'>Budget</div>
         </div>
         <div className="ms-clearfix"/>
-        <NotYetAvailable/>
         <div className="ms-Grid ms-fadeIn500">
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">

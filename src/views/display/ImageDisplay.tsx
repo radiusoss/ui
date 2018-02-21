@@ -11,7 +11,7 @@ export default class ImageDisplay extends React.Component<any, any> {
     const { data } = this.props
     return (
       <div>
-        <img src={`data:image/png;base64,${data as string}`} />
+        <img src={`data:image/png;base64,${data as string}`} style={{ maxWidth: '100%'}}/>
       </div>
     )
   }

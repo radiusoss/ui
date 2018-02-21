@@ -30,6 +30,7 @@ export default class ParagraphResult extends React.Component<any, any> {
       id: '',
       title: '',
       user: '',
+      errorMessage: '',
       dateStarted: '',
       dateFinished: '',
       dateUpdated: '',
@@ -73,66 +74,6 @@ export default class ParagraphResult extends React.Component<any, any> {
       cl = "ms-font-xl ms-fontWeight-semibold"
     }
 
-    var leftItems: any[] = []
-    var rightItems: any[] = []
-    leftItems = [
-      {
-        key: 'run-indicator',
-        icon: 'Play',
-        title: 'Run the paragraph [SHIFT+Enter]',
-        onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-      },
-      {
-        key: 'add-indicator',
-        icon: 'Add',
-        title: 'Add a paragraph',
-        onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-      },
-      {
-        key: 'move-up-indicator',
-        icon: 'ChevronUp',
-        title: 'Move paragraph up',
-        onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-      },
-      {
-        key: 'move-down-indicator',
-        icon: 'ChevronDown',
-        title: 'Move paragraph down',
-        onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-      },
-      {
-        key: '...',
-        name: '...',
-        title: 'Actions',
-        items: [
-/*
-          {
-            key: 'to-cover',
-            name: 'Cover',
-            icon: 'Heart',
-            title: 'Cover',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-          },
-*/
-          {
-            key: 'clean',
-            icon: 'ClearFormatting',
-            name: 'Clear',
-            title: 'Clear Content',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-          },
-          {
-            key: 'delete',
-            name: 'Delete',
-            icon: 'Delete',
-            title: 'Delete',
-            onClick: () => toastr.warning('Not yet available', 'Looks like you are eager for the next release...')
-          }
-        ]
-      }
-    ]
-    rightItems = []
-
     paragraphHeader = 
       <div>
         {
@@ -149,17 +90,7 @@ export default class ParagraphResult extends React.Component<any, any> {
         </div>
         }
         {
-        (showControlBar == true) && 
-        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 ms-textAlignRight" style={{ paddingLeft: '0px', margin: '0px', overflow: 'hidden' }}>
-          <div style={{marginLeft: '-20px'}}>
-            <CommandBar
-              isSearchBoxVisible={ false }
-              items={ leftItems }
-              farItems={ rightItems }
-              className={ styles.commandBarBackgroundTransparent }
-            />
-          </div>
-        </div>
+        (showControlBar == true) && <div></div>
         }
       </div>
     {
@@ -172,6 +103,14 @@ export default class ParagraphResult extends React.Component<any, any> {
     }
     var results = paragraph.results
     if (!results) {
+      if (paragraph.status == 'ERROR') {
+        return <div>
+          {paragraphHeader}
+          <MessageBar messageBarType={ MessageBarType.error }>
+            <span>{paragraph.errorMessage}</span>
+          </MessageBar>
+        </div>
+      }
       if (paragraph.status == 'FINISHED') {
         return <div>
           {paragraphHeader}
@@ -193,12 +132,14 @@ export default class ParagraphResult extends React.Component<any, any> {
     if (!msgs) return <div></div>
     if (msgs.length == 0) return <div></div>
 
+    var r = -1
     var rendered = msgs.map( msg => {
-      return <div key={paragraph.id}>{this.renderMsg(paragraph, results, msg, paragraphHeader, stripDisplay, showGraphBar)}</div>
+      r++
+      return <div key={paragraph.id + '-' + r}>{this.renderMsg(paragraph, results, msg, paragraphHeader, stripDisplay, showGraphBar)}</div>
     })
 
     rendered.push(
-      <div className="ms-fontColor-neutralSecondary" style={{ fontSize: "10px"}}>
+      <div className="ms-fontColor-neutralSecondary" style={{ fontSize: "10px"}} key={paragraph.id + '-took'}>
         Took {(new Date(paragraph.dateFinished).getTime() - new Date(paragraph.dateStarted).getTime()) / 1000} sec. Last updated by {paragraph.user} at {new Date(paragraph.dateUpdated).toLocaleString()}.
       </div>
     )
@@ -215,8 +156,8 @@ export default class ParagraphResult extends React.Component<any, any> {
     if ((typeof results) == "string") {
       return (
         <div>
+          {paragraphHeader}
           <MessageBar messageBarType={ MessageBarType.error }>
-            {paragraphHeader}
             <span>{results}</span>
           </MessageBar>
         </div>
@@ -230,7 +171,7 @@ export default class ParagraphResult extends React.Component<any, any> {
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '10px', margin: '0px' }} key={paragraph.id}>
             {
               ((type == 'TEXT') && (stripDisplay)) && 
-              <div style = {{maxHeight: "500px", overflowY: "auto"}}>
+              <div style = {{maxHeight: "350px", overflowY: "auto"}}>
                 <TextDisplay
                   data={data}
                   stripDisplay={stripDisplay}
