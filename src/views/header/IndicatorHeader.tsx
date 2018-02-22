@@ -21,7 +21,7 @@ import { SwatchColorPicker } from 'office-ui-fabric-react/lib/SwatchColorPicker'
 import GoogleProfileWidget from './../profile/GoogleProfileWidget'
 import ClusterCapacity from './../cluster/ClusterCapacity'
 import ClusterUsage from './../cluster/ClusterUsage'
-import ClusterHealth from './../cluster/ClusterHealth'
+import ClusterStatus from './../cluster/ClusterStatus'
 import ClusterReservations from './../cluster/ClusterReservations'
 import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
@@ -69,15 +69,15 @@ export default class ControlHeader extends React.Component<any, any> {
             cellShape={ 'circle' }
             colorCells={
             [
-                { id: 'cluster-capacity', label: 'Cluster Capacity', color: 'green' },
-                { id: 'cluster-usage', label: 'Cluster Usage', color: 'green' },
-                { id: 'cluster-health', label: 'Cluster Health', color: 'green' },
-                { id: 'reservations', label: 'Reservations', color: 'yellow' },
-                { id: 'hdfs', label: 'HDFS Status', color: 'green' },
-                { id: 'interpreters', label: 'Interpreter Status', color: 'red' },
-                { id: 'spark', label: 'Spark Status', color: 'yellow' },
-                { id: 'jobs', label: 'Jobs Status', color: 'blue' },
-                { id: 'network', label: 'Network Status', color: 'green' }
+              { id: 'cluster-capacity', label: 'Cluster Capacity', color: 'green' },
+              { id: 'cluster-usage', label: 'Cluster Usage', color: 'green' },
+              { id: 'cluster-status', label: 'Cluster Status', color: 'green' },
+              { id: 'reservations', label: 'Reservations', color: 'yellow' },
+              { id: 'hdfs', label: 'HDFS Status', color: 'green' },
+              { id: 'interpreters', label: 'Interpreter Status', color: 'red' },
+              { id: 'spark', label: 'Spark Status', color: 'yellow' },
+              { id: 'jobs', label: 'Jobs Status', color: 'blue' },
+              { id: 'network', label: 'Network Status', color: 'green' }
             ]
             }
             onCellFocused={(id?: string, color?: string) => {
@@ -110,14 +110,14 @@ export default class ControlHeader extends React.Component<any, any> {
           }
           {(statusPanel == 'cluster-usage') &&
           <div>
-            <div className="ms-font-su"><FabricIcon name="Frigid" /> Cluster Usage</div>
+            <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Cluster Usage</div>
             <ClusterUsage/>
           </div>
           }
-          {(statusPanel == 'cluster-health') &&
+          {(statusPanel == 'cluster-status') &&
           <div>
-              <div className="ms-font-su"><FabricIcon name="Health" /> Cluster Health</div>
-              <ClusterHealth/>
+              <div className="ms-font-su"><FabricIcon name="Health" /> Cluster Status</div>
+              <ClusterStatus/>
           </div>
           }
           {(statusPanel == 'reservations') &&

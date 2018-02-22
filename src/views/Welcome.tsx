@@ -30,8 +30,8 @@ TODO(ECH) Per-User Interpreter Settings</div>
 TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart</div>
 TODO(ECH) SparkStatus + List Variables + Show Number of Spark Executors
 */
-// const DEFAUL_PROFILE_PHOTO = 'img/datalayer/datalayer-square.png'
-const DEFAUL_PROFILE_PHOTO = 'img/datalayer/explorer_white.svg'
+// const DEFAULT_PROFILE_PHOTO = 'img/datalayer/datalayer-square.png'
+const DEFAULT_PROFILE_PHOTO = 'img/datalayer/explorer_white.svg'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
@@ -143,7 +143,7 @@ export default class Welcome extends React.Component<any, any> {
           <div className={ styles.flavor }>
 
             { (!isGoogleAuthenticated && !isMicrosoftAuthenticated && !isTwitterAuthenticated) && 
-              <img src={ DEFAUL_PROFILE_PHOTO } width='72' alt='Datalayer Logo' />
+              <img src={ DEFAULT_PROFILE_PHOTO } width='72' alt='Datalayer Logo' />
             }
 
             { (isGoogleAuthenticated || isMicrosoftAuthenticated || isTwitterAuthenticated) && 
@@ -223,7 +223,7 @@ export default class Welcome extends React.Component<any, any> {
       this.setState({
         isMicrosoftAuthenticated: false,
         profileDisplayName: '',
-        profilePhoto: DEFAUL_PROFILE_PHOTO
+        profilePhoto: DEFAULT_PROFILE_PHOTO
       })
     }
     else if ((this.state.isMicrosoftAuthenticated == false) && (isMicrosoftAuthenticated == true)) {
@@ -242,7 +242,7 @@ export default class Welcome extends React.Component<any, any> {
       this.setState({
         isTwitterAuthenticated: false,
         profileDisplayName: '',
-        profilePhoto: DEFAUL_PROFILE_PHOTO
+        profilePhoto: DEFAULT_PROFILE_PHOTO
       })
     }
     else if ((this.state.isTwitterAuthenticated == false) && (isTwitterAuthenticated == true)) {
@@ -261,7 +261,7 @@ export default class Welcome extends React.Component<any, any> {
       this.setState({
         isGoogleAuthenticated: false,
         profileDisplayName: '',
-        profilePhoto: DEFAUL_PROFILE_PHOTO
+        profilePhoto: DEFAULT_PROFILE_PHOTO
       })
     }
     else if ((this.state.isGoogleAuthenticated == false) && (isGoogleAuthenticated == true)) {

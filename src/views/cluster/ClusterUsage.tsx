@@ -7,7 +7,6 @@ import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/
 import JSONTree from 'react-json-tree'
 import { json_theme_monokai } from './../../theme/Themes'
 import { toastr } from 'react-redux-toastr'
-import ClusterHealth from './ClusterHealth'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'

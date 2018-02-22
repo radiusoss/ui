@@ -232,7 +232,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
           console.log(result)
           const options = {
             id: id,
-            attention: true,
+//            attention: true,
             timeOut: 20000,
             onOk: () => console.log('OK: clicked'),
             onCancel: () => console.log('CANCEL: clicked')

@@ -7,7 +7,7 @@ import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/
 import JSONTree from 'react-json-tree'
 import { json_theme_monokai } from './../../theme/Themes'
 import { toastr } from 'react-redux-toastr'
-import ClusterHealth from './ClusterHealth'
+import ClusterHealthWidget from './ClusterHealthWidget'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
@@ -86,6 +86,7 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
     }
     return (
       <div>
+        <ClusterHealthWidget/>
         <div className="ms-font-xl">Nodes</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {nodes}

@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
-import ClusterCapacity from './../cluster/ClusterCapacity'
 import ClusterUsage from './../cluster/ClusterUsage'
-import ClusterHealth from './../cluster/ClusterHealth'
 import ClusterReservations from './../cluster/ClusterReservations'
 import JobsStatus from './../jobs/JobsStatus'
 import HDFStatus from './../hdfs/HDFSStatus'
@@ -23,24 +21,15 @@ export default class Status extends React.Component<any, any> {
       <div>
         <div className="ms-font-su">Platform Status</div>
         <Pivot>
-          <PivotItem linkText='Capacity' itemIcon='CircleHalfFull'>
-            <div className="ms-font-xxl">Cluster Capacity</div>
-            <ClusterCapacity />
+          <PivotItem linkText='Cluster' itemIcon='Health'>
+            <ClusterStatus />
           </PivotItem>
-          <PivotItem linkText='Usage' itemIcon='Frigid'>
+          <PivotItem linkText='Usage' itemIcon='TFVCLogo'>
             <div className="ms-font-xxl">Cluster Usage</div>
             <ClusterUsage />
           </PivotItem>
-          <PivotItem linkText='Cluster' itemIcon='TFVCLogo'>
-            <div className="ms-font-xxl">Cluster Status</div>
-            <ClusterStatus />
-          </PivotItem>
-          <PivotItem linkText='Health' itemIcon='Health'>
-            <div className="ms-font-xxl">Cluster Health</div>
-            <ClusterHealth />
-          </PivotItem>
           <PivotItem linkText='Reservations' itemIcon='Clock'>
-            <div className="ms-font-xxl">Cluster Reservations</div>
+            <div className="ms-font-xxl">Upcoming Cluster Reservations</div>
             <ClusterReservations />
           </PivotItem>
           <PivotItem linkText='Amazon AWS' itemIcon='Cloud'>

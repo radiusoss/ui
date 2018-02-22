@@ -28,7 +28,6 @@ import Auth from './../views/spl/Auth'
 import Welcome from './../views/Welcome'
 import ClusterCapacity from './../views/cluster/ClusterCapacity'
 import ClusterUsage from './../views/cluster/ClusterUsage'
-import ClusterHealth from './../views/cluster/ClusterHealth'
 import ClusterReservations from './../views/cluster/ClusterReservations'
 import HDFSStatus from './../views/hdfs/HDFSStatus'
 import SparkStatus from './../views/spark/SparkStatus'
@@ -77,7 +76,6 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/status/aoos" name="Applications Status" component={Apps}/>
           <Route path="/dla/kuber/status/cluster-capacity" name="Cluster Capacity" component={ClusterCapacity}/>
           <Route path="/dla/kuber/status/cluster-usage" name="Cluster Usage" component={ClusterUsage}/>
-          <Route path="/dla/kuber/status/cluster-health" name="Cluster Health" component={ClusterHealth}/>
           <Route path="/dla/kuber/status/hdfs" name="HDFS Status" component={HDFSStatus}/>
           <Route path="/dla/kuber/status/reservations" name="Cluster Reservations" component={ClusterReservations}/>
           <Route path="/dla/kuber/status/spark-repl" name="Spark Status" component={SparkStatus}/>
