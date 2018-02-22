@@ -20,10 +20,7 @@ export default class SpitfireInterpreters extends React.Component<any, any> {
     }
     this.notebookApi = window["NotebookApi"]
   }
-/*
-TODO(ECH) Per-User Interpreter Settings</div>
-TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart</div>
-*/
+
   public render() {
     const { interpreterSettings } = this.state
     var out = ''

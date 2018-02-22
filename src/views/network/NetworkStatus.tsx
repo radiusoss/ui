@@ -4,11 +4,8 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class NetworkStatus extends React.Component<any, any> {
-/*
-TODO(ECH)
-+ WebSocket Status
-*/
-public render() {
+
+  public render() {
     return (
       <div>
         <div className="ms-Grid" style={{ padding: 0 }}>

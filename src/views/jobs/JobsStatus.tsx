@@ -25,7 +25,7 @@ export default class JobsStatus extends React.Component<any, any> {
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               {
                 Array.from(runningParagraphs).map(p => {
-                  return <div>{p[0]} [ {p[1].title} ]</div>
+                  return <div>{p[0]} [{p[1].title}]</div>
                 })
               }
             </div>

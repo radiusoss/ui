@@ -231,6 +231,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
         var result = this.restartInterpreter(id).then(result => {
           console.log(result)
           const options = {
+            id: id,
             attention: true,
             timeOut: 20000,
             onOk: () => console.log('OK: clicked'),

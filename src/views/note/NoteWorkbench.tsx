@@ -17,14 +17,7 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import * as Scroll from 'react-scroll'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
-/*
-TODO(ECH)
-+ Note Results Attributes (State...) and Actions (Cancel..)
-+ Show PENDING State as soon as Note is Running
-+ Add Progress Bar while Note is Running
-+ Manage and Display PROGRESS Messages while Note is Running
-+ Clone Note
-*/
+
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class NoteWorkbench extends React.Component<any, any> {
   private notebookApi: NotebookApi
@@ -71,7 +64,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
           <div className="ms-Grid ms-clearfix" style={{ padding: 0 }}>
 */}
             <div className="ms-Grid-row" style={{ padding: 0, margin: 0 }}>
-              <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignLeft" style={{ padding: '0px 0px 10px 10px', margin: 0 }}>
+              <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignLeft" style={{ padding: '0px 0px 0px 10px', margin: 0 }}>
                 <div className="ms-font-xxl ms-fontWeight-semibold">
                   <InlineEditor
                     text={note.name}
@@ -189,7 +182,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
                         borderColor: 'white',
                         borderRadius: '3px',
                         padding: '10px 10px 20px 10px',
-                        margin: '10px 10px 0px 10px'
+                        margin: '8px 8px 0px 8px'
                         }}>
                         <ParagraphEditor
                           note={note}

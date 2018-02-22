@@ -4,12 +4,8 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class SparkStatus extends React.Component<any, any> {
-/*
-TODO(ECH)
-+ List Variables
-+ Show Number of Spark Executors
-*/
-public render() {
+
+  public render() {
     return (
       <div>
         <div className="ms-font-l">Scratchpad</div>

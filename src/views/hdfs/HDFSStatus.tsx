@@ -4,11 +4,8 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class HDFSStatus extends React.Component<any, any> {
-/*
-TODO(ECH)
-+ Show Data Nodes
-*/
-public render() {
+
+  public render() {
     return (
       <div>
         <div className="ms-Grid" style={{ padding: 0 }}>

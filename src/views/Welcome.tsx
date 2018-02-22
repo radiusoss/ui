@@ -15,7 +15,21 @@ import TwitterApi from '../api/twitter/TwitterApi'
 import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
-
+/*
+TODO(ECH) NoteWorkbench Manage and Display PROGRESS Messages while Note is Running
+TODO(ECH) History Views with Commit
+TODO(ECH) Network Status
+TODO(ECH) ClusterReservations Jaugue + Action if no Reservation
+TODO(ECH) HDFSStatus Show Data Nodes
+TODO(ECH) NoteWorkbench Note Results Attributes (State...) and Actions (Cancel..)
+TODO(ECH) NoteWorkbench Show PENDING State as soon as Note is Running
+TODO(ECH) NoteWorkbench Add Progress Bar while Note is Running
+TODO(ECH) NoteWorkbench Clone Note
+TODO(ECH) ScratchapdOverlay + Variables List + Number of Spark Executors
+TODO(ECH) Per-User Interpreter Settings</div>
+TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart</div>
+TODO(ECH) SparkStatus + List Variables + Show Number of Spark Executors
+*/
 // const DEFAUL_PROFILE_PHOTO = 'img/datalayer/datalayer-square.png'
 const DEFAUL_PROFILE_PHOTO = 'img/datalayer/explorer_white.svg'
 

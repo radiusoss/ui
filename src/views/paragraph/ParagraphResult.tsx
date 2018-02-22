@@ -348,8 +348,8 @@ export default class ParagraphResult extends React.Component<any, any> {
       console.log('PARAGRAPH_APPEND_OUTPUT', p, data)
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PROGRESS")) {
-      var data = webSocketMessageReceived.data.data
-      console.log('PROGRESS', p, data)
+      var data = webSocketMessageReceived.data
+      console.log('PROGRESS', data)
       var progress = webSocketMessageReceived.data.progress
       if (progress == 0) {
         progress = 100

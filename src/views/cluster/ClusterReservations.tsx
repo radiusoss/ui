@@ -5,9 +5,7 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class ClusterReservations extends React.Component<any, any> {
-/*
-TODO(ECH) Jaugue + Action if no Reservation
-*/
+
 public render() {
     return (
       <div>

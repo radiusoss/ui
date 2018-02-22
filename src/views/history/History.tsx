@@ -2,9 +2,7 @@ import * as React from 'react'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 
 export default class History extends React.Component<any, any> {
-/*
-TODO(ECH) History Views with Commit
-*/
+
   public render() {
     return (
       <div>

@@ -90,6 +90,7 @@ export default class ControlHeader extends React.Component<any, any> {
           />
         </div>
         <Panel
+          isBlocking={ true }
           isOpen={ statusPanel != '' }
           type={ PanelType.medium }
           onDismiss={() => this.setState({statusPanel: ''})}
