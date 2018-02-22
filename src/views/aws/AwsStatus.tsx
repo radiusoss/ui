@@ -6,7 +6,7 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/C
 import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
-import { json_theme_monokai } from './../../theme/Themes'
+import { jsonTreeMonokaiTheme } from './../../theme/Themes'
 import JSONTree from 'react-json-tree'
 import ConfigApi from '../../api/config/ConfigApi'
 import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
@@ -78,7 +78,7 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
                 <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
                   <JSONTree 
                     data={instance.Tags} 
-                    theme={json_theme_monokai}
+                    theme={jsonTreeMonokaiTheme}
                     invertTheme={false}
                     hideRoot={true}
                     sortObjectKeys={true}

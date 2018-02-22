@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import JSONTree from 'react-json-tree'
-import { json_theme_monokai } from './../../theme/Themes'
+import { jsonTreeMonokaiTheme } from './../../theme/Themes'
 import { Link } from 'office-ui-fabric-react/lib/Link'
 import { DetailsList, IGroup } from 'office-ui-fabric-react/lib/DetailsList'
 import { createListItems, createGroups } from '../../util/msc/data'
@@ -55,7 +55,7 @@ export default class SpitfireInterpreters extends React.Component<any, any> {
               <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
                 <JSONTree
                   data={interpreterSettings} 
-                  theme={json_theme_monokai}
+                  theme={jsonTreeMonokaiTheme}
                   invertTheme={false}
                   hideRoot={true}
                   sortObjectKeys={true}

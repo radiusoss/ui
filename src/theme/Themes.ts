@@ -1,4 +1,4 @@
-export const json_theme_monokai = {
+export const jsonTreeMonokaiTheme = {
     scheme: 'monokai',
     author: 'wimer hazenberg (http://www.monokai.nl)',
     base00: '#272822',

@@ -5,7 +5,7 @@ import { NotebookStore } from '../../store/NotebookStore'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
-import { json_theme_monokai } from './../../theme/Themes'
+import { jsonTreeMonokaiTheme } from './../../theme/Themes'
 import { toastr } from 'react-redux-toastr'
 import ClusterHealthWidget from './ClusterHealthWidget'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
@@ -39,14 +39,14 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
     if (definition && definition.result) {
       nodes = definition.result.nodeList.nodes.map((node) => {
         return <div className="ms-Grid-row" style={{padding: 0}} key={node.objectMeta.name}>
-          <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-            <div className="ms-fontSize-l">{node.objectMeta.name}</div>
+          <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+            <div className="ms-fontSize-xxl">Node {node.objectMeta.name}</div>
           </div>
-          <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+          <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
             <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
               <JSONTree 
                 data={node.objectMeta.labels}
-                theme={json_theme_monokai}
+                theme={jsonTreeMonokaiTheme}
                 invertTheme={false}
                 hideRoot={true}
                 sortObjectKeys={true}
@@ -55,11 +55,11 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
             </div>
             <br/>
           </div>
-          <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+          <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
             <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
               <JSONTree 
                 data={node.allocatedResources} 
-                theme={json_theme_monokai}
+                theme={jsonTreeMonokaiTheme}
                 invertTheme={false}
                 hideRoot={true}
                 sortObjectKeys={true}
@@ -87,12 +87,11 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
     return (
       <div>
         <ClusterHealthWidget/>
-        <div className="ms-font-xl">Nodes</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {nodes}
         </div>
         <hr/>
-        <div className="ms-font-xl">Persistent Volumes</div>
+        <div className="ms-font-xxl">Persistent Volumes</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {persistentVolumes}
         </div>
@@ -104,7 +103,7 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
               <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
                 <JSONTree
                   data={definition} 
-                  theme={json_theme_monokai}
+                  theme={jsonTreeMonokaiTheme}
                   invertTheme={false}
                   hideRoot={true}
                   sortObjectKeys={true}
