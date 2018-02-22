@@ -2,6 +2,8 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import JSONTree from 'react-json-tree'
+import { json_theme_monokai } from './../../theme/Themes'
 import { Link } from 'office-ui-fabric-react/lib/Link'
 import { DetailsList, IGroup } from 'office-ui-fabric-react/lib/DetailsList'
 import { createListItems, createGroups } from '../../util/msc/data'
@@ -28,20 +30,15 @@ TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart</div>
     if (interpreterSettings && interpreterSettings.result) {
       out = interpreterSettings.result.body.map((i) => {
         return i.interpreterGroup.map((ig) => {
-          return <div className="ms-Grid-row" style={{padding: 0}}>
+          return <div className="ms-Grid-row" style={{padding: 0}} key={i.name + '-' + ig.name}>
             <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-              <div className="ms-fontSize-l">{i.name}</div>
+              <div className="ms-fontSize-l">%{i.name}</div>
             </div>
             <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-              <div className="ms-fontSize-l">{ig.name}</div>
+              <div className="ms-fontSize-l">%{i.name}.{ig.name}</div>
             </div>
             <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
               <div className="ms-fontSize-l">{ig.class}</div>
-            </div>
-            <div className="ms-Grid-row" style={{padding: 0}}>
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                <hr/>
-              </div>
             </div>
           </div>
         })
@@ -52,6 +49,24 @@ TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart</div>
         <div className="ms-font-xxl">Spitfire Interpreters</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {out}
+        </div>
+        <hr/>
+        <div className="ms-font-xl">Complete Definition</div>
+        <div className="ms-Grid" style={{ padding: 0 }}>
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
+                <JSONTree
+                  data={interpreterSettings} 
+                  theme={json_theme_monokai}
+                  invertTheme={false}
+                  hideRoot={true}
+                  sortObjectKeys={true}
+                  shouldExpandNode={(keyName, data, level) => true}
+                  />
+              </div>
+            </div>
+          </div>
         </div>
 {/*
         <DetailsList

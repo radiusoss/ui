@@ -285,10 +285,10 @@ export default class ControlHeader extends React.Component<any, any> {
         items: [
           {
             key: 'calendar',
-            name: 'Calendar',
+            name: 'Reservations',
             icon: 'Calendar',
-            title: 'Calendar',
-            onClick: () => history.push(`/dla/kuber/calendar`)
+            title: 'Reservations',
+            onClick: () => history.push(`/dla/kuber/reservations`)
           },
           {
             key: 'people',

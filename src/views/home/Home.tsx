@@ -67,7 +67,7 @@ export default class Home extends React.Component<any, any> {
 
           <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
             <Icon iconName='Clock' className='ms-Icon25' />
-            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/calendar")}}>Reservations</a></span>
+            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/reservations")}}>Reservations</a></span>
             <ClusterReservations/>
           </div>
 

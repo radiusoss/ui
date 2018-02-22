@@ -368,6 +368,7 @@ export default class ParagraphResult extends React.Component<any, any> {
       if (bind) {
         var ids = webSocketMessageReceived.data.interpreterBindings.map(intBind => {return intBind.id})
         this.notebookApi.saveInterpreterBindings(this.state.note.id, ids)
+        toastr.info('Interpreters', 'Interpreters Bindings is requested - Try again...')
       }
     }
   }

@@ -13,7 +13,7 @@ import Scratchpad from './../views/scratchpad/Scratchpad'
 import NoteCover from './../views/note/NoteCover'
 import Profile from './../views/profile/Profile'
 import Users from './../views/users/Users'
-import Calendar from './../views/calendar/Calendar'
+import Reservations from './../views/reservations/Reservations'
 import History from './../views/history/History'
 import Settings from './../views/settings/Settings'
 import Status from './../views/status/Status'
@@ -63,7 +63,7 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
         <div>
           <Route exact path="/dla" component={Welcome}/>
           <Route path="/dla/home" name="Home" component={Home}/>
-          <Route path="/dla/kuber/calendar" name="Calendar" component={Calendar}/>
+          <Route path="/dla/kuber/reservations" name="Reservations" component={Reservations}/>
           <Route path="/dla/kuber/profile" name="Profile" component={Profile}/>
           <Route path="/dla/kuber/users" name="Profile" component={Users}/>
           <Route path="/dla/kuber/settings" name="Settings" component={Settings}/>

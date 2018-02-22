@@ -22,7 +22,7 @@ export interface CalendarProps {
 
 @DragDropContext(HTML5Backend)
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
-export default class Calendar extends React.Component<CalendarProps, any> {
+export default class Reservations extends React.Component<CalendarProps, any> {
   private notebookApi: NotebookApi
   private k8sApi: KuberApi
 

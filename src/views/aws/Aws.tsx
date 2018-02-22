@@ -55,7 +55,7 @@ export default class Aws extends React.Component<any, IAwsState> {
         out = vms.Reservations.map(instances => { 
           return instances.Instances.map(instance => {
             console.log('---', instance)
-            return <div className="ms-Grid-row" style={{padding: 0}}>
+            return <div className="ms-Grid-row" style={{padding: 0}} key={instance.InstanceId}>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
                 <div className="ms-fontSize-l">{instance.InstanceId}</div>
               </div>
@@ -79,7 +79,8 @@ export default class Aws extends React.Component<any, IAwsState> {
                     invertTheme={false}
                     hideRoot={true}
                     sortObjectKeys={true}
-                  />
+                    shouldExpandNode={(keyName, data, level) => true}
+                    />
                 </div>
               </div>
               <div className="ms-Grid-row" style={{padding: 0}}>
@@ -95,7 +96,7 @@ export default class Aws extends React.Component<any, IAwsState> {
     return (
       <div>
         <div className="ms-font-xxl">Amazon AWS</div>
-        <div className="ms-font-xl">Kuber Virtual Machines</div>
+        <div className="ms-font-xl">Virtual Machines</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {out}
         </div>

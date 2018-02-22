@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
+import { toastr } from 'react-redux-toastr'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import ParagraphResult from './../paragraph/ParagraphResult'
@@ -97,6 +98,7 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
       if (bind) {
         var ids = webSocketMessageReceived.data.interpreterBindings.map(intBind => {return intBind.id})
         this.notebookApi.saveInterpreterBindings(this.state.note.id, ids)
+        toastr.info('Interpreters', 'Interpreters Bindings is requested - Try again...')
       }
     }
   }
