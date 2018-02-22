@@ -57,8 +57,7 @@ export default class ControlHeader extends React.Component<any, any> {
     isNewNoteNameValid: false,
     showNewFlowPanel: false,
     newFlowName: "",
-    isNewFlowNameValid: false,
-    profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob)
+    isNewFlowNameValid: false
   }
 
   public constructor(props) {
@@ -67,7 +66,6 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public render() {
-    const { profilePhoto } = this.state
     this.updateRunIndicator()
     this.updateMenu()
     return (
@@ -88,17 +86,6 @@ export default class ControlHeader extends React.Component<any, any> {
                   onFocus={ () => toastr.warning('Search is not available', 'Looks like you are eager for the next release...') }
                   underlined={ true }
                 />
-              </div>
-              <div style={{ float: 'right', padding: '0px 10px' }}>
-                <a href="#" onClick={(e) => { e.preventDefault(); this.setState({statusPanel: 'profile'}) }}>
-                  <Persona
-                    imageUrl = { profilePhoto }
-                    hidePersonaDetails = { true }
-                    presence = { PersonaPresence.online }
-                    size = { PersonaSize.extraSmall }
-                    className = "text-center"
-                  />
-                </a>
               </div>
               <div style={{ float: 'right' }}>
                 <IndicatorHeader/>

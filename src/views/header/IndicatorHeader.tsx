@@ -39,7 +39,8 @@ export default class ControlHeader extends React.Component<any, any> {
   private notebookApi: NotebookApi
 
   state = {
-    statusPanel: ''
+    statusPanel: '',
+    profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob)
   }
 
   public constructor(props) {
@@ -48,102 +49,115 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public render() {
-    const { statusPanel } = this.state
+    const { statusPanel, profilePhoto } = this.state
     return (
       <div>
-      <SwatchColorPicker
-        columnCount={ 9 }
-        cellShape={ 'circle' }
-        colorCells={
-        [
-            { id: 'cluster-capacity', label: 'Cluster Capacity', color: 'green' },
-            { id: 'cluster-usage', label: 'Cluster Usage', color: 'green' },
-            { id: 'cluster-health', label: 'Cluster Health', color: 'green' },
-            { id: 'reservations', label: 'Reservations', color: 'yellow' },
-            { id: 'hdfs', label: 'HDFS Status', color: 'green' },
-            { id: 'interpreters', label: 'Interpreter Status', color: 'red' },
-            { id: 'spark', label: 'Spark Status', color: 'yellow' },
-            { id: 'jobs', label: 'Current Jobs', color: 'blue' },
-            { id: 'network', label: 'Network Status', color: 'green' }
-        ]
-        }
-        onCellFocused={(id?: string, color?: string) => {
-        if (id) {
-            this.setState({
-            statusPanel: id
-            })
-        }
-        }}
-      />
-      <Panel
-        isOpen={ statusPanel != '' }
-        type={ PanelType.medium }
-        onDismiss={() => this.setState({statusPanel: ''})}
-      >
-      <div>
-        {(statusPanel == 'profile') &&
+        <div style={{ float: 'right', padding: '0px 10px' }}>
+          <a href="#" onClick={(e) => { e.preventDefault(); this.setState({statusPanel: 'profile'}) }}>
+            <Persona
+              imageUrl = { profilePhoto }
+              hidePersonaDetails = { true }
+              presence = { PersonaPresence.online }
+              size = { PersonaSize.extraSmall }
+              className = "text-center"
+            />
+          </a>
+        </div>
+        <div style={{ float: 'right' }}>
+          <SwatchColorPicker
+            columnCount={ 9 }
+            cellShape={ 'circle' }
+            colorCells={
+            [
+                { id: 'cluster-capacity', label: 'Cluster Capacity', color: 'green' },
+                { id: 'cluster-usage', label: 'Cluster Usage', color: 'green' },
+                { id: 'cluster-health', label: 'Cluster Health', color: 'green' },
+                { id: 'reservations', label: 'Reservations', color: 'yellow' },
+                { id: 'hdfs', label: 'HDFS Status', color: 'green' },
+                { id: 'interpreters', label: 'Interpreter Status', color: 'red' },
+                { id: 'spark', label: 'Spark Status', color: 'yellow' },
+                { id: 'jobs', label: 'Current Jobs', color: 'blue' },
+                { id: 'network', label: 'Network Status', color: 'green' }
+            ]
+            }
+            onCellFocused={(id?: string, color?: string) => {
+            if (id) {
+                this.setState({
+                statusPanel: id
+                })
+            }
+            }}
+          />
+        </div>
+        <Panel
+          isOpen={ statusPanel != '' }
+          type={ PanelType.medium }
+          onDismiss={() => this.setState({statusPanel: ''})}
+        >
         <div>
-          <div className="ms-font-su"><FabricIcon name="Accounts" /> Profile</div>
-          <GoogleProfileWidget/>
-        </div>
-        }
-        {(statusPanel == 'cluster-capacity') &&
-        <div>
-          <div className="ms-font-su"><FabricIcon name="CircleHalfFull" /> Cluster Capacity</div>
-          <ClusterCapacity/>
-        </div>
-        }
-        {(statusPanel == 'cluster-usage') &&
-        <div>
-          <div className="ms-font-su"><FabricIcon name="Frigid" /> Cluster Usage</div>
-          <ClusterUsage/>
-        </div>
-        }
-        {(statusPanel == 'cluster-health') &&
-        <div>
-            <div className="ms-font-su"><FabricIcon name="Health" /> Cluster Health</div>
-            <ClusterHealth/>
-        </div>
-        }
-        {(statusPanel == 'reservations') &&
-        <div>
-          <div className="ms-font-su"><FabricIcon name="Clock" /> Reservations</div>
-          <ClusterReservations/>
-        </div>
-        }
-        {(statusPanel == 'hdfs') &&
-        <div>
-          <div className="ms-font-su"><FabricIcon name="OfflineStorageSolid" /> HDFS</div>
-          <HDFStatus/>
-        </div>
-        }
-        {(statusPanel == 'interpreters') &&
-        <div>
-          <div className="ms-font-su"><FabricIcon name="Light" /> Interpreters</div>
-          <SpitfireInterpretersStatus/>
-        </div>
-        }
-        {(statusPanel == 'spark') &&
-        <div>
-          <div className="ms-font-su"><FabricIcon name="LightningBolt" /> Spark</div>
-          <SparkStatus/>
-        </div>
-        }
-        {(statusPanel == 'jobs') &&
-        <div>
-          <div className="ms-font-su"><FabricIcon name="Clock" /> Jobs</div>
-          <CurrentJobs/>
-        </div>
-        }
-        {(statusPanel == 'network') &&
-        <div>
-          <div className="ms-font-su"><FabricIcon name="NetworkTower" /> Network</div>
-          <NetworkStatus/>
-        </div>
-        }
-        </div>
-      </Panel>
-    </div>
+          {(statusPanel == 'profile') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="Accounts" /> Profile</div>
+            <GoogleProfileWidget/>
+          </div>
+          }
+          {(statusPanel == 'cluster-capacity') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="CircleHalfFull" /> Cluster Capacity</div>
+            <ClusterCapacity/>
+          </div>
+          }
+          {(statusPanel == 'cluster-usage') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="Frigid" /> Cluster Usage</div>
+            <ClusterUsage/>
+          </div>
+          }
+          {(statusPanel == 'cluster-health') &&
+          <div>
+              <div className="ms-font-su"><FabricIcon name="Health" /> Cluster Health</div>
+              <ClusterHealth/>
+          </div>
+          }
+          {(statusPanel == 'reservations') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="Clock" /> Reservations</div>
+            <ClusterReservations/>
+          </div>
+          }
+          {(statusPanel == 'hdfs') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="OfflineStorageSolid" /> HDFS</div>
+            <HDFStatus/>
+          </div>
+          }
+          {(statusPanel == 'interpreters') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="Light" /> Interpreters</div>
+            <SpitfireInterpretersStatus/>
+          </div>
+          }
+          {(statusPanel == 'spark') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="LightningBolt" /> Spark</div>
+            <SparkStatus/>
+          </div>
+          }
+          {(statusPanel == 'jobs') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="Clock" /> Jobs</div>
+            <CurrentJobs/>
+          </div>
+          }
+          {(statusPanel == 'network') &&
+          <div>
+            <div className="ms-font-su"><FabricIcon name="NetworkTower" /> Network</div>
+            <NetworkStatus/>
+          </div>
+          }
+          </div>
+        </Panel>
+      </div>
     )
   }
 
