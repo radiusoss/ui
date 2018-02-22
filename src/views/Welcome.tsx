@@ -25,9 +25,9 @@ TODO(ECH) NoteWorkbench Note Results Attributes (State...) and Actions (Cancel..
 TODO(ECH) NoteWorkbench Show PENDING State as soon as Note is Running
 TODO(ECH) NoteWorkbench Add Progress Bar while Note is Running
 TODO(ECH) NoteWorkbench Clone Note
-TODO(ECH) ScratchapdOverlay + Variables List + Number of Spark Executors
-TODO(ECH) Per-User Interpreter Settings</div>
-TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart</div>
+TODO(ECH) Scratchapd Overlay: Variables List + Number of Spark Executors
+TODO(ECH) Per-User Interpreter Settings
+TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart
 TODO(ECH) SparkStatus + List Variables + Show Number of Spark Executors
 */
 // const DEFAULT_PROFILE_PHOTO = 'img/datalayer/datalayer-square.png'

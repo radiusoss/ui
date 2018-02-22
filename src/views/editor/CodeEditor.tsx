@@ -43,7 +43,7 @@ export interface CodeEditorProps {
   height?: string,
   width?: string,
   maxWidth?: string,
-  fontSize?: string,
+  fontSize?: number,
   style?: [string]
   showGutter?: boolean,
   onBeforeLoad?(any),
@@ -96,7 +96,7 @@ export default class CodeEditor extends React.Component<any, any> {
     theme: 'monokai',
 //    height: '100%',
     width: '100%',
-    fontSize: '12',
+    fontSize: 12,
     showGutter: true,
     defaultValue: "",
     minLines: 1,

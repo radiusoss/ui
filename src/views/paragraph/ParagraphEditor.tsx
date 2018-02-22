@@ -263,7 +263,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
                 </div>
                 {
                 (showControlBar == true) &&
-                  <div style={{ marginLeft: '0px', float: 'right', maxHeight: '10px', marginBottom: '10px', transform: 'scale(0.85) translateY(-8px) translateX(60px)', }}>
+                  <div style={{ marginLeft: '0px', float: 'right', maxHeight: '10px', marginBottom: '10px', transform: 'scale(0.85) translateY(-12px) translateX(60px)', }}>
                     <CommandBar
                       isSearchBoxVisible={ false }
                       items={ leftItems }
@@ -287,7 +287,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
                     mode="scala"
                     theme="tomorrow"
     //              theme="tomorrow-night-eighties"
-                    fontSize="14"
+                    fontSize={12}
                     showGutter={false}
                     focus={focus}
     //              onLoad={this.onLoad}
