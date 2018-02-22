@@ -24,7 +24,7 @@ export namespace ApplicationState {
     webSocketMessageReceived: any,
     note: any,
     notes: any[],
-    runningParagraphs: any[],
+    runningParagraphs: {},
     isStartNoteRun: {noteId: any},
     isStartParagraphRun: {noteId: any, paragraphId: any},
     me: any,

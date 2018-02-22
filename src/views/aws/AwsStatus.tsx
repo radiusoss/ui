@@ -61,6 +61,7 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
               </div>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
                 <div className="ms-fontSize-l">{instance.PublicDnsName}</div>
+                <div><br/></div>
                 <div className="ms-fontSize-l">[{instance.PublicIpAddress}]</div>
               </div>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">

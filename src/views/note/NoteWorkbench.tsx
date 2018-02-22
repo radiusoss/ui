@@ -230,6 +230,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
 
   public componentDidMount() {
     this.notebookApi = window['NotebookApi']
+//    this.notebookApi.getNote(this.props.match.params.noteId)
   }
 
   public componentWillReceiveProps(nextProps) {

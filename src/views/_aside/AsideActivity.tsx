@@ -18,10 +18,10 @@ export default class AsideActivity extends React.Component<any, any> {
           <small><b>Running Paragraphs</b></small>
         </div>
         {
-          paragraphs.map((p) => {
+          Object.keys(paragraphs).map((p) => {
             return (
-                <div key={ p.id + Math.random() }>
-                    { p.id }
+                <div key={ paragraphs[p] + Math.random() }>
+                    { paragraphs[p].id }
                 </div>
               )
           })

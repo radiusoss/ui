@@ -95,19 +95,6 @@ export default class   extends React.Component<any, any> {
             paragraphs: updatedParagraphs
           }
         })
-        var runningParagraphs = NotebookStore.state().runningParagraphs
-        var updatedRunningParagraphs = []
-        for (var i = 0; i < runningParagraphs.length; i++) {
-          if (paragraph.id !== runningParagraphs[i].id) {
-            updatedRunningParagraphs = updatedRunningParagraphs.concat(runningParagraphs[i])
-          }
-          else {
-            if (paragraph.status != 'FINISHED') {
-              updatedRunningParagraphs = updatedRunningParagraphs.concat(runningParagraphs[i])
-            }
-          }
-        }
-        NotebookStore.state().runningParagraphs = updatedRunningParagraphs
         return
       }
     }

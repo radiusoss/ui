@@ -45,7 +45,6 @@ export default class ControlHeader extends React.Component<any, any> {
       onClick: () => this.setState({ showNewNotePanel: true })
     }],
     noteScratchpadId: '_conf',
-    runningParagraphs: [],
     flows: [{
       key: 'new-flow',
       name: 'New flow...',
@@ -62,7 +61,6 @@ export default class ControlHeader extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    this.notebookApi = window['NotebookApi']
   }
 
   public render() {
@@ -143,10 +141,11 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public componentDidMount() {
+    this.notebookApi = window['NotebookApi']
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, webSocketMessageReceived, note, runningParagraphs } = nextProps
+    const { config, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, webSocketMessageReceived, note } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.notebookApi.listNotes()
@@ -170,11 +169,6 @@ export default class ControlHeader extends React.Component<any, any> {
     if (note.id && (! isEqual(note, this.props.note))) {
       this.setState({
         note: note
-      })
-    }
-    if (! isEqual(runningParagraphs, this.props.runningParagraphs)) {
-      this.setState({
-        runningParagraphs: runningParagraphs
       })
     }
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NEW_NOTE") {
@@ -243,7 +237,7 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   private updateMenu() {
-    const {note, runningParagraphs} = this.state
+    const {note} = this.state
     this.leftItems = [
       {
         key: 'home',
@@ -394,7 +388,7 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   private updateRunIndicator() {
-    const {note, runningParagraphs} = this.state
+    const {note} = this.state
     if (
        (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/note/") == -1)
        &&

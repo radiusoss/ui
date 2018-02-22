@@ -2,8 +2,17 @@ import * as React from 'react'
 import FabricIcon from '../components/FabricIcon'
 import { NavLink } from 'react-router-dom'
 import history from './../history/History'
+import NotebookApi from './../api/notebook/NotebookApi'
+import { connect } from 'react-redux'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
 
+@connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Sidebar extends React.Component<any, any> {
+  private notebookApi: NotebookApi
+
+  state = {
+    notes: []
+  }
 
   public render() {
     return (
@@ -36,15 +45,22 @@ export default class Sidebar extends React.Component<any, any> {
             </li>
             <li className={this.activeRoute("/dla/explorer")}>
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}>Explorer</a>
-              <ul className="nav-dropdown-items">
+              <ul className="nav-dropdown-items" style={{overflowX: 'hidden'}}>
                 <li className="nav-item">
                   <NavLink to={'/dla/explorer/notes/list'} className="nav-link" activeClassName="active"><FabricIcon name="ReadingMode"/> Notes</NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink to={'/dla/explorer/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
-                </li>
+                {
+                  this.state.notes.map(n => {
+                    if (!n.name.startsWith('_')) return <li className="nav-item">
+                      <NavLink to={'/dla/explorer/note/workbench/' + n.id} className="nav-link" activeClassName="active" onClick={(e) => {e.preventDefault(); this.notebookApi.showNoteLayout(n.id, 'workbench')}} style={{whiteSpace: 'nowrap'}}><FabricIcon name=""/> {n.name}</NavLink>
+                    </li>
+                  })
+                }
                 <li className="nav-item">
                   <NavLink to={'/dla/explorer/scratchpad'} className="nav-link" activeClassName="active"><FabricIcon name="NoteForward"/> Scratchpad</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to={'/dla/explorer/flows'} className="nav-link" activeClassName="active"><FabricIcon name="Flow"/> Flows</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink to={'/dla/explorer/history'} className="nav-link" activeClassName="active"><FabricIcon name="GitGraph"/> History</NavLink>
@@ -145,6 +161,20 @@ export default class Sidebar extends React.Component<any, any> {
         </nav>
       </div>
     )
+  }
+
+  public componentDidMount() {
+    this.notebookApi = window['NotebookApi']
+  }
+
+  public componentWillReceiveProps(nextProps) {
+    const { webSocketMessageReceived } = nextProps
+    if (! webSocketMessageReceived) return
+    if (webSocketMessageReceived.op == "NOTES_INFO") {
+      this.setState({
+        notes: webSocketMessageReceived.data.notes
+      })
+    }
   }
 
   private handleClick(e: React.MouseEvent<HTMLAnchorElement>) {

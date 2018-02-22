@@ -14,15 +14,7 @@ export const notebookLoginReducer = (state: {} = initialState.notebookLogin, act
 export const webSocketMessageSentReducer = (state: any = initialState.webSocketMessageSent, action: NotebookAction): any => {
   switch (action.type) {
     case 'WS_MESSAGE_SENT':
-      if (action.message.op == 'RUN_ALL_PARAGRAPHS_SPITFIRE') {
-        NotebookStore.state().runningParagraphs = NotebookStore.state().runningParagraphs.concat(action.message.data.paragraphs)
-        return action.message
-      }
-      if (action.message.op == 'RUN_PARAGRAPH') {
-        NotebookStore.state().runningParagraphs = NotebookStore.state().runningParagraphs.concat(action.message.data)
-        return action.message
-      }
-      return {}
+      return action.message
     default:
       return {}
   }
@@ -37,10 +29,19 @@ export const webSocketMessageReceivedReducer = (state: any = initialState.webSoc
   }
 }
 
-export const runningParagraphsReducer = (state: any[] = initialState.runningParagraphs, action: NotebookAction): any[] => {
+export const runningParagraphsReducer = (state: {} = initialState.runningParagraphs, action: NotebookAction): {} => {
   switch (action.type) {
     case 'WS_MESSAGE_SENT':
-      return state
+      if (action.message.op == 'RUN_ALL_PARAGRAPHS_SPITFIRE') {
+        action.message.data.paragraphs.map(p => NotebookStore.state().runningParagraphs[p.id] = p)
+        return action.message
+      }
+      if (action.message.op == 'RUN_PARAGRAPH') {
+        var p = action.message.data
+        NotebookStore.state().runningParagraphs[p.id] = p
+        return action.message
+      }
+    return NotebookStore.state().runningParagraphs
     default:
       return state
   }
