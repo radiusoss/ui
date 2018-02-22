@@ -20,6 +20,11 @@ export type IAwsStatusState = {
 export default class AwsStatus extends React.Component<any, IAwsStatusState> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
+  state = {
+    vms: {
+      Reservations: []
+    }
+  }
 /*
   state = {
     vms: {
@@ -44,13 +49,12 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
       url: this.config.kuberRest,
       path: '/kuber/api/v1/cloud/aws'
     })
-    this.state = null
   }
 
   public render() {
-    var out = <div></div>
+    var out: any[] = []
+    const { vms } = this.state
     if (this.state != null) {
-      const { vms } = this.state
       if (vms.Reservations && vms.Reservations.length > 0) {
         out = vms.Reservations.map(instances => { 
           return instances.Instances.map(instance => {
@@ -94,7 +98,7 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
     }
     return (
       <div>
-        <div className="ms-font-xl">Virtual Machines</div>
+        <div className="ms-font-xl">AWS Virtual Machines [{vms.Reservations.length}]</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {out}
         </div>

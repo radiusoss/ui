@@ -1,27 +1,31 @@
 import * as React from 'react'
-import { connect, redux } from 'react-redux'
 import { NotebookStore } from './../../store/NotebookStore'
+import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class AsideActivity extends React.Component<any, any> {
+
+  state = {
+    runningParagraphs: NotebookStore.state().runningParagraphs
+  }
 
   public constructor(props) {
     super(props)
   }
 
   public render() {
-    var paragraphs = NotebookStore.state().runningParagraphs
-    return (    
+    const { runningParagraphs } = this.state
+    return (
       <div>
         <div className="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
           <small><b>Running Paragraphs</b></small>
         </div>
         {
-          Object.keys(paragraphs).map((p) => {
+          Object.keys(runningParagraphs).map((p) => {
             return (
-                <div key={ paragraphs[p] + Math.random() }>
-                    { paragraphs[p].id }
+                <div key={ runningParagraphs[p].id }>
+                    { runningParagraphs[p].id }
                 </div>
               )
           })

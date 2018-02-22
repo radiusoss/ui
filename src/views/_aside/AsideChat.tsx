@@ -21,11 +21,8 @@ export default class AsideChat extends React.Component<any, IAside2State> {
   }
 
   public render() {
-
-    return (
-    
+    return (    
       <div>
-    
         <div className="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
           <small><b>Received Messages</b></small>
         </div>
@@ -39,7 +36,6 @@ export default class AsideChat extends React.Component<any, IAside2State> {
             )
           })
         }
-
         <div className="message">
             <div className="py-1 pb-3 mr-1 float-left">
                 <div className="avatar">
@@ -54,9 +50,7 @@ export default class AsideChat extends React.Component<any, IAside2State> {
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
-
         <hr/>
-
         <div className="message">
             <div className="py-1 pb-3 mr-1 float-left">
                 <div className="avatar">
@@ -71,9 +65,7 @@ export default class AsideChat extends React.Component<any, IAside2State> {
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
-
         <hr/>
-
         <div className="message">
             <div className="py-1 pb-3 mr-1 float-left">
                 <div className="avatar">
@@ -88,9 +80,7 @@ export default class AsideChat extends React.Component<any, IAside2State> {
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
-
         <hr/>
-
         <div className="message">
             <div className="py-1 pb-3 mr-1 float-left">
                 <div className="avatar">
@@ -105,9 +95,7 @@ export default class AsideChat extends React.Component<any, IAside2State> {
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
-
         <hr/>
-
         <div className="message">
             <div className="py-1 pb-3 mr-1 float-left">
                 <div className="avatar">
@@ -122,17 +110,14 @@ export default class AsideChat extends React.Component<any, IAside2State> {
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
-
       </div>
-
     )
-
   }
 
   public componentWillReceiveProps(nextProps) {
     const { webSocketMessageReceived } = nextProps
     if (webSocketMessageReceived.op) {
-      console.log("Web Socket Message Received", webSocketMessageReceived)
+//      console.log("Web Socket Message Received", webSocketMessageReceived)
       var msg = this.state.wsMessages
       if (msg.length > MAX_LENGTH) {
           msg = msg.slice(0, MAX_LENGTH - 1)

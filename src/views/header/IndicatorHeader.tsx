@@ -25,7 +25,7 @@ import ClusterHealth from './../cluster/ClusterHealth'
 import ClusterReservations from './../cluster/ClusterReservations'
 import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
-import CurrentJobs from './../jobs/CurrentJobs'
+import JobsStatus from './../jobs/JobsStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
 import NetworkStatus from './../network/NetworkStatus'
 import * as stylesImport from './../_styles/Styles.scss'
@@ -35,10 +35,10 @@ const styles: any = stylesImport
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class ControlHeader extends React.Component<any, any> {
-  private config: IConfig = emptyConfig
   private notebookApi: NotebookApi
 
   state = {
+    config: emptyConfig,
     statusPanel: '',
     profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob)
   }
@@ -76,7 +76,7 @@ export default class ControlHeader extends React.Component<any, any> {
                 { id: 'hdfs', label: 'HDFS Status', color: 'green' },
                 { id: 'interpreters', label: 'Interpreter Status', color: 'red' },
                 { id: 'spark', label: 'Spark Status', color: 'yellow' },
-                { id: 'jobs', label: 'Current Jobs', color: 'blue' },
+                { id: 'jobs', label: 'Jobs Status', color: 'blue' },
                 { id: 'network', label: 'Network Status', color: 'green' }
             ]
             }
@@ -146,7 +146,7 @@ export default class ControlHeader extends React.Component<any, any> {
           {(statusPanel == 'jobs') &&
           <div>
             <div className="ms-font-su"><FabricIcon name="Clock" /> Jobs</div>
-            <CurrentJobs/>
+            <JobsStatus/>
           </div>
           }
           {(statusPanel == 'network') &&
@@ -162,9 +162,11 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config } = nextProps
-    if (config && ! isEqual(config, this.config)) {
-      this.config = config
+    const { config, runningParagraphs } = nextProps
+    if (config && ! isEqual(config, this.state.config)) {
+      this.setState({
+        config: config
+      })
     }
   }
 

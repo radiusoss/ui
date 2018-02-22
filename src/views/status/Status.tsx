@@ -4,7 +4,7 @@ import ClusterCapacity from './../cluster/ClusterCapacity'
 import ClusterUsage from './../cluster/ClusterUsage'
 import ClusterHealth from './../cluster/ClusterHealth'
 import ClusterReservations from './../cluster/ClusterReservations'
-import CurrentJobs from './../jobs/CurrentJobs'
+import JobsStatus from './../jobs/JobsStatus'
 import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
@@ -44,7 +44,6 @@ export default class Status extends React.Component<any, any> {
             <ClusterReservations />
           </PivotItem>
           <PivotItem linkText='Amazon AWS' itemIcon='Cloud'>
-            <div className="ms-font-xxl">AWS Status</div>
             <AwsStatus />
           </PivotItem>
           <PivotItem linkText='HDFS' itemIcon='OfflineStorageSolid'>
@@ -60,8 +59,8 @@ export default class Status extends React.Component<any, any> {
             <SparkStatus />
           </PivotItem>
           <PivotItem linkText='Jobs' itemIcon='Clock'>
-            <div className="ms-font-xxl">Current Jobs</div>
-            <CurrentJobs />
+            <div className="ms-font-xxl">Jobs Status</div>
+            <JobsStatus />
           </PivotItem>
           <PivotItem linkText='Network' itemIcon='NetworkTower'>
             <div className="ms-font-xxl">Network Status</div>

@@ -59,13 +59,9 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
   }
 
   public componentWillReceiveProps(nextProps) {
-
     const { config } = nextProps
-
     if (config && ! isEqual(config, this.config)) {
-
       this.config = config
-
       this.webSocketClient = new WebSocket(this.config.kuberWs + '/kuber/api/v1/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
         console.log("Kuber WebSocket has been opened.")
@@ -90,7 +86,6 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
       setInterval( _ => {
         this.ping()
       }, 10000 )
-
       this.restClient = new RestClient({
         name: 'KuberApi',
         url: this.config.kuberRest,
@@ -98,9 +93,7 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
         username: '',
         password: ''
       })
-
     }
-
   }
 
 // ----------------------------------------------------------------------------

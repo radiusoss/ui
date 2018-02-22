@@ -51,8 +51,10 @@ export default class Sidebar extends React.Component<any, any> {
                 </li>
                 {
                   this.state.notes.map(n => {
-                    if (!n.name.startsWith('_')) return <li className="nav-item">
-                      <NavLink to={'/dla/explorer/note/workbench/' + n.id} className="nav-link" activeClassName="active" onClick={(e) => {e.preventDefault(); this.notebookApi.showNoteLayout(n.id, 'workbench')}} style={{whiteSpace: 'nowrap'}}><FabricIcon name=""/> {n.name}</NavLink>
+                    if (!n.name.startsWith('_')) return <li className="nav-item" key={n.id}>
+                      <NavLink to={'/dla/explorer/note/workbench/' + n.id} className="nav-link" 
+                        activeClassName="active" onClick={(e) => {e.preventDefault(); this.notebookApi.showNoteLayout(n.id, 'workbench')}} 
+                        style={{whiteSpace: 'nowrap'}}><FabricIcon name=""/> {n.name}</NavLink>
                     </li>
                   })
                 }

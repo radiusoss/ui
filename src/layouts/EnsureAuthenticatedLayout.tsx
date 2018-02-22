@@ -34,7 +34,7 @@ import HDFSStatus from './../views/hdfs/HDFSStatus'
 import SparkStatus from './../views/spark/SparkStatus'
 import SpitfireInterpretersStatus from './../views/spitfire/SpitfireInterpretersStatus'
 import NetworkStatus from './../views/network/NetworkStatus'
-import CurrentJobs from './../views/jobs/CurrentJobs'
+import JobsStatus from './../views/jobs/JobsStatus'
 import ClusterStatus from './../views/cluster/ClusterStatus'
 import AwsStatus from './../views/aws/AwsStatus'
 import Apps from './../views/apps/Apps'
@@ -82,7 +82,7 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/status/reservations" name="Cluster Reservations" component={ClusterReservations}/>
           <Route path="/dla/kuber/status/spark-repl" name="Spark Status" component={SparkStatus}/>
           <Route path="/dla/kuber/status/interpreters" name="Spitfire Interpreters Status" component={SpitfireInterpretersStatus}/>
-          <Route path="/dla/kuber/status/jobs" name="Current Jobs" component={CurrentJobs}/>
+          <Route path="/dla/kuber/status/jobs" name="Jobs Status" component={JobsStatus}/>
           <Route path="/dla/kuber/status/network" name="Network Status" component={NetworkStatus}/>
           <Route path="/dla/explorer/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
           <Route path="/dla/explorer/note/cover/:noteId" name="Note Cover" component={NoteCover}/>
