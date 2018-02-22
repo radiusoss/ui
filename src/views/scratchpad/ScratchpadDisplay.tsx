@@ -98,7 +98,9 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
       if (bind) {
         var ids = webSocketMessageReceived.data.interpreterBindings.map(intBind => {return intBind.id})
         this.notebookApi.saveInterpreterBindings(this.state.note.id, ids)
-        toastr.info('Interpreters', 'Interpreters Bindings is requested - Try again...')
+        toastr.info('Interpreters', 'Interpreters Bindings to current note is requested - Try again...')
+      } else {
+        toastr.warn('Interpreters', 'All interpreters are already binded to current note - Try to restart interpreters.')
       }
     }
   }

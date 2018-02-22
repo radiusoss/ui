@@ -5,6 +5,7 @@ import { NotebookStore } from '../../store/NotebookStore'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import JSONTree from 'react-json-tree'
+import { json_theme_monokai } from './../../theme/Themes'
 import { toastr } from 'react-redux-toastr'
 import ClusterHealth from './ClusterHealth'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
@@ -36,16 +37,17 @@ export default class ClusterUsage extends React.Component<any, IClusterState> {
   public render() {
     return (
       <div>
-        <div className="ms-font-xxl">Cluster</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <div style={{ padding: "10px", backgroundColor: "black" }}>
+              <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
                 <JSONTree
                   data={this.state.overview} 
-                  theme='greenscreen'
                   invertTheme={false}
-                />
+                  hideRoot={true}
+                  sortObjectKeys={true}
+                  shouldExpandNode={(keyName, data, level) => true}
+                  />
               </div>
             </div>
           </div>

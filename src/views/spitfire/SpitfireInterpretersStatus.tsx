@@ -44,9 +44,11 @@ export default class InterpretersStatus extends React.Component<any, any> {
   }
 
   private async loadInterpreterSettings() {
-    var interpreterSettings = await this.notebookApi.interpreterSetting()
-    this.setState({
-      interpreterSettings: interpreterSettings
+    var interpreterSettings = this.notebookApi.interpreterSetting()
+     .then(s => {
+      this.setState({
+        interpreterSettings: s
+      })
     })
   }
 

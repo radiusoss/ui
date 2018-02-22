@@ -38,7 +38,7 @@ export default class KuberConfig extends React.Component<any, IKuberState> {
   public render() {
     const { config } = this.state
     var out = Object.keys(config).map((k) => {
-      return <div className="ms-Grid-row" key={k}>
+      return <div className="ms-Grid-row" key={k} style={{padding: 0}}>
         <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
           <div className="ms-fontSize-l ms-fontWeight-semibold">{k}</div>
         </div>
@@ -50,7 +50,7 @@ export default class KuberConfig extends React.Component<any, IKuberState> {
     return (
       <div>
         <div className="ms-font-xxl">Kuber Config</div>
-        <div className="ms-Grid">
+        <div className="ms-Grid" style={{padding: 0}}>
           {out}
         </div>
       </div>

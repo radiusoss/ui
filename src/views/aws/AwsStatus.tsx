@@ -11,13 +11,13 @@ import JSONTree from 'react-json-tree'
 import ConfigApi from '../../api/config/ConfigApi'
 import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
 
-export type IAwsState = {
+export type IAwsStatusState = {
   vms: any
 }
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class Aws extends React.Component<any, IAwsState> {
+export default class AwsStatus extends React.Component<any, IAwsStatusState> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
 /*
@@ -40,7 +40,7 @@ export default class Aws extends React.Component<any, IAwsState> {
   public constructor(props) {    
     super(props)
     this.restClient = new RestClient({
-      name: 'KuberRestAws',
+      name: 'KuberRestAwsStatus',
       url: this.config.kuberRest,
       path: '/kuber/api/v1/cloud/aws'
     })
@@ -61,17 +61,15 @@ export default class Aws extends React.Component<any, IAwsState> {
               </div>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
                 <div className="ms-fontSize-l">{instance.PublicDnsName}</div>
-              </div>
-              <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <div className="ms-fontSize-l">{instance.PublicIpAddress}</div>
+                <div className="ms-fontSize-l">[{instance.PublicIpAddress}]</div>
               </div>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
                 <div className="ms-fontSize-l">{instance.LaunchTime}</div>
               </div>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <div className="ms-fontSize-l">{instance.State.Name}</div>
+                <div className="ms-fontSize-l">{instance.State.Name.toUpperCase()}</div>
               </div>
-              <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
+              <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
                 <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
                   <JSONTree 
                     data={instance.Tags} 
@@ -95,7 +93,6 @@ export default class Aws extends React.Component<any, IAwsState> {
     }
     return (
       <div>
-        <div className="ms-font-xxl">Amazon AWS</div>
         <div className="ms-font-xl">Virtual Machines</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {out}

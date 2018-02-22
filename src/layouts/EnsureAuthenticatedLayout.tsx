@@ -35,6 +35,9 @@ import SparkStatus from './../views/spark/SparkStatus'
 import SpitfireInterpretersStatus from './../views/spitfire/SpitfireInterpretersStatus'
 import NetworkStatus from './../views/network/NetworkStatus'
 import CurrentJobs from './../views/jobs/CurrentJobs'
+import ClusterStatus from './../views/cluster/ClusterStatus'
+import AwsStatus from './../views/aws/AwsStatus'
+import Apps from './../views/apps/Apps'
 import history from './../history/History'
 import NotebookApi from './../api/notebook/NotebookApi'
 import { NotebookStore } from './../store/NotebookStore'
@@ -69,6 +72,9 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/settings" name="Settings" component={Settings}/>
           <Route exact path="/dla/kuber/status" name="Status" component={Status}/>
           <Route path="/dla/kuber/budget" name="Budget" component={Budget}/>
+          <Route path="/dla/kuber/status/cluster-definition" name="Cluster Status" component={ClusterStatus}/>
+          <Route path="/dla/kuber/status/aws" name="AWS Status" component={AwsStatus}/>
+          <Route path="/dla/kuber/status/aoos" name="Applications Status" component={Apps}/>
           <Route path="/dla/kuber/status/cluster-capacity" name="Cluster Capacity" component={ClusterCapacity}/>
           <Route path="/dla/kuber/status/cluster-usage" name="Cluster Usage" component={ClusterUsage}/>
           <Route path="/dla/kuber/status/cluster-health" name="Cluster Health" component={ClusterHealth}/>

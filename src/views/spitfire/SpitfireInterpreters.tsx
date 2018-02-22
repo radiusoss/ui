@@ -107,9 +107,10 @@ TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart</div>
   }
 
   private async loadInterpreterSettings() {
-    var interpreterSettings = await this.notebookApi.interpreterSetting()
-    this.setState({
-      interpreterSettings: interpreterSettings
+    var interpreterSettings = this.notebookApi.interpreterSetting().then(interpreterSettings => {
+      this.setState({
+        interpreterSettings: interpreterSettings
+      })
     })
   }
 

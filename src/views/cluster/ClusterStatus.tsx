@@ -20,7 +20,7 @@ export type IClusterState = {
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class ClusterDefinition extends React.Component<any, IClusterState> {
+export default class ClusterStatus extends React.Component<any, IClusterState> {
   private config: IConfig = NotebookStore.state().config
   private k8sApi: KuberApi
 
@@ -53,6 +53,7 @@ export default class ClusterDefinition extends React.Component<any, IClusterStat
                 shouldExpandNode={(keyName, data, level) => true}
                 />
             </div>
+            <br/>
           </div>
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
             <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
@@ -65,6 +66,7 @@ export default class ClusterDefinition extends React.Component<any, IClusterStat
                 shouldExpandNode={(keyName, data, level) => true}
                 />
             </div>
+            <br/>
           </div>
         </div>
       })
@@ -84,8 +86,6 @@ export default class ClusterDefinition extends React.Component<any, IClusterStat
     }
     return (
       <div>
-        <div className="ms-font-xxl">Cluster</div>
-        <hr/>
         <div className="ms-font-xl">Nodes</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {nodes}

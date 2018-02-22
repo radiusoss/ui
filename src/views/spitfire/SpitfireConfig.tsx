@@ -72,22 +72,23 @@ export default class SpitfireConfig extends React.Component<any, any> {
   }
 
   public async componentDidMount() {
-    var configuration = await this.notebookApi.configuration()
-    console.log('configuration', configuration)
-    var data = configuration.result.body
-    console.log('data', data)
-    var keys = Object.keys(data)
-    keys.forEach( key => {
-      var value = data[key]
-      items.push({
-        key: key,
-        name: key,
-        value: value
+    var configuration = this.notebookApi.configuration().then(configuration => {
+      console.log('configuration', configuration)
+      var data = configuration.result.body
+      console.log('data', data)
+      var keys = Object.keys(data)
+      keys.forEach( key => {
+        var value = data[key]
+        items.push({
+          key: key,
+          name: key,
+          value: value
+        })
       })
-    })
-    this.setState({
-      items: items,
-      configuration: configuration
+      this.setState({
+        items: items,
+        configuration: configuration
+      })
     })
   }
 
