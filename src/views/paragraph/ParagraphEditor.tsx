@@ -75,7 +75,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
     if (this.isParagraphRunning(paragraph)) {
       leftItems.push({
         key: 'cancel-indicator',
-        icon: 'CirclePause',
+        icon: 'CirclePauseSolid',
         title: 'Cancel',
         onClick: () => this.cancelParagraph()
       })
@@ -165,15 +165,18 @@ export default class ParagraphEditor extends React.Component<any, any> {
       display = 'none'
     }
 
-    var statusColor = "tealLight"
+    var statusClassNames = "ms-fontColor-tealLight"
     if (paragraph.status == ParagraphStatus.ERROR) {
-      statusColor = "red"
+      statusClassNames = "ms-fontColor-red ms-fontWeight-semibold"
     }
     else if (paragraph.status == ParagraphStatus.PENDING) {
-      statusColor = "magenta"
+      statusClassNames = "ms-fontColor-magenta ms-fontWeight-semibold"
     }
     else if (paragraph.status == ParagraphStatus.ABORT) {
-      statusColor = "orangeLighter"
+      statusClassNames = "ms-fontColor-orangeLighter ms-fontWeight-semibold"
+    }
+    else if (paragraph.status == ParagraphStatus.RUNNING) {
+      statusClassNames = "ms-fontColor-blue ms-fontWeight-semibold"
     }
 
     return (
@@ -255,12 +258,12 @@ export default class ParagraphEditor extends React.Component<any, any> {
               </div>
               }
               <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignRight" style={{ padding: 0, margin: 0, overflow: 'hidden', maxHeight: '20px' }}>
-                <div className={`ms-fontColor-neutralTertiary ms-fontColor-` + statusColor} style={{ float: 'right' }}>
+                <div className={`ms-fontColor-neutralTertiary ` + statusClassNames} style={{ float: 'right' }}>
                   {paragraph.status}
                 </div>
                 {
                 (showControlBar == true) &&
-                  <div style={{ minWidth: '100px', marginLeft: '0px', float: 'right', maxHeight: '10px', marginBottom: '10px', transform: 'scale(0.85) translateY(-8px) translateX(60px)', }}>
+                  <div style={{ marginLeft: '0px', float: 'right', maxHeight: '10px', marginBottom: '10px', transform: 'scale(0.85) translateY(-8px) translateX(60px)', }}>
                     <CommandBar
                       isSearchBoxVisible={ false }
                       items={ leftItems }

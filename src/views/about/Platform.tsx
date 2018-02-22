@@ -19,7 +19,7 @@ export default class Platform extends React.Component<any, any> {
                   <p className="ms-font-xl">Simple. Collaborative. Multi Cloud. Big Data Science</p>
   */}
                   <img src="/img/datalayer/datalayer-square-name.png" />
-                  <p className="ms-font-xl">&copy; 2017-2018 <a href="http://datalayer.io" target="_blank">http://datalayer.io</a></p>
+                  <p className="ms-font-xl">&copy; 2018 <a href="http://datalayer.io" target="_blank">http://datalayer.io</a></p>
                 </div>
               </div>
             </div>

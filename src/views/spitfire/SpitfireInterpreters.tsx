@@ -1,18 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import JSONTree from 'react-json-tree'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { Link } from 'office-ui-fabric-react/lib/Link'
 import { DetailsList, IGroup } from 'office-ui-fabric-react/lib/DetailsList'
 import { createListItems, createGroups } from '../../util/msc/data'
 import './../_styles/DetailsList.scss'
-
-const ITEMS_PER_GROUP = 20
-const GROUP_COUNT = 20
-
-var items: any[]
-var groups: IGroup[]
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class SpitfireInterpreters extends React.Component<any, any> {
@@ -24,23 +17,41 @@ export default class SpitfireInterpreters extends React.Component<any, any> {
       interpreterSettings: {}
     }
     this.notebookApi = window["NotebookApi"]
-    items = items || createListItems(500)
-    groups = groups || createGroups(GROUP_COUNT, 1, 0, ITEMS_PER_GROUP)
   }
 /*
 TODO(ECH) Per-User Interpreter Settings</div>
 TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart</div>
 */
-public render() {
+  public render() {
+    const { interpreterSettings } = this.state
+    var out = ''
+    if (interpreterSettings && interpreterSettings.result) {
+      out = interpreterSettings.result.body.map((i) => {
+        return i.interpreterGroup.map((ig) => {
+          return <div className="ms-Grid-row" style={{padding: 0}}>
+            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+              <div className="ms-fontSize-l">{i.name}</div>
+            </div>
+            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+              <div className="ms-fontSize-l">{ig.name}</div>
+            </div>
+            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+              <div className="ms-fontSize-l">{ig.class}</div>
+            </div>
+            <div className="ms-Grid-row" style={{padding: 0}}>
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                <hr/>
+              </div>
+            </div>
+          </div>
+        })
+      })
+    }
     return (
       <div>
         <div className="ms-font-xxl">Spitfire Interpreters</div>
-        <div style={{ padding: "10px", backgroundColor: "black" }}>
-          <JSONTree 
-            data={this.state.interpreterSettings} 
-            theme='greenscreen'
-            invertTheme={false}
-          />
+        <div className="ms-Grid" style={{padding: 0}}>
+          {out}
         </div>
 {/*
         <DetailsList

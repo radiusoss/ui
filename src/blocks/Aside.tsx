@@ -45,14 +45,13 @@ export default class Aside extends React.Component<any, AsideState> {
               </li>
           </ul>
           <div className="tab-content">
-{/*
               <div className={classNames({ active: this.state.activeTab === '1' }, 'tab-pane')} id="timeline" role="tabpanel">
                 <AsideActivity />
               </div>
               <div className={classNames({ active: this.state.activeTab === '2' }, 'tab-pane', 'p-1')} id="messages" role="tabpanel">
                 <AsideChat />
               </div>
-*/}
+
               <div className={classNames({ active: this.state.activeTab === '3' }, 'tab-pane', 'p-1')} id="settings" role="tabpanel">
                 <AsideCluster />
               </div>

@@ -121,8 +121,12 @@ export default class ParagraphResult extends React.Component<any, any> {
       }
       return <div>
         {paragraphHeader}
-        <div><CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton></div>
-        <div><CommandButton iconProps={ { iconName: 'BackToWindow' } } onClick={ (e => this.bindNoteToAllInterpreters(e))} >Bind Interpreters</CommandButton></div>
+        <div>
+          <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
+        </div>
+        <div>
+          <CommandButton iconProps={ { iconName: 'BackToWindow' } } onClick={ (e => this.bindNoteToAllInterpreters(e))} >Bind Interpreters</CommandButton>
+        </div>
         <MessageBar messageBarType={ MessageBarType.severeWarning }>
           <div style = {{maxHeight: "350px", overflowY: "auto" }}>
             <pre>

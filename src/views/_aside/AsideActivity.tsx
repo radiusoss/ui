@@ -26,13 +26,10 @@ export default class AsideActivity extends React.Component<any, any> {
               )
           })
         }
-
         <div className="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
             <small><b>Today</b></small>
         </div>
-
         <hr className="transparent mx-1 my-0"/>
-
         <div className="callout callout-warning m-0 py-1">
             <div className="avatar float-right">
                 <img src="img/avatars/7.jpg" className="img-avatar" alt="admin@bootstrapmaster.com"></img>
@@ -43,9 +40,7 @@ export default class AsideActivity extends React.Component<any, any> {
             <small className="text-muted mr-1"><i className="icon-calendar"></i>&nbsp; 1 - 3pm</small>
             <small className="text-muted"><i className="icon-location-pin"></i>&nbsp; Palo Alto, CA</small>
         </div>
-
         <hr className="mx-1 my-0"/>
-
         <div className="callout callout-info m-0 py-1">
             <div className="avatar float-right">
                 <img src="img/avatars/4.jpg" className="img-avatar" alt="admin@bootstrapmaster.com"></img>
@@ -56,16 +51,12 @@ export default class AsideActivity extends React.Component<any, any> {
             <small className="text-muted mr-1"><i className="icon-calendar"></i>&nbsp; 4 - 5pm</small>
             <small className="text-muted"><i className="icon-social-skype"></i>&nbsp; On-line</small>
         </div>
-
         <hr className="transparent mx-1 my-0"/>
-
         <div className="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
             <small><b>Tomorrow</b>
             </small>
         </div>
-
         <hr className="transparent mx-1 my-0"/>
-
         <div className="callout callout-danger m-0 py-1">
             <div>New UI Project -
                 <strong>deadline</strong>
@@ -90,9 +81,7 @@ export default class AsideActivity extends React.Component<any, any> {
                 </div>
             </div>
         </div>
-
         <hr className="mx-1 my-0"/>
-
         <div className="callout callout-success m-0 py-1">
             <div>
                 <strong>#10 Startups.Garden</strong>Meetup</div>
@@ -130,9 +119,7 @@ export default class AsideActivity extends React.Component<any, any> {
                 </div>
             </div>
         </div>
-
         <hr className="mx-1 my-0"/>
-
       </div>
     )
   }

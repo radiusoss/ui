@@ -32,9 +32,43 @@ export default class ClusterDefinition extends React.Component<any, IClusterStat
   }
 
   public render() {
+    const { definition } = this.state
+    var nodes = ''
+    if (definition && definition.result) {
+      console.log('---', definition)
+      nodes = definition.result.nodeList.nodes.map((node) => {
+        return <div className="ms-Grid-row" style={{padding: 0}}>
+          <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+            <div className="ms-fontSize-l">{node.objectMeta.name}</div>
+          </div>
+          <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+            <div style={{ padding: "10px", backgroundColor: "black" }}>
+              <JSONTree 
+                data={node.objectMeta.labels} 
+                theme='greenscreen'
+                invertTheme={false}
+              />
+            </div>
+            <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+              <div style={{ padding: "10px", backgroundColor: "black" }}>
+                <JSONTree 
+                  data={node.persisentVolumeList.items} 
+                  theme='greenscreen'
+                  invertTheme={false}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      })
+    }
     return (
       <div>
         <div className="ms-font-xxl">Cluster</div>
+        <div className="ms-font-xl">Nodes</div>
+        <div className="ms-Grid" style={{padding: 0}}>
+          {nodes}
+        </div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">

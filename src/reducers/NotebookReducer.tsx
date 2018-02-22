@@ -40,9 +40,6 @@ export const webSocketMessageReceivedReducer = (state: any = initialState.webSoc
 export const runningParagraphsReducer = (state: any[] = initialState.runningParagraphs, action: NotebookAction): any[] => {
   switch (action.type) {
     case 'WS_MESSAGE_SENT':
-      if (action.message.op == 'RUN_ALL_PARAGRAPHS_SPITFIRE') {
-        return state.concat(action.message.data.paragraphs)
-      }
       return state
     default:
       return state

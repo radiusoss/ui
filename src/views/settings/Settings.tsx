@@ -20,7 +20,7 @@ export default class Settings extends React.Component<any, any> {
           <PivotItem linkText='Cluster' itemIcon='TFVCLogo'>
             <ClusterDefinition />
           </PivotItem>
-          <PivotItem linkText='AWS' itemIcon='Cloud'>
+          <PivotItem linkText='Amazon AWS' itemIcon='Cloud'>
             <Aws />
           </PivotItem>
           <PivotItem linkText='Kuber Config' itemIcon='Equalizer'>
@@ -32,10 +32,12 @@ export default class Settings extends React.Component<any, any> {
           <PivotItem linkText='Spitfire Interpreters' itemIcon='AirplaneSolid'>
             <SpitfireInterpreters />
           </PivotItem>
+{/*
           <PivotItem linkText='Apps' itemIcon='MapPin'>
             <Apps />
           </PivotItem>
-        </Pivot>
+*/}
+          </Pivot>
       </div>
     )
   }

@@ -4,6 +4,7 @@ import ClusterCapacity from './../cluster/ClusterCapacity'
 import ClusterUsage from './../cluster/ClusterUsage'
 import ClusterHealth from './../cluster/ClusterHealth'
 import ClusterReservations from './../cluster/ClusterReservations'
+import CurrentJobs from './../jobs/CurrentJobs'
 import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
@@ -19,7 +20,7 @@ export default class Status extends React.Component<any, any> {
       <div>
         <div className="ms-font-su">Platform Status</div>
         <Pivot>
-          <PivotItem linkText='Capacity' itemIcon='CircleFill'>
+          <PivotItem linkText='Capacity' itemIcon='CircleHalfFull'>
             <div className="ms-font-xxl">Cluster Capacity</div>
             <ClusterCapacity />
           </PivotItem>
@@ -31,7 +32,7 @@ export default class Status extends React.Component<any, any> {
             <div className="ms-font-xxl">Cluster Health</div>
             <ClusterHealth />
           </PivotItem>
-          <PivotItem linkText='Reservations' itemIcon='Calendar'>
+          <PivotItem linkText='Reservations' itemIcon='Clock'>
             <div className="ms-font-xxl">Cluster Reservations</div>
             <ClusterReservations />
           </PivotItem>
@@ -46,6 +47,10 @@ export default class Status extends React.Component<any, any> {
           <PivotItem linkText='Spark' itemIcon='LightningBolt'>
             <div className="ms-font-xxl">Spark</div>
             <SparkStatus />
+          </PivotItem>
+          <PivotItem linkText='Jobs' itemIcon='Clock'>
+            <div className="ms-font-xxl">Current Jobs</div>
+            <CurrentJobs />
           </PivotItem>
           <PivotItem linkText='Network' itemIcon='NetworkTower'>
             <div className="ms-font-xxl">Network Status</div>

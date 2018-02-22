@@ -41,8 +41,9 @@ export default class OAuthMicrosoftCallback extends React.Component<any, any> {
         <div className="sk-cube sk-cube9"></div>
       </div>
       <div style={{"textAlign": "center"}}>
+        <h1>Datalayer Science Platform</h1>
         <h1>Checking your Microsoft Profile...</h1>
-        http://datalayer.io &copy; 2017-2018
+        http://datalayer.io &copy; 2018
       </div>
     </div>
     )
