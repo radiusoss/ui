@@ -6,6 +6,7 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/C
 import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
+import { json_theme_monokai } from './../../theme/Themes'
 import JSONTree from 'react-json-tree'
 import ConfigApi from '../../api/config/ConfigApi'
 import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
@@ -71,11 +72,13 @@ export default class Aws extends React.Component<any, IAwsState> {
                 <div className="ms-fontSize-l">{instance.State.Name}</div>
               </div>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <div style={{ padding: "10px", backgroundColor: "black" }}>
+                <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
                   <JSONTree 
                     data={instance.Tags} 
-                    theme='greenscreen'
+                    theme={json_theme_monokai}
                     invertTheme={false}
+                    hideRoot={true}
+                    sortObjectKeys={true}
                   />
                 </div>
               </div>
