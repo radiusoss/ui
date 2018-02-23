@@ -54,11 +54,11 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
   public render() {
     var out: any[] = []
     const { vms } = this.state
-    var i = 0
+    var numberOfAwsVMs = 0
     if (this.state != null) {
       if (vms.Reservations && vms.Reservations.length > 0) {
         out = vms.Reservations.map(instances => {
-          i++
+          numberOfAwsVMs++
           return instances.Instances.map(instance => {
             console.log('---', instance)
             return <div className="ms-Grid-row" style={{padding: 0}} key={instance.InstanceId}>
@@ -100,7 +100,7 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
     }
     return (
       <div>
-        <div className="ms-font-xl">{i} AWS Virtual Machines</div>
+        <div className="ms-font-su">{numberOfAwsVMs} AWS Virtual Machines</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {out}
         </div>

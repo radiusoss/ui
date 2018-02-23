@@ -48,7 +48,7 @@ export default class Status extends React.Component<any, any> {
             <SparkStatus />
           </PivotItem>
           <PivotItem linkText='Jobs' itemIcon='Clock'>
-            <div className="ms-font-xxl">Jobs Status</div>
+            <div className="ms-font-xxl">Jobs</div>
             <JobsStatus />
           </PivotItem>
           <PivotItem linkText='Network' itemIcon='NetworkTower'>
