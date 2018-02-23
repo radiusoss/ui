@@ -16,6 +16,7 @@ import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
+TODO(ECH) Notes List in Sidebar
 TODO(ECH) Commit
 TODO(ECH) Network Status
 TODO(ECH) HDFS Data Nodes
