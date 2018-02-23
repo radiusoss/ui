@@ -36,14 +36,12 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
     const { definition } = this.state
     var nodes = ''
     var persistentVolumes = ''
-    var numberofNodes = 0
+    var numberOfNodes = 0
+    var numberOfPersistentVolumes = 0
     if (definition && definition.result) {
       nodes = definition.result.nodeList.nodes.map((node) => {
-        numberofNodes++
+        numberOfNodes++
         return <div className="ms-Grid-row" style={{padding: 0}} key={node.objectMeta.name}>
-          <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-            <div className="ms-fontSize-su">Node {node.objectMeta.name}</div>
-          </div>
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
             <div className="ms-fontSize-xxl">Node {node.objectMeta.name}</div>
           </div>
@@ -76,6 +74,7 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
         </div>
       })
       persistentVolumes = definition.result.persistentVolumeList.items.map((item) => {
+        numberOfPersistentVolumes++
         return <div className="ms-Grid-row" style={{padding: 0}} key={item.claim}>
           <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
             <div className="ms-fontSize-l">{item.claim}</div>
@@ -95,7 +94,7 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
         <div className="ms-Grid" style={{padding: 0}}>
           <div className="ms-Grid-row" style={{padding: 0}}>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <div className="ms-fontSize-su">{numberofNodes} Nodes</div>
+              <div className="ms-fontSize-su">{numberOfNodes} Nodes</div>
             </div>
           </div> 
           {nodes}
@@ -103,6 +102,11 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
         <hr/>
         <div className="ms-fontSize-xxl">Persistent Volumes</div>
         <div className="ms-Grid" style={{padding: 0}}>
+          <div className="ms-Grid-row" style={{padding: 0}}>
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <div className="ms-fontSize-su">{numberOfPersistentVolumes} PersistentVolumes</div>
+            </div>
+          </div> 
           {persistentVolumes}
         </div>
         <hr/>
