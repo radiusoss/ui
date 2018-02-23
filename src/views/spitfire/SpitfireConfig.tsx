@@ -75,7 +75,6 @@ export default class SpitfireConfig extends React.Component<any, any> {
     var configuration = this.notebookApi.configuration().then(configuration => {
       console.log('configuration', configuration)
       var data = configuration.result.body
-      console.log('data', data)
       var keys = Object.keys(data)
       keys.forEach( key => {
         var value = data[key]

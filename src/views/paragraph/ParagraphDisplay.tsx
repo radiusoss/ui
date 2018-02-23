@@ -78,35 +78,37 @@ export default class ParagraphDisplay extends React.Component<any, any> {
       cl = "ms-font-xl ms-fontWeight-semibold"
     }
 
-    paragraphHeader = 
-      <div>
-        {
-        (showParagraphTitle == true) && 
-        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 ms-fontSize-xl ms-textAlignLeft" style={{ paddingLeft: '10px', margin: '0px', overflow: 'hidden' }}>
-          <InlineEditor
-            text={title}
-            paramName="title"
-            change={this.updateTitle}
-            minLength={0}
-            maxLength={33}
-            activeClassName="ms-font-xl"
-          />
-        </div>
-        }
-        {
-        (showControlBar == true) && <div></div>
-        }
-     </div>
-     if (paragraph.status == ParagraphStatus.ERROR) {
+    paragraphHeader = <div>
+      {
+      (showParagraphTitle == true) && 
+      <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 ms-fontSize-xl ms-textAlignLeft" style={{ paddingLeft: '10px', margin: '0px', overflow: 'hidden' }}>
+        <InlineEditor
+          text={title}
+          paramName="title"
+          change={this.updateTitle}
+          minLength={0}
+          maxLength={33}
+          activeClassName="ms-font-xl"
+        />
+      </div>
+      }
+      {
+      (showControlBar == true) && <div></div>
+      }
+    </div>
+    if (paragraph.status == ParagraphStatus.ERROR) {
+      console.log("Paragraph Error", paragraph)
       var errorMessage = paragraph.errorMessage
       var detailedErrorMessage = "No Detail Available for the Returned Message."
       if (paragraph.results && paragraph.results.msg && paragraph.results.msg.length > 0) {
         var data = paragraph.results.msg[0].data
         if (data && data.length > 0) {
-          errorMessage = paragraph.results.msg[0].data
           if (paragraph.errorMessage && paragraph.errorMessage.length > 0) {
-            detailedErrorMessage = paragraph.errorMessage
+            errorMessage = paragraph.errorMessage
+          } else {
+            errorMessage = paragraph.results.msg[0].data
           }
+          detailedErrorMessage = paragraph.results.msg[0].data
         }
       }
       return <div>
@@ -316,36 +318,46 @@ export default class ParagraphDisplay extends React.Component<any, any> {
       }
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_UPDATE_OUTPUT")) {
-      var paraAppendOutput = webSocketMessageReceived.data
-      if ((paraAppendOutput.noteId == this.state.note.id) && (paraAppendOutput.paragraphId === this.state.paragraph.id)) {
+      var paraOutput = webSocketMessageReceived.data
+      if ((paraOutput.noteId == this.state.note.id) && (paraOutput.paragraphId === this.state.paragraph.id)) {
         var p = this.state.paragraph
         if (!p.results) {
           p.results = {
-            msg: [{
-              data: '',
-              type: 'TEXT'
-            }]
+            msg: []
           }
         }
-        p.results.msg[paraAppendOutput.index].data = paraAppendOutput.data
+        if (!p.results.msg[paraOutput.index]) {
+          for (var i = p.results.msg.length; i<=paraOutput.index; i++) {
+            p.results.msg.push({
+              data: '',
+              type: 'TEXT'
+            })
+          }
+        }
+        p.results.msg[paraOutput.index].data = paraOutput.data
         this.setState({
           paragraph: p
         })
       }
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_APPEND_OUTPUT")) {
-      var paraAppendOutput = webSocketMessageReceived.data
-      if ((paraAppendOutput.noteId == this.state.note.id) && (paraAppendOutput.paragraphId === this.state.paragraph.id)) {
+      var paraOutput = webSocketMessageReceived.data
+      if ((paraOutput.noteId == this.state.note.id) && (paraOutput.paragraphId === this.state.paragraph.id)) {
         var p = this.state.paragraph
         if (!p.results) {
           p.results = {
-            msg: [{
-              data: '',
-              type: 'TEXT'
-            }]
+            msg: []
           }
         }
-        p.results.msg[paraAppendOutput.index].data = p.results.msg[paraAppendOutput.index].data + paraAppendOutput.data
+        if (!p.results.msg[paraOutput.index]) {
+          for (var i = p.results.msg.length; i<=paraOutput.index; i++) {
+            p.results.msg.push({
+              data: '',
+              type: 'TEXT'
+            })
+          }
+        }
+        p.results.msg[paraOutput.index].data = p.results.msg[paraOutput.index].data + paraOutput.data
         this.setState({
           paragraph: p
         })

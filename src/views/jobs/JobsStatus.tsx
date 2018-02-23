@@ -13,7 +13,6 @@ export default class JobsStatus extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    console.log('dddddd', this.state.runningParagraphs)
   }
 
   public render() {

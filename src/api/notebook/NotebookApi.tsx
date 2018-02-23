@@ -229,7 +229,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
         var name = interpreters[i].name
         console.log('Requesting restart for Interpreter: ' + name + '(id: ' + id + ')')
         var result = this.restartInterpreter(id).then(result => {
-          console.log(result)
+          console.log('Restart Interpreter result', name, result)
           const options = {
             id: id,
 //            attention: true,

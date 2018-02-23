@@ -252,12 +252,14 @@ export default class ControlHeader extends React.Component<any, any> {
         icon: 'ReadingMode',
         items: this.state.notes
       },
+/*
       {
         key: 'flows',
         name: 'Flows',
         icon: 'Flow',
         items: this.state.flows
       },
+*/
       {
         key: 'kuber',
         name: 'Kuber',

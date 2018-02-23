@@ -36,9 +36,14 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
     const { definition } = this.state
     var nodes = ''
     var persistentVolumes = ''
+    var numberofNodes = 0
     if (definition && definition.result) {
       nodes = definition.result.nodeList.nodes.map((node) => {
+        numberofNodes++
         return <div className="ms-Grid-row" style={{padding: 0}} key={node.objectMeta.name}>
+          <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+            <div className="ms-fontSize-su">Node {node.objectMeta.name}</div>
+          </div>
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
             <div className="ms-fontSize-xxl">Node {node.objectMeta.name}</div>
           </div>
@@ -88,6 +93,11 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
       <div>
         <ClusterHealthWidget/>
         <div className="ms-Grid" style={{padding: 0}}>
+          <div className="ms-Grid-row" style={{padding: 0}}>
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <div className="ms-fontSize-su">{numberofNodes} Nodes</div>
+            </div>
+          </div> 
           {nodes}
         </div>
         <hr/>

@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { Slider } from 'office-ui-fabric-react/lib/Slider'
 import { toastr } from 'react-redux-toastr'
+import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -21,7 +21,7 @@ export default class HDFSCapacity extends React.Component<any, any> {
                 showValue={ true }
                 disabled={ false }
                 onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + ' worker(s).') }
-              />
+                />
             </div>
           </div>
         </div>
