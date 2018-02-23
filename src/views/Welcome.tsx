@@ -16,12 +16,12 @@ import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
-TODO(ECH) History Views with Commit
+TODO(ECH) Commit
 TODO(ECH) Network Status
+TODO(ECH) HDFS Data Nodes
 TODO(ECH) Reservations Jaugue + Action if no Reservation
-TODO(ECH) HDFS Status Show Data Nodes
-TODO(ECH) Scratchapd Overlay: Variables List + Number of Spark Executors
 TODO(ECH) Spark: Variables + Number of Spark Executors
+TODO(ECH) Scratchapd Overlay: Variables List + Number of Spark Executors
 TODO(ECH) NoteWorkbench Clone Note
 TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart
 TODO(ECH) Per-User Interpreter Settings

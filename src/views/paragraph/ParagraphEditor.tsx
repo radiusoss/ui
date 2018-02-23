@@ -307,7 +307,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
               (isParagraphRunning(paragraph)) && 
               <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: 0, margin: 0 }}>
                 <ProgressIndicator
-                  percentComplete={ percentComplete }
+                  percentComplete={ percentComplete / 100 }
                 />
               </div>
               }
