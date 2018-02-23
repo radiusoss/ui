@@ -1,14 +1,13 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import history from './../../history/History'
-import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
+import { NotebookStore } from './../../store/NotebookStore'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import HtmlDisplay from './../display/HtmlDisplay'
 import ReactjsDisplay from './../display/ReactjsDisplay'
 import { toastr } from 'react-redux-toastr'
 import InlineEditor from './../editor/InlineEditor'
-import { ParagraphStatus } from './ParagraphStatus'
+import { ParagraphStatus, isParagraphRunning, getExecutionTime, getElapsedTime } from './ParagraphUtil'
 import ImageDisplay from './../display/ImageDisplay'
 import MathjaxDisplay from './../display/MathjaxDisplay'
 import TableDisplay from './../display/TableDisplay'
@@ -16,13 +15,14 @@ import TextDisplay from './../display/TextDisplay'
 import Spinner from './../../_widget/Spinner'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import { ProgressIndicator } from 'office-ui-fabric-react/lib/ProgressIndicator'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { connect } from 'react-redux'
+import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
-@connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ParagraphResult extends React.Component<any, any> {
+@connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook, null, { withRef: true })
+export default class ParagraphDisplay extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
   state = {
@@ -49,7 +49,6 @@ export default class ParagraphResult extends React.Component<any, any> {
     showParagraphTitle: false,
     showGraphBar: false,
     stripDisplay: false,
-    percentComplete: 100,
     showErrorDetail: false
   }
 
@@ -62,7 +61,6 @@ export default class ParagraphResult extends React.Component<any, any> {
       showParagraphTitle: props.showParagraphTitle,
       showGraphBar: props.showGraphBar,
       stripDisplay: props.stripDisplay,
-      percentComplete: 100,
       showErrorDetail: false
     }
     this.notebookApi = window["NotebookApi"]
@@ -70,7 +68,7 @@ export default class ParagraphResult extends React.Component<any, any> {
 
   public render() {
 
-    const { paragraph, showControlBar, showGraphBar, showParagraphTitle, stripDisplay, percentComplete } = this.state
+    const { paragraph, showControlBar, showGraphBar, showParagraphTitle, stripDisplay } = this.state
 
     var paragraphHeader = <div></div>
     var title = '[Add an awesome title]'
@@ -98,16 +96,8 @@ export default class ParagraphResult extends React.Component<any, any> {
         {
         (showControlBar == true) && <div></div>
         }
-      </div>
-    {
-      (this.isParagraphRunning(paragraph)) && 
-      <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: 0, margin: 0, overflow: 'hidden' }}>
-        <ProgressIndicator
-          percentComplete={ percentComplete }
-        />
-      </div>
-    }
-    if (paragraph.status == ParagraphStatus.ERROR) {
+     </div>
+     if (paragraph.status == ParagraphStatus.ERROR) {
       var errorMessage = paragraph.errorMessage
       var detailedErrorMessage = "No Detail Available for the Returned Message."
       if (paragraph.results && paragraph.results.msg && paragraph.results.msg.length > 0) {
@@ -186,7 +176,12 @@ export default class ParagraphResult extends React.Component<any, any> {
 
     rendered.push(
       <div className="ms-fontColor-neutralSecondary" style={{ fontSize: "10px"}} key={paragraph.id + '-took'}>
-        Took {(new Date(paragraph.dateFinished).getTime() - new Date(paragraph.dateStarted).getTime()) / 1000} sec. Last updated by {paragraph.user} at {new Date(paragraph.dateUpdated).toLocaleString()}.
+        {
+          (isParagraphRunning(paragraph)) && getElapsedTime(paragraph)
+        }
+        {
+          (!isParagraphRunning(paragraph)) && getExecutionTime(paragraph)
+        }
       </div>
     )
 
@@ -221,7 +216,8 @@ export default class ParagraphResult extends React.Component<any, any> {
                 <TextDisplay
                   data={data}
                   stripDisplay={stripDisplay}
-                />
+                  key={paragraph.dateUpdated}
+                  />
               </div>
             }
             {
@@ -229,7 +225,8 @@ export default class ParagraphResult extends React.Component<any, any> {
               <TextDisplay
                 data={data}
                 stripDisplay={stripDisplay}
-              />
+                key={paragraph.dateUpdated}
+                />
             }
 {/*
             {
@@ -292,71 +289,67 @@ export default class ParagraphResult extends React.Component<any, any> {
       </div>
     )
   }
-/*
-  public shouldComponentUpdate(nextProps, nextState) {
-    const { webSocketMessageSent, webSocketMessageReceived, isStartNoteRun } = nextProps
-    if (isStartNoteRun) {
-      return true
-    }
-    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
-      return true
-    }
-    if (webSocketMessageSent && (webSocketMessageSent.op == "RUN_PARAGRAPH")) {
-      return true
-    }
-    if (webSocketMessageSent && (webSocketMessageSent.op == "RUN_ALL_PARAGRAPHS_SPITFIRE")) {
-      return true
-    }
-    if (!nextProps.paragraph) {
-      return false
-    }
-    if ((!nextProps.paragraph.results)) {
-      return false
-    }
-    return true
-  }
-*/
+
   public componentWillReceiveProps(nextProps) {
-    const { isStartNoteRun, webSocketMessageSent, webSocketMessageReceived } = nextProps
-    if (isStartNoteRun) {
-      if (!isStartNoteRun.noteId) {
-        if (isStartNoteRun.paragraphId == this.state.paragraph.id) {
+    const { isStartParagraphRun, webSocketMessageSent, webSocketMessageReceived } = nextProps
+/*
+    if (isStartParagraphRun) {
+      if (isStartParagraphRun.paragraphId == this.state.paragraph.id) {
+        if (!isParagraphRunning(this.state.paragraph)) {
           var p = this.state.paragraph
+          p.status = ParagraphStatus.PENDING
           p.results = null
+          this.state.paragraph = p
           this.setState({
             paragraph: p
           })
         }
       }
     }
+*/
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
       var paragraph = webSocketMessageReceived.data.paragraph
-      if (paragraph.id == this.state.paragraph.id) {        
+      if (paragraph.id == this.state.paragraph.id) {
         this.setState({
           paragraph: paragraph
         })
       }
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_UPDATE_OUTPUT")) {
-      var data = webSocketMessageReceived.data.data
-      var p = this.state.paragraph
-      console.log('PARAGRAPH_UPDATE_OUTPUT', p, data)
+      var paraAppendOutput = webSocketMessageReceived.data
+      if ((paraAppendOutput.noteId == this.state.note.id) && (paraAppendOutput.paragraphId === this.state.paragraph.id)) {
+        var p = this.state.paragraph
+        if (!p.results) {
+          p.results = {
+            msg: [{
+              data: '',
+              type: 'TEXT'
+            }]
+          }
+        }
+        p.results.msg[paraAppendOutput.index].data = paraAppendOutput.data
+        this.setState({
+          paragraph: p
+        })
+      }
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_APPEND_OUTPUT")) {
-      var data = webSocketMessageReceived.data.data
-      var p = this.state.paragraph
-      console.log('PARAGRAPH_APPEND_OUTPUT', p, data)
-    }
-    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PROGRESS")) {
-      var data = webSocketMessageReceived.data
-      console.log('PROGRESS', data)
-      var progress = webSocketMessageReceived.data.progress
-      if (progress == 0) {
-        progress = 100
+      var paraAppendOutput = webSocketMessageReceived.data
+      if ((paraAppendOutput.noteId == this.state.note.id) && (paraAppendOutput.paragraphId === this.state.paragraph.id)) {
+        var p = this.state.paragraph
+        if (!p.results) {
+          p.results = {
+            msg: [{
+              data: '',
+              type: 'TEXT'
+            }]
+          }
+        }
+        p.results.msg[paraAppendOutput.index].data = p.results.msg[paraAppendOutput.index].data + paraAppendOutput.data
+        this.setState({
+          paragraph: p
+        })
       }
-      this.setState({
-        progress: progress
-      })
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "INTERPRETER_BINDINGS")) {
       var bind = false
@@ -375,17 +368,19 @@ export default class ParagraphResult extends React.Component<any, any> {
     }
   }
 
+  public showStartRun() {
+    var p = this.state.paragraph
+    p.status = ParagraphStatus.PENDING
+    p.results = null
+    this.setState({
+      paragraph: p
+    })
+  }
+
   @autobind
   private updateTitle(message) {
     this.state.paragraph.title = message.title
     this.notebookApi.commitParagraph(this.state.paragraph)
-  }
-
-  private isParagraphRunning(paragraph) {
-    if (!paragraph) return false
-    var status = paragraph.status
-    if (!status) return false
-    return status === ParagraphStatus.PENDING || status === ParagraphStatus.RUNNING
   }
 
   private async restartInterpreters(e) {

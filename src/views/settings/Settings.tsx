@@ -4,7 +4,7 @@ import KuberConfig from './../config/KuberConfig'
 import HDFSCapacity from './../hdfs/HDFSCapacity'
 import ClusterCapacity from './../cluster/ClusterCapacity'
 import SpitfireConfig from './../spitfire/SpitfireConfig'
-import SpitfireInterpreters from './../spitfire/SpitfireInterpreters'
+import SpitfireInterpretersConfig from './../spitfire/SpitfireInterpretersConfig'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
@@ -31,7 +31,7 @@ export default class Settings extends React.Component<any, any> {
             <SpitfireConfig />
           </PivotItem>
           <PivotItem linkText='Spitfire Interpreters' itemIcon='AirplaneSolid'>
-            <SpitfireInterpreters />
+            <SpitfireInterpretersConfig />
           </PivotItem>
           </Pivot>
       </div>

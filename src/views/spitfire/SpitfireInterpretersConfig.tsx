@@ -10,7 +10,7 @@ import { createListItems, createGroups } from '../../util/msc/data'
 import './../_styles/DetailsList.scss'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class SpitfireInterpreters extends React.Component<any, any> {
+export default class SpitfireInterpretersConfig extends React.Component<any, any> {
   private notebookApi: NotebookApi
 
   public constructor(props) {

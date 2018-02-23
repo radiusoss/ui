@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { toastr } from 'react-redux-toastr'
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle'
 import ParagraphEditor from './../paragraph/ParagraphEditor'
-import ParagraphResult from './../paragraph/ParagraphResult'
+import ParagraphDisplay from './../paragraph/ParagraphDisplay'
+import { ParagraphStatus, isParagraphRunning } from './../paragraph/ParagraphUtil'
 import InlineEditor from './../editor/InlineEditor'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import MockContent from './../message/MockContent'
@@ -23,6 +24,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
   private notebookApi: NotebookApi
 
   private paragraphEditors = new Map<string, any>()
+  private paragraphDisplays = new Map<string, any>()
 
   state = {
     note: {
@@ -47,6 +49,8 @@ export default class NoteWorkbench extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
+    this.paragraphEditors = new Map<string, any>()
+    this.paragraphDisplays = new Map<string, any>()
   }
 
   public render() {
@@ -136,7 +140,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
                       />
                     </div>
                     <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ paddingLeft: '0px', margin: '0px' }}>
-                      <ParagraphResult
+                      <ParagraphDisplay
                         note={note}
                         paragraph={p} 
                         showParagraphTitle={false}
@@ -182,7 +186,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
                         borderColor: 'white',
                         borderRadius: '3px',
                         padding: '10px 10px 20px 10px',
-                        margin: '8px 8px 0px 8px'
+                        margin: '10px 10px 0px 10px'
                         }}>
                         <ParagraphEditor
                           note={note}
@@ -195,12 +199,13 @@ export default class NoteWorkbench extends React.Component<any, any> {
                           ref={ ref => { this.paragraphEditors.set(note.id + '-' + p.id, ref) }}
                           />
                         <div style={{height: '10px'}} />
-                        <ParagraphResult
+                        <ParagraphDisplay
                           paragraph={p} 
                           showParagraphTitle={false}
                           showControlBar={false}
                           showGraphBar={true}
                           stripDisplay={true}
+                          ref={ ref => { this.paragraphDisplays.set(note.id + '-' + p.id, ref) }}
                           />
                     </div>
                   </div>
@@ -227,11 +232,11 @@ export default class NoteWorkbench extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { webSocketMessageReceived, isStartNoteRun } = nextProps
+    const { webSocketMessageReceived, isStartNoteRun, isStartParagraphRun } = nextProps
     if (isStartNoteRun) {
       var i = 0
       if (isStartNoteRun.noteId) {
-        if (isStartNoteRun.noteId == this.state.note.id) {
+        if (isStartNoteRun.noteId == isStartNoteRun.noteId) {
           this.state.note.paragraphs.map(p => {
             var editor = this.paragraphEditors.get(this.state.note.id + '-' + p.id)
             if (editor) {
@@ -241,9 +246,25 @@ export default class NoteWorkbench extends React.Component<any, any> {
             else {
               console.warn("Something is wrong while fetching editor for paragraph from map.", p, this.paragraphEditors)
             }
+            var display = this.paragraphDisplays.get(this.state.note.id + '-' + p.id)
+            if (display) {
+              display.getWrappedInstance().showStartRun()
+            }
+            else {
+              console.warn("Something is wrong while fetching display for paragraph from map.", p, this.paragraphEditors)
+            }
           })
         }
         this.notebookApi.runAllParagraphsSpitfire(this.state.note.id, this.state.note.paragraphs)
+      }
+    }
+    if (isStartParagraphRun) {
+      if (isStartParagraphRun.noteId == this.state.note.id) {
+        var display = this.paragraphDisplays.get(isStartParagraphRun.noteId + '-' + isStartParagraphRun.paragraphId).getWrappedInstance()
+        display.showStartRun()
+        var editor = this.paragraphEditors.get(isStartParagraphRun.noteId + '-' + isStartParagraphRun.paragraphId).getWrappedInstance()
+        var code = editor.getCodeEditorContent()
+        this.notebookApi.runParagraph(editor.state.paragraph, code)
       }
     }
     if (! webSocketMessageReceived) return
@@ -252,13 +273,6 @@ export default class NoteWorkbench extends React.Component<any, any> {
       this.setState({
         note: webSocketMessageReceived.data.note
       })
-    }
-    if (
-      (op == "PARAGRAPH_MOVED") 
-      || (op == "PARAGRAPH_REMOVED")
-      || (op == "PARAGRAPH_ADDED")
-    ) {
-//      this.notebookApi.getNote(this.state.note.id)
     }
   }
 

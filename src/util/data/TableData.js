@@ -9,7 +9,7 @@ export default class TableData {
     this.comment = comment || '';
   };
 
-  loadParagraphResult(paragraphResult) {
+  loadParagraphDisplay(paragraphResult) {
 
     if (!paragraphResult || paragraphResult.type !== 'TABLE') {
       console.log('Can not load paragraph result.');

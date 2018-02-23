@@ -1,0 +1,12 @@
+{
+  "op": "PARAGRAPH_APPEND_OUTPUT",
+  "data": {
+    "data": "import org.apache.spark.mllib.linalg.Vectors\n",
+    "index": 0,
+    "noteId": "2CETCX3MY",
+    "paragraphId": "2CETCX3MY_33"
+  },
+  "ticket": "anonymous",
+  "principal": "anonymous",
+  "roles": ""
+}

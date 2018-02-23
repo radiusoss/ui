@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { NotebookStore } from '../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResult from './../paragraph/ParagraphResult'
+import ParagraphDisplay from './../paragraph/ParagraphDisplay'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class   extends React.Component<any, any> {
@@ -44,7 +44,7 @@ export default class   extends React.Component<any, any> {
           note.paragraphs.map( p => {
             return (
               <div key={p.id}>
-                <ParagraphResult 
+                <ParagraphDisplay 
                   note={note}
                   paragraph={p} 
                   showControlBar={showControlBar} 
@@ -86,8 +86,12 @@ export default class   extends React.Component<any, any> {
       if (webSocketMessageReceived.op == "PARAGRAPH") {
         var paragraph = webSocketMessageReceived.data.paragraph
         var updatedParagraphs = this.state.note.paragraphs.map( p => {
-          if (p.id == paragraph.id) return paragraph
-          return p
+          if (p.id == paragraph.id) {
+            return paragraph
+          }
+          else {
+            return p
+          }
         })
         this.setState({
           note: {

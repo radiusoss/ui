@@ -6,8 +6,9 @@ import { NotebookStore } from './../../store/NotebookStore'
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import CodeEditor from './../editor/CodeEditor'
 import { toastr } from 'react-redux-toastr'
-import { ParagraphStatus } from './ParagraphStatus'
+import { ParagraphStatus, isParagraphRunning } from './ParagraphUtil'
 import InlineEditor from './../editor/InlineEditor'
+import { ProgressIndicator } from 'office-ui-fabric-react/lib/ProgressIndicator'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { SpinButton } from 'office-ui-fabric-react/lib/SpinButton'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
@@ -42,7 +43,8 @@ export default class ParagraphEditor extends React.Component<any, any> {
     code: '',
     showControlBar: true,
     showParagraphTitle: false,
-    showPanel: false
+    showPanel: false,
+    percentComplete: 0,
   }
 
   public constructor(props) {
@@ -56,14 +58,15 @@ export default class ParagraphEditor extends React.Component<any, any> {
       code: props.paragraph.text,
       showControlBar: props.showControlBar,
       showParagraphTitle: props.showParagraphTitle,
-      showPanel: false
+      showPanel: false,
+      percentComplete: 0,
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
 
-    const { index, maxIndex, note, paragraph, code, focus, showControlBar, showParagraphTitle, showPanel } = this.state
+    const { index, maxIndex, note, paragraph, code, focus, showControlBar, showParagraphTitle, showPanel, percentComplete } = this.state
 
     var panelTitle = 'Add an awesome title...'
     if (paragraph.title && (paragraph.title.length > 0)) {
@@ -72,7 +75,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
 
     var leftItems: any[] = []
 
-    if (this.isParagraphRunning(paragraph)) {
+    if (isParagraphRunning(paragraph)) {
       leftItems.push({
         key: 'cancel-indicator',
         icon: 'CirclePauseSolid',
@@ -238,7 +241,6 @@ export default class ParagraphEditor extends React.Component<any, any> {
 
         <div className="ms-Grid" 
           style={{margin: 0, padding: 0}}
-  //        key={'pe_' + note.id + '-' + paragraph.id + "-" + index + '-' + paragraph.status + '-' + paragraph.config.colWidth}
           >
           <div className="ms-Grid-row" style={{margin: 0, padding: 0}}>
             <div>
@@ -259,11 +261,12 @@ export default class ParagraphEditor extends React.Component<any, any> {
               }
               <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8 ms-textAlignRight" style={{ padding: 0, margin: 0, overflow: 'hidden', maxHeight: '20px' }}>
                 <div className={`ms-fontColor-neutralTertiary ` + statusClassNames} style={{ float: 'right' }}>
-                  {paragraph.status}
+                  { paragraph.status }
+                  { isParagraphRunning(paragraph) &&  ' ' + percentComplete + '%' }
                 </div>
                 {
                 (showControlBar == true) &&
-                  <div style={{ marginLeft: '0px', float: 'right', maxHeight: '10px', marginBottom: '10px', transform: 'scale(0.85) translateY(-12px) translateX(60px)', }}>
+                  <div style={{ marginLeft: '0px', float: 'right', maxHeight: '10px', marginBottom: '10px', transform: 'scale(0.85) translateY(-10px) translateX(60px)', }}>
                     <CommandBar
                       isSearchBoxVisible={ false }
                       items={ leftItems }
@@ -300,6 +303,14 @@ export default class ParagraphEditor extends React.Component<any, any> {
                   />
                 </div>
               </div>
+              {
+              (isParagraphRunning(paragraph)) && 
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: 0, margin: 0 }}>
+                <ProgressIndicator
+                  percentComplete={ percentComplete }
+                />
+              </div>
+              }
             </div>
           </div>
         </div>
@@ -315,12 +326,23 @@ export default class ParagraphEditor extends React.Component<any, any> {
 
   public componentWillReceiveProps(nextProps) {
     const { isStartParagraphRun, webSocketMessageReceived } = nextProps
+/*
     if (isStartParagraphRun) {
       if (isStartParagraphRun.paragraphId == this.state.paragraph.id) {
-        var code = this.getCodeEditorContent()
-        NotebookStore.state().isStartParagraphRun = null
-        var p = this.state.paragraph
-        this.notebookApi.runParagraph(p, code)
+        if (!isParagraphRunning(this.state.paragraph)) {
+          var code = this.getCodeEditorContent()
+          this.notebookApi.runParagraph(this.state.paragraph, code)
+          this.state.paragraph.status = ParagraphStatus.PENDING
+        }
+      }
+    }
+*/
+    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PROGRESS")) {
+      var data = webSocketMessageReceived.data
+      if (data.id == this.state.paragraph.id) {
+        this.setState({
+          percentComplete: data.progress
+        })
       }
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
@@ -350,8 +372,8 @@ export default class ParagraphEditor extends React.Component<any, any> {
 
   private runParagraph() {
     var code = this.codeEditor.getWrappedInstance().editor.getValue()
-    this.notebookApi.runParagraph(this.state.paragraph, code)
     this.state.paragraph.text = code
+    this.props.dispatchRunParagraphAction(this.state.note.id, this.state.paragraph.id)
   }
 
   private cancelParagraph() {
@@ -418,12 +440,5 @@ export default class ParagraphEditor extends React.Component<any, any> {
     this.state.paragraph.title = message.title
     this.notebookApi.commitParagraph(this.state.paragraph)
   }
-
-  private isParagraphRunning(paragraph) {
-    if (!paragraph) return false
-    var status = paragraph.status
-    if (!status) return false
-    return status === ParagraphStatus.PENDING || status === ParagraphStatus.RUNNING
-  }  
 
 }

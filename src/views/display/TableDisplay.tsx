@@ -74,9 +74,7 @@ export default class TableDisplay extends React.Component<any, any> {
   private rightItems: any[] = [{}]
 
   constructor(props) {
-
     super(props)
-
     var format = 'text'
     if (props.p.config.results[0]) {
       var f = props.p.config.results[0].graph.mode
@@ -85,8 +83,7 @@ export default class TableDisplay extends React.Component<any, any> {
       }
     }
     var tableData = new TableData()
-    tableData.loadParagraphResult({type: "TABLE", msg: this.props.data})
-
+    tableData.loadParagraphDisplay({type: "TABLE", msg: this.props.data})
     var columnsData = tableData.columns
     var columnNamesData = tableData.columnNames
     var columns = columnNamesData.map( c => {
@@ -99,7 +96,6 @@ export default class TableDisplay extends React.Component<any, any> {
         isResizable: true
       }
     })
-
     var rowData: [any] = tableData.rows
     var items = []
     for (var i = 0; i < rowData.length; i++) {
@@ -110,7 +106,6 @@ export default class TableDisplay extends React.Component<any, any> {
       }
       items.push(item)
     }
-
     this.state = {
       id: props.id,
       p: props.p,
@@ -121,19 +116,13 @@ export default class TableDisplay extends React.Component<any, any> {
       showGraphBar: props.showGraphBar,
       format: format
     }
-
     this.notebookApi = window["NotebookApi"]
-
   }
 
   public render() {
-
     var { columns, items, format, showGraphBar } = this.state
-
     return (
-
       <div>
-
        {
           (showGraphBar == true) && 
           <CommandBar
@@ -144,7 +133,6 @@ export default class TableDisplay extends React.Component<any, any> {
             className={ styles.commandBarBackgroundTransparent }
           />
         }
-
         {
           (format == 'text') && <TableTextDisplay columns={this.state.columns} items={this.state.items} />
         }
@@ -169,9 +157,7 @@ export default class TableDisplay extends React.Component<any, any> {
         {
           (format == 'bubble') && <TableBubbleDisplay columns={this.state.columns} items={this.state.items} />
         }
-
       </div>
-
     )
 
   }

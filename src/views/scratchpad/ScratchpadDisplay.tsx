@@ -4,7 +4,7 @@ import { NotebookStore } from '../../store/NotebookStore'
 import { toastr } from 'react-redux-toastr'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import ParagraphResult from './../paragraph/ParagraphResult'
+import ParagraphDisplay from './../paragraph/ParagraphDisplay'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class ScratchpadDisplay extends React.Component<any, any> {
@@ -47,7 +47,7 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
             i++
             return (
               <div key={p.id + '-' + i}>
-                <ParagraphResult 
+                <ParagraphDisplay 
                   note={note}
                   paragraph={p} 
                   showGraphBar={showGraphBar} 

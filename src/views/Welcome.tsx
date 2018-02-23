@@ -16,22 +16,18 @@ import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
-TODO(ECH) NoteWorkbench Manage and Display PROGRESS Messages while Note is Running
 TODO(ECH) History Views with Commit
 TODO(ECH) Network Status
-TODO(ECH) ClusterReservations Jaugue + Action if no Reservation
-TODO(ECH) HDFSStatus Show Data Nodes
-TODO(ECH) NoteWorkbench Note Results Attributes (State...) and Actions (Cancel..)
-TODO(ECH) NoteWorkbench Show PENDING State as soon as Note is Running
-TODO(ECH) NoteWorkbench Add Progress Bar while Note is Running
-TODO(ECH) NoteWorkbench Clone Note
+TODO(ECH) Reservations Jaugue + Action if no Reservation
+TODO(ECH) HDFS Status Show Data Nodes
 TODO(ECH) Scratchapd Overlay: Variables List + Number of Spark Executors
-TODO(ECH) Per-User Interpreter Settings
+TODO(ECH) Spark: Variables + Number of Spark Executors
+TODO(ECH) NoteWorkbench Clone Note
 TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart
-TODO(ECH) SparkStatus + List Variables + Show Number of Spark Executors
+TODO(ECH) Per-User Interpreter Settings
 */
-// const DEFAULT_PROFILE_PHOTO = 'img/datalayer/datalayer-square.png'
-const DEFAULT_PROFILE_PHOTO = 'img/datalayer/explorer_white.svg'
+const DEFAULT_PROFILE_PHOTO = '/img/datalayer/datalayer-square_white.png'
+// const DEFAULT_PROFILE_PHOTO = '/img/datalayer/explorer_white.svg'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
