@@ -72,12 +72,12 @@ export default class ControlHeader extends React.Component<any, any> {
               { id: 'cluster-capacity', label: 'Cluster Capacity', color: 'green' },
               { id: 'cluster-usage', label: 'Cluster Usage', color: 'green' },
               { id: 'cluster-status', label: 'Cluster Status', color: 'green' },
-              { id: 'reservations', label: 'Reservations', color: 'yellow' },
               { id: 'hdfs', label: 'HDFS', color: 'green' },
               { id: 'interpreters', label: 'Interpreters', color: 'red' },
               { id: 'spark', label: 'Spark', color: 'yellow' },
               { id: 'jobs', label: 'Jobs', color: 'blue' },
-              { id: 'network', label: 'Network', color: 'green' }
+              { id: 'network', label: 'Network', color: 'green' },
+              { id: 'reservations', label: 'Reservations', color: 'yellow' }
             ]
             }
             onCellFocused={(id?: string, color?: string) => {
