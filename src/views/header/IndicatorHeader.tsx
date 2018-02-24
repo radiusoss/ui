@@ -70,12 +70,12 @@ export default class ControlHeader extends React.Component<any, any> {
             colorCells={
             [
               { id: 'cluster', label: 'Cluster', color: 'green' },
+              { id: 'reservations', label: 'Reservations', color: 'yellow' },
               { id: 'usage', label: 'Usage', color: 'red' },
               { id: 'hdfs', label: 'HDFS', color: 'green' },
               { id: 'spark', label: 'Spark', color: 'yellow' },
               { id: 'running', label: 'Running', color: 'blue' },
-              { id: 'network', label: 'Network', color: 'green' },
-              { id: 'reservations', label: 'Reservations', color: 'yellow' }
+              { id: 'network', label: 'Network', color: 'green' }
             ]
             }
             onCellFocused={(id?: string, color?: string) => {
@@ -108,6 +108,13 @@ export default class ControlHeader extends React.Component<any, any> {
             </div>
           }
           {
+            (statusPanel == 'reservations') &&
+            <div>
+              <div className="ms-font-su"><FabricIcon name="Clock" /> Reservations</div>
+              <ReservationsStatus/>
+            </div>
+          }
+          {
             (statusPanel == 'usage') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Usage</div>
@@ -133,13 +140,6 @@ export default class ControlHeader extends React.Component<any, any> {
             <div>
               <div className="ms-font-su"><FabricIcon name="Running" /> Running</div>
               <RunningStatus/>
-            </div>
-          }
-          {
-            (statusPanel == 'reservations') &&
-            <div>
-              <div className="ms-font-su"><FabricIcon name="Clock" /> Reservations</div>
-              <ReservationsStatus/>
             </div>
           }
           {

@@ -16,7 +16,6 @@ import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
-TODO(ECH) Notes List + History in Sidebar
 TODO(ECH) Move clean paragraph + up/down to sidebar
 TODO(ECH) Toastr on Paragraph Error
 TODO(ECH) KUBER_STATUS
