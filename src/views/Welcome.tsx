@@ -16,23 +16,18 @@ import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
-TODO(ECH) Move clean paragraph + up/down to sidebar
-TODO(ECH) Toastr on Paragraph Error
+Toastr+Panel on Paragraph Error
 TODO(ECH) KUBER_STATUS
-TODO(ECH) Commit Notebook
-TODO(ECH) NetworkStatus
-TODO(ECH) HDFSStatus Data Nodes
-TODO(ECH) ReservationsStatus: Jaugue + Action if no Reservation
-TODO(ECH) SparkStatus: Variables + Number of Spark Executors
 TODO(ECH) Scratchapd Sidebar: Editor + Variables List + Number of Spark Executors
+TODO(ECH) Commit Notebook
 TODO(ECH) Clone Note
 TODO(ECH) Microsoft Auth -> Contacts + Screenshot to OneNote
 TODO(ECH) Spark Cold Start: Timeout to 1 minute + First Run after Node Restart
 TODO(ECH) Per-User Interpreter Settings
 TODO(ECH) Reconnecting WebSocket
 */
-const DEFAULT_PROFILE_PHOTO = '/img/datalayer/datalayer-square_white.png'
-// const DEFAULT_PROFILE_PHOTO = '/img/datalayer/explorer_white.svg'
+// const DEFAULT_PROFILE_PHOTO = '/img/datalayer/datalayer-square_white.png'
+const DEFAULT_PROFILE_PHOTO = '/img/explorer/explorer_white.svg'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
@@ -205,7 +200,7 @@ export default class Welcome extends React.Component<any, any> {
             <span className={ styles.productTitle }>Enterprise ready</span>
             <span className={ styles.productDescription }>Integrate with Google and Microsoft Security.</span>
           </div>
-          <img className={ styles.productImage } src={ 'img/datalayer/pipes.svg' } width='496' height='300' alt='' />
+          <img className={ styles.productImage } src={ 'img/pipes/pipes.svg' } width='496' height='300' alt='' />
         </div>
 
         <HighlightsWidget showAll="false" />

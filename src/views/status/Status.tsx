@@ -29,18 +29,18 @@ export default class Status extends React.Component<any, any> {
             <ClusterUsageStatus />
           </PivotItem>
           <PivotItem linkText='Reservations' itemIcon='Clock'>
-            <div className="ms-font-xxl">Cluster Reservations</div>
+            <div className="ms-font-xxl">Reservations</div>
             <ReservationsStatus />
           </PivotItem>
           <PivotItem linkText='Amazon AWS' itemIcon='Cloud'>
             <AwsStatus />
           </PivotItem>
           <PivotItem linkText='HDFS' itemIcon='OfflineStorageSolid'>
-            <div className="ms-font-xxl">HDFS Status</div>
+            <div className="ms-font-xxl">HDFS</div>
             <HDFStatus />
           </PivotItem>
           <PivotItem linkText='Interpreters' itemIcon='Light'>
-            <div className="ms-font-xxl">Spitfire Interpreters</div>
+            <div className="ms-font-xxl">Interpreters</div>
             <SpitfireInterpretersStatus />
           </PivotItem>
           <PivotItem linkText='Spark' itemIcon='LightningBolt'>

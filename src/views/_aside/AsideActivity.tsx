@@ -18,20 +18,21 @@ export default class AsideActivity extends React.Component<any, any> {
     const { runningParagraphs } = this.state
     return (
       <div>
+{/*
         <div className="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
           <small><b>Running Paragraphs</b></small>
         </div>
         {
           Object.keys(runningParagraphs).map((p) => {
             return (
-                <div key={ runningParagraphs[p].id }>
-                    { runningParagraphs[p].id }
-                </div>
-              )
+              <div key={ runningParagraphs[p].id }>
+                { runningParagraphs[p].id }
+              </div>
+            )
           })
         }
         <div className="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
-            <small><b>Today</b></small>
+          <small><b>Today</b></small>
         </div>
         <hr className="transparent mx-1 my-0"/>
         <div className="callout callout-warning m-0 py-1">
@@ -124,7 +125,8 @@ export default class AsideActivity extends React.Component<any, any> {
             </div>
         </div>
         <hr className="mx-1 my-0"/>
-      </div>
+*/}
+        </div>
     )
   }
 

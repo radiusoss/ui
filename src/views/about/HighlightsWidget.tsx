@@ -36,7 +36,7 @@ Version 0.2.0<br/>
 Arcadia Release<br/>
 <br/>
 Author: Eric Charles<br/>
-<small>In memory of Freddy Charles, Eric's Father</small><br/>
+<small>Disrupt or Die</small><br/>
 `
 
 export default class HighlightsWidget extends React.Component<any, any> {

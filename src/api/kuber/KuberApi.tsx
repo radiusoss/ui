@@ -38,7 +38,7 @@ export interface IKuberApi {
 export var loading = {
   success: false,
   result: {
-    message: 'loading...'
+    message: '...loading...'
   }
 }
 

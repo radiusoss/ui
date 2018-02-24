@@ -5,7 +5,6 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class RunningStatus extends React.Component<any, any> {
-  interval: NodeJS.Timer
 
   state = {
     runningParagraphs: NotebookStore.state().runningParagraphs
@@ -24,33 +23,18 @@ export default class RunningStatus extends React.Component<any, any> {
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               {
                 Array.from(runningParagraphs).map(p => {
-                  return <div>{p[0]} [{p[1].title}]</div>
+                  if (p[1] && p[1].title && p[1].title.length > 0) {
+                    return <div key={p[1].id}>{p[1].title} [{p[1].status}]</div>
+                  } else {
+                    return <div key={p[1].id}>{p[0]} [{p[1].status}]</div>
+                  }
                 })
               }
             </div>
           </div>
         </div>
-    </div>
+      </div>
     )
-  }
-
-  public componentDidMount() {
-    this.interval = setInterval( _ => this.tick, 1000)
-  }
-
-  private tick() {
-    this.setState({
-      runningParagraphs: NotebookStore.state().runningParagraphs
-    })
-  }
-
-  public componentWillReceiveProps(nextProps) {
-    const { runningParagraphs } = nextProps
-    if (runningParagraphs) {
-      this.setState({
-        runningParagraphs: runningParagraphs
-      })
-    }
   }
 
 }

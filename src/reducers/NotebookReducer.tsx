@@ -1,6 +1,7 @@
 import { NotebookAction } from '../actions/NotebookActions'
 import { NotebookStore } from '../store/NotebookStore'
 import { initialState } from '../state/State'
+import { ParagraphStatus, isParagraphRunning } from './../views/paragraph/ParagraphUtil'
 
 export const notebookLoginReducer = (state: {} = initialState.notebookLogin, action: NotebookAction): {} => {
   switch (action.type) {
@@ -33,9 +34,8 @@ export const runningParagraphsReducer = (state: Map<string, any> = initialState.
   switch (action.type) {
     case 'WS_MESSAGE_SENT':
       if (action.message.op == 'RUN_ALL_PARAGRAPHS_SPITFIRE') {
-        var ps = state
-        action.message.data.paragraphs.map(p => ps.set(p.id, p))
-        return ps
+        action.message.data.paragraphs.map(p => state.set(p.id, p))
+        return state
       }
       if (action.message.op == 'RUN_PARAGRAPH') {
         var ps = state
@@ -43,7 +43,21 @@ export const runningParagraphsReducer = (state: Map<string, any> = initialState.
         ps.set(p.id, p)
         return ps
       }
-    return state
+      return state
+    case 'WS_MESSAGE_RECEIVED':
+      if (action.message.op == 'PARAGRAPH') {
+        var ps = state
+        var p = action.message.data.paragraph
+        if (p.status == ParagraphStatus.FINISHED) {
+          ps.delete(p.id)
+        } 
+        else if (isParagraphRunning(p)) {
+          ps.delete(p.id)
+          ps.set(p.id, p)
+        }
+        return ps
+      }
+      return state
     default:
       return state
   }

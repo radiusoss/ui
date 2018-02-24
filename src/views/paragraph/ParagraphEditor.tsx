@@ -7,8 +7,9 @@ import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import CodeEditor from './../editor/CodeEditor'
 import { toastr } from 'react-redux-toastr'
 import { ParagraphStatus, isParagraphRunning } from './ParagraphUtil'
-import InlineEditor from './../editor/InlineEditor'
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { ProgressIndicator } from 'office-ui-fabric-react/lib/ProgressIndicator'
+import InlineEditor from './../editor/InlineEditor'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { SpinButton } from 'office-ui-fabric-react/lib/SpinButton'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
@@ -98,22 +99,6 @@ export default class ParagraphEditor extends React.Component<any, any> {
       title: 'Add a paragraph',
       onClick: () => this.insertParagraph()
     })
-    if (index != maxIndex) {
-      leftItems.push({
-        key: 'move-down-indicator',
-        icon: 'ChevronDown',
-        title: 'Move Paragraph Down',
-        onClick: () => this.moveParagraphDown()
-      })
-    }
-    if (index != 0) {
-      leftItems.push({
-        key: 'move-up-indicator',
-        icon: 'ChevronUp',
-        title: 'Move Paragraph Up',
-        onClick: () => this.moveParagraphUp()
-      })
-    }
 /*
     {
       key: 'to-cover',
@@ -140,13 +125,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
       })
     }
     
-    leftItems.push(
-      {
-        key: 'clear',
-        icon: 'ClearFormatting',
-        title: 'Clear Paragraph Output',
-        onClick: () => this.clearParagraphOutput()
-      },
+    leftItems.push(      
       {
         key: 'delete',
         icon: 'Delete',
@@ -203,6 +182,44 @@ export default class ParagraphEditor extends React.Component<any, any> {
                 activeClassName="ms-font-xl"
               />
             </div>
+            <div><hr/></div>
+            <div>
+              {
+              (index != maxIndex) && 
+                <IconButton
+                  iconProps={{
+                    iconName: 'ChevronDown'
+                  }}
+                  key='move-down-indicator'
+                  title='Move Paragraph Down'
+                  onClick={() => this.moveParagraphDown()}
+                  ariaLabel='Emoji'
+                  />
+              }
+              {
+              (index != 0) && 
+                <IconButton
+                  iconProps={{
+                    iconName: 'ChevronUp'
+                  }}
+                  key='move-up-indicator'
+                  title='Move Paragraph Up'
+                  onClick={() => this.moveParagraphUp()}
+                  ariaLabel='Emoji'
+                  />
+              }
+              {
+                <IconButton
+                  iconProps={{
+                    iconName: 'ClearFormatting'
+                  }}
+                  key='clear'
+                  title='Clear Paragraph Output'
+                  onClick={() => this.clearParagraphOutput()}
+                  ariaLabel='Emoji'
+                  />
+              }
+            </div>
             <div style={{ width: '10px', float: 'left'}}>
               <SpinButton
                 value={ parseInt(paragraph.config.colWidth).toString() }
@@ -238,7 +255,6 @@ export default class ParagraphEditor extends React.Component<any, any> {
             </div>
           </div>
         </Panel>
-
         <div className="ms-Grid" 
           style={{margin: 0, padding: 0}}
           >
@@ -409,30 +425,6 @@ export default class ParagraphEditor extends React.Component<any, any> {
   private clearParagraphOutput() {
     this.notebookApi.clearParagraphOutput(this.state.paragraph.id)
     this.notebookApi.getNote(this.state.note.id)
-  }
-
-  private newParagraph(noteId, i, text) {
-    return {
-      'id': noteId + '_' + i,
-      'jobName': 'paragraph_' + noteId + '_' + i,
-      'text': text.replace(/^\s+|\s+$/g, ''),
-      'params': {},
-      'user': 'anonymous',
-      'config': {
-        'colWidth': "12",
-        'enabled': true,
-        'results': {},
-        'editorSetting': {
-          'language': 'scala'
-        },
-        'editorMode': 'ace/mode/scala'
-      },
-      'settings': {
-        'params': {},
-        'forms': {}
-      },
-      'apps': []
-    }
   }
 
   @autobind

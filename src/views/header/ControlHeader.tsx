@@ -197,6 +197,12 @@ export default class ControlHeader extends React.Component<any, any> {
 
   private asNotes(notes) {
     var ns = []
+    ns.push({
+      key: 'new-note',
+      name: 'New note...',
+      icon: 'QuickNote',
+      onClick: () => this.setState({ showNewNotePanel: true })
+    })
     notes.map(n => {
       var id = n.id
       if (n.name != '_conf') {
@@ -207,12 +213,6 @@ export default class ControlHeader extends React.Component<any, any> {
         }
         ns.push(note)
       }
-    })
-    ns.push({
-      key: 'new-note',
-      name: 'New note...',
-      icon: 'QuickNote',
-      onClick: () => this.setState({ showNewNotePanel: true })
     })
     ns.push({
       key: 'list',
@@ -346,9 +346,11 @@ export default class ControlHeader extends React.Component<any, any> {
         icon: 'NoteForward',
         title: 'Scratchpad',
         onClick: () => this.notebookApi.showNoteScratchpad(this.state.noteScratchpadId)
-      },
-      this.runIndicator
+      }
     ]
+    if (this.runIndicator.key) {
+      this.leftItems.push(this.runIndicator)
+    }
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/note/") != -1) {
       if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/scratchpad") == -1) {
         this.leftItems.push(

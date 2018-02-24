@@ -7,7 +7,7 @@ export type IAside2State = {
     wsMessages: any[]
 }
 
-const MAX_LENGTH = 20
+const MAX_MESSAGE_RECEIVED_LENGTH = 20
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class AsideScratchpad extends React.Component<any, IAside2State> {
@@ -21,8 +21,9 @@ export default class AsideScratchpad extends React.Component<any, IAside2State> 
   }
 
   public render() {
-    return (    
+    return (
       <div>
+{/*
         <div className="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
           <small><b>Received Messages</b></small>
         </div>
@@ -30,8 +31,8 @@ export default class AsideScratchpad extends React.Component<any, IAside2State> 
           this.state.wsMessages.map((w) => {
             return (
               <small key={ Math.random() } className="text-muted">
-                  { JSON.stringify(w) }
-                  <br/>
+                { JSON.stringify(w) }
+                <br/>
               </small>
             )
           })
@@ -110,23 +111,25 @@ export default class AsideScratchpad extends React.Component<any, IAside2State> 
             <div className="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
             <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
         </div>
-      </div>
+*/}
+        </div>
     )
   }
 
   public componentWillReceiveProps(nextProps) {
+/*
     const { webSocketMessageReceived } = nextProps
     if (webSocketMessageReceived.op) {
-//      console.log("Web Socket Message Received", webSocketMessageReceived)
       var msg = this.state.wsMessages
-      if (msg.length > MAX_LENGTH) {
-          msg = msg.slice(0, MAX_LENGTH - 1)
+      if (msg.length > MAX_MESSAGE_RECEIVED_LENGTH) {
+        msg = msg.slice(0, MAX_MESSAGE_RECEIVED_LENGTH - 1)
       }
       msg.unshift(webSocketMessageReceived)
       this.setState({
         wsMessages: msg
       })
     }
+*/
   }
 
 }

@@ -166,7 +166,6 @@ export default class ParagraphDisplay extends React.Component<any, any> {
         return <div style={{minHeight: 70, paddingLeft: '10px'}}>
           { paragraphHeader }
           <Spinner size={50} />
-          { this.getFooter(paragraph) }
         </div>
       }
     }

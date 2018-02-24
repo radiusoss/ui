@@ -27,6 +27,7 @@ import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
 import RunningStatus from './../run/RunningStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
+import { Colors } from './IndicatorUtil'
 import NetworkStatus from './../network/NetworkStatus'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
@@ -35,12 +36,28 @@ const styles: any = stylesImport
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class ControlHeader extends React.Component<any, any> {
+  private interval: NodeJS.Timer
   private notebookApi: NotebookApi
+
+  private clusterStatus: ClusterStatus
+  private reservationsStatus: ReservationsStatus
+  private clusterUsageStatus: ClusterUsageStatus
+  private hdfsStatus: HDFStatus
+  private sparkStatus: SparkStatus
+  private runningStatus: RunningStatus
+  private networkStatus: NetworkStatus
 
   state = {
     config: emptyConfig,
+    profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob),
     statusPanel: '',
-    profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob)
+    clusterColor: Colors.WHITE,
+    reservationsColor: Colors.WHITE,
+    usageColor: Colors.WHITE,
+    hdfsColor: Colors.WHITE,
+    sparkColor: Colors.WHITE,
+    runningColor: Colors.WHITE,
+    networkColor: Colors.WHITE
   }
 
   public constructor(props) {
@@ -49,7 +66,8 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public render() {
-    const { statusPanel, profilePhoto } = this.state
+    const { statusPanel, profilePhoto, clusterColor, reservationsColor,
+       usageColor, hdfsColor, sparkColor, runningColor, networkColor } = this.state
     return (
       <div>
         <div style={{ float: 'right', padding: '0px 10px' }}>
@@ -68,21 +86,21 @@ export default class ControlHeader extends React.Component<any, any> {
             columnCount={ 9 }
             cellShape={ 'circle' }
             colorCells={
-            [
-              { id: 'cluster', label: 'Cluster', color: 'green' },
-              { id: 'reservations', label: 'Reservations', color: 'yellow' },
-              { id: 'usage', label: 'Usage', color: 'red' },
-              { id: 'hdfs', label: 'HDFS', color: 'green' },
-              { id: 'spark', label: 'Spark', color: 'yellow' },
-              { id: 'running', label: 'Running', color: 'blue' },
-              { id: 'network', label: 'Network', color: 'green' }
-            ]
+              [
+                { id: 'cluster', label: 'Cluster', color: clusterColor },
+                { id: 'reservations', label: 'Reservations', color: reservationsColor },
+                { id: 'usage', label: 'Usage', color: usageColor },
+                { id: 'hdfs', label: 'HDFS', color: hdfsColor },
+                { id: 'spark', label: 'Spark', color: sparkColor },
+                { id: 'running', label: 'Running', color: runningColor },
+                { id: 'network', label: 'Network', color: networkColor }
+              ]
             }
             onCellFocused={(id?: string, color?: string) => {
             if (id) {
-                this.setState({
+              this.setState({
                 statusPanel: id
-                })
+              })
             }
             }}
           />
@@ -104,49 +122,49 @@ export default class ControlHeader extends React.Component<any, any> {
             (statusPanel == 'cluster') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="Health" /> Cluster</div>
-              <ClusterStatus/>
+              <ClusterStatus ref={ ref => this.clusterStatus = ref } />
             </div>
           }
           {
             (statusPanel == 'reservations') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="Clock" /> Reservations</div>
-              <ReservationsStatus/>
+              <ReservationsStatus ref={ ref => this.reservationsStatus = ref } />
             </div>
           }
           {
             (statusPanel == 'usage') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Usage</div>
-              <ClusterUsageStatus/>
+              <ClusterUsageStatus ref={ ref => this.clusterUsageStatus = ref } />
             </div>
           }
           {
             (statusPanel == 'hdfs') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="OfflineStorageSolid" /> HDFS</div>
-              <HDFStatus/>
+              <HDFStatus ref={ ref => this.hdfsStatus = ref } />
             </div>
           }
           {
             (statusPanel == 'spark') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="LightningBolt" /> Spark</div>
-              <SparkStatus/>
+              <SparkStatus ref={ ref => this.sparkStatus = ref } />
             </div>
           }
           {
             (statusPanel == 'running') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="Running" /> Running</div>
-              <RunningStatus/>
+              <RunningStatus ref={ ref => this.runningStatus = ref } />
             </div>
           }
           {
             (statusPanel == 'network') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="NetworkTower" /> Network</div>
-              <NetworkStatus/>
+              <NetworkStatus ref={ ref => this.networkStatus = ref } />
             </div>
           }
           </div>
@@ -155,11 +173,49 @@ export default class ControlHeader extends React.Component<any, any> {
     )
   }
 
+  public componentDidMount() {
+    this.interval = setInterval( _ => {
+      this.tick()
+    }, 1000)
+  }
+
   public componentWillReceiveProps(nextProps) {
-    const { config, runningParagraphs } = nextProps
+    const { config, runningParagraphs, webSocketMessageReceived } = nextProps
     if (config && ! isEqual(config, this.state.config)) {
       this.setState({
         config: config
+      })
+    }
+    if (runningParagraphs) {
+      this.setState({
+        runningParagraphs: runningParagraphs
+      })
+    }
+    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
+      var paragraph = webSocketMessageReceived.data.paragraph  
+    }
+  }
+
+  private tick() {
+    this.updateRunning()
+  }
+  
+  private updateRunning() {
+    var paragraphs = NotebookStore.state().runningParagraphs
+    if (this.runningStatus) {
+      this.runningStatus.setState({
+        runningParagraphs: paragraphs
+      })
+    }
+    if (paragraphs.size == 0) {
+      this.setState({
+        runningColor: Colors.WHITE
+      })
+    } 
+    else if (paragraphs.size > 0) {
+      var col = this.state.runningColor
+      this.setState({
+        runningColor: (col == Colors.WHITE) ? Colors.BLUE : Colors.WHITE
       })
     }
   }
