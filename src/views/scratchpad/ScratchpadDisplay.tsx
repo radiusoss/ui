@@ -100,7 +100,7 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
         this.notebookApi.saveInterpreterBindings(this.state.note.id, ids)
         toastr.info('Interpreters', 'Interpreters Bindings to current note is requested - Try again...')
       } else {
-        toastr.warn('Interpreters', 'All interpreters are already binded to current note - Try to restart interpreters.')
+        toastr.warning('Interpreters', 'All interpreters are already binded to current note - Try to restart interpreters.')
       }
     }
   }

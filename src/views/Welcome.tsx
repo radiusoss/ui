@@ -16,7 +16,8 @@ import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
-Toastr+Panel on Paragraph Error
+TODO(ECH) Toastr+Panel on Paragraph Error
+TODO(ECH) AWS only running
 TODO(ECH) KUBER_STATUS
 TODO(ECH) Scratchapd Sidebar: Editor + Variables List + Number of Spark Executors
 TODO(ECH) Commit Notebook

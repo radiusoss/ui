@@ -49,12 +49,11 @@ export const runningParagraphsReducer = (state: Map<string, any> = initialState.
       if (action.message.op == 'PARAGRAPH') {
         var ps = state
         var p = action.message.data.paragraph
-        if (p.status == ParagraphStatus.FINISHED) {
-          ps.delete(p.id)
-        } 
-        else if (isParagraphRunning(p)) {
+        if (isParagraphRunning(p)) {
           ps.delete(p.id)
           ps.set(p.id, p)
+        } else {
+          ps.delete(p.id)
         }
         return ps
       }
