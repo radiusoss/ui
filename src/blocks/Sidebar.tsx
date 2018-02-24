@@ -49,15 +49,18 @@ export default class Sidebar extends React.Component<any, any> {
                 <li className={this.activeRoute("/dla/explorer/note")}>
                   <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><FabricIcon name="ReadingMode"/> Notes</a>
                   <ul className="nav-dropdown-items" style={{overflowX: 'hidden'}}>
-                  {
-                    this.state.notes.map(n => {
-                      if (!n.name.startsWith('_')) return <li className="nav-item" key={n.id}>
-                        <NavLink to={'/dla/explorer/note/workbench/' + n.id} className="nav-link" 
-                          activeClassName="active" onClick={(e) => {e.preventDefault(); this.notebookApi.showNoteLayout(n.id, 'workbench')}} 
-                          style={{whiteSpace: 'nowrap'}}><FabricIcon name=""/> {n.name}</NavLink>
-                      </li>
-                    })
-                  }
+                    <li className="nav-item">
+                      <NavLink to={'/dla/explorer/notes/list'} className="nav-link" activeClassName="active"><FabricIcon name="ViewList"/> Notes List</NavLink>
+                   </li>
+                    {
+                      this.state.notes.map(n => {
+                        if (!n.name.startsWith('_')) return <li className="nav-item" key={n.id}>
+                          <NavLink to={'/dla/explorer/note/workbench/' + n.id} className="nav-link" 
+                            activeClassName="active" onClick={(e) => {e.preventDefault(); this.notebookApi.showNoteLayout(n.id, 'workbench')}} 
+                            style={{whiteSpace: 'nowrap'}}><FabricIcon name=""/> {n.name}</NavLink>
+                        </li>
+                      })
+                    }
                   </ul>
                 </li>
                 <li className="nav-item">
