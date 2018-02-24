@@ -25,7 +25,7 @@ export default class Status extends React.Component<any, any> {
             <ClusterStatus />
           </PivotItem>
           <PivotItem linkText='Usage' itemIcon='TFVCLogo'>
-            <div className="ms-font-xxl">Cluster Usage</div>
+            <div className="ms-font-xxl">Usage</div>
             <ClusterUsageStatus />
           </PivotItem>
           <PivotItem linkText='Reservations' itemIcon='Clock'>

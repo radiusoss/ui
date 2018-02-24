@@ -34,8 +34,9 @@ export const runningParagraphsReducer = (state: Map<string, any> = initialState.
   switch (action.type) {
     case 'WS_MESSAGE_SENT':
       if (action.message.op == 'RUN_ALL_PARAGRAPHS_SPITFIRE') {
-        action.message.data.paragraphs.map(p => state.set(p.id, p))
-        return state
+        var ps = state
+        action.message.data.paragraphs.map(p => ps.set(p.id, p))
+        return ps
       }
       if (action.message.op == 'RUN_PARAGRAPH') {
         var ps = state
