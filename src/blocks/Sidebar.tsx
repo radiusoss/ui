@@ -40,7 +40,7 @@ export default class Sidebar extends React.Component<any, any> {
               <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}><i className="ms-Icon ms-Icon--BarChart4"></i> Explorer </a>
              <ul className="nav-dropdown-items">
 */}
-            <li className="nav-item">
+          <li className={this.activeRoute("/dla/home")}>
               <NavLink to={'/dla/home'} className="nav-link" activeClassName="active"><FabricIcon name="Home"/> Home</NavLink>
             </li>
             <li className={this.activeRoute("/dla/explorer")}>
