@@ -256,25 +256,11 @@ export default class ControlHeader extends React.Component<any, any> {
     this.leftItems = [
       {
         key: 'home',
-        name: 'Home',
+        name: '',
         icon: 'Home',
-        title: 'Home',
+        title: 'Home Page',
         onClick: () => history.push(`/dla/home`)
       },
-      {
-        key: 'explorer',
-        name: 'Explorer',
-        icon: 'ReadingMode',
-        items: this.state.notes
-      },
-/*
-      {
-        key: 'flows',
-        name: 'Flows',
-        icon: 'Flow',
-        items: this.state.flows
-      },
-*/
       {
         key: 'kuber',
         name: 'Kuber',
@@ -341,6 +327,20 @@ export default class ControlHeader extends React.Component<any, any> {
 */
         ]
       },
+      {
+        key: 'explorer',
+        name: 'Explorer',
+        icon: '',
+        items: this.state.notes
+      },
+/*
+      {
+        key: 'flows',
+        name: 'Flows',
+        icon: 'Flow',
+        items: this.state.flows
+      },
+*/
       {
         key: 'Scratchpad',
         icon: 'NoteForward',
