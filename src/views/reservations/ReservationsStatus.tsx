@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ClusterReservations extends React.Component<any, any> {
+export default class ReservationsStatus extends React.Component<any, any> {
 
 public render() {
     return (

@@ -1,7 +1,10 @@
 import * as React from 'react'
 import GraphView from 'react-digraph'
-import FlowShapes from './../_shapes/FlowShapes'
-import { NODE_ID, EMPTY_TYPE, STANDARD_TYPE, STANDARD_CHILD_SUBTYPE, EMPTY_EDGE_TYPE, STANDARD_EDGE_TYPE } from './../_shapes/FlowShapes'
+import FlowShapes from './../util/FlowShapes'
+import {
+  NODE_ID, EMPTY_TYPE, STANDARD_TYPE, STANDARD_CHILD_SUBTYPE, 
+  EMPTY_EDGE_TYPE, STANDARD_EDGE_TYPE }
+from './../util/FlowShapes'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'

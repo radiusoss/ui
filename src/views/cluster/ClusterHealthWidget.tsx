@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default class ClusterHealthWidget extends React.Component<any, any> {
+export default class ClusterHealthStatusWidget extends React.Component<any, any> {
 
   public render() {
     return (

@@ -10,7 +10,7 @@ export type IAside2State = {
 const MAX_LENGTH = 20
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class AsideChat extends React.Component<any, IAside2State> {
+export default class AsideScratchpad extends React.Component<any, IAside2State> {
 
   state = {
     wsMessages: new Array()

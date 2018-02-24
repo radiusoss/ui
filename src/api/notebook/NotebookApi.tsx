@@ -1,6 +1,7 @@
 import * as React from 'react'
 import history from './../../history/History'
 import { toastr } from 'react-redux-toastr'
+import { toastrSuccessOptions } from './../../views/util/Utils'
 import { connect } from 'react-redux'
 import { NotebookStore } from './../../store/NotebookStore'
 import { ISpitfireApi, SpitfireResponse } from './../spitfire/SpitfireApi'
@@ -230,17 +231,10 @@ export default class NotebookApi extends React.Component<any, any> implements IN
         console.log('Requesting restart for Interpreter: ' + name + '(id: ' + id + ')')
         var result = this.restartInterpreter(id).then(result => {
           console.log('Restart Interpreter result', name, result)
-          const options = {
-            id: id,
-//            attention: true,
-            timeOut: 20000,
-            onOk: () => console.log('OK: clicked'),
-            onCancel: () => console.log('CANCEL: clicked')
-          }
           if (result.success == true) {
-            toastr.success('Restart', 'Interpreters are restarted.', options)
+            toastr.success('Restart', 'Interpreters are restarted.', toastrSuccessOptions)
           } else {
-            toastr.error('Restart', 'Interpreters failed to restart.', options)
+            toastr.error('Restart', 'Interpreters failed to restart.', toastrSuccessOptions)
           }
         })
       }

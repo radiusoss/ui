@@ -19,7 +19,7 @@ export type IClusterState = {
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class ClusterUsage extends React.Component<any, any> {
+export default class ClusterUsageStatus extends React.Component<any, any> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
   private k8sApi: KuberApi

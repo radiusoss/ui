@@ -2,7 +2,6 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import { toastr } from 'react-redux-toastr'
 import JSONTree from 'react-json-tree'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 

@@ -20,12 +20,12 @@ import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
 import { SwatchColorPicker } from 'office-ui-fabric-react/lib/SwatchColorPicker'
 import GoogleProfileWidget from './../profile/GoogleProfileWidget'
 import ClusterCapacity from './../cluster/ClusterCapacity'
-import ClusterUsage from './../cluster/ClusterUsage'
+import ClusterUsageStatus from './../cluster/ClusterUsageStatus'
 import ClusterStatus from './../cluster/ClusterStatus'
-import ClusterReservations from './../cluster/ClusterReservations'
+import ReservationsStatus from './../reservations/ReservationsStatus'
 import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
-import JobsStatus from './../jobs/JobsStatus'
+import RunningStatus from './../run/RunningStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
 import NetworkStatus from './../network/NetworkStatus'
 import * as stylesImport from './../_styles/Styles.scss'
@@ -69,13 +69,11 @@ export default class ControlHeader extends React.Component<any, any> {
             cellShape={ 'circle' }
             colorCells={
             [
-              { id: 'cluster-capacity', label: 'Cluster Capacity', color: 'green' },
-              { id: 'cluster-usage', label: 'Cluster Usage', color: 'green' },
-              { id: 'cluster-status', label: 'Cluster Status', color: 'green' },
+              { id: 'cluster', label: 'Cluster', color: 'green' },
+              { id: 'usage', label: 'Usage', color: 'red' },
               { id: 'hdfs', label: 'HDFS', color: 'green' },
-              { id: 'interpreters', label: 'Interpreters', color: 'red' },
               { id: 'spark', label: 'Spark', color: 'yellow' },
-              { id: 'jobs', label: 'Jobs', color: 'blue' },
+              { id: 'running', label: 'Running', color: 'blue' },
               { id: 'network', label: 'Network', color: 'green' },
               { id: 'reservations', label: 'Reservations', color: 'yellow' }
             ]
@@ -102,59 +100,54 @@ export default class ControlHeader extends React.Component<any, any> {
             <GoogleProfileWidget/>
           </div>
           }
-          {(statusPanel == 'cluster-capacity') &&
-          <div>
-            <div className="ms-font-su"><FabricIcon name="CircleHalfFull" /> Cluster Capacity</div>
-            <ClusterCapacity/>
-          </div>
-          }
-          {(statusPanel == 'cluster-usage') &&
-          <div>
-            <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Cluster Usage</div>
-            <ClusterUsage/>
-          </div>
-          }
-          {(statusPanel == 'cluster-status') &&
-          <div>
-              <div className="ms-font-su"><FabricIcon name="Health" /> Cluster Status</div>
+          {
+            (statusPanel == 'cluster') &&
+            <div>
+              <div className="ms-font-su"><FabricIcon name="Health" /> Cluster</div>
               <ClusterStatus/>
-          </div>
+            </div>
           }
-          {(statusPanel == 'reservations') &&
-          <div>
-            <div className="ms-font-su"><FabricIcon name="Clock" /> Reservations</div>
-            <ClusterReservations/>
-          </div>
+          {
+            (statusPanel == 'usage') &&
+            <div>
+              <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Usage</div>
+              <ClusterUsageStatus/>
+            </div>
           }
-          {(statusPanel == 'hdfs') &&
-          <div>
-            <div className="ms-font-su"><FabricIcon name="OfflineStorageSolid" /> HDFS</div>
-            <HDFStatus/>
-          </div>
+          {
+            (statusPanel == 'hdfs') &&
+            <div>
+              <div className="ms-font-su"><FabricIcon name="OfflineStorageSolid" /> HDFS</div>
+              <HDFStatus/>
+            </div>
           }
-          {(statusPanel == 'interpreters') &&
-          <div>
-            <div className="ms-font-su"><FabricIcon name="Light" /> Interpreters</div>
-            <SpitfireInterpretersStatus/>
-          </div>
+          {
+            (statusPanel == 'spark') &&
+            <div>
+              <div className="ms-font-su"><FabricIcon name="LightningBolt" /> Spark</div>
+              <SparkStatus/>
+            </div>
           }
-          {(statusPanel == 'spark') &&
-          <div>
-            <div className="ms-font-su"><FabricIcon name="LightningBolt" /> Spark</div>
-            <SparkStatus/>
-          </div>
+          {
+            (statusPanel == 'running') &&
+            <div>
+              <div className="ms-font-su"><FabricIcon name="Running" /> Running</div>
+              <RunningStatus/>
+            </div>
           }
-          {(statusPanel == 'jobs') &&
-          <div>
-            <div className="ms-font-su"><FabricIcon name="Clock" /> Jobs</div>
-            <JobsStatus/>
-          </div>
+          {
+            (statusPanel == 'reservations') &&
+            <div>
+              <div className="ms-font-su"><FabricIcon name="Clock" /> Reservations</div>
+              <ReservationsStatus/>
+            </div>
           }
-          {(statusPanel == 'network') &&
-          <div>
-            <div className="ms-font-su"><FabricIcon name="NetworkTower" /> Network</div>
-            <NetworkStatus/>
-          </div>
+          {
+            (statusPanel == 'network') &&
+            <div>
+              <div className="ms-font-su"><FabricIcon name="NetworkTower" /> Network</div>
+              <NetworkStatus/>
+            </div>
           }
           </div>
         </Panel>

@@ -5,7 +5,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import ScratchpadDisplay from './../scratchpad/ScratchpadDisplay'
 import ClusterHealthWidget from './../cluster/ClusterHealthWidget'
-import ClusterReservations from './../cluster/ClusterReservations'
+import ReservationsStatus from './../reservations/ReservationsStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
@@ -68,7 +68,7 @@ export default class Home extends React.Component<any, any> {
           <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
             <Icon iconName='Clock' className='ms-Icon25' />
             <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/reservations")}}>Reservations</a></span>
-            <ClusterReservations/>
+            <ReservationsStatus/>
           </div>
 
         </div>

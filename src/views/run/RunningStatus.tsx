@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class JobsStatus extends React.Component<any, any> {
+export default class RunningStatus extends React.Component<any, any> {
   interval: NodeJS.Timer
 
   state = {

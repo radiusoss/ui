@@ -48,7 +48,7 @@ export default class SpitfireInterpretersConfig extends React.Component<any, any
           {out}
         </div>
         <hr/>
-        <div className="ms-font-xl">Complete Definition</div>
+        <div className="ms-font-xxl">Complete Definition</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">

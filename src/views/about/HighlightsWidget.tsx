@@ -194,7 +194,13 @@ export default class HighlightsWidget extends React.Component<any, any> {
                 </a>
               </li>
               <li className="text-center">
-                <a href='https://cloud.google.com/' target="_blank">
+                <a href='https://developers.google.com/apis-explorer' target="_blank">
+                  <img src={ 'img/google/google-icon.svg' } alt='' />
+                  <span>Google APIs</span>
+                </a>
+              </li>
+              <li className="text-center">
+                <a href='https://cloud.google.com' target="_blank">
                   <img src={ 'img/google/google-cloud.svg' } alt='' />
                   <span>Google Cloud</span>
                 </a>

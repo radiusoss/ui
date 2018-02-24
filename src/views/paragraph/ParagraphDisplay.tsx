@@ -7,7 +7,7 @@ import HtmlDisplay from './../display/HtmlDisplay'
 import ReactjsDisplay from './../display/ReactjsDisplay'
 import { toastr } from 'react-redux-toastr'
 import InlineEditor from './../editor/InlineEditor'
-import { ParagraphStatus, isParagraphRunning, getExecutionTime, getElapsedTime } from './ParagraphUtil'
+import { ParagraphStatus, isParagraphRunning, getExecutionMessage, getElapsedTime } from './ParagraphUtil'
 import ImageDisplay from './../display/ImageDisplay'
 import MathjaxDisplay from './../display/MathjaxDisplay'
 import TableDisplay from './../display/TableDisplay'
@@ -97,7 +97,7 @@ export default class ParagraphDisplay extends React.Component<any, any> {
       }
     </div>
     if (paragraph.status == ParagraphStatus.ERROR) {
-      console.log("Paragraph Error", paragraph)
+      console.log("Paragraph Error.", this.state.paragraph, paragraph)
       var errorMessage = paragraph.errorMessage
       var detailedErrorMessage = "No Detail Available for the Returned Message."
       if (paragraph.results && paragraph.results.msg && paragraph.results.msg.length > 0) {
@@ -112,13 +112,7 @@ export default class ParagraphDisplay extends React.Component<any, any> {
         }
       }
       return <div>
-        {paragraphHeader}
-        <div>
-          <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
-        </div>
-        <div>
-          <CommandButton iconProps={ { iconName: 'BackToWindow' } } onClick={ (e => this.bindNoteToAllInterpreters(e))} >Bind Interpreters</CommandButton>
-        </div>
+        { paragraphHeader }
         <MessageBar messageBarType={ MessageBarType.severeWarning }>
           <div style = {{maxHeight: "350px", overflowY: "auto" }}>
             <pre>
@@ -145,24 +139,34 @@ export default class ParagraphDisplay extends React.Component<any, any> {
             </div>
           }
         </MessageBar>
+        <div>
+          <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
+        </div>
+        <div>
+          <CommandButton iconProps={ { iconName: 'BackToWindow' } } onClick={ (e => this.bindNoteToAllInterpreters(e))} >Bind Interpreters</CommandButton>
+        </div>
+        { this.getFooter(paragraph) }
       </div>
     }
     var results = paragraph.results
     if (!results) {
       if (paragraph.status == ParagraphStatus.FINISHED) {
         return <div>
-          {paragraphHeader}
+          { paragraphHeader }
+          { this.getFooter(paragraph) }
         </div>
       }
       if (paragraph.status == ParagraphStatus.READY) {
         return <div>
-          {paragraphHeader}
+          { paragraphHeader }
+          { this.getFooter(paragraph) }
         </div>
       }
       else {
         return <div style={{minHeight: 70, paddingLeft: '10px'}}>
-          {paragraphHeader}
+          { paragraphHeader }
           <Spinner size={50} />
+          { this.getFooter(paragraph) }
         </div>
       }
     }
@@ -178,12 +182,7 @@ export default class ParagraphDisplay extends React.Component<any, any> {
 
     rendered.push(
       <div className="ms-fontColor-neutralSecondary" style={{ fontSize: "10px"}} key={paragraph.id + '-took'}>
-        {
-          (isParagraphRunning(paragraph)) && getElapsedTime(paragraph)
-        }
-        {
-          (!isParagraphRunning(paragraph)) && getExecutionTime(paragraph)
-        }
+        { this.getFooter(paragraph) }
       </div>
     )
 
@@ -405,6 +404,14 @@ export default class ParagraphDisplay extends React.Component<any, any> {
     e.stopPropagation()
     e.preventDefault()
     this.notebookApi.getInterpreterBindings(this.state.note.id)
+  }
+
+  private getFooter(paragraph: any) {
+    if (isParagraphRunning(paragraph)) {
+      return getElapsedTime(paragraph)
+    } else {
+      return getExecutionMessage(paragraph)
+    }
   }
 
 }

@@ -9,6 +9,7 @@ import * as isEqual from 'lodash.isequal'
 import { toastr } from 'react-redux-toastr'
 import { NotebookStore } from './../../store/NotebookStore'
 import IndicatorHeader from './IndicatorHeader'
+import { stripString } from './../../util/Utils'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import FabricIcon from '../../components/FabricIcon'
 import history from './../../history/History'
@@ -196,12 +197,6 @@ export default class ControlHeader extends React.Component<any, any> {
 
   private asNotes(notes) {
     var ns = []
-    ns.push({
-      key: 'new-note',
-      name: 'New note...',
-      icon: 'QuickNote',
-      onClick: () => this.setState({ showNewNotePanel: true })
-    })
     notes.map(n => {
       var id = n.id
       if (n.name != '_conf') {
@@ -212,6 +207,26 @@ export default class ControlHeader extends React.Component<any, any> {
         }
         ns.push(note)
       }
+    })
+    ns.push({
+      key: 'new-note',
+      name: 'New note...',
+      icon: 'QuickNote',
+      onClick: () => this.setState({ showNewNotePanel: true })
+    })
+    ns.push({
+      key: 'list',
+      name: 'Notes List',
+      icon: 'ViewList',
+      title: 'Notes List View',
+      onClick: () => history.push(`/dla/explorer/notes/list`)
+    })
+    ns.push({
+      key: 'history',
+      name: 'History',
+      icon: 'GitGraph',
+      title: 'History',
+      onClick: () => history.push(`/dla/explorer/history`)
     })
     return ns
   }
@@ -247,8 +262,8 @@ export default class ControlHeader extends React.Component<any, any> {
         onClick: () => history.push(`/dla/home`)
       },
       {
-        key: 'notes',
-        name: 'Notes',
+        key: 'explorer',
+        name: 'Explorer',
         icon: 'ReadingMode',
         items: this.state.notes
       },
@@ -327,37 +342,6 @@ export default class ControlHeader extends React.Component<any, any> {
         ]
       },
       {
-        key: 'explorer',
-        name: 'Explorer',
-//        icon: 'BarChart4',
-        title: 'Explorer',
-        items: [
-/*
-          {
-            key: 'notebook-cover',
-            name: 'Notebook Cover',
-            icon: 'Tiles',
-            title: 'Notebook Cover View',
-            onClick: () => history.push(`/dla/explorer/notes/cover`)
-          },
-*/
-          {
-            key: 'list',
-            name: 'Notes List',
-            icon: 'ViewList',
-            title: 'Notes List View',
-            onClick: () => history.push(`/dla/explorer/notes/list`)
-          },
-          {
-            key: 'history',
-            name: 'History',
-            icon: 'GitGraph',
-            title: 'History',
-            onClick: () => history.push(`/dla/explorer/history`)
-          }
-        ]
-      },
-      {
         key: 'Scratchpad',
         icon: 'NoteForward',
         title: 'Scratchpad',
@@ -404,9 +388,9 @@ export default class ControlHeader extends React.Component<any, any> {
       if (note.name != this.state.noteScratchpadId) {
         this.runIndicator = {
           key: 'run-indicator',
-          name: note.name,
+          name: stripString(note.name, 8),
           icon: 'Play',
-          title: 'Run the note [SHIFT+Enter]',
+          title: 'Run [SHIFT+Enter] ' + note.name,
           onClick: () => this.runNote()
           }
       }

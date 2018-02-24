@@ -28,29 +28,32 @@
  * Latest TypeScript version: https://github.com/daviddoran/typescript-reconnecting-websocket/
  * - David Doran
  */
-class ReconnectingWebSocket {
+export default class ReconnectingWebSocket {
+
     //These can be altered by calling code
-    public debug:boolean = false;
+    public debug: boolean = false
 
     //Time to wait before attempting reconnect (after close)
-    public reconnectInterval:number = 1000;
+    public reconnectInterval: number = 1000
+
     //Time to wait for WebSocket to open (before aborting and retrying)
-    public timeoutInterval:number = 2000;
+    public timeoutInterval: number = 2000
 
     //Should only be used to read WebSocket readyState
-    public readyState:number;
+    public readyState: number
 
     //Whether WebSocket was forced to close by this client
-    private forcedClose:boolean = false;
+    private forcedClose: boolean = false
+
     //Whether WebSocket opening timed out
-    private timedOut:boolean = false;
+    private timedOut: boolean = false
 
     //List of WebSocket sub-protocols
-    private protocols:string[] = [];
+    private protocols: string[] = []
 
     //The underlying WebSocket
-    private ws:WebSocket;
-    private url:string;
+    private ws: WebSocket
+    private url: string
 
     /**
      * Setting this to true is the equivalent of setting all instances of ReconnectingWebSocket.debug to true.
@@ -58,20 +61,21 @@ class ReconnectingWebSocket {
     public static debugAll = false;
 
     //Set up the default 'noop' event handlers
-    public onopen:(ev:Event) => void = function (event:Event) {};
-    public onclose:(ev:CloseEvent) => void = function (event:CloseEvent) {};
-    public onconnecting:() => void = function () {};
-    public onmessage:(ev:MessageEvent) => void = function (event:MessageEvent) {};
-    public onerror:(ev:Event) => void = function (event:ErrorEvent) {};
+    public onopen:(ev:Event) => void = function (event:Event) {}
+    public onclose:(ev:CloseEvent) => void = function (event:CloseEvent) {}
+    public onconnecting:() => void = function () {}
+    public onmessage:(ev:MessageEvent) => void = function (event:MessageEvent) {}
+    public onerror:(ev:Event) => void = function (event:ErrorEvent) {}
 
     constructor(url:string, protocols:string[] = []) {
-        this.url = url;
-        this.protocols = protocols;
-        this.readyState = WebSocket.CONNECTING;
-        this.connect(false);
+        this.url = url
+        this.protocols = protocols
+        this.readyState = WebSocket.CONNECTING
+        this.connect(false)
     }
 
     public connect(reconnectAttempt:boolean) {
+
         this.ws = new WebSocket(this.url, this.protocols);
 
         this.onconnecting();
@@ -162,5 +166,3 @@ class ReconnectingWebSocket {
         }
     }
 }
-
-export = ReconnectingWebSocket;

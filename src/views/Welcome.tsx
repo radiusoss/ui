@@ -16,16 +16,21 @@ import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
-TODO(ECH) Notes List in Sidebar
-TODO(ECH) Commit
-TODO(ECH) Network Status
-TODO(ECH) HDFS Data Nodes
-TODO(ECH) Reservations Jaugue + Action if no Reservation
-TODO(ECH) Spark: Variables + Number of Spark Executors
-TODO(ECH) Scratchapd Overlay: Variables List + Number of Spark Executors
-TODO(ECH) NoteWorkbench Clone Note
-TODO(ECH) Fix Spark Cold Start: Timeout + First Run after Node Restart
+TODO(ECH) Notes List + History in Sidebar
+TODO(ECH) Move clean paragraph + up/down to sidebar
+TODO(ECH) Toastr on Paragraph Error
+TODO(ECH) KUBER_STATUS
+TODO(ECH) Commit Notebook
+TODO(ECH) NetworkStatus
+TODO(ECH) HDFSStatus Data Nodes
+TODO(ECH) ReservationsStatus: Jaugue + Action if no Reservation
+TODO(ECH) SparkStatus: Variables + Number of Spark Executors
+TODO(ECH) Scratchapd Sidebar: Editor + Variables List + Number of Spark Executors
+TODO(ECH) Clone Note
+TODO(ECH) Microsoft Auth -> Contacts + Screenshot to OneNote
+TODO(ECH) Spark Cold Start: Timeout to 1 minute + First Run after Node Restart
 TODO(ECH) Per-User Interpreter Settings
+TODO(ECH) Reconnecting WebSocket
 */
 const DEFAULT_PROFILE_PHOTO = '/img/datalayer/datalayer-square_white.png'
 // const DEFAULT_PROFILE_PHOTO = '/img/datalayer/explorer_white.svg'

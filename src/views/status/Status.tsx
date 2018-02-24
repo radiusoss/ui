@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
-import ClusterUsage from './../cluster/ClusterUsage'
-import ClusterReservations from './../cluster/ClusterReservations'
-import JobsStatus from './../jobs/JobsStatus'
+import ClusterUsageStatus from './../cluster/ClusterUsageStatus'
+import ReservationsStatus from './../reservations/ReservationsStatus'
+import RunningStatus from './../run/RunningStatus'
 import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
 import NetworkStatus from './../network/NetworkStatus'
 import ClusterStatus from './../cluster/ClusterStatus'
 import AwsStatus from './../aws/AwsStatus'
-import Apps from './../apps/Apps'
+import Apps from './../apps/AppsStatus'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
@@ -26,11 +26,11 @@ export default class Status extends React.Component<any, any> {
           </PivotItem>
           <PivotItem linkText='Usage' itemIcon='TFVCLogo'>
             <div className="ms-font-xxl">Cluster Usage</div>
-            <ClusterUsage />
+            <ClusterUsageStatus />
           </PivotItem>
           <PivotItem linkText='Reservations' itemIcon='Clock'>
-            <div className="ms-font-xxl">Upcoming Cluster Reservations</div>
-            <ClusterReservations />
+            <div className="ms-font-xxl">Cluster Reservations</div>
+            <ReservationsStatus />
           </PivotItem>
           <PivotItem linkText='Amazon AWS' itemIcon='Cloud'>
             <AwsStatus />
@@ -47,9 +47,9 @@ export default class Status extends React.Component<any, any> {
             <div className="ms-font-xxl">Spark</div>
             <SparkStatus />
           </PivotItem>
-          <PivotItem linkText='Jobs' itemIcon='Clock'>
-            <div className="ms-font-xxl">Jobs</div>
-            <JobsStatus />
+          <PivotItem linkText='Running' itemIcon='Running'>
+            <div className="ms-font-xxl">Running</div>
+            <RunningStatus />
           </PivotItem>
           <PivotItem linkText='Network' itemIcon='NetworkTower'>
             <div className="ms-font-xxl">Network Status</div>
@@ -58,7 +58,7 @@ export default class Status extends React.Component<any, any> {
 {/*
           <PivotItem linkText='Apps' itemIcon='MapPin'>
             <div className="ms-font-xxl">Applications Status</div>
-            <Apps />
+            <AppsStatus />
           </PivotItem>
 */}
         </Pivot>
