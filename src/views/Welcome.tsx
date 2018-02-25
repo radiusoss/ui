@@ -16,15 +16,14 @@ import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
+TODO(ECH) Reconnecting WebSocket
 TODO(ECH) KUBER_STATUS
-TODO(ECH) AWSStatus: Show only RUNNING
-TODO(ECH) Scratchapd Sidebar: Editor + Variables List + Number of Spark Executors
+TODO(ECH) Scratchapd Sidebar (Editor + Variables List + Number of Spark Executors)
 TODO(ECH) Commit Notebook
 TODO(ECH) Clone Note
 TODO(ECH) Microsoft Auth -> Contacts + Screenshot to OneNote
 TODO(ECH) Spark Cold Start: Intepreter Start Timeout + First Run after Node Restart
 TODO(ECH) Per-User Interpreter Settings
-TODO(ECH) Reconnecting WebSocket
 */
 // const DEFAULT_PROFILE_PHOTO = '/img/datalayer/datalayer-square_white.png'
 const DEFAULT_PROFILE_PHOTO = '/img/explorer/explorer_white.svg'

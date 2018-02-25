@@ -4,6 +4,7 @@ import * as isEqual from 'lodash.isequal'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
+import ReconnectingWebSocket from './../../util/websocket/ReconnectingWebSocket'
 import { NotebookStore } from './../../store/NotebookStore'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
@@ -74,13 +75,14 @@ export interface ISpitfireApi {
 export default class SpitfireApi extends React.Component<any, any>  implements ISpitfireApi {
   private config: IConfig = emptyConfig
   private restClient: RestClient
-  private webSocketClient: WebSocket
+  private webSocketClient: ReconnectingWebSocket
   private flows = []
 
   state = {
     isGoogleAuthenticated: false,
     isMicrosoftAuthenticated: false,
-    isTwitterAuthenticated: false 
+    isTwitterAuthenticated: false,
+    webSocketHealthy: false
   }
   
   public constructor(props) {    
@@ -116,19 +118,28 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       (!this.state.isTwitterAuthenticated && isTwitterAuthenticated)
     ) {
 */
-      this.webSocketClient = new WebSocket(this.config.spitfireWs + '/spitfire/ws')
+      this.webSocketClient = new ReconnectingWebSocket(this.config.spitfireWs + '/spitfire/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
         console.log("Spitfire WebSocket has been opened.");
         toastr.success('Spitfire', 'Connected to Spitfire API.')
+        this.setState({
+          webSocketHealthy: true
+        })
       }
       this.webSocketClient.onmessage = (event: MessageEvent) => {
         var message = JSON.parse(event.data)
         console.log('Spitfire Receive << %o, %o', message.op, message)
         this.props.dispatchWsMessageReceivedAction(message)
+        this.setState({
+          webSocketHealthy: true
+        })
       }
       this.webSocketClient.onerror = (event: MessageEvent) => {
         console.log("Spitfire WebSocket Error: " + event.data)
-        toastr.warning('Issue while connecting to the server', 'Force reload your browser [' + event.data + ']')
+        toastr.warning('Issue while connecting to Spitfire', 'Check your network and/or force reload your browser.')
+        this.setState({
+          webSocketHealthy: false
+        })
       }
       this.webSocketClient.onclose = (event: CloseEvent) => {
         var code = event.code
@@ -136,6 +147,9 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
         if (code != 1001) {
           toastr.error('Spitfire Connection closed', 'The server is not reachable - Ensure it is online and your network is available, then reload your browser [' + code + ']')
         }
+        this.setState({
+          webSocketHealthy: false
+        })
       }
       setInterval( _ => {
         this.ping()

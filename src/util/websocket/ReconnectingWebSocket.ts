@@ -34,7 +34,7 @@ export default class ReconnectingWebSocket {
     public debug: boolean = false
 
     //Time to wait before attempting reconnect (after close)
-    public reconnectInterval: number = 1000
+    public reconnectInterval: number = 5000
 
     //Time to wait for WebSocket to open (before aborting and retrying)
     public timeoutInterval: number = 2000

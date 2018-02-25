@@ -73,7 +73,7 @@ export default class RunningStatus extends React.Component<any, any> {
                   iconName: 'ClearFormatting' 
                 }} 
                 onClick={ (e => this.resetRunningParagraphs(e))} >
-                Clean
+                Clear
                 </CommandButton>
             </div>
           </div>

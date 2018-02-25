@@ -8,7 +8,6 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import * as isEqual from 'lodash.isequal'
 import { toastr } from 'react-redux-toastr'
 import { NotebookStore } from './../../store/NotebookStore'
-import NotebookApi from './../../api/notebook/NotebookApi'
 import { ParagraphStatus, isParagraphRunning } from './../paragraph/ParagraphUtil'
 import FabricIcon from '../../components/FabricIcon'
 import history from './../../history/History'
@@ -31,6 +30,9 @@ import RunningStatus from './../run/RunningStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
 import { Colors } from './IndicatorUtil'
 import NetworkStatus from './../network/NetworkStatus'
+import NotebookApi from './../../api/notebook/NotebookApi'
+import SpitfireApi from './../../api/spitfire/SpitfireApi'
+import KuberApi from './../../api/kuber/KuberApi'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
@@ -40,6 +42,8 @@ const styles: any = stylesImport
 export default class ControlHeader extends React.Component<any, any> {
   private interval: NodeJS.Timer
   private notebookApi: NotebookApi
+  private spitfireApi: SpitfireApi
+  private kuberApi: KuberApi
 
   private clusterStatus: ClusterStatus
   private reservationsStatus: ReservationsStatus
@@ -54,10 +58,10 @@ export default class ControlHeader extends React.Component<any, any> {
     profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob),
     statusPanel: '',
     clusterColor: Colors.RED,
-    reservationsColor: Colors.GREEN,
-    usageColor: Colors.GREEN,
-    hdfsColor: Colors.YELLOW,
-    sparkColor: Colors.GREEN,
+    reservationsColor: Colors.RED,
+    usageColor: Colors.RED,
+    hdfsColor: Colors.RED,
+    sparkColor: Colors.RED,
     runningColor: Colors.GREEN,
     networkColor: Colors.GREEN
   }
@@ -65,6 +69,8 @@ export default class ControlHeader extends React.Component<any, any> {
   public constructor(props) {
     super(props)
     this.notebookApi = window['NotebookApi']
+    this.spitfireApi = window['SpitfireApi']
+    this.kuberApi = window['KuberApi']
   }
 
   public render() {
@@ -269,6 +275,7 @@ export default class ControlHeader extends React.Component<any, any> {
 
   private tick() {
     this.updateRunning()
+    this.updateNetwork()
   }
   
   private updateRunning() {
@@ -301,6 +308,20 @@ export default class ControlHeader extends React.Component<any, any> {
           runningColor: (col == Colors.WHITE) ? Colors.BLUE : Colors.WHITE
         })
       }
+    }
+  }
+
+  private updateNetwork() {
+    this.networkStatus.state.kuberHealthy = this.kuberApi.state.webSocketHealthy
+    this.networkStatus.state.spitfireHealth = this.spitfireApi.state.webSocketHealthy
+    if (this.spitfireApi.state.webSocketHealthy && this.kuberApi.state.webSocketHealthy) {
+      this.setState({
+        networkColor: Colors.GREEN
+      })
+    } else {
+      this.setState({
+        networkColor: Colors.RED
+      })
     }
   }
 

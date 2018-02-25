@@ -4,6 +4,7 @@ import * as isEqual from 'lodash.isequal'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
 import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
+import ReconnectingWebSocket from './../../util/websocket/ReconnectingWebSocket'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import { NotebookStore } from './../../store/NotebookStore'
@@ -47,8 +48,15 @@ export var loading = {
 export default class KuberApi extends React.Component<any, any>  implements IKuberApi {
   private config: IConfig = emptyConfig
   private restClient: RestClient
-  private webSocketClient: WebSocket
+  private webSocketClient: ReconnectingWebSocket
   
+  state = {
+    isGoogleAuthenticated: false,
+    isMicrosoftAuthenticated: false,
+    isTwitterAuthenticated: false,
+    webSocketHealthy: false
+  }
+
   public constructor(props) {
     super(props)
     window['KuberApi'] = this
@@ -62,25 +70,37 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
     const { config } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
-      this.webSocketClient = new WebSocket(this.config.kuberWs + '/kuber/api/v1/ws')
+      this.webSocketClient = new ReconnectingWebSocket(this.config.kuberWs + '/kuber/api/v1/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
         console.log("Kuber WebSocket has been opened.")
         toastr.success('Kuber', 'Connected to Kuber API.')
+        this.setState({
+          webSocketHealthy: true
+        })
       }
       this.webSocketClient.onmessage = (event: MessageEvent) => {
         var message = JSON.parse(event.data)
         console.log('Kuber Receive << %o, %o', message.op, message)
         this.props.dispatchKuberMessageReceivedAction(message)
+        this.setState({
+          webSocketHealthy: true
+        })
       }
       this.webSocketClient.onerror = (event: MessageEvent) => {
         console.log("Kuber WebSocket Error: " + event.data)
-        toastr.warning('Issue while connecting to the server', 'Force reload your browser [' + event.data + ']')
+        toastr.warning('Issue while connecting to Kuber', 'Check your network and/or force reload your browser.')
+        this.setState({
+          webSocketHealthy: false
+        })
       }
       this.webSocketClient.onclose = (event: CloseEvent) => {
         var code = event.code
-        console.log("Kuber WebSocket Closed: " + code)
+        console.log("Kuber WebSocket closed: " + code)
+        this.setState({
+          webSocketHealthy: false
+        })
         if (code != 1001) {
-          toastr.light('Kuber Interaction Finished', 'Check the result on the Kuber page.')
+          toastr.error('Kuber Connection closed', 'The server is not reachable - Ensure it is online and your network is available, then reload your browser [' + code + ']')
         }
       }
       setInterval( _ => {
