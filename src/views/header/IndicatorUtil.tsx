@@ -1,11 +1,11 @@
 export const Colors = {
   WHITE:  'white',
   BLUE:   'blue',
-  GREEN:  'green',
-  YELLOW: 'yellow',
+  GREEN:  'tealLight',
+  YELLOW: 'orangeLighter',
   RED:    'red',
   PURPLE: 'purple',
   BLACK:  'black',
-  GREY:   'grey',
+  GREY:   'neutralSecondary',
   ORANGE: 'orange'
 }

@@ -68,7 +68,13 @@ export default class RunningStatus extends React.Component<any, any> {
             (this.state.runningParagraphs.size > 0) &&  <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <hr/>
-              <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.resetRunningParagraphs(e))} >Clean</CommandButton>
+              <CommandButton 
+                iconProps={{
+                  iconName: 'ClearFormatting' 
+                }} 
+                onClick={ (e => this.resetRunningParagraphs(e))} >
+                Clean
+                </CommandButton>
             </div>
           </div>
            }
@@ -93,8 +99,8 @@ export default class RunningStatus extends React.Component<any, any> {
     } else {
       title = p.id + ' (no title)'
     }
-    return <div>
-      <div key={p.id} className={`ms-fontColor-neutralTertiary ` + statusClassNames}>
+    return <div key={p.id} >
+      <div className={`ms-fontColor-neutralTertiary ` + statusClassNames}>
         {title}
       </div>
       {

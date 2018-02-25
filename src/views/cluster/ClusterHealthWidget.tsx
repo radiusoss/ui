@@ -6,6 +6,33 @@ export default class ClusterHealthStatusWidget extends React.Component<any, any>
     return (
       <div>
 {/*
+    bg-info
+    bg-success
+    bg-warning
+    bg-danger
+*/}
+        <div className="text-uppercase mb-q mt-2">
+          <small><b>CPU Usage</b></small>
+        </div>
+        <div className="progress progress-xs">
+          <div className="progress-bar bg-info" role="progressbar" style={{ "width": "25%"}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <small className="text-muted">348 Processes. 1/4 Cores.</small>
+        <div className="text-uppercase mb-q mt-h">
+          <small><b>Memory Usage</b></small>
+        </div>
+        <div className="progress progress-xs">
+          <div className="progress-bar bg-warning" role="progressbar" style={{ "width": "70%" }} aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <small className="text-muted">11444GB/16384MB</small>
+        <div className="text-uppercase mb-q mt-h">
+          <small><b>Disk Usage</b></small>
+        </div>
+        <div className="progress progress-xs">
+            <div className="progress-bar bg-danger" role="progressbar" style={{ "width": "95%" }} aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <small className="text-muted">243GB/256GB</small>
+{/*
         <h6>Settings</h6>
         <div className="aside-options">
             <div className="clearfix mt-2">
@@ -59,33 +86,6 @@ export default class ClusterHealthStatusWidget extends React.Component<any, any>
         </div>
         <hr/>
 */}
-{/*
-    bg-info
-    bg-success
-    bg-warning
-    bg-danger
-*/}
-        <div className="text-uppercase mb-q mt-2">
-          <small><b>CPU Usage</b></small>
-        </div>
-        <div className="progress progress-xs">
-          <div className="progress-bar bg-info" role="progressbar" style={{ "width": "25%"}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <small className="text-muted">348 Processes. 1/4 Cores.</small>
-        <div className="text-uppercase mb-q mt-h">
-          <small><b>Memory Usage</b></small>
-        </div>
-        <div className="progress progress-xs">
-          <div className="progress-bar bg-warning" role="progressbar" style={{ "width": "70%" }} aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <small className="text-muted">11444GB/16384MB</small>
-        <div className="text-uppercase mb-q mt-h">
-          <small><b>Disk Usage</b></small>
-        </div>
-        <div className="progress progress-xs">
-            <div className="progress-bar bg-danger" role="progressbar" style={{ "width": "95%" }} aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <small className="text-muted">243GB/256GB</small>
     </div>
     )
   }

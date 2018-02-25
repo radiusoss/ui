@@ -20,6 +20,7 @@ import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthA
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
 import { SwatchColorPicker } from 'office-ui-fabric-react/lib/SwatchColorPicker'
 import GoogleProfileWidget from './../profile/GoogleProfileWidget'
+import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import ClusterCapacity from './../cluster/ClusterCapacity'
 import ClusterUsageStatus from './../cluster/ClusterUsageStatus'
 import ClusterStatus from './../cluster/ClusterStatus'
@@ -53,12 +54,12 @@ export default class ControlHeader extends React.Component<any, any> {
     profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob),
     statusPanel: '',
     clusterColor: Colors.RED,
-    reservationsColor: Colors.RED,
-    usageColor: Colors.RED,
-    hdfsColor: Colors.RED,
-    sparkColor: Colors.RED,
-    runningColor: Colors.WHITE,
-    networkColor: Colors.RED
+    reservationsColor: Colors.GREEN,
+    usageColor: Colors.YELLOW,
+    hdfsColor: Colors.YELLOW,
+    sparkColor: Colors.GREEN,
+    runningColor: Colors.GREY,
+    networkColor: Colors.GREEN
   }
 
   public constructor(props) {
@@ -83,6 +84,64 @@ export default class ControlHeader extends React.Component<any, any> {
           </a>
         </div>
         <div style={{ float: 'right' }}>
+          <a href="#"
+              onClick={(e) => {e.preventDefault(); this.setState({
+              statusPanel: 'cluster'
+            })}}>
+            <Icon iconName="Health" 
+              className={`${styles.dlaIndicatorIcon} ms-fontColor-${clusterColor}`}
+              />
+          </a>
+          <a href="#"
+              onClick={(e) => {e.preventDefault(); this.setState({
+                statusPanel: 'reservations'
+              })}}>
+            <Icon iconName="Clock"
+              className={`${styles.dlaIndicatorIcon} ms-fontColor-${reservationsColor}`}
+            />
+          </a>
+          <a href="#"
+            onClick={(e) => {e.preventDefault(); this.setState({
+              statusPanel: 'usage'
+            })}}>
+            <Icon iconName="TFVCLogo" 
+              className={`${styles.dlaIndicatorIcon} ms-fontColor-${usageColor}`}
+              />
+          </a>
+          <a href="#"
+            onClick={(e) => {e.preventDefault(); this.setState({
+              statusPanel: 'hdfs'
+            })}}
+          >
+            <Icon iconName="OfflineStorageSolid" 
+              className={`${styles.dlaIndicatorIcon} ms-fontColor-${hdfsColor}`}
+              />
+          </a>
+          <a href="#"
+            onClick={(e) => {e.preventDefault(); this.setState({
+              statusPanel: 'spark'
+            })}}>
+            <Icon iconName="LightningBolt" 
+              className={`${styles.dlaIndicatorIcon} ms-fontColor-${sparkColor}`}
+              />
+          </a>
+          <a href="#"
+            onClick={(e) => {e.preventDefault(); this.setState({
+              statusPanel: 'running'
+            })}}>
+            <Icon iconName="Running" 
+              className={`${styles.dlaIndicatorIcon} ms-fontColor-${runningColor}`}
+              />
+          </a>
+          <a href="#"
+            onClick={(e) => {e.preventDefault(); this.setState({
+              statusPanel: 'network'
+            })}}>
+            <Icon iconName="NetworkTower"
+              className={`${styles.dlaIndicatorIcon} ms-fontColor-${networkColor}`}
+              />
+          </a>
+{/*
           <SwatchColorPicker
             columnCount={ 9 }
             cellShape={ 'circle' }
@@ -105,7 +164,8 @@ export default class ControlHeader extends React.Component<any, any> {
             }
             }}
           />
-        </div>
+*/}
+          </div>
         <Panel
           isBlocking={ true }
           isOpen={ statusPanel != '' }

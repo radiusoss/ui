@@ -79,7 +79,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
     if (isParagraphRunning(paragraph)) {
       leftItems.push({
         key: 'cancel-indicator',
-        icon: 'CirclePauseSolid',
+        icon: 'Cancel',
         title: 'Cancel',
         onClick: () => this.cancelParagraph()
       })
@@ -181,7 +181,6 @@ export default class ParagraphEditor extends React.Component<any, any> {
                   key='move-down-indicator'
                   title='Move Paragraph Down'
                   onClick={() => this.moveParagraphDown()}
-                  ariaLabel='Emoji'
                   />
               }
               {
@@ -193,7 +192,6 @@ export default class ParagraphEditor extends React.Component<any, any> {
                   key='move-up-indicator'
                   title='Move Paragraph Up'
                   onClick={() => this.moveParagraphUp()}
-                  ariaLabel='Emoji'
                   />
               }
               {
@@ -204,7 +202,6 @@ export default class ParagraphEditor extends React.Component<any, any> {
                   key='clear'
                   title='Clear Paragraph Output'
                   onClick={() => this.clearParagraphOutput()}
-                  ariaLabel='Emoji'
                   />
               }
             </div>
