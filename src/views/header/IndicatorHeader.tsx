@@ -96,6 +96,7 @@ export default class ControlHeader extends React.Component<any, any> {
             })}}>
             <Icon iconName="Health" 
               className={`${styles.dlaIndicatorIcon} ms-fontColor-${clusterColor}`}
+              title="Cluster"
               />
           </a>
           <a href="#"
@@ -104,6 +105,7 @@ export default class ControlHeader extends React.Component<any, any> {
               })}}>
             <Icon iconName="Clock"
               className={`${styles.dlaIndicatorIcon} ms-fontColor-${reservationsColor}`}
+              title="Reservations"
             />
           </a>
           <a href="#"
@@ -112,6 +114,7 @@ export default class ControlHeader extends React.Component<any, any> {
             })}}>
             <Icon iconName="TFVCLogo" 
               className={`${styles.dlaIndicatorIcon} ms-fontColor-${usageColor}`}
+              title="Usage"
               />
           </a>
           <a href="#"
@@ -121,6 +124,7 @@ export default class ControlHeader extends React.Component<any, any> {
           >
             <Icon iconName="OfflineStorageSolid" 
               className={`${styles.dlaIndicatorIcon} ms-fontColor-${hdfsColor}`}
+              title="HDFS"
               />
           </a>
           <a href="#"
@@ -129,6 +133,7 @@ export default class ControlHeader extends React.Component<any, any> {
             })}}>
             <Icon iconName="LightningBolt" 
               className={`${styles.dlaIndicatorIcon} ms-fontColor-${sparkColor}`}
+              title="Spark"
               />
           </a>
           <a href="#"
@@ -137,6 +142,7 @@ export default class ControlHeader extends React.Component<any, any> {
             })}}>
             <Icon iconName="Running" 
               className={`${styles.dlaIndicatorIcon} ms-fontColor-${runningColor}`}
+              title="Running"
               />
           </a>
           <a href="#"
@@ -145,6 +151,7 @@ export default class ControlHeader extends React.Component<any, any> {
             })}}>
             <Icon iconName="NetworkTower"
               className={`${styles.dlaIndicatorIcon} ms-fontColor-${networkColor}`}
+              title="Network"
               />
           </a>
 {/*
@@ -282,7 +289,8 @@ export default class ControlHeader extends React.Component<any, any> {
     var paragraphs = NotebookStore.state().runningParagraphs
     if (this.runningStatus) {
       this.runningStatus.setState({
-        runningParagraphs: paragraphs
+        runningParagraphs: paragraphs,
+        timestamp: new Date().toString
       })
     }
     if (paragraphs.size == 0) {
@@ -312,8 +320,13 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   private updateNetwork() {
-    this.networkStatus.state.kuberHealthy = this.kuberApi.state.webSocketHealthy
-    this.networkStatus.state.spitfireHealth = this.spitfireApi.state.webSocketHealthy
+    if (this.networkStatus) {
+      this.networkStatus.setState({
+        kuberHealthy: this.kuberApi.state.webSocketHealthy,
+        spitfireHealthy: this.spitfireApi.state.webSocketHealthy,
+        timestamp: new Date().toString
+      })
+    }
     if (this.spitfireApi.state.webSocketHealthy && this.kuberApi.state.webSocketHealthy) {
       this.setState({
         networkColor: Colors.GREEN
