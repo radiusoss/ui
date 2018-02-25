@@ -238,7 +238,11 @@ export default class ControlHeader extends React.Component<any, any> {
             (statusPanel == 'network') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="NetworkTower" /> Network</div>
-              <NetworkStatus ref={ ref => this.networkStatus = ref } />
+              <NetworkStatus 
+                kuberHealthy={this.kuberApi.state.webSocketHealthy}
+                spitfireHealthy={this.spitfireApi.state.webSocketHealthy}
+                ref={ ref => this.networkStatus = ref } 
+                />
             </div>
           }
           </div>
@@ -289,8 +293,7 @@ export default class ControlHeader extends React.Component<any, any> {
     var paragraphs = NotebookStore.state().runningParagraphs
     if (this.runningStatus) {
       this.runningStatus.setState({
-        runningParagraphs: paragraphs,
-        timestamp: new Date().toString
+        runningParagraphs: paragraphs
       })
     }
     if (paragraphs.size == 0) {
@@ -321,6 +324,7 @@ export default class ControlHeader extends React.Component<any, any> {
 
   private updateNetwork() {
     if (this.networkStatus) {
+      console.log('---', this.kuberApi.state.webSocketHealthy, this.spitfireApi.state.webSocketHealthy)
       this.networkStatus.setState({
         kuberHealthy: this.kuberApi.state.webSocketHealthy,
         spitfireHealthy: this.spitfireApi.state.webSocketHealthy,

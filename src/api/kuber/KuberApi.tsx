@@ -100,7 +100,7 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
           webSocketHealthy: false
         })
         if (code != 1001) {
-          toastr.error('Kuber Connection closed', 'The server is not reachable - Ensure it is online and your network is available, then reload your browser [' + code + ']')
+          toastr.error('Kuber Connection closed', 'Kuber Server is not reachable - Ensure it is online and your network is available, then reload your browser [' + code + ']')
         }
       }
       setInterval( _ => {

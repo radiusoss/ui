@@ -11,8 +11,7 @@ import { ParagraphStatus, getStatusClassNames } from '../paragraph/ParagraphUtil
 export default class RunningStatus extends React.Component<any, any> {
 
   state = {
-    runningParagraphs: NotebookStore.state().runningParagraphs,
-    timestamp: ''
+    runningParagraphs: NotebookStore.state().runningParagraphs
   }
 
   public constructor(props) {
@@ -20,9 +19,9 @@ export default class RunningStatus extends React.Component<any, any> {
   }
 
   public render() {
-    const { runningParagraphs, timestamp } = this.state
+    const { runningParagraphs } = this.state
     return (
-      <div key={timestamp}>
+      <div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
