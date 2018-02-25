@@ -1,6 +1,7 @@
 import { NotebookAction } from '../actions/NotebookActions'
 import { NotebookStore } from '../store/NotebookStore'
 import { initialState } from '../state/State'
+import { toastr } from 'react-redux-toastr'
 import { ParagraphStatus, isParagraphRunning } from './../views/paragraph/ParagraphUtil'
 
 export const notebookLoginReducer = (state: {} = initialState.notebookLogin, action: NotebookAction): {} => {

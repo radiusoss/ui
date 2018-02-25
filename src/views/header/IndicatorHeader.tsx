@@ -52,13 +52,13 @@ export default class ControlHeader extends React.Component<any, any> {
     config: emptyConfig,
     profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob),
     statusPanel: '',
-    clusterColor: Colors.WHITE,
-    reservationsColor: Colors.WHITE,
-    usageColor: Colors.WHITE,
-    hdfsColor: Colors.WHITE,
-    sparkColor: Colors.WHITE,
+    clusterColor: Colors.RED,
+    reservationsColor: Colors.RED,
+    usageColor: Colors.RED,
+    hdfsColor: Colors.RED,
+    sparkColor: Colors.RED,
     runningColor: Colors.WHITE,
-    networkColor: Colors.WHITE
+    networkColor: Colors.RED
   }
 
   public constructor(props) {
@@ -193,8 +193,18 @@ export default class ControlHeader extends React.Component<any, any> {
       })
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
-      var paragraph = webSocketMessageReceived.data.paragraph  
-    }
+      var p = webSocketMessageReceived.data.paragraph 
+      if (p.status == ParagraphStatus.ERROR) {
+        var errorMessage = p.errorMessage
+        if (p.results && p.results.msg && p.results.msg.length > 0) {
+          errorMessage = p.results.msg[0].data
+        }
+        toastr.warning('Run Error', errorMessage)
+        this.setState({
+          statusPanel: 'running'
+        })
+      }
+  }
   }
 
   private tick() {

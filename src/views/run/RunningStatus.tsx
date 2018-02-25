@@ -24,6 +24,8 @@ export default class RunningStatus extends React.Component<any, any> {
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <hr/>
+              <div className="ms-font-l">RUNNING</div>
               {
                 Array.from(runningParagraphs).map(p => {
                   if (p[1] && (p[1].status == ParagraphStatus.RUNNING)) {

@@ -97,7 +97,7 @@ export default class ParagraphDisplay extends React.Component<any, any> {
       }
     </div>
     if (paragraph.status == ParagraphStatus.ERROR) {
-      console.log("Paragraph Error.", this.state.paragraph, paragraph)
+//      console.log("Paragraph Error.", this.state.paragraph, paragraph)
       var errorMessage = paragraph.errorMessage
       var detailedErrorMessage = "No Detail Available for the Returned Message."
       if (paragraph.results && paragraph.results.msg && paragraph.results.msg.length > 0) {
