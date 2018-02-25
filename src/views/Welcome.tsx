@@ -17,8 +17,8 @@ import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
 TODO(ECH) Toastr + Panel on Paragraph Error
-TODO(ECH) AWS only RUNNING
 TODO(ECH) KUBER_STATUS
+TODO(ECH) AWSStatus: Show only RUNNING
 TODO(ECH) Scratchapd Sidebar: Editor + Variables List + Number of Spark Executors
 TODO(ECH) Commit Notebook
 TODO(ECH) Clone Note

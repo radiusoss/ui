@@ -6,7 +6,7 @@ import { NotebookStore } from './../../store/NotebookStore'
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import CodeEditor from './../editor/CodeEditor'
 import { toastr } from 'react-redux-toastr'
-import { ParagraphStatus, isParagraphRunning } from './ParagraphUtil'
+import { ParagraphStatus, isParagraphRunning, getStatusClassNames } from './ParagraphUtil'
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { ProgressIndicator } from 'office-ui-fabric-react/lib/ProgressIndicator'
 import InlineEditor from './../editor/InlineEditor'
@@ -147,19 +147,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
       display = 'none'
     }
 
-    var statusClassNames = "ms-fontColor-tealLight"
-    if (paragraph.status == ParagraphStatus.ERROR) {
-      statusClassNames = "ms-fontColor-red ms-fontWeight-semibold"
-    }
-    else if (paragraph.status == ParagraphStatus.PENDING) {
-      statusClassNames = "ms-fontColor-magenta ms-fontWeight-semibold"
-    }
-    else if (paragraph.status == ParagraphStatus.ABORT) {
-      statusClassNames = "ms-fontColor-orangeLighter ms-fontWeight-semibold"
-    }
-    else if (paragraph.status == ParagraphStatus.RUNNING) {
-      statusClassNames = "ms-fontColor-blue ms-fontWeight-semibold"
-    }
+    var statusClassNames = getStatusClassNames(paragraph)
 
     return (
 

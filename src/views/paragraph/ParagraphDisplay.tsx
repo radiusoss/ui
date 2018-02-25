@@ -15,7 +15,7 @@ import TextDisplay from './../display/TextDisplay'
 import Spinner from './../../_widget/Spinner'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import * as stylesImport from './../_styles/Styles.scss'

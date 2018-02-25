@@ -47,3 +47,20 @@ export let isResultOutdated = function (paragraph) {
   }
   return false
 }
+
+export let getStatusClassNames = function(paragraph) {
+  var statusClassNames = "ms-fontColor-tealLight"
+  if (paragraph.status == ParagraphStatus.ERROR) {
+    statusClassNames = "ms-fontColor-red ms-fontWeight-semibold"
+  }
+  else if (paragraph.status == ParagraphStatus.PENDING) {
+    statusClassNames = "ms-fontColor-magenta ms-fontWeight-semibold"
+  }
+  else if (paragraph.status == ParagraphStatus.ABORT) {
+    statusClassNames = "ms-fontColor-orangeLighter ms-fontWeight-semibold"
+  }
+  else if (paragraph.status == ParagraphStatus.RUNNING) {
+    statusClassNames = "ms-fontColor-blue ms-fontWeight-semibold"
+  }
+  return statusClassNames
+}

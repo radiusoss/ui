@@ -2,9 +2,10 @@ import * as React from 'react'
 import { NotebookStore } from './../../store/NotebookStore'
 import { connect } from 'react-redux'
 import history from './../../history/History'
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
-import { ParagraphStatus } from '../paragraph/ParagraphUtil'
+import { ParagraphStatus, getStatusClassNames } from '../paragraph/ParagraphUtil'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class RunningStatus extends React.Component<any, any> {
@@ -29,7 +30,9 @@ export default class RunningStatus extends React.Component<any, any> {
               {
                 Array.from(runningParagraphs).map(p => {
                   if (p[1] && (p[1].status == ParagraphStatus.RUNNING)) {
-                    return <div className="ms-fontWeight-semibold">{this.getLink(p)}</div>
+                    return <div className="ms-fontWeight-semibold">
+                      {this.getLink(p[1])}
+                    </div>
                   }
                 })
               }
@@ -42,7 +45,7 @@ export default class RunningStatus extends React.Component<any, any> {
               {
                 Array.from(runningParagraphs).map(p => {
                   if (p[1] && (p[1].status == ParagraphStatus.ERROR)) {
-                    return this.getLink(p)
+                    return this.getLink(p[1])
                   }
                 })
               }
@@ -55,7 +58,7 @@ export default class RunningStatus extends React.Component<any, any> {
               {
                 Array.from(runningParagraphs).map(p => {
                   if (p[1] && (p[1].status == ParagraphStatus.PENDING)) {
-                    return this.getLink(p)
+                    return this.getLink(p[1])
                   }
                 })
               }
@@ -76,22 +79,40 @@ export default class RunningStatus extends React.Component<any, any> {
 
   private getLink(p) {
     // onClick={ e => this.loadWorkbench(e, p) }
-    if (p[1]) {
-      if (p[1].title && p[1].title.length > 0) {
-        return <div key={p[1].id}>
-          {p[1].title}
-        </div>
-      } else {
-        return <div key={p[1].id}>
-          {p[1].id} (no title)
-        </div>
+    var statusClassNames = getStatusClassNames(p)
+    var errorMessage = ''
+    if (p.status == ParagraphStatus.ERROR) {
+      errorMessage = p.errorMessage
+      if (p.results && p.results.msg && p.results.msg.length > 0) {
+        errorMessage = p.results.msg[0].data
       }
-    } 
+    }
+    var title = ''
+    if (p.title && p.title.length > 0) {
+      title = p.title
+    } else {
+      title = p.id + ' (no title)'
+    }
+    return <div>
+      <div key={p.id} className={`ms-fontColor-neutralTertiary ` + statusClassNames}>
+        {title}
+      </div>
+      {
+      (errorMessage.length > 0) && <MessageBar messageBarType={ MessageBarType.severeWarning }>
+        <div style = {{maxHeight: "350px", overflowY: "auto" }}>
+          <pre>
+            {errorMessage}
+          </pre>
+        </div>
+      </MessageBar>
+      }
+    </div>
   }
 
   private loadWorkbench(e, p) {
+    // We miss the note id on the paragraph object - maybe store it in the runninParagraphs Map
     e.preventDefault()
-    history.push('/dla/explorer/workbench/')
+    //history.push('/dla/explorer/workbench/...')
   }
 
   private resetRunningParagraphs(e) {
