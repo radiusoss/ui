@@ -9,6 +9,7 @@ import * as isEqual from 'lodash.isequal'
 import { toastr } from 'react-redux-toastr'
 import { NotebookStore } from './../../store/NotebookStore'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import { ParagraphStatus, isParagraphRunning } from './../paragraph/ParagraphUtil'
 import FabricIcon from '../../components/FabricIcon'
 import history from './../../history/History'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
@@ -212,11 +213,24 @@ export default class ControlHeader extends React.Component<any, any> {
         runningColor: Colors.WHITE
       })
     } 
-    else if (paragraphs.size > 0) {
+    else {
       var col = this.state.runningColor
-      this.setState({
-        runningColor: (col == Colors.WHITE) ? Colors.BLUE : Colors.WHITE
+      var hasError = false
+      Array.from(paragraphs).map(p => {
+        if (p[1] && (p[1].status == ParagraphStatus.ERROR)) {
+          hasError = true
+        }
       })
+      if (hasError) {
+        this.setState({
+          runningColor: (col == Colors.WHITE) ? Colors.RED : Colors.WHITE
+        })
+      }
+      else {
+        this.setState({
+          runningColor: (col == Colors.WHITE) ? Colors.BLUE : Colors.WHITE
+        })
+      }
     }
   }
 

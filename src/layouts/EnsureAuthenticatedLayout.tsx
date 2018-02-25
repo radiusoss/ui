@@ -85,6 +85,7 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/explorer/scratchpad" name="Note Scratchpad" component={Scratchpad}/>
           <Route path="/dla/explorer/note/cover/:noteId" name="Note Cover" component={NoteCover}/>
           <Route path="/dla/explorer/note/workbench/:noteId" name="Note Workbench" component={NoteWorkbench}/>
+          <Route path="/dla/explorer/note/workbench/:noteId/:paragraphId" name="Note Workbench" component={NoteWorkbench}/>
           <Route path="/dla/explorer/notes/list" name="Notes List" component={NotesList}/>
           <Route path="/dla/explorer/notes/cover" name="Notebook Cover" component={NotebookCover}/>
           <Route path="/dla/explorer/flow/dag/:flowId" name="Flow Dag" component={FlowDag}/>

@@ -16,14 +16,14 @@ import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
-TODO(ECH) Toastr+Panel on Paragraph Error
+TODO(ECH) Toastr + Panel on Paragraph Error
 TODO(ECH) AWS only running
 TODO(ECH) KUBER_STATUS
 TODO(ECH) Scratchapd Sidebar: Editor + Variables List + Number of Spark Executors
 TODO(ECH) Commit Notebook
 TODO(ECH) Clone Note
 TODO(ECH) Microsoft Auth -> Contacts + Screenshot to OneNote
-TODO(ECH) Spark Cold Start: Timeout to 1 minute + First Run after Node Restart
+TODO(ECH) Spark Cold Start: Intepreter Start Timeout + First Run after Node Restart
 TODO(ECH) Per-User Interpreter Settings
 TODO(ECH) Reconnecting WebSocket
 */

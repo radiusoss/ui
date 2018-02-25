@@ -16,6 +16,7 @@ import { PersonaSize, PersonaInitialsColor } from 'office-ui-fabric-react/lib/Pe
 import { TestImages, facepilePersonas, ExtraDataType } from './../../spl/ImageSpl'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import * as Scroll from 'react-scroll'
+import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
@@ -44,13 +45,17 @@ export default class NoteWorkbench extends React.Component<any, any> {
     numberOfFaces: 3,
     imagesFadeIn: true,
     extraDataType: ExtraDataType.none,
-    personaSize: PersonaSize.extraSmall
+    personaSize: PersonaSize.extraSmall,
+    paragraphAnchor: ''
   }
 
   public constructor(props) {
     super(props)
     this.paragraphEditors = new Map<string, any>()
     this.paragraphDisplays = new Map<string, any>()
+    this.setState({
+      paragraphAnchor: this.props.match.params.paragraphId
+    })
   }
 
   public render() {
@@ -128,16 +133,18 @@ export default class NoteWorkbench extends React.Component<any, any> {
                 <div className="ms-Grid" key={ note.id + '-' + p.id + '-' + index}>
                   <div className="ms-Grid-row">
                     <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
-                      <ParagraphEditor
-                        note={note}
-                        paragraph={p}
-                        index={index-1}
-                        maxIndex={maxIndex}
-                        showParagraphTitle={true}
-                        showControlBar={true}
-                        key={note.id + '-pe-' + p.id + "-" + index}
-                        focus={index==1}
-                      />
+                      <Element name={note.id + '-anchor-' + p.id} className="element">
+                        <ParagraphEditor
+                          note={note}
+                          paragraph={p}
+                          index={index-1}
+                          maxIndex={maxIndex}
+                          showParagraphTitle={true}
+                          showControlBar={true}
+                          key={note.id + '-pe-' + p.id + "-" + index}
+                          focus={index==1}
+                        />
+                      </Element>
                     </div>
                     <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ paddingLeft: '0px', margin: '0px' }}>
                       <ParagraphDisplay
@@ -216,7 +223,17 @@ export default class NoteWorkbench extends React.Component<any, any> {
           </div>
           }
           {
-            <div style={{ height: 10}} />
+            <div style={{ height: 10}}>
+              {
+                (this.state.paragraphAnchor != '') &&
+                  scroller.scrollTo(note.id + '-anchor-' + this.state.paragraphAnchor, {
+                    duration: 1500,
+                    delay: 100,
+                    smooth: true,
+                    offset: 50, // Scrolls to element + 50 pixels down the page
+                  })
+              }
+            </div>
           }
         </div>
       )
