@@ -55,10 +55,10 @@ export default class ControlHeader extends React.Component<any, any> {
     statusPanel: '',
     clusterColor: Colors.RED,
     reservationsColor: Colors.GREEN,
-    usageColor: Colors.YELLOW,
+    usageColor: Colors.GREEN,
     hdfsColor: Colors.YELLOW,
     sparkColor: Colors.GREEN,
-    runningColor: Colors.GREY,
+    runningColor: Colors.GREEN,
     networkColor: Colors.GREEN
   }
 
@@ -280,7 +280,7 @@ export default class ControlHeader extends React.Component<any, any> {
     }
     if (paragraphs.size == 0) {
       this.setState({
-        runningColor: Colors.WHITE
+        runningColor: Colors.GREEN
       })
     } 
     else {
