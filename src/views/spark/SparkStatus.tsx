@@ -16,13 +16,6 @@ export default class SparkStatus extends React.Component<any, any> {
   public render() {
     return (
       <div>
-        <div className="ms-Grid" style={{ padding: 0 }}>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
-            </div>
-          </div>
-        </div>
         <hr/>
         <div className="ms-font-l">Executors</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
@@ -40,14 +33,13 @@ export default class SparkStatus extends React.Component<any, any> {
           </div>
         </div>
         <hr/>
-        <div className="ms-font-l">Interpreter</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Spark</CommandButton>
             </div>
           </div>
         </div>
-        <hr/>
 {/*
         <div className="ms-font-l">Jobs</div>
         <div className="ms-Grid" style={{ padding: 0 }}>

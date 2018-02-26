@@ -24,7 +24,7 @@ export interface CalendarProps {
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 export default class Reservations extends React.Component<CalendarProps, any> {
   private notebookApi: NotebookApi
-  private k8sApi: KuberApi
+  private kuberApi: KuberApi
 
   public static defaultProps: Partial<CalendarProps> = {
     defaultView: 'week',
@@ -40,7 +40,7 @@ export default class Reservations extends React.Component<CalendarProps, any> {
       slots: props.slots
     }
     this.notebookApi = window['NotebookApi']
-    this.k8sApi = window['KuberApi']
+    this.kuberApi = window['KuberApi']
   }
 
   public render() {
@@ -67,7 +67,7 @@ export default class Reservations extends React.Component<CalendarProps, any> {
     )
   }
   public async componentDidMount() {
-    this.k8sApi.getSlots()
+    this.kuberApi.getSlots()
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -106,7 +106,7 @@ export default class Reservations extends React.Component<CalendarProps, any> {
     this.setState({
       slots: slots
     })
-    this.k8sApi.putSlots(slots)
+    this.kuberApi.putSlots(slots)
   }
 
   @autobind
@@ -119,7 +119,7 @@ export default class Reservations extends React.Component<CalendarProps, any> {
     this.setState({
       slots: nextEvents
     })
-    this.k8sApi.putSlots(nextEvents)
+    this.kuberApi.putSlots(nextEvents)
   }
 
 //  @autobind

@@ -3,9 +3,21 @@ import { Slider } from 'office-ui-fabric-react/lib/Slider'
 import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
+import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
+import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
 
+@connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class ClusterCapacity extends React.Component<any, any> {
+  private kuberApi: KuberApi
+
+  state = {
+    definition: null
+  }
+
+  public constructor(props) {
+    super(props)
+  }
   
   public render() {
     return (
@@ -28,6 +40,11 @@ export default class ClusterCapacity extends React.Component<any, any> {
         </div>
       </div>
     )
+  }
+
+  public componentDidMount() {
+    this.kuberApi = window['KuberApi']
+    this.kuberApi.status()
   }
 
 }

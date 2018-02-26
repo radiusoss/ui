@@ -17,10 +17,11 @@ import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
 /*
 TODO(ECH) ClusterStatus
-TODO(ECH) ClusterUsageStatus (Vega)
+TODO(ECH) ClusterUsageStatus
 TODO(ECH) ReservationsStatus (Reserve if free)
-TODO(ECH) AwsStatus (only RUNNING)
-TODO(ECH) Scratchapd Sidebar (Editor + Variables List + Number of Spark Executors)
+TODO(ECH) HDFSStatus
+TODO(ECH) SparkStatus
+TODO(ECH) Scratchpad Sidebar (Editor + Variables List + Number of Spark Executors)
 TODO(ECH) Commit Notebook
 TODO(ECH) Clone Note
 TODO(ECH) Microsoft Auth -> Contacts + Screenshot to OneNote

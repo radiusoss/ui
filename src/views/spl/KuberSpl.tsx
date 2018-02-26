@@ -31,7 +31,7 @@ export type IKuberState = {
 export default class KuberSpl extends React.Component<any, IKuberState> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
-  private k8sApi: KuberApi
+  private kuberApi: KuberApi
   private method: string
   private url: string
   private wsMessage: any
@@ -49,7 +49,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
   }
 
   public async componentDidMount() {
-    this.k8sApi = window['KuberApi']
+    this.kuberApi = window['KuberApi']
   }
 
   public render() {
@@ -182,7 +182,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                         buttonProps={{
                           onClick: (e) => {
                             this.method = 'WS'
-                            this.wsMessage = this.k8sApi.PING()
+                            this.wsMessage = this.kuberApi.KUBER_PING()
                           }
                         }}
                       >
@@ -194,7 +194,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                       buttonProps={{
                         onClick: (e) => {
                           this.method = 'WS'
-                          this.wsMessage = this.k8sApi.CREATE_CLUSTER_DEF()
+                          this.wsMessage = this.kuberApi.CREATE_CLUSTER_DEF()
                         }
                       }}
                     >
@@ -206,7 +206,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                       buttonProps={{
                         onClick: (e) => {
                           this.method = 'WS'
-                          this.wsMessage = this.k8sApi.CREATE_CLUSTER()
+                          this.wsMessage = this.kuberApi.CREATE_CLUSTER()
                         }
                       }}
                     >
@@ -218,7 +218,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                       buttonProps={{
                         onClick: (e) => {
                           this.method = 'WS'
-                          this.wsMessage = this.k8sApi.DELETE_CLUSTER()
+                          this.wsMessage = this.kuberApi.DELETE_CLUSTER()
                         }
                       }}
                     >
@@ -425,7 +425,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
   private submit(values: any): void {
     values.name = values.name_input
     if (this.method == 'WS') {
-      this.k8sApi.send(this.wsMessage)
+      this.kuberApi.send(this.wsMessage)
       return
     }
     this.restClient = this.newRestClient(this.url)

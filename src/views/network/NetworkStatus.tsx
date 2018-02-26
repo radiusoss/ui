@@ -79,7 +79,6 @@ export default class NetworkStatus extends React.Component<any, any> {
                 }}
               />
               }
-              <hr/>
             </div>
           </div>
         </div>

@@ -78,7 +78,7 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/status/cluster-usage" name="Cluster Usage" component={ClusterUsageStatus}/>
           <Route path="/dla/kuber/status/hdfs" name="HDFS Status" component={HDFSStatus}/>
           <Route path="/dla/kuber/status/reservations" name="Cluster Reservations" component={ReservationsStatus}/>
-          <Route path="/dla/kuber/status/spark-repl" name="Spark Status" component={SparkStatus}/>
+          <Route path="/dla/kuber/status/spark" name="Spark Status" component={SparkStatus}/>
           <Route path="/dla/kuber/status/interpreters" name="Spitfire Interpreters Status" component={SpitfireInterpretersStatus}/>
           <Route path="/dla/kuber/status/running" name="Running Status" component={RunningStatus}/>
           <Route path="/dla/kuber/status/network" name="Network Status" component={NetworkStatus}/>

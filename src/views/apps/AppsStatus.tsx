@@ -20,7 +20,7 @@ export type IKuberState = {
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 export default class Apps extends React.Component<any, IKuberState> {
   private config: IConfig = NotebookStore.state().config
-  private k8sApi: KuberApi
+  private kuberApi: KuberApi
   private method: string
 
   state = {
@@ -48,8 +48,8 @@ export default class Apps extends React.Component<any, IKuberState> {
   }
 
   public componentDidMount() {
-    this.k8sApi = window['KuberApi']
-    this.k8sApi.getApps().then(json => { this.setState({apps: json})})
+    this.kuberApi = window['KuberApi']
+    this.kuberApi.getApps().then(json => { this.setState({apps: json})})
   }
 
   public componentWillReceiveProps(nextProps) {

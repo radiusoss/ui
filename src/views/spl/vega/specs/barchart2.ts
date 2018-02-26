@@ -39,7 +39,7 @@ export default {
     "marks": [
       {
         "type": "rect",
-        "from": {"data":"table"},
+        "from": {"data":"table2"},
         "encode": {
           "enter": {
             "x": {"scale": "xscale", "field": "category", "offset": 10},

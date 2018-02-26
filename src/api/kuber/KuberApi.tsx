@@ -105,6 +105,7 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
       }
       setInterval( _ => {
         this.ping()
+        this.status()
       }, 10000 )
       this.restClient = new RestClient({
         name: 'KuberApi',
@@ -167,7 +168,11 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
   }
 
   public ping(): void {
-    this.sendWebSocketMessage(JSON.stringify(this.PING()))
+    this.sendWebSocketMessage(JSON.stringify(this.KUBER_PING()))
+  }
+
+  public status(): void {
+    this.sendWebSocketMessage(JSON.stringify(this.KUBER_STATUS()))
   }
 
   public putSlots(slots): void {
@@ -230,9 +235,18 @@ private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: ()
 
 // ----------------------------------------------------------------------------
 
-  public PING() {
+public KUBER_PING() {
+  return {
+    'op':	'KUBER_PING',
+    'principal': this.principalValue(),
+    'ticket':	this.ticketValue(),
+    'roles': this.rolesValue()
+  }
+  }
+
+  public KUBER_STATUS() {
     return {
-      'op':	'PING',
+      'op':	'KUBER_STATUS',
       'principal': this.principalValue(),
       'ticket':	this.ticketValue(),
       'roles': this.rolesValue()

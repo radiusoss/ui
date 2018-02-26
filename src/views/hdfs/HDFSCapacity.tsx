@@ -6,6 +6,7 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class HDFSCapacity extends React.Component<any, any> {
+  
   public render() {
     return (
       <div>

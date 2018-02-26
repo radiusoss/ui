@@ -10,11 +10,21 @@ import NetworkStatus from './../network/NetworkStatus'
 import ClusterStatus from './../cluster/ClusterStatus'
 import AwsStatus from './../aws/AwsStatus'
 import Apps from './../apps/AppsStatus'
+import SpitfireApi from './../../api/spitfire/SpitfireApi'
+import KuberApi from './../../api/kuber/KuberApi'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Status extends React.Component<any, any> {
+  private spitfireApi: SpitfireApi
+  private kuberApi: KuberApi
+
+  public constructor(props) {
+    super(props)
+    this.spitfireApi = window['SpitfireApi']
+    this.kuberApi = window['KuberApi']
+  }
 
   public render() {
     return (
@@ -24,13 +34,13 @@ export default class Status extends React.Component<any, any> {
           <PivotItem linkText='Cluster' itemIcon='Health'>
             <ClusterStatus />
           </PivotItem>
-          <PivotItem linkText='Usage' itemIcon='TFVCLogo'>
-            <div className="ms-font-xxl">Usage</div>
-            <ClusterUsageStatus />
-          </PivotItem>
           <PivotItem linkText='Reservations' itemIcon='Clock'>
             <div className="ms-font-xxl">Reservations</div>
             <ReservationsStatus />
+          </PivotItem>
+          <PivotItem linkText='Usage' itemIcon='TFVCLogo'>
+            <div className="ms-font-xxl">Usage</div>
+            <ClusterUsageStatus />
           </PivotItem>
           <PivotItem linkText='Amazon AWS' itemIcon='Cloud'>
             <AwsStatus />
@@ -48,12 +58,15 @@ export default class Status extends React.Component<any, any> {
             <SparkStatus />
           </PivotItem>
           <PivotItem linkText='Running' itemIcon='Running'>
-            <div className="ms-font-xxl">Running</div>
+            <div className="ms-font-xxl">Running Paragraphs</div>
             <RunningStatus />
           </PivotItem>
           <PivotItem linkText='Network' itemIcon='NetworkTower'>
             <div className="ms-font-xxl">Network Status</div>
-            <NetworkStatus />
+            <NetworkStatus
+              kuberHealthy={this.kuberApi.state.webSocketHealthy}
+              spitfireHealthy={this.spitfireApi.state.webSocketHealthy}
+              />
           </PivotItem>
 {/*
           <PivotItem linkText='Apps' itemIcon='MapPin'>

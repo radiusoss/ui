@@ -81,11 +81,13 @@ export default class ControlHeader extends React.Component<any, any> {
             </div>
             <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
               <div style={{ float: 'left' }}>
+{/*
                 <SearchBox
                   onFocus={ () => toastr.warning('Search is not available', 'Looks like you are eager for the next release...') }
                   underlined={ true }
                 />
-              </div>
+*/}
+                </div>
               <div style={{ float: 'right' }}>
                 <IndicatorHeader/>
               </div>
@@ -304,7 +306,14 @@ export default class ControlHeader extends React.Component<any, any> {
             onClick: () => history.push(`/dla/kuber/budget`)
           },
 */
-          {
+{
+  key: 'spl',
+  name: 'Spl',
+  icon: '',
+  title: 'Spl',
+  onClick: () => history.push(`/dla/spl/vega`)
+},
+            {
             key: 'settings',
             name: 'Settings',
             icon: 'Settings',

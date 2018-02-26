@@ -16,7 +16,7 @@ export type IKuberState = {
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 export default class KuberConfig extends React.Component<any, IKuberState> {
-  private k8sApi: KuberApi
+  private kuberApi: KuberApi
   private configApi: ConfigApi
 
   state = {
@@ -29,7 +29,7 @@ export default class KuberConfig extends React.Component<any, IKuberState> {
 
   public componentDidMount() {
     this.configApi = window['ConfigApi']
-    this.k8sApi = window['KuberApi']
+    this.kuberApi = window['KuberApi']
     this.setState({
       config: this.configApi.getConfig()
     })

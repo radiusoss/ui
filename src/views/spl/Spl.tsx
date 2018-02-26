@@ -29,7 +29,7 @@ const MAX_LENGTH = 20
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 export default class Spl extends React.Component<any, IKuberState> {
   private config: IConfig = NotebookStore.state().config
-  private k8sApi: KuberApi
+  private kuberApi: KuberApi
   private restClient: RestClient
 
   state = {
@@ -170,8 +170,8 @@ export default class Spl extends React.Component<any, IKuberState> {
   }
 
   public async componentDidMount() {
-    this.k8sApi = window['KuberApi']
-//    this.k8sApi.command("/bin/ls")
+    this.kuberApi = window['KuberApi']
+//    this.kuberApi.command("/bin/ls")
   }
 
   public componentWillReceiveProps(nextProps) {

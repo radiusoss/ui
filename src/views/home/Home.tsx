@@ -6,7 +6,7 @@ import NotebookApi from './../../api/notebook/NotebookApi'
 import ScratchpadDisplay from './../scratchpad/ScratchpadDisplay'
 import ClusterHealthWidget from './../cluster/ClusterHealthWidget'
 import ReservationsStatus from './../reservations/ReservationsStatus'
-import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
+import SparkStatus from './../spark/SparkStatus'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import * as stylesImport from './../_styles/Styles.scss'
@@ -54,21 +54,21 @@ export default class Home extends React.Component<any, any> {
           </div>
 
           <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
-            <Icon iconName='Health' className='ms-Icon25' />
-            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status")}}>Cluster</a></span>
-            <ClusterHealthWidget />
-          </div>
-
-          <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
-            <Icon iconName='Light' className='ms-Icon25' />
-            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status/interpreters")}}>Interpreters</a></span>
-            <SpitfireInterpretersStatus/>
+            <Icon iconName='LightningBolt' className='ms-Icon25' />
+            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status")}}>Spark</a></span>
+            <SparkStatus/>
           </div>
 
           <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
             <Icon iconName='Clock' className='ms-Icon25' />
             <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/reservations")}}>Reservations</a></span>
             <ReservationsStatus/>
+          </div>
+
+          <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
+            <Icon iconName='Health' className='ms-Icon25' />
+            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status")}}>Cluster</a></span>
+            <ClusterHealthWidget />
           </div>
 
         </div>
