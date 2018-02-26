@@ -1,5 +1,5 @@
 export default {
-    "table": [
+    "table2": [
         {"category": "A", "amount": 28},
         {"category": "B", "amount": 55},
         {"category": "C", "amount": 43},

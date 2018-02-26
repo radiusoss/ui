@@ -5,17 +5,7 @@ export default {
     "padding": { left: 5, right: 5, top: 5, bottom: 5 },
     "data": [
       {
-        "name": "table",
-        "values": [
-          {"category": "A", "amount": 28},
-          {"category": "B", "amount": 55},
-          {"category": "C", "amount": 43},
-          {"category": "D", "amount": 91},
-          {"category": "E", "amount": 81},
-          {"category": "F", "amount": 53},
-          {"category": "G", "amount": 19},
-          {"category": "H", "amount": 87}
-        ]
+        "name": "table2"
       }
     ],
     "signals": [
@@ -32,12 +22,12 @@ export default {
       {
         "name": "xscale",
         "type": "band",
-        "domain": {"data": "table", "field": "category"},
+        "domain": {"data": "table2", "field": "category"},
         "range": "width"
       },
       {
         "name": "yscale",
-        "domain": {"data": "table", "field": "amount"},
+        "domain": {"data": "table2", "field": "amount"},
         "nice": true,
         "range": "height"
       }
@@ -49,7 +39,7 @@ export default {
     "marks": [
       {
         "type": "rect",
-        "from": {"data":"table"},
+        "from": {"data":"table2"},
         "encode": {
           "enter": {
             "x": {"scale": "xscale", "field": "category", "offset": 1},
