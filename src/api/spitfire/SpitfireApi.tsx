@@ -136,7 +136,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       }
       this.webSocketClient.onerror = (event: MessageEvent) => {
         console.log("Spitfire WebSocket Error: " + event.data)
-        toastr.warning('Issue while connecting to Spitfire', 'Check your network and/or force reload your browser.')
+        toastr.error('Issue while connecting to Spitfire', 'Check your network and/or force reload your browser.')
         this.setState({
           webSocketHealthy: false
         })
@@ -145,7 +145,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
         var code = event.code
         console.log("Spitfire WebSocket Closed: " + code)
         if (code != 1001) {
-          toastr.error('Spitfire Connection closed', 'Spitfire Server is not reachable - Ensure it is online and your network is available, then reload your browser [' + code + ']')
+          toastr.warning('Spitfire Connection closed', 'Spitfire Server is not reachable - Ensure it is online and your network is available, then reload your browser [' + code + ']')
         }
         this.setState({
           webSocketHealthy: false

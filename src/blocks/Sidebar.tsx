@@ -105,9 +105,11 @@ export default class Sidebar extends React.Component<any, any> {
               <li className="nav-item">
                 <NavLink to={'/dla/kuber/status'} className="nav-link" activeClassName="active"><FabricIcon name="AutoRacing"/> Status</NavLink>
               </li>
+{/*
               <li className="nav-item">
                 <NavLink to={'/dla/kuber/budget'} className="nav-link" activeClassName="active"><FabricIcon name="Money"/> Budget</NavLink>
               </li>
+*/}
               <li className="nav-item">
                 <NavLink to={'/dla/kuber/settings'} className="nav-link" activeClassName="active"><FabricIcon name="Settings"/> Settings</NavLink>
               </li>

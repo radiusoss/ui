@@ -15,6 +15,7 @@ import Platform from './../views/about/Platform'
 import ReleaseNotes from './../views/about/ReleaseNotes'
 import Help from './../views/help/Help'
 import KuberSpl from './../views/spl/KuberSpl'
+import VegaSpl from './../views/spl/vega/VegaSpl'
 
 export default class AuthenticatedLayout extends React.Component<any, any> {
 
@@ -45,7 +46,8 @@ export default class AuthenticatedLayout extends React.Component<any, any> {
               <Route exact path="/dla/support/help" name="Help" component={Help} />
               <Route exact path="/dla/check" name="Check" component={Check} />
               <Route exact path="/dla/k8s" name="Kubernetes" component={Kuber} />
-              <Route exact path="/dla/kuberspl" name="Kuber Spl" component={KuberSpl} />
+              <Route exact path="/dla/spl/kuber" name="Kuber Spl" component={KuberSpl} />
+              <Route exact path="/dla/spl/vega" name="Vega Spl" component={VegaSpl} />
               <Route path="/dla" component={EnsureAuthenticatedLayout} />
             </div>
           </main>

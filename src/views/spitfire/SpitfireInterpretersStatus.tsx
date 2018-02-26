@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import JSONTree from 'react-json-tree'
+import { jsonTreeMonokaiTheme } from './../../theme/Themes'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -25,11 +26,14 @@ export default class InterpretersStatus extends React.Component<any, any> {
             <div className="ms-Grid-row">
               <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
             </div>
-            <div style={{ padding: "10px", backgroundColor: "black" }}>
-              <JSONTree 
+            <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
+              <JSONTree
                 data={this.state.interpreterSettings} 
-                theme='greenscreen'
+                theme={jsonTreeMonokaiTheme}
                 invertTheme={false}
+                hideRoot={true}
+                sortObjectKeys={true}
+                shouldExpandNode={(keyName, data, level) => true}
               />
             </div>
           </div>

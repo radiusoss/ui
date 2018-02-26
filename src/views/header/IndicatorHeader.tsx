@@ -46,6 +46,7 @@ export default class ControlHeader extends React.Component<any, any> {
   private kuberApi: KuberApi
 
   private clusterStatus: ClusterStatus
+  private clusterCapacity: ClusterCapacity
   private reservationsStatus: ReservationsStatus
   private clusterUsageStatus: ClusterUsageStatus
   private hdfsStatus: HDFStatus
@@ -196,6 +197,7 @@ export default class ControlHeader extends React.Component<any, any> {
             (statusPanel == 'cluster') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="Health" /> Cluster</div>
+              <ClusterCapacity ref={ ref => this.clusterCapacity = ref } />
               <ClusterStatus ref={ ref => this.clusterStatus = ref } />
             </div>
           }

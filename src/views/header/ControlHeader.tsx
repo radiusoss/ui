@@ -295,6 +295,7 @@ export default class ControlHeader extends React.Component<any, any> {
             title: 'Status',
             onClick: () => history.push(`/dla/kuber/status`)
           },
+ /*
           {
             key: 'budget',
             name: 'Budget',
@@ -302,6 +303,7 @@ export default class ControlHeader extends React.Component<any, any> {
             title: 'Budget',
             onClick: () => history.push(`/dla/kuber/budget`)
           },
+*/
           {
             key: 'settings',
             name: 'Settings',

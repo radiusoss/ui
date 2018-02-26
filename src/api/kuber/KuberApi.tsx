@@ -88,7 +88,7 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
       }
       this.webSocketClient.onerror = (event: MessageEvent) => {
         console.log("Kuber WebSocket Error: " + event.data)
-        toastr.warning('Issue while connecting to Kuber', 'Check your network and/or force reload your browser.')
+        toastr.error('Issue while connecting to Kuber', 'Check your network and/or force reload your browser.')
         this.setState({
           webSocketHealthy: false
         })
@@ -100,7 +100,7 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
           webSocketHealthy: false
         })
         if (code != 1001) {
-          toastr.error('Kuber Connection closed', 'Kuber Server is not reachable - Ensure it is online and your network is available, then reload your browser [' + code + ']')
+          toastr.warning('Kuber Connection closed', 'Kuber Server is not reachable - Ensure it is online and your network is available, then reload your browser [' + code + ']')
         }
       }
       setInterval( _ => {

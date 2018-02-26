@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { Slider } from 'office-ui-fabric-react/lib/Slider'
 import { toastr } from 'react-redux-toastr'
+import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class ClusterCapacity extends React.Component<any, any> {
+  
   public render() {
     return (
       <div>
