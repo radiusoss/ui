@@ -104,9 +104,11 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
         }
       }
       setInterval( _ => {
-//        this.ping()
-        this.status()
+        this.ping()
       }, 10000 )
+      setInterval( _ => {
+        this.status()
+      }, 50000 )
       this.restClient = new RestClient({
         name: 'KuberApi',
         url: this.config.kuberRest,
