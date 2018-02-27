@@ -4,7 +4,7 @@ import { toastr } from 'react-redux-toastr'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import ScratchpadDisplay from './../scratchpad/ScratchpadDisplay'
-import ClusterHealthWidget from './../cluster/ClusterHealthWidget'
+import ClusterHealth from './../cluster/ClusterHealth'
 import ReservationsStatus from './../reservations/ReservationsStatus'
 import SparkStatus from './../spark/SparkStatus'
 import { connect } from 'react-redux'
@@ -68,7 +68,7 @@ export default class Home extends React.Component<any, any> {
           <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
             <Icon iconName='Health' className='ms-Icon25' />
             <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status")}}>Cluster</a></span>
-            <ClusterHealthWidget />
+            <ClusterHealth />
           </div>
 
         </div>

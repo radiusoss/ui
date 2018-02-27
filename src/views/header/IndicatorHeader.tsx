@@ -28,7 +28,7 @@ import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
 import RunningStatus from './../run/RunningStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
-import { Colors } from './IndicatorUtil'
+import { Colors } from './../../util/Utils'
 import NetworkStatus from './../network/NetworkStatus'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import SpitfireApi from './../../api/spitfire/SpitfireApi'
@@ -288,8 +288,34 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   private tick() {
+    this.updateClusterStatus()
     this.updateRunning()
     this.updateNetwork()
+  }
+
+  private updateClusterStatus() {
+    var kuberStatus = NotebookStore.state().kuberStatus
+    if (!kuberStatus.cluster) {
+      this.setState({
+        clusterColor: Colors.RED
+      })
+      return
+    }
+    if (!kuberStatus.cluster.awsAutoscalingGroup.Instances) {
+      this.setState({
+        clusterColor: Colors.RED
+      })
+      return
+    }
+    if (kuberStatus.cluster.awsAutoscalingGroup.DesiredCapacity != kuberStatus.cluster.awsAutoscalingGroup.Instances.length) {
+      this.setState({
+        clusterColor: Colors.RED
+      })
+      return
+    }
+    this.setState({
+      clusterColor: Colors.GREEN
+    })
   }
   
   private updateRunning() {

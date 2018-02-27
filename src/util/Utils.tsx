@@ -23,3 +23,15 @@ export function isFunction(functionToCheck) {
   const getType = {};
   return !!functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
 }
+
+export const Colors = {
+  WHITE:  'white',
+  BLUE:   'blue',
+  GREEN:  'tealLight',
+  YELLOW: 'orangeLighter',
+  RED:    'red',
+  PURPLE: 'purple',
+  BLACK:  'black',
+  GREY:   'neutralSecondary',
+  ORANGE: 'orange'
+}

@@ -14,10 +14,18 @@ export default class ClusterCapacity extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    if (NotebookStore.state().kuberStatus.cluster) {
-      this.state = {
-        maxSize: NotebookStore.state().kuberStatus.cluster.awsAutoscalingGroup.MaxSize,
-        numberOfRunningInstances: NotebookStore.state().kuberStatus.cluster.awsAutoscalingGroup.Instances.length
+    var status = NotebookStore.state().kuberStatus
+    if (status.cluster) {
+      if (status.cluster.awsAutoscalingGroup) {
+        console.log('---', status.cluster.awsAutoscalingGroup)
+        var numberOfRunningInstances = 0
+        if (status.cluster.awsAutoscalingGroup.Instances) {
+          numberOfRunningInstances = status.cluster.awsAutoscalingGroup.Instances.length
+        }
+        this.state = {
+          maxSize: status.cluster.awsAutoscalingGroup.MaxSize,
+          numberOfRunningInstances: numberOfRunningInstances
+        }
       }
     }
     else {
@@ -37,7 +45,7 @@ export default class ClusterCapacity extends React.Component<any, any> {
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <Slider
                 label='Maximum Number of Workers'
-                min={ 1 }
+                min={ 0 }
                 max={ 10 }
                 step={ 1 }
                 defaultValue={ maxSize }
@@ -63,10 +71,22 @@ export default class ClusterCapacity extends React.Component<any, any> {
     const { kuberMessageReceived } = nextProps
     if (kuberMessageReceived) {
       if (kuberMessageReceived.op == "KUBER_STATUS") {
-        console.log('---', kuberMessageReceived.cluster.awsAutoscalingGroup)
+        this.updateCapacityStatus(kuberMessageReceived)
+      }
+    }
+  }
+
+  private updateCapacityStatus(status) {
+    if (status.cluster) {
+      if (status.cluster.awsAutoscalingGroup) {
+        console.log('---', status.cluster.awsAutoscalingGroup)
+        var numberOfRunningInstances = 0
+        if (status.cluster.awsAutoscalingGroup.Instances) {
+          numberOfRunningInstances = status.cluster.awsAutoscalingGroup.Instances.length
+        }
         this.setState({
-          maxSize: kuberMessageReceived.cluster.awsAutoscalingGroup.MaxSize,
-          numberOfRunningInstances: kuberMessageReceived.cluster.awsAutoscalingGroup.Instances.length
+          maxSize: status.cluster.awsAutoscalingGroup.MaxSize,
+          numberOfRunningInstances: numberOfRunningInstances
         })
       }
     }
