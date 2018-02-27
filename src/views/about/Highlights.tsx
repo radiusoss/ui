@@ -8,9 +8,9 @@ export default class Highlights extends React.Component<any, any> {
   public render() {
 
     return (
-      <div className={`${styles.homeHeight}`} style={{overflowY: 'scroll'}}>
+//      <div className={`${styles.homeHeight}`} style={{overflowY: 'scroll'}}>
         <HighlightsWidget showAll="true" />
-      </div>
+//      </div>
     )
 
   }
