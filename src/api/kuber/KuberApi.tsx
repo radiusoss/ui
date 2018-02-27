@@ -33,6 +33,7 @@ export interface IKuberApi {
   version(): Promise<Result<KuberResponse>>
   send(body: string): void
   ping(): void
+  setMaxWorkers(size: number): void
   command(name: string): void
 }
 
@@ -108,7 +109,7 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
       }, 10000 )
       setInterval( _ => {
         this.status()
-      }, 50000 )
+      }, 20000 )
       this.restClient = new RestClient({
         name: 'KuberApi',
         url: this.config.kuberRest,
@@ -160,6 +161,13 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
     return this.wrapResult<KuberResponse, KuberResponse>(
       r => r,
       async () => this.restClient.get<KuberResponse>({}, jsonOpt, '/v1/helm')
+    )
+  }
+
+  public async setMaxWorkers(size: number): Promise<Result<KuberResponse>> {
+    return this.wrapResult<KuberResponse, KuberResponse>(
+      r => r,
+      async () => this.restClient.get<KuberResponse>({}, jsonOpt, `/v1/k8s/cluster/scale/${size}`)
     )
   }
 

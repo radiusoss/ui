@@ -4,15 +4,20 @@ import { ApplicationState } from '../state/State'
 import { routerReducer } from 'react-router-redux'
 import { meReducer, profileDisplayNameReducer, profilePhotoBlobReducer } from './CommonReducer'
 import { newConfigReducer } from './ConfigReducer'
-import { kuberMessageSentReducer, kuberMessageReceivedReducer } from './KuberReducer'
-import { counterReducer, isSavingCounterReducer, 
+import { 
+  kuberMessageSentReducer, kuberMessageReceivedReducer, kuberStatusReducer
+} from './KuberReducer'
+import { 
+  counterReducer, isSavingCounterReducer, 
   isLoadingCounterReducer, errorCounterReducer
 } from './CounterReducer'
-import { isGoogleAuthenticatedReducer, isToGoogleReducer, googleTokenReducer, 
+import { 
+  isGoogleAuthenticatedReducer, isToGoogleReducer, googleTokenReducer, 
   isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer, 
   isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer
  } from './AuthReducer'
-import { notebookLoginReducer, webSocketMessageSentReducer, 
+import { 
+  notebookLoginReducer, webSocketMessageSentReducer, 
   webSocketMessageReceivedReducer, noteReducer, clearScratchpadReducer,
   runningParagraphsReducer, notesReducer, isStartNoteRunReducer,
   goToReducer, isStartParagraphRunReducer
@@ -49,5 +54,6 @@ export const reducers = combineReducers<ApplicationState.State>({
   profileDisplayName: profileDisplayNameReducer,
   profilePhotoBlob: profilePhotoBlobReducer, 
   clearScratchpad: clearScratchpadReducer,
-  goTo: goToReducer
+  goTo: goToReducer,
+  kuberStatus: kuberStatusReducer
 })

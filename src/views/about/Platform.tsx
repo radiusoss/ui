@@ -15,14 +15,10 @@ export default class Platform extends React.Component<any, any> {
                 <div className={styles.editorHeight}>
                   <p className="ms-font-su">Datalayer Science Platform</p>
                   <p className="ms-font-xxl">Version 1.0.0 #Arcadia</p>
-                  <p className="ms-font-xxl">
-                    <a href="/#" onClick={e => {e.stopPropagation(); history.push("/dla/about/release-notes")}}>
-                      Release Notes
-                    </a>
-                  </p>
-  {/*
+                  <p className="ms-font-xxl"><a href="/#/dla/about/release-notes">Release Notes</a></p>                  
+{/*
                   <p className="ms-font-xl">Simple. Collaborative. Multi Cloud. Big Data Science</p>
-  */}
+*/}
                   <img src="/img/datalayer/datalayer-square-name.png" />
                   <p className="ms-font-xl">&copy; 2018 <a href="http://datalayer.io" target="_blank">http://datalayer.io</a></p>
                 </div>

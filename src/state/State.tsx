@@ -36,7 +36,8 @@ export namespace ApplicationState {
     kuberMessageSent: any,
     kuberMessageReceived: any,
     clearScratchpad: boolean,
-    goTo: string
+    goTo: string,
+    kuberStatus: any
   }
 }
 
@@ -75,5 +76,6 @@ export const initialState: ApplicationState.State = {
   kuberMessageSent: {},
   kuberMessageReceived: {},
   clearScratchpad: false,
-  goTo: null
+  goTo: null,
+  kuberStatus: {}
 }

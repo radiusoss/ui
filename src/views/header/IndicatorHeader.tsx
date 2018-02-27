@@ -21,7 +21,7 @@ import { SwatchColorPicker } from 'office-ui-fabric-react/lib/SwatchColorPicker'
 import GoogleProfileWidget from './../profile/GoogleProfileWidget'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import ClusterCapacity from './../cluster/ClusterCapacity'
-import ClusterUsageStatus from './../cluster/ClusterUsageStatus'
+import ClusterUsage from './../cluster/ClusterUsage'
 import ClusterStatus from './../cluster/ClusterStatus'
 import ReservationsStatus from './../reservations/ReservationsStatus'
 import HDFStatus from './../hdfs/HDFSStatus'
@@ -49,7 +49,7 @@ export default class ControlHeader extends React.Component<any, any> {
   private clusterStatus: ClusterStatus
   private clusterCapacity: ClusterCapacity
   private reservationsStatus: ReservationsStatus
-  private clusterUsageStatus: ClusterUsageStatus
+  private clusterUsageStatus: ClusterUsage
   private hdfsStatus: HDFStatus
   private sparkStatus: SparkStatus
   private runningStatus: RunningStatus
@@ -213,7 +213,7 @@ export default class ControlHeader extends React.Component<any, any> {
             (statusPanel == 'usage') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Usage</div>
-              <ClusterUsageStatus ref={ ref => this.clusterUsageStatus = ref } />
+              <ClusterUsage ref={ ref => this.clusterUsageStatus = ref } />
             </div>
           }
           {

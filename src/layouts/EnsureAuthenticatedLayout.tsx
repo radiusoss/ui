@@ -27,7 +27,7 @@ import Login from './../views/spl/Login'
 import Auth from './../views/spl/Auth'
 import Welcome from './../views/Welcome'
 import ClusterCapacity from './../views/cluster/ClusterCapacity'
-import ClusterUsageStatus from './../views/cluster/ClusterUsageStatus'
+import ClusterUsage from './../views/cluster/ClusterUsage'
 import ReservationsStatus from './../views/reservations/ReservationsStatus'
 import HDFSStatus from './../views/hdfs/HDFSStatus'
 import SparkStatus from './../views/spark/SparkStatus'
@@ -75,7 +75,7 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/status/aws" name="AWS Status" component={AwsStatus}/>
           <Route path="/dla/kuber/status/apps" name="Applications Status" component={AppsStatus}/>
           <Route path="/dla/kuber/status/cluster-capacity" name="Cluster Capacity" component={ClusterCapacity}/>
-          <Route path="/dla/kuber/status/cluster-usage" name="Cluster Usage" component={ClusterUsageStatus}/>
+          <Route path="/dla/kuber/status/cluster-usage" name="Cluster Usage" component={ClusterUsage}/>
           <Route path="/dla/kuber/status/hdfs" name="HDFS Status" component={HDFSStatus}/>
           <Route path="/dla/kuber/status/reservations" name="Cluster Reservations" component={ReservationsStatus}/>
           <Route path="/dla/kuber/status/spark" name="Spark Status" component={SparkStatus}/>

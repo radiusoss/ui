@@ -19,3 +19,15 @@ export const kuberMessageReceivedReducer = (state: any = initialState.kuberMessa
       return {}
   }
 }
+
+export const kuberStatusReducer = (state: any = initialState.kuberStatus, action: KuberAction): any => {
+  switch (action.type) {
+    case 'KUBER_MESSAGE_RECEIVED':
+      if (action.message.op == 'KUBER_STATUS') {
+        return action.message
+      }
+      return state
+    default:
+      return state
+  }
+}

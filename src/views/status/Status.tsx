@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
-import ClusterUsageStatus from './../cluster/ClusterUsageStatus'
+import ClusterUsage from './../cluster/ClusterUsage'
 import ReservationsStatus from './../reservations/ReservationsStatus'
 import RunningStatus from './../run/RunningStatus'
 import HDFStatus from './../hdfs/HDFSStatus'
@@ -40,7 +40,7 @@ export default class Status extends React.Component<any, any> {
           </PivotItem>
           <PivotItem linkText='Usage' itemIcon='TFVCLogo'>
             <div className="ms-font-xxl">Usage</div>
-            <ClusterUsageStatus />
+            <ClusterUsage />
           </PivotItem>
           <PivotItem linkText='Amazon AWS' itemIcon='Cloud'>
             <AwsStatus />
