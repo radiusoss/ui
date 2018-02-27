@@ -33,6 +33,7 @@ import NetworkStatus from './../network/NetworkStatus'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import SpitfireApi from './../../api/spitfire/SpitfireApi'
 import KuberApi from './../../api/kuber/KuberApi'
+import { stripString } from './../../util/Utils'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
@@ -278,7 +279,7 @@ export default class ControlHeader extends React.Component<any, any> {
         if (p.results && p.results.msg && p.results.msg.length > 0) {
           errorMessage = p.results.msg[0].data
         }
-        toastr.warning('Run Error', errorMessage)
+        toastr.warning('Run Error', stripString(errorMessage, 100))
         this.setState({
           statusPanel: 'running'
         })

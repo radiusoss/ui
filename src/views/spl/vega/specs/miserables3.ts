@@ -54,16 +54,6 @@ export default {
   ],
 
   "data": [
-    {
-      "name": "node-data",
-      "url": "data/miserables.json",
-      "format": {"type": "json", "property": "nodes"}
-    },
-    {
-      "name": "link-data",
-      "url": "data/miserables.json",
-      "format": {"type": "json", "property": "links"}
-    }
   ],
 
   "scales": [
@@ -80,7 +70,7 @@ export default {
       "type": "symbol",
       "zindex": 1,
 
-      "from": {"data": "node-data"},
+      "from": {"data": "node-data3"},
       "on": [
         {
           "trigger": "fix",
@@ -114,14 +104,14 @@ export default {
             {"force": "center", "x": {"signal": "cx"}, "y": {"signal": "cy"}},
             {"force": "collide", "radius": {"signal": "nodeRadius"}},
             {"force": "nbody", "strength": {"signal": "nodeCharge"}},
-            {"force": "link", "links": "link-data", "distance": {"signal": "linkDistance"}}
+            {"force": "link", "links": "link-data3", "distance": {"signal": "linkDistance"}}
           ]
         }
       ]
     },
     {
       "type": "path",
-      "from": {"data": "link-data"},
+      "from": {"data": "link-data3"},
       "interactive": false,
       "encode": {
         "update": {

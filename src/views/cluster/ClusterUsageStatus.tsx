@@ -10,9 +10,9 @@ import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import { connect } from 'react-redux'
-import Vega, { createClassFromSpec } from 'react-vega'
+import VegaDla from './../vega/VegaDla'
 import * as miserables_data from './../spl/vega/data/miserables'
-import * as miserables_specs from './../spl/vega/specs/miserables'
+import * as miserables_specs from './../spl/vega/specs/miserables2'
 
 const MAX_LENGTH = 20
 
@@ -28,11 +28,6 @@ export default class ClusterUsageStatus extends React.Component<any, any> {
   private kuberApi: KuberApi
   private method: string
 
-  miserables_data_nodes_links = {
-    'node-data': miserables_data.default.nodes,
-    'link-data': miserables_data.default.links
-  }
-
   state = {
     overview: {}
   }
@@ -47,8 +42,18 @@ export default class ClusterUsageStatus extends React.Component<any, any> {
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <Vega
-                data={this.miserables_data_nodes_links}
+              <VegaDla
+                renderer="svg"
+                data={[
+                  {
+                    "name": "node-data2",
+                    "values": [{"name":"Myriel","group":1,"index":0},{"name":"Napoleon","group":1,"index":1},{"name":"Mlle.Baptistine","group":1,"index":2}]
+                  },
+                  {
+                    "name": "link-data2",
+                    "values": [{"source":1,"target":0,"value":1},{"source":2,"target":0,"value":8} ]
+                  }
+                ]}
                 spec={miserables_specs.default}
                 />
             </div>

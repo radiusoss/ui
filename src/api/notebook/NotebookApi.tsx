@@ -1,7 +1,7 @@
 import * as React from 'react'
 import history from './../../history/History'
 import { toastr } from 'react-redux-toastr'
-import { toastrSuccessOptions } from './../../views/util/Utils'
+import { toastrSuccessOptions } from './../../util/Utils'
 import { connect } from 'react-redux'
 import { NotebookStore } from './../../store/NotebookStore'
 import { ISpitfireApi, SpitfireResponse } from './../spitfire/SpitfireApi'

@@ -41,10 +41,10 @@ export default class RunningStatus extends React.Component<any, any> {
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <hr/>
-              <div className="ms-font-l">ERROR</div>
+              <div className="ms-font-l">PENDING</div>
               {
                 Array.from(runningParagraphs).map(p => {
-                  if (p[1] && (p[1].status == ParagraphStatus.ERROR)) {
+                  if (p[1] && (p[1].status == ParagraphStatus.PENDING)) {
                     return this.getLink(p[1])
                   }
                 })
@@ -54,10 +54,10 @@ export default class RunningStatus extends React.Component<any, any> {
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <hr/>
-              <div className="ms-font-l">PENDING</div>
+              <div className="ms-font-l">ERROR</div>
               {
                 Array.from(runningParagraphs).map(p => {
-                  if (p[1] && (p[1].status == ParagraphStatus.PENDING)) {
+                  if (p[1] && (p[1].status == ParagraphStatus.ERROR)) {
                     return this.getLink(p[1])
                   }
                 })

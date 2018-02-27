@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
+import VegaDla from './../../vega/VegaDla'
 import Vega, { createClassFromSpec } from 'react-vega'
 import VegaLite, { createClassFromLiteSpec } from 'react-vega-lite'
 import * as barchart_data from './data/barchart'
@@ -10,6 +11,8 @@ import * as unemployment_across_industries from './data/unemployment-across-indu
 import * as stacked_area_stream from './specs/stacked_area_stream'
 import * as miserables_data from './data/miserables'
 import * as miserables_specs from './specs/miserables'
+import * as miserables_data2 from './data/miserables_small'
+import * as miserables_specs2 from './specs/miserables2'
 
 const data1_lite = {
   "values": [
@@ -50,12 +53,6 @@ export default class VegaSpl extends React.Component<any, any> {
   BarChart = createClassFromSpec(barchart1.default)
   BarChartLite = createClassFromLiteSpec(spec1_lite)
 
-  Network = createClassFromSpec(miserables_specs.default)
-  miserables_data_nodes_links = {
-    'node-data': miserables_data.default.nodes,
-    'link-data': miserables_data.default.links
-  }
-
   state = {
     info: '',
     data: barchart_data.default,
@@ -73,23 +70,68 @@ export default class VegaSpl extends React.Component<any, any> {
       <div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12"
-//              key={new Date().getMilliseconds().toString()}
-              >
-            <this.Network
-              data={this.miserables_data_nodes_links}
-              />
-{/*
-              <Vega
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <VegaDla
                 width={700}
                 height={500}
-                renderer="canvas"
-                data={this.miserables_data_nodes_links}
+                renderer="svg"
+                data={[
+      /*
+                  {
+                    'name': 'node-data',
+                    'values': miserables_data.default.nodes,
+                    'format': {'type': 'json'}
+                  },
+                  {
+                    'name': 'link-data',
+                    'values': miserables_data.default.links,
+                    'format': {'type': 'json'}
+                  }
+      */
+                  {
+                    "name": "node-data",
+                    "url": "data/miserables.json",
+                    "format": {"type": "json", "property": "nodes"}
+                  },
+                  {
+                    "name": "link-data",
+                    "url": "data/miserables.json",
+                    "format": {"type": "json", "property": "links"}
+                  }
+                ]}
                 spec={miserables_specs.default}
                 />
-*/}
-                </div>
-{/*
+              <VegaDla
+                width={700}
+                height={500}
+                renderer="svg"
+                data={[
+      /*
+                  {
+                    'name': 'node-data2',
+                    'values': miserables_data2.default.nodes,
+                    'format': {'type': 'json'}
+                  },
+                  {
+                    'name': 'link-data2',
+                    'values': miserables_data2.default.links,
+                    'format': {'type': 'json'}
+                  }
+      */
+                  {
+                    "name": "node-data2",
+                    "url": "data/miserables.json",
+                    "format": {"type": "json", "property": "nodes"}
+                  },
+                  {
+                    "name": "link-data2",
+                    "url": "data/miserables.json",
+                    "format": {"type": "json", "property": "links"}
+                  }
+                ]}
+                spec={miserables_specs2.default}
+                />
+            </div>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <VegaLite
                 data={unemployment_across_industries.default}
@@ -120,7 +162,6 @@ export default class VegaSpl extends React.Component<any, any> {
                 data={data1_lite} 
                 />
             </div>
-*/}
           </div>
         </div>
       </div>
