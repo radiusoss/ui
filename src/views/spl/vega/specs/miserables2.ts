@@ -4,9 +4,9 @@ export default {
   "height": 500,
   "padding": 0,
   "autosize": "none",
-
   "signals": [
-    { "name": "cx", "update": "width / 2" },
+    { 
+      "name": "cx", "update": "width / 2" },
     { "name": "cy", "update": "height / 2" },
     { "name": "nodeRadius", "value": 8,
       "bind": {"input": "range", "min": 1, "max": 50, "step": 1} },
@@ -50,9 +50,16 @@ export default {
       "on": [
         {"events": {"signal": "fix"}, "update": "fix > 1"}
       ]
+    },
+    {
+      "name": "tooltip",
+      "value": {},
+      "on": [
+        {"events": "symbol:mouseover", "update": "datum"},
+        {"events": "symbol:mouseout",  "update": "{}"}
+      ]
     }
   ],
-
   "data": [
     {
       "name": "node-data2",
@@ -65,7 +72,6 @@ export default {
       "format": {"type": "json", "property": "links"}
     }
   ],
-
   "scales": [
     {
       "name": "color",
@@ -73,13 +79,11 @@ export default {
       "range": {"scheme": "category20c"}
     }
   ],
-
   "marks": [
     {
       "name": "nodes",
       "type": "symbol",
       "zindex": 1,
-
       "from": {"data": "node-data2"},
       "on": [
         {
@@ -92,7 +96,6 @@ export default {
           "modify": "node", "values": "{fx: null, fy: null}"
         }
       ],
-
       "encode": {
         "enter": {
           "fill": {"scale": "color", "field": "group"},
@@ -103,7 +106,6 @@ export default {
           "cursor": {"value": "pointer"}
         }
       },
-
       "transform": [
         {
           "type": "force",

@@ -33,7 +33,7 @@ export default class ClusterCapacity extends React.Component<any, any> {
                 defaultValue={ 0 }
                 showValue={ true }
                 disabled={ false }
-                onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + ' worker(s).') }
+                onChange={ (value) => toastr.warning('Not yet available', 'Wait on the next version to get ' + value + ' worker(s).') }
               />
             </div>
           </div>

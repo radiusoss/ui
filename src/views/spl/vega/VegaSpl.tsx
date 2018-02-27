@@ -76,7 +76,7 @@ export default class VegaSpl extends React.Component<any, any> {
                 height={500}
                 renderer="svg"
                 data={[
-      /*
+        /*
                   {
                     'name': 'node-data',
                     'values': miserables_data.default.nodes,
@@ -87,7 +87,7 @@ export default class VegaSpl extends React.Component<any, any> {
                     'values': miserables_data.default.links,
                     'format': {'type': 'json'}
                   }
-      */
+        */
                   {
                     "name": "node-data",
                     "url": "data/miserables.json",
@@ -106,7 +106,7 @@ export default class VegaSpl extends React.Component<any, any> {
                 height={500}
                 renderer="svg"
                 data={[
-      /*
+        /*
                   {
                     'name': 'node-data2',
                     'values': miserables_data2.default.nodes,
@@ -117,7 +117,7 @@ export default class VegaSpl extends React.Component<any, any> {
                     'values': miserables_data2.default.links,
                     'format': {'type': 'json'}
                   }
-      */
+        */
                   {
                     "name": "node-data2",
                     "url": "data/miserables.json",

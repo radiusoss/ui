@@ -270,13 +270,6 @@ export default class ControlHeader extends React.Component<any, any> {
         title: 'Kuber',
         items: [
           {
-            key: 'vega',
-            name: 'Vega',
-            icon: '',
-            title: 'Vega',
-            onClick: () => history.push(`/dla/spl/vega`)
-          },
-          {
             key: 'calendar',
             name: 'Reservations',
             icon: 'Calendar',

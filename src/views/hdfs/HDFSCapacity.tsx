@@ -1,4 +1,5 @@
 import * as React from 'react'
+import NotYetAvailable from './../message/NotYetAvailable'
 import { Slider } from 'office-ui-fabric-react/lib/Slider'
 import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
@@ -13,6 +14,7 @@ export default class HDFSCapacity extends React.Component<any, any> {
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row" style={{ maxWidth: "500px" }}>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <NotYetAvailable/>
               <Slider
                 label='Number of Data Nodes'
                 min={ 0 }
@@ -21,7 +23,7 @@ export default class HDFSCapacity extends React.Component<any, any> {
                 defaultValue={ 0 }
                 showValue={ true }
                 disabled={ false }
-                onChange={ (value) => toastr.warning('Not yet available', 'Wait the new version to get ' + value + ' worker(s).') }
+                onChange={ (value) => toastr.warning('Not yet available', 'Wait on the next version to get ' + value + ' worker(s).') }
                 />
             </div>
           </div>

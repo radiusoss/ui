@@ -1,7 +1,7 @@
 import { 
   STANDARD_TYPE, EMPTY_TYPE, STANDARD_CHILD_SUBTYPE,
   EMPTY_EDGE_TYPE, STANDARD_EDGE_TYPE
-} from './../views/util/FlowShapes'
+} from './../util/flows/FlowShapes'
 
 export const dagSample = {
   "nodes": [

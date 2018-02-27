@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as isEqual from 'lodash.isequal'
+import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { NotebookStore } from '../../store/NotebookStore'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
@@ -28,8 +29,11 @@ export default class ClusterUsageStatus extends React.Component<any, any> {
   private kuberApi: KuberApi
   private method: string
 
+  default_text = '[mouse over node for details]'
+
   state = {
-    overview: {}
+    overview: {},
+    selectedNode: {}
   }
 
   public constructor(props) {
@@ -55,7 +59,23 @@ export default class ClusterUsageStatus extends React.Component<any, any> {
                   }
                 ]}
                 spec={miserables_specs.default}
+                onSignalTooltip={this.handleHover}
                 />
+            </div>
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
+                <JSONTree
+                  data={this.state.selectedNode}
+                  invertTheme={false}
+                  hideRoot={true}
+                  sortObjectKeys={true}
+                  shouldExpandNode={(keyName, data, level) => true}
+                  />
+              </div>
+            </div>
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <hr/>
+              <div className="ms-fontSize-su">Complete Definition</div>
             </div>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
@@ -88,7 +108,20 @@ export default class ClusterUsageStatus extends React.Component<any, any> {
   }
 
   private getOverview() {
-    this.kuberApi.getOverview().then(json => { this.setState({overview: json})})
+    this.kuberApi
+      .getOverview()
+      .then(json => { this.setState({overview: json})})
+  }
+
+  @autobind
+  private handleHover(...hover) {
+//    var node = JSON.stringify(hover)
+    if (hover.length > 0 && hover[1].name) {
+      console.log('---', hover)
+      this.setState({
+        selectedNode: hover[1]
+      })
+    }
   }
 
 }

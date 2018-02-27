@@ -20,17 +20,11 @@ export interface VegaProps {
   onParseError: (ex) => {}
 }
 
-export const k = ((Math.random() * 100000) + 1).toString()
-
 export default class VegaDla extends React.Component<any, any> {
 
   element: HTMLDivElement
 //  element: any
   view: any
-
-  state = {
-    key: "k"
-  }
 
   public static defaultProps: Partial<VegaProps> = {
     className: '',
@@ -49,8 +43,6 @@ export default class VegaDla extends React.Component<any, any> {
         ref={(el) => { this.element = el }}
         className={this.props.className}
         style={this.props.style}
-        key={this.state.key}
-        id={this.state.key}
       />
   }
 
@@ -137,7 +129,6 @@ export default class VegaDla extends React.Component<any, any> {
         }
         // Store the vega.View object to be used on later updates.
         this.view = view;
-/*
         [
           'width',
           'height',
@@ -147,7 +138,6 @@ export default class VegaDla extends React.Component<any, any> {
           'background',
         ].filter(field => isDefined(props[field]))
           .forEach((field) => { view[field](props[field]) })
-*/
 /*
         if (spec.data && props.data) {
           spec.data

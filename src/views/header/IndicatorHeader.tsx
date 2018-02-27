@@ -59,11 +59,11 @@ export default class ControlHeader extends React.Component<any, any> {
     config: emptyConfig,
     profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob),
     statusPanel: '',
-    clusterColor: Colors.RED,
-    reservationsColor: Colors.RED,
-    usageColor: Colors.RED,
-    hdfsColor: Colors.RED,
-    sparkColor: Colors.RED,
+    clusterColor: Colors.GREEN,
+    reservationsColor: Colors.GREEN,
+    usageColor: Colors.GREEN,
+    hdfsColor: Colors.GREY,
+    sparkColor: Colors.GREEN,
     runningColor: Colors.GREEN,
     networkColor: Colors.GREEN
   }
