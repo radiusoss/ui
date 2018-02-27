@@ -95,7 +95,7 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
         <div className="ms-Grid" style={{padding: 0}}>
           <div className="ms-Grid-row" style={{padding: 0}}>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <div className="ms-fontSize-su">{numberOfNodes} Nodes (Master or Worker)</div>
+              <div className="ms-fontSize-su">{numberOfNodes} K8S Nodes (Master or Worker)</div>
             </div>
           </div> 
           {nodes}

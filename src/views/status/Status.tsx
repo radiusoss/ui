@@ -31,7 +31,7 @@ export default class Status extends React.Component<any, any> {
       <div>
         <div className="ms-font-su">Platform Status</div>
         <Pivot>
-          <PivotItem linkText='Cluster' itemIcon='Health'>
+          <PivotItem linkText='K8S Cluster' itemIcon='Health'>
             <ClusterStatus />
           </PivotItem>
           <PivotItem linkText='Reservations' itemIcon='Clock'>

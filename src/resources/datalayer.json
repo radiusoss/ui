@@ -1,8 +1,8 @@
 {
   "name": "datalayer-ui",
   "description": "Datalayer UI for Kubernetes",
-  "version": "1.0.0",
-  "license": "Datalayer Commercial License",
+  "version": "0.0.2",
+  "license": "Apache  2.0",
   "typings": "typings.d.ts",
   "scripts": {
     "build": "gulp",
