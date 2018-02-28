@@ -34,14 +34,14 @@ export default class K8SClusterHealth extends React.Component<any, any> {
           <small><b>Cluster CPU Usage</b></small>
         </div>
         <div className="progress progress-xs">
-          <div className={`progress-bar ${cpuClassName}`} role="progressbar" style={{ "width": `${cpuPercentage}%`}} aria-valuenow="{xxx}" aria-valuemin="0" aria-valuemax="100"></div>
+          <div className={`progress-bar ${cpuClassName}`} role="progressbar" style={{ "width": `${cpuPercentage}%`}} aria-valuenow={cpuPercentage} aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <small className="text-muted">{cpuUsed} Used / {cpuTotal} Available.</small>
         <div className="text-uppercase mb-q mt-h">
           <small><b>Cluster Memory Usage</b></small>
         </div>
         <div className="progress progress-xs">
-          <div className={`progress-bar ${memoryClassName}`} role="progressbar" style={{ "width": `${memoryPercentage}}%`}} aria-valuenow="{xxx}" aria-valuemin="0" aria-valuemax="100"></div>
+          <div className={`progress-bar ${memoryClassName}`} role="progressbar" style={{ "width": `${memoryPercentage}}%`}} aria-valuenow={memoryPercentage} aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <small className="text-muted">{memoryUsed} Used / {memoryTotal} Available.</small>
 {/*
