@@ -35,11 +35,11 @@ export default class Status extends React.Component<any, any> {
             <K8SClusterStatus />
           </PivotItem>
           <PivotItem linkText='Cluster Reservations' itemIcon='Clock'>
-            <div className="ms-font-xxl">Cluster Reservations</div>
+            <div className="ms-fontSize-su">Cluster Reservations</div>
             <ReservationsStatus />
           </PivotItem>
           <PivotItem linkText='Cluster Usage' itemIcon='TFVCLogo'>
-            <div className="ms-font-xxl">Cluster Usage</div>
+            <div className="ms-fontSize-su">Cluster Usage</div>
             <K8SClusterUsage />
           </PivotItem>
           <PivotItem linkText='AWS Cloud' itemIcon='Cloud'>
@@ -52,19 +52,19 @@ export default class Status extends React.Component<any, any> {
           </PivotItem>
 */}
           <PivotItem linkText='Spark' itemIcon='LightningBolt'>
-            <div className="ms-font-xxl">Spark</div>
+            <div className="ms-fontSize-su">Spark</div>
             <SparkStatus />
           </PivotItem>
           <PivotItem linkText='Running Paragraphs' itemIcon='Running'>
-            <div className="ms-font-xxl">Running Paragraphs</div>
+            <div className="ms-fontSize-su">Running Paragraphs</div>
             <RunningStatus />
           </PivotItem>
           <PivotItem linkText='Interpreters' itemIcon='Light'>
-            <div className="ms-font-xxl">Interpreters</div>
+            <div className="ms-fontSize-su">Interpreters</div>
             <SpitfireInterpretersStatus />
           </PivotItem>
           <PivotItem linkText='Network' itemIcon='NetworkTower'>
-            <div className="ms-font-xxl">Network Status</div>
+            <div className="ms-fontSize-su">Network Status</div>
             <NetworkStatus
               kuberHealthy={this.kuberApi.state.webSocketHealthy}
               spitfireHealthy={this.spitfireApi.state.webSocketHealthy}

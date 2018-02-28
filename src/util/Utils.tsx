@@ -4,11 +4,11 @@ export let stripString = (str: string, maxChars: number) => {
 }
 
 export const toastrSuccessOptions = {
-//    id: id,
-//            attention: true,
-//    timeOut: 20000,
-//    onOk: () => console.log('OK: clicked'),
-//    onCancel: () => console.log('CANCEL: clicked')
+//  id: id,
+//  attention: true,
+//  timeOut: 20000,
+//  onOk: () => console.log('OK: clicked'),
+//  onCancel: () => console.log('CANCEL: clicked')
 }
 
 export function capitalize(str) {

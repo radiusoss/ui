@@ -63,18 +63,17 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
             numberOfAwsInstances++
             return <div className="ms-Grid-row" style={{padding: 0}} key={instance.InstanceId}>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <div className="ms-fontSize-l">{instance.InstanceId}</div>
+                <div className="ms-fontSize-l">Name: {instance.InstanceId}</div>
               </div>
-              <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <div className="ms-fontSize-l">{instance.PublicDnsName}</div>
+              <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
+                <div className="ms-fontSize-l">Public Hostname: {instance.PublicDnsName}</div>
                 <div><br/></div>
-                <div className="ms-fontSize-l">[{instance.PublicIpAddress}]</div>
+                <div className="ms-fontSize-l">Public IP: {instance.PublicIpAddress}</div>
               </div>
-              <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <div className="ms-fontSize-l">{instance.LaunchTime}</div>
-              </div>
-              <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <div className="ms-fontSize-l">{instance.State.Name.toUpperCase()}</div>
+              <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
+                <div className="ms-fontSize-l">Launch Time: {instance.LaunchTime}</div>
+                <div><br/></div>
+                <div className="ms-fontSize-l">Status: {instance.State.Name.toUpperCase()}</div>
               </div>
               <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
                 <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
@@ -100,7 +99,7 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
     }
     return (
       <div>
-        <div className="ms-fontSize-su">{numberOfAwsInstances} AWS Virtual Machines</div>
+        <div className="ms-fontSize-su">{numberOfAwsInstances} AWS Virtual Machines (To host K8S Master and Workers)</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {out}
         </div>
