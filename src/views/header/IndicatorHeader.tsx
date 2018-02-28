@@ -20,9 +20,9 @@ import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
 import { SwatchColorPicker } from 'office-ui-fabric-react/lib/SwatchColorPicker'
 import GoogleProfileWidget from './../profile/GoogleProfileWidget'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
-import ClusterCapacity from './../cluster/ClusterCapacity'
-import ClusterUsage from './../cluster/ClusterUsage'
-import ClusterStatus from './../cluster/ClusterStatus'
+import CloudStatus from './../cloud/CloudStatus'
+import K8SClusterUsage from './../cluster/K8SClusterUsage'
+import K8SClusterStatus from './../cluster/K8SClusterStatus'
 import ReservationsStatus from './../reservations/ReservationsStatus'
 import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
@@ -46,10 +46,10 @@ export default class ControlHeader extends React.Component<any, any> {
   private spitfireApi: SpitfireApi
   private kuberApi: KuberApi
 
-  private clusterStatus: ClusterStatus
-  private clusterCapacity: ClusterCapacity
+  private clusterStatus: K8SClusterStatus
+  private cloudStatus: CloudStatus
   private reservationsStatus: ReservationsStatus
-  private clusterUsageStatus: ClusterUsage
+  private clusterUsageStatus: K8SClusterUsage
   private hdfsStatus: HDFStatus
   private sparkStatus: SparkStatus
   private runningStatus: RunningStatus
@@ -200,8 +200,8 @@ export default class ControlHeader extends React.Component<any, any> {
             (statusPanel == 'cluster') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="Health" /> Cluster</div>
-              <ClusterCapacity ref={ ref => this.clusterCapacity = ref } />
-              <ClusterStatus ref={ ref => this.clusterStatus = ref } />
+              <CloudStatus ref={ ref => this.cloudStatus = ref } />
+              <K8SClusterStatus ref={ ref => this.clusterStatus = ref } />
             </div>
           }
           {
@@ -215,7 +215,7 @@ export default class ControlHeader extends React.Component<any, any> {
             (statusPanel == 'usage') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Usage</div>
-              <ClusterUsage ref={ ref => this.clusterUsageStatus = ref } />
+              <K8SClusterUsage ref={ ref => this.clusterUsageStatus = ref } />
             </div>
           }
           {
@@ -290,12 +290,12 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   private tick() {
-    this.updateClusterStatus()
+    this.updateK8SClusterStatus()
     this.updateRunning()
     this.updateNetwork()
   }
 
-  private updateClusterStatus() {
+  private updateK8SClusterStatus() {
     var kuberStatus = NotebookStore.state().kuberStatus
     if (!kuberStatus.cluster) {
       this.setState({
@@ -355,7 +355,6 @@ export default class ControlHeader extends React.Component<any, any> {
 
   private updateNetwork() {
     if (this.networkStatus) {
-      console.log('---', this.kuberApi.state.webSocketHealthy, this.spitfireApi.state.webSocketHealthy)
       this.networkStatus.setState({
         kuberHealthy: this.kuberApi.state.webSocketHealthy,
         spitfireHealthy: this.spitfireApi.state.webSocketHealthy,

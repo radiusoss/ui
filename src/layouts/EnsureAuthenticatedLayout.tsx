@@ -26,15 +26,15 @@ import Stories from './../views/stories/Stories'
 import Login from './../views/spl/Login'
 import Auth from './../views/spl/Auth'
 import Welcome from './../views/Welcome'
-import ClusterCapacity from './../views/cluster/ClusterCapacity'
-import ClusterUsage from './../views/cluster/ClusterUsage'
+import CloudStatus from './../views/cloud/CloudStatus'
+import K8SClusterUsage from './../views/cluster/K8SClusterUsage'
 import ReservationsStatus from './../views/reservations/ReservationsStatus'
 import HDFSStatus from './../views/hdfs/HDFSStatus'
 import SparkStatus from './../views/spark/SparkStatus'
 import SpitfireInterpretersStatus from './../views/spitfire/SpitfireInterpretersStatus'
 import NetworkStatus from './../views/network/NetworkStatus'
 import RunningStatus from './../views/run/RunningStatus'
-import ClusterStatus from './../views/cluster/ClusterStatus'
+import K8SClusterStatus from './../views/cluster/K8SClusterStatus'
 import AwsStatus from './../views/aws/AwsStatus'
 import AppsStatus from './../views/apps/AppsStatus'
 import history from './../history/History'
@@ -71,11 +71,11 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/settings" name="Settings" component={Settings}/>
           <Route exact path="/dla/kuber/status" name="Status" component={Status}/>
           <Route path="/dla/kuber/budget" name="Budget" component={Budget}/>
-          <Route path="/dla/kuber/status/cluster" name="Cluster Status" component={ClusterStatus}/>
+          <Route path="/dla/kuber/status/cluster" name="Cluster Status" component={K8SClusterStatus}/>
           <Route path="/dla/kuber/status/aws" name="AWS Status" component={AwsStatus}/>
           <Route path="/dla/kuber/status/apps" name="Applications Status" component={AppsStatus}/>
-          <Route path="/dla/kuber/status/cluster-capacity" name="Cluster Capacity" component={ClusterCapacity}/>
-          <Route path="/dla/kuber/status/cluster-usage" name="Cluster Usage" component={ClusterUsage}/>
+          <Route path="/dla/kuber/status/cluster-capacity" name="Cluster Capacity" component={CloudStatus}/>
+          <Route path="/dla/kuber/status/cluster-usage" name="Cluster Usage" component={K8SClusterUsage}/>
           <Route path="/dla/kuber/status/hdfs" name="HDFS Status" component={HDFSStatus}/>
           <Route path="/dla/kuber/status/reservations" name="Cluster Reservations" component={ReservationsStatus}/>
           <Route path="/dla/kuber/status/spark" name="Spark Status" component={SparkStatus}/>

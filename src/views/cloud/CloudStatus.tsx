@@ -9,7 +9,7 @@ import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/Kub
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ClusterCapacity extends React.Component<any, any> {
+export default class CloudStatus extends React.Component<any, any> {
   private kuberApi: KuberApi
 
   public constructor(props) {
@@ -17,7 +17,6 @@ export default class ClusterCapacity extends React.Component<any, any> {
     var status = NotebookStore.state().kuberStatus
     if (status.cluster) {
       if (status.cluster.awsAutoscalingGroup) {
-        console.log('---', status.cluster.awsAutoscalingGroup)
         var numberOfRunningInstances = 0
         if (status.cluster.awsAutoscalingGroup.Instances) {
           numberOfRunningInstances = status.cluster.awsAutoscalingGroup.Instances.length
@@ -44,17 +43,17 @@ export default class ClusterCapacity extends React.Component<any, any> {
           <div className="ms-Grid-row" style={{ maxWidth: "500px" }}>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <Slider
-                label='Maximum Number of Workers'
+                label='Maximum Number of Cloud Instances'
                 min={ 0 }
                 max={ 10 }
                 step={ 1 }
                 defaultValue={ maxSize }
                 showValue={ true }
                 disabled={ false }
-                onChange={ (size) => this.setMaxWorkers(size) }
+                onChange={ (size) => this.setMaxWorkerCloudInstances(size) }
                 key={ maxSize }
               />
-              <div className="ms-fontSize-xl">{numberOfRunningInstances} RUNNING Worker(s)</div>
+              <div className="ms-fontSize-xl">You have currently {numberOfRunningInstances} running cloud instance(s) to host your K8S worker(s).</div>
             </div>
           </div>
         </div>
@@ -79,7 +78,6 @@ export default class ClusterCapacity extends React.Component<any, any> {
   private updateCapacityStatus(status) {
     if (status.cluster) {
       if (status.cluster.awsAutoscalingGroup) {
-        console.log('---', status.cluster.awsAutoscalingGroup)
         var numberOfRunningInstances = 0
         if (status.cluster.awsAutoscalingGroup.Instances) {
           numberOfRunningInstances = status.cluster.awsAutoscalingGroup.Instances.length
@@ -92,9 +90,9 @@ export default class ClusterCapacity extends React.Component<any, any> {
     }
   }
 
-  private setMaxWorkers(size: number) {
-    this.kuberApi.setMaxWorkers(size)
-    toastr.warning('Kuber', `We have requested a ${size} worker(s) cluster.`)
+  private setMaxWorkerCloudInstances(size: number) {
+    this.kuberApi.setMaxWorkerCloudInstances(size)
+    toastr.warning('Kuber', `We have requested a cluster with ${size} instance worker(s).`)
   }
 
 }

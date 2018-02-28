@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import MockContent from './../message/MockContent'
-import ClusterStatus from './../cluster/ClusterStatus'
+import K8SClusterStatus from './../cluster/K8SClusterStatus'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class AsideCluster extends React.Component<any, any> {
@@ -16,7 +16,7 @@ export default class AsideCluster extends React.Component<any, any> {
       <div>
         <div className="ms-font-xxl">Cluster Status</div>
 {/*
-        <ClusterStatus/>
+        <K8SClusterStatus/>
 */}
       </div>
    )

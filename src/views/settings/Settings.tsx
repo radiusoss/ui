@@ -2,7 +2,7 @@ import * as React from 'react'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
 import KuberConfig from './../config/KuberConfig'
 import HDFSCapacity from './../hdfs/HDFSCapacity'
-import ClusterCapacity from './../cluster/ClusterCapacity'
+import CloudStatus from './../cloud/CloudStatus'
 import SpitfireConfig from './../spitfire/SpitfireConfig'
 import SpitfireInterpretersConfig from './../spitfire/SpitfireInterpretersConfig'
 import { connect } from 'react-redux'
@@ -18,7 +18,7 @@ export default class Settings extends React.Component<any, any> {
         <Pivot>
         <PivotItem linkText='Cluster Capacity' itemIcon='CircleHalfFull'>
             <div className="ms-font-xxl">Cluster Capacity</div>
-            <ClusterCapacity />
+            <CloudStatus />
           </PivotItem>
           <PivotItem linkText='HDFS Capacity' itemIcon='OfflineStorageSolid'>
             <div className="ms-font-xxl">HDFS Capacity</div>

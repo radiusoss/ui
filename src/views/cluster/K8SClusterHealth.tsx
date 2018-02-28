@@ -8,7 +8,7 @@ import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/Kub
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ClusterHealth extends React.Component<any, any> {
+export default class K8SClusterHealth extends React.Component<any, any> {
   private kuberApi: KuberApi
 
   state = {

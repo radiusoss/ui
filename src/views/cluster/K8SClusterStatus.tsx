@@ -7,7 +7,7 @@ import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/
 import JSONTree from 'react-json-tree'
 import { jsonTreeMonokaiTheme } from './../../theme/Themes'
 import { toastr } from 'react-redux-toastr'
-import ClusterHealth from './ClusterHealth'
+import K8SClusterHealth from './K8SClusterHealth'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/ConfigActions'
 import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/KuberActions'
 import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
@@ -20,7 +20,7 @@ export type IClusterState = {
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class ClusterStatus extends React.Component<any, IClusterState> {
+export default class K8SClusterStatus extends React.Component<any, IClusterState> {
   private config: IConfig = NotebookStore.state().config
   private kuberApi: KuberApi
 
@@ -90,7 +90,7 @@ export default class ClusterStatus extends React.Component<any, IClusterState> {
     }
     return (
       <div>
-        <ClusterHealth/>
+        <K8SClusterHealth/>
         <hr/>
         <div className="ms-Grid" style={{padding: 0}}>
           <div className="ms-Grid-row" style={{padding: 0}}>

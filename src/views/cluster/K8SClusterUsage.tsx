@@ -23,7 +23,7 @@ export type IClusterState = {
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class ClusterUsage extends React.Component<any, any> {
+export default class K8SClusterUsage extends React.Component<any, any> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
   private kuberApi: KuberApi
@@ -117,7 +117,6 @@ export default class ClusterUsage extends React.Component<any, any> {
   private handleHover(...hover) {
 //    var node = JSON.stringify(hover)
     if (hover.length > 0 && hover[1].name) {
-      console.log('---', hover)
       this.setState({
         selectedNode: hover[1]
       })
