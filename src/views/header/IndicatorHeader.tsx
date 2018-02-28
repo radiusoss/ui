@@ -201,6 +201,7 @@ export default class ControlHeader extends React.Component<any, any> {
             <div>
               <div className="ms-font-su"><FabricIcon name="Health" /> Cluster</div>
               <AWSCapacity ref={ ref => this.cloudStatus = ref } />
+              <hr/>
               <K8SClusterStatus ref={ ref => this.clusterStatus = ref } />
             </div>
           }
