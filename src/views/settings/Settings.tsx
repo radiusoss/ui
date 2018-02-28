@@ -2,7 +2,7 @@ import * as React from 'react'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
 import KuberConfig from './../config/KuberConfig'
 import HDFSCapacity from './../hdfs/HDFSCapacity'
-import CloudStatus from './../cloud/CloudStatus'
+import AWSCapacity from './../aws/AWSCapacity'
 import SpitfireConfig from './../spitfire/SpitfireConfig'
 import SpitfireInterpretersConfig from './../spitfire/SpitfireInterpretersConfig'
 import { connect } from 'react-redux'
@@ -16,9 +16,9 @@ export default class Settings extends React.Component<any, any> {
       <div>
         <div className="ms-font-su">Platform Settings</div>
         <Pivot>
-        <PivotItem linkText='Cloud Capacity' itemIcon='Cloud'>
-            <div className="ms-fontSize-su">Cloud Capacity</div>
-            <CloudStatus />
+        <PivotItem linkText='AWS Capacity' itemIcon='Cloud'>
+            <div className="ms-fontSize-su">AWS Capacity</div>
+            <AWSCapacity />
           </PivotItem>
 {/*
           <PivotItem linkText='HDFS Capacity' itemIcon='OfflineStorageSolid'>

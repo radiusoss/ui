@@ -9,7 +9,7 @@ import { mapStateToPropsKuber, mapDispatchToPropsKuber } from '../../actions/Kub
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class CloudStatus extends React.Component<any, any> {
+export default class AWSCapacity extends React.Component<any, any> {
   private kuberApi: KuberApi
 
   public constructor(props) {

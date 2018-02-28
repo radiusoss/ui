@@ -11,13 +11,13 @@ import JSONTree from 'react-json-tree'
 import ConfigApi from '../../api/config/ConfigApi'
 import KuberApi, { KuberResponse, loading } from '../../api/kuber/KuberApi'
 
-export type IAwsStatusState = {
+export type IAWSStatusState = {
   instances: any
 }
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class AwsStatus extends React.Component<any, IAwsStatusState> {
+export default class AWSStatus extends React.Component<any, IAWSStatusState> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
   state = {
@@ -45,7 +45,7 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
   public constructor(props) {    
     super(props)
     this.restClient = new RestClient({
-      name: 'KuberRestAwsStatus',
+      name: 'KuberRestAWSStatus',
       url: this.config.kuberRest,
       path: '/kuber/api/v1/cloud/aws'
     })
@@ -63,7 +63,7 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
             numberOfAwsInstances++
             return <div className="ms-Grid-row" style={{padding: 0}} key={instance.InstanceId}>
               <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
-                <div className="ms-fontSize-l">Name: {instance.InstanceId}</div>
+                <div className="ms-fontSize-xxl">Name: {instance.InstanceId}</div>
                 <div><br/></div>
                 <div className="ms-fontSize-l">Public Hostname: {instance.PublicDnsName}</div>
                 <div><br/></div>

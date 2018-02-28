@@ -20,7 +20,7 @@ import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
 import { SwatchColorPicker } from 'office-ui-fabric-react/lib/SwatchColorPicker'
 import GoogleProfileWidget from './../profile/GoogleProfileWidget'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
-import CloudStatus from './../cloud/CloudStatus'
+import AWSCapacity from './../aws/AWSCapacity'
 import K8SClusterUsage from './../cluster/K8SClusterUsage'
 import K8SClusterStatus from './../cluster/K8SClusterStatus'
 import ReservationsStatus from './../reservations/ReservationsStatus'
@@ -47,7 +47,7 @@ export default class ControlHeader extends React.Component<any, any> {
   private kuberApi: KuberApi
 
   private clusterStatus: K8SClusterStatus
-  private cloudStatus: CloudStatus
+  private cloudStatus: AWSCapacity
   private reservationsStatus: ReservationsStatus
   private clusterUsageStatus: K8SClusterUsage
   private hdfsStatus: HDFStatus
@@ -200,7 +200,7 @@ export default class ControlHeader extends React.Component<any, any> {
             (statusPanel == 'cluster') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="Health" /> Cluster</div>
-              <CloudStatus ref={ ref => this.cloudStatus = ref } />
+              <AWSCapacity ref={ ref => this.cloudStatus = ref } />
               <K8SClusterStatus ref={ ref => this.clusterStatus = ref } />
             </div>
           }

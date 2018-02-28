@@ -37,8 +37,9 @@ export default class NoteScratchpad extends React.Component<any, any> {
                 note={note} 
                 showGraphBar={true}
                 showControlBar={false}
-                showParagraphTitle={false} 
-              />
+                showParagraphTitle={false}
+                stripDisplay={false}
+                />
             </div>
           </div>
         </div>

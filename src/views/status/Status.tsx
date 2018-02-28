@@ -8,7 +8,7 @@ import SparkStatus from './../spark/SparkStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
 import NetworkStatus from './../network/NetworkStatus'
 import K8SClusterStatus from './../cluster/K8SClusterStatus'
-import AwsStatus from './../aws/AwsStatus'
+import AWSStatus from './../aws/AWSStatus'
 import Apps from './../apps/AppsStatus'
 import SpitfireApi from './../../api/spitfire/SpitfireApi'
 import KuberApi from './../../api/kuber/KuberApi'
@@ -42,8 +42,8 @@ export default class Status extends React.Component<any, any> {
             <div className="ms-fontSize-su">Cluster Usage</div>
             <K8SClusterUsage />
           </PivotItem>
-          <PivotItem linkText='AWS Cloud' itemIcon='Cloud'>
-            <AwsStatus />
+          <PivotItem linkText='AWS' itemIcon='Cloud'>
+            <AWSStatus />
           </PivotItem>
 {/*
           <PivotItem linkText='HDFS' itemIcon='OfflineStorageSolid'>

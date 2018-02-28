@@ -20,7 +20,8 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
     },
     showGraphBar: true,
     showParagraphTitle: false,
-    showControlBar: false
+    showControlBar: false,
+    stripDisplay: false
   }
 
   public constructor(props) {
@@ -29,13 +30,14 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
       note: props.note,
       showGraphBar: props.showGraphBar,
       showControlBar: props.showControlBar,
-      showParagraphTitle: props.showParagraphTitle
+      showParagraphTitle: props.showParagraphTitle,
+      stripDisplay: props.stripDisplay
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    var { note, showGraphBar, showControlBar, showParagraphTitle } = this.state
+    var { note, showGraphBar, showControlBar, showParagraphTitle, stripDisplay } = this.state
     var i = -1
     if (!note.paragraphs) {
       return <div></div>
@@ -53,7 +55,7 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
                   showGraphBar={showGraphBar} 
                   showControlBar={showControlBar} 
                   showParagraphTitle={showParagraphTitle} 
-                  stripDisplay={true}
+                  stripDisplay={stripDisplay}
                   key={p.id + '-' + i}
                 />
                 <hr/>
