@@ -62,15 +62,13 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
             console.log('---', instance)
             numberOfAwsInstances++
             return <div className="ms-Grid-row" style={{padding: 0}} key={instance.InstanceId}>
-              <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
+              <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
                 <div className="ms-fontSize-l">Name: {instance.InstanceId}</div>
-              </div>
-              <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
+                <div><br/></div>
                 <div className="ms-fontSize-l">Public Hostname: {instance.PublicDnsName}</div>
                 <div><br/></div>
                 <div className="ms-fontSize-l">Public IP: {instance.PublicIpAddress}</div>
-              </div>
-              <div className="ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3">
+                <div><br/></div>
                 <div className="ms-fontSize-l">Launch Time: {instance.LaunchTime}</div>
                 <div><br/></div>
                 <div className="ms-fontSize-l">Status: {instance.State.Name.toUpperCase()}</div>
