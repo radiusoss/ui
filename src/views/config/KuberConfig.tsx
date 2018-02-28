@@ -49,7 +49,6 @@ export default class KuberConfig extends React.Component<any, IKuberState> {
     })
     return (
       <div>
-        <div className="ms-font-xxl">Kuber Config</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {out}
         </div>

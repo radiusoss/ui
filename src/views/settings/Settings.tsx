@@ -16,21 +16,26 @@ export default class Settings extends React.Component<any, any> {
       <div>
         <div className="ms-font-su">Platform Settings</div>
         <Pivot>
-        <PivotItem linkText='Cluster Capacity' itemIcon='CircleHalfFull'>
-            <div className="ms-font-xxl">Cluster Capacity</div>
+        <PivotItem linkText='Cloud Capacity' itemIcon='Cloud'>
+            <div className="ms-fontSize-su">Cloud K8S</div>
             <CloudStatus />
           </PivotItem>
+{/*
           <PivotItem linkText='HDFS Capacity' itemIcon='OfflineStorageSolid'>
-            <div className="ms-font-xxl">HDFS Capacity</div>
+            <div className="ms-fontSize-su">HDFS Capacity</div>
             <HDFSCapacity />
           </PivotItem>
+*/}
           <PivotItem linkText='Kuber Config' itemIcon='Equalizer'>
+            <div className="ms-fontSize-su">Kuber Config</div>
             <KuberConfig />
           </PivotItem>
           <PivotItem linkText='Spitfire Config' itemIcon='Airplane'>
+            <div className="ms-fontSize-su">Spitfire Configuration</div>
             <SpitfireConfig />
           </PivotItem>
           <PivotItem linkText='Spitfire Interpreters' itemIcon='AirplaneSolid'>
+            <div className="ms-fontSize-su">Spitfire Interpreters Configuration</div>
             <SpitfireInterpretersConfig />
           </PivotItem>
           </Pivot>

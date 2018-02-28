@@ -53,6 +53,10 @@ export default class CloudStatus extends React.Component<any, any> {
                 onChange={ (size) => this.setMaxWorkerCloudInstances(size) }
                 key={ maxSize }
               />
+            </div>
+          </div>
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <div className="ms-fontSize-xl">You have currently {numberOfRunningInstances} running cloud instance(s) to host your K8S worker(s).</div>
             </div>
           </div>

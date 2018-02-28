@@ -90,14 +90,15 @@ export default class K8SClusterStatus extends React.Component<any, IClusterState
     }
     return (
       <div>
-        <K8SClusterHealth/>
-        <hr/>
         <div className="ms-Grid" style={{padding: 0}}>
           <div className="ms-Grid-row" style={{padding: 0}}>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <div className="ms-fontSize-su">{numberOfNodes} K8S Nodes (Master or Worker)</div>
+              <div className="ms-fontSize-su">{numberOfNodes} Kubernetes Nodes</div>
+              <div className="ms-fontSize-xl">The Kubernetes Nodes host the Master and the Workers.</div>
             </div>
           </div> 
+          <K8SClusterHealth/>
+          <hr/>
           {nodes}
         </div>
         <hr/>

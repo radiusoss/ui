@@ -43,7 +43,6 @@ export default class SpitfireInterpretersConfig extends React.Component<any, any
     }
     return (
       <div>
-        <div className="ms-font-xxl">Spitfire Interpreters</div>
         <div className="ms-Grid" style={{padding: 0}}>
           {out}
         </div>
