@@ -200,6 +200,7 @@ export default class ControlHeader extends React.Component<any, any> {
             (statusPanel == 'cluster') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="Health" /> Cluster</div>
+              <hr/>
               <AWSCapacity ref={ ref => this.cloudStatus = ref } />
               <hr/>
               <K8SClusterStatus ref={ ref => this.clusterStatus = ref } />

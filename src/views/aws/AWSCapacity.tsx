@@ -57,7 +57,7 @@ export default class AWSCapacity extends React.Component<any, any> {
           </div>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <div className="ms-fontSize-xxl">You currently have {numberOfRunningInstances} running Cloud Instance(s) to host your Kubernetes Node(s).</div>
+              <div className="ms-fontSize-xxl">You currently have {numberOfRunningInstances} running Cloud Instance(s) to host your Kubernetes Worker Node(s) (not the Master).</div>
             </div>
           </div>
         </div>
