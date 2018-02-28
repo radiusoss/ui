@@ -12,6 +12,7 @@ export default class K8SClusterHealth extends React.Component<any, any> {
   private kuberApi: KuberApi
 
   state = {
+    cluster: null,
     cpuUsed: -1,
     cpuTotal: -1,
     cpuPercentage: -1,
@@ -19,7 +20,11 @@ export default class K8SClusterHealth extends React.Component<any, any> {
     memoryUsed: -1,
     memoryTotal: -1,
     memoryPercentage: -1,
-    memoryClassName: 'bg-info'
+    memoryClassName: 'bg-info',
+    podUsed: -1,
+    podTotal: -1,
+    podPercentage: -1,
+    podClassName: 'bg-info'
   }
 
   public constructor(props) {
@@ -27,119 +32,122 @@ export default class K8SClusterHealth extends React.Component<any, any> {
   }
     
   public render() {
-    const { cpuUsed, cpuTotal, cpuPercentage, cpuClassName, memoryUsed, memoryTotal, memoryPercentage,  memoryClassName } = this.state
+    const {
+      cpuUsed, cpuTotal, cpuPercentage, cpuClassName, 
+      memoryUsed, memoryTotal, memoryPercentage, memoryClassName,
+      podUsed, podTotal, podPercentage, podClassName
+    } = this.state
     return (
       <div>
         <div className="text-uppercase mb-q mt-2">
-          <small><b>Cluster CPU Usage</b></small>
+          <small><b>CPU</b></small>
         </div>
         <div className="progress progress-xs">
           <div className={`progress-bar ${cpuClassName}`} role="progressbar" style={{ "width": `${cpuPercentage}%`}} aria-valuenow={cpuPercentage} aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        <small className="text-muted">{cpuUsed} Used / {cpuTotal} Available.</small>
+        <small className="text-muted">{cpuUsed / 1000} Requested / {cpuTotal / 1000} Available.</small>
         <div className="text-uppercase mb-q mt-h">
-          <small><b>Cluster Memory Usage</b></small>
+          <small><b>Memory</b></small>
         </div>
         <div className="progress progress-xs">
-          <div className={`progress-bar ${memoryClassName}`} role="progressbar" style={{ "width": `${memoryPercentage}}%`}} aria-valuenow={memoryPercentage} aria-valuemin="0" aria-valuemax="100"></div>
+          <div className={`progress-bar ${memoryClassName}`} role="progressbar" style={{ "width": `${memoryPercentage}%`}} aria-valuenow={memoryPercentage} aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        <small className="text-muted">{memoryUsed} Used / {memoryTotal} Available.</small>
-{/*
+        <small className="text-muted">{memoryUsed / 1000000000} GB Requested / {memoryTotal / 1000000000} GB Available.</small>
         <div className="text-uppercase mb-q mt-h">
-          <small><b>Disk Usage</b></small>
+          <small><b>Pods</b></small>
         </div>
         <div className="progress progress-xs">
-          <div className="progress-bar bg-danger" role="progressbar" style={{ "width": "95%" }} aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+          <div className={`progress-bar ${podClassName}`} role="progressbar" style={{ "width": `${podPercentage}%`}} aria-valuenow={podPercentage} aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        <small className="text-muted">243GB/256GB</small>
-*/}
-{/*
-        <h6>Settings</h6>
-        <div className="aside-options">
-            <div className="clearfix mt-2">
-                <small><b>Option 1</b>
-                </small>
-                <label className="switch switch-text switch-pill switch-success switch-sm float-right">
-                    <input className="switch-input" type="checkbox" defaultChecked/>
-                    <span className="switch-label" data-on="On" data-off="Off"></span>
-                    <span className="switch-handle"></span>
-                </label>
-            </div>
-            <div>
-                <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
-            </div>
-        </div>
-        <div className="aside-options">
-            <div className="clearfix mt-1">
-                <small><b>Option 2</b>
-                </small>
-                <label className="switch switch-text switch-pill switch-success switch-sm float-right">
-                    <input className="switch-input" type="checkbox"></input>
-                    <span className="switch-label" data-on="On" data-off="Off"></span>
-                    <span className="switch-handle"></span>
-                </label>
-            </div>
-            <div>
-                <small className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
-            </div>
-        </div>
-        <div className="aside-options">
-            <div className="clearfix mt-1">
-                <small><b>Option 3</b>
-                </small>
-                <label className="switch switch-text switch-pill switch-success switch-sm float-right">
-                    <input className="switch-input" type="checkbox"></input>
-                    <span className="switch-label" data-on="On" data-off="Off"></span>
-                    <span className="switch-handle"></span>
-                </label>
-            </div>
-        </div>
-        <div className="aside-options">
-            <div className="clearfix mt-1">
-                <small><b>Option 4</b>
-                </small>
-                <label className="switch switch-text switch-pill switch-success switch-sm float-right">
-                    <input className="switch-input" type="checkbox" defaultChecked></input>
-                    <span className="switch-label" data-on="On" data-off="Off"></span>
-                    <span className="switch-handle"></span>
-                </label>
-            </div>
-        </div>
-        <hr/>
-*/}
-    </div>
+        <small className="text-muted">{podUsed} Requested / {podTotal} Available.</small>
+      </div>
     )
   }
 
   public componentDidMount() {
     this.kuberApi = window['KuberApi']
     this.kuberApi.status()
+    this.kuberApi.getClusterDef().then(json => { this.setState({definition: json})})
   }
 
   public componentWillReceiveProps(nextProps) {
     const { kuberMessageReceived } = nextProps
     if (kuberMessageReceived) {
-      if (kuberMessageReceived.op == "KUBER_STATUS") {
-        this.updateWithStatus(kuberMessageReceived)
+      if (kuberMessageReceived.op == "KUBER_STATUS") {        
+        this.kuberApi.getClusterDef()
+          .then(cluster => {
+            this.updateCluster(cluster)
+          })
       }
     }
   }
 
 /*
-    bg-info
-    bg-success
-    bg-warning
-    bg-danger
+  cpuCapacity:16000
+  cpuRequests:6380
+  memoryCapacity:31606943744
+  memoryRequests:13631488000
+  podCapacity:110
+  allocatedPods:17
 */
-  private updateWithStatus(status) {
-    if (status.cluster) {
-      this.setState({
+  private updateCluster(cluster) {
+
+    var cpuUsed=0, cpuTotal=0, cpuPercentage=0, cpuClassName='', 
+      memoryUsed=0, memoryTotal=0, memoryPercentage=0, memoryClassName='',
+      podUsed=0, podTotal=0, podPercentage=0, podClassName=''
+
+    if (cluster.result) {
+      cluster.result.nodeList.nodes.map(n => {
+        var ar = n.allocatedResources
+        console.log('---', ar)
+        cpuUsed += ar.cpuRequests
+        cpuTotal += ar.cpuCapacity
+        memoryUsed += ar.memoryRequests
+        memoryTotal += ar.memoryCapacity
+        podUsed += ar.allocatedPods
+        podTotal += ar.podCapacity
       })
     }
-    else {
-      this.setState({
-      })
-    }
+
+    cpuPercentage = cpuUsed / cpuTotal * 100
+    cpuClassName = this.toClassName(cpuPercentage)
+
+    memoryPercentage = memoryUsed / memoryTotal * 100
+    memoryClassName = this.toClassName(memoryPercentage)
+
+    podPercentage = podUsed / podTotal * 100
+    podClassName = this.toClassName(podPercentage)
+
+    this.setState({
+      cluster: cluster,
+      cpuUsed: cpuUsed,
+      cpuTotal: cpuTotal,
+      cpuPercentage: cpuPercentage,
+      cpuClassName: cpuClassName,
+      memoryUsed: memoryUsed,
+      memoryTotal: memoryTotal,
+      memoryPercentage: memoryPercentage,
+      memoryClassName: memoryClassName,
+      podUsed: podUsed,
+      podTotal: podTotal,
+      podPercentage: podPercentage,
+      podClassName: podClassName
+    })
+
+  }
+
+  /*
+  bg-info
+  bg-success
+  bg-warning
+  bg-danger
+  */
+  private toClassName(percentage) {
+    console.log('---', percentage)
+    if (percentage < 40) return 'bg-success'
+    if (percentage < 75) return 'bg-warning'
+    if (percentage < 100) return 'bg-danger'
+    return 'bg-info'
   }
 
 }

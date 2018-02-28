@@ -14,10 +14,6 @@ export default class AsideCluster extends React.Component<any, any> {
   public render() {
     return (
       <div>
-        <div className="ms-font-xxl">Cluster Status</div>
-{/*
-        <K8SClusterStatus/>
-*/}
       </div>
    )
   }

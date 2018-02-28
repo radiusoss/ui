@@ -13,6 +13,7 @@ import TableScatterDisplay from './../table/TableScatterDisplay'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import NotebookApi from './../../api/notebook/NotebookApi'
 import * as stylesImport from './../_styles/Styles.scss'
+import { downloadCSV } from './../../util/data/CSV'
 const styles: any = stylesImport
 import * as isEqual from 'lodash.isequal'
 
@@ -23,51 +24,66 @@ export default class TableDisplay extends React.Component<any, any> {
   private leftItems = [
     {
       key: 'Table',
+      title: 'Table Display',
       name: '',
       icon: 'Table',
       onClick: (e) => this.updateFormat(e, 'text')
     },
     {
       key: 'Line',
+      title: 'Line Display',
       name: '',
       icon: 'Chart',
       onClick: (e) => this.updateFormat(e, 'line')
     },
     {
       key: 'Bar',
+      title: 'Bar Display',
       name: '',
       icon: 'BarChart4',
       onClick: (e) => this.updateFormat(e, 'barchart')
     },
     {
       key: 'BarHorizontal',
+      title: 'BarHorizontal Display',
       name: '',
       icon: 'BarChartHorizontal',
       onClick: (e) => this.updateFormat(e, 'barchart-horizontal')
     },
     {
       key: 'Pie',
+      title: 'Pie Display',
       name: '',
       icon: 'PieDouble',
       onClick: (e) => this.updateFormat(e, 'pie')
     },
     {
       key: 'Doughnut',
+      title: 'Doughnut Display',
       name: '',
       icon: 'DonutChart',
       onClick: (e) => this.updateFormat(e, 'doughnut')
     },
     {
       key: 'Scatter',
+      title: 'Scatter Display',
       name: '',
       icon: 'Dialpad',
       onClick: (e) => this.updateFormat(e, 'scatter')
     },
     {
       key: 'Bubble',
+      title: 'Bubble Display',
       name: '',
       icon: 'GridViewSmall',
       onClick: (e) => this.updateFormat(e, 'bubble')
+    },
+    {
+      key: 'Download',
+      title: 'Download CSV',
+      name: '',
+      icon: 'Download',
+      onClick: (e) => this.downloadCsv(e)
     }
   ]
 
@@ -159,7 +175,6 @@ export default class TableDisplay extends React.Component<any, any> {
         }
       </div>
     )
-
   }
 
   private updateFormat(e: MouseEvent, format) {
@@ -169,6 +184,16 @@ export default class TableDisplay extends React.Component<any, any> {
       format: format
     })
     this.notebookApi.commitParagraphWithGraph(this.state.p, this.graph(format))
+  }
+
+  private downloadCsv(e: MouseEvent) {
+    e.stopPropagation()
+    e.preventDefault()
+    console.log('---', this.state.items)
+    downloadCSV({
+      filename: "data.csv",
+      items: this.state.items
+    })
   }
 
   private graph(format: string) {

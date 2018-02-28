@@ -146,14 +146,14 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
   public async getClusterDef(): Promise<Result<KuberResponse>> {
     return this.wrapResult<KuberResponse, KuberResponse>(
       r => r,
-      async () => this.restClient.get<KuberResponse>({}, jsonOpt, '/v1/cluster?filterBy=&itemsPerPage=10&name=&namespace=&page=1&sortBy=d,creationTimestamp')
+      async () => this.restClient.get<KuberResponse>({}, jsonOpt, '/v1/cluster?filterBy=&itemsPerPage=1000&name=&namespace=&page=1&sortBy=d,creationTimestamp')
     )
   }
 
   public async getOverview(): Promise<Result<KuberResponse>> {
     return this.wrapResult<KuberResponse, KuberResponse>(
       r => r,
-      async () => this.restClient.get<KuberResponse>({}, jsonOpt, '/v1/overview?filterBy=&itemsPerPage=10&name=&page=1&sortBy=d,creationTimestamp')
+      async () => this.restClient.get<KuberResponse>({}, jsonOpt, '/v1/overview?filterBy=&itemsPerPage=1000&name=&page=1&sortBy=d,creationTimestamp')
     )
   }
 
