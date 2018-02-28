@@ -35,7 +35,7 @@ import SpitfireInterpretersStatus from './../views/spitfire/SpitfireInterpreters
 import NetworkStatus from './../views/network/NetworkStatus'
 import RunningStatus from './../views/run/RunningStatus'
 import K8SClusterStatus from './../views/cluster/K8SClusterStatus'
-import AWSStatus from './../views/aws/AWSStatus'
+import AWSInstances from './../views/aws/AWSInstances'
 import AppsStatus from './../views/apps/AppsStatus'
 import history from './../history/History'
 import NotebookApi from './../api/notebook/NotebookApi'
@@ -73,7 +73,7 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/budget" name="Budget" component={Budget}/>
           <Route path="/dla/kuber/settings/aws" name="AWS Capacity" component={AWSCapacity}/>
           <Route path="/dla/kuber/status/cluster" name="Cluster Status" component={K8SClusterStatus}/>
-          <Route path="/dla/kuber/status/aws" name="AWS Status" component={AWSStatus}/>
+          <Route path="/dla/kuber/status/aws" name="AWS Status" component={AWSInstances}/>
           <Route path="/dla/kuber/status/apps" name="Applications Status" component={AppsStatus}/>
           <Route path="/dla/kuber/status/cluster-usage" name="Cluster Usage" component={K8SClusterUsage}/>
           <Route path="/dla/kuber/status/hdfs" name="HDFS Status" component={HDFSStatus}/>

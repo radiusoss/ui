@@ -40,6 +40,11 @@ export default class AWSCapacity extends React.Component<any, any> {
     return (
       <div>
         <div className="ms-Grid" style={{ padding: 0 }}>
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <div className="ms-fontSize-xxl">You currently have {numberOfRunningInstances} running Cloud Instance(s) to host your Kubernetes Worker Node(s) (not the Master).</div>
+            </div>
+          </div>
           <div className="ms-Grid-row" style={{ maxWidth: "500px" }}>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <Slider
@@ -53,11 +58,6 @@ export default class AWSCapacity extends React.Component<any, any> {
                 onChange={ (size) => this.setMaxWorkerCloudInstances(size) }
                 key={ maxSize }
               />
-            </div>
-          </div>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <div className="ms-fontSize-xxl">You currently have {numberOfRunningInstances} running Cloud Instance(s) to host your Kubernetes Worker Node(s) (not the Master).</div>
             </div>
           </div>
         </div>
