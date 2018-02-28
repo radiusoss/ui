@@ -63,7 +63,7 @@ export default class AWSInstances extends React.Component<any, IAWSInstancesStat
             numberOfAwsInstances++
             return <div className="ms-Grid-row" style={{padding: 0}} key={instance.InstanceId}>
               <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">
-                <div className="ms-fontSize-xxl">Name: {instance.InstanceId}</div>
+                <div className="ms-fontSize-xxl">AWS Instance Name: {instance.InstanceId}</div>
                 <div><br/></div>
                 <div className="ms-fontSize-l">Public Hostname: {instance.PublicDnsName}</div>
                 <div><br/></div>
