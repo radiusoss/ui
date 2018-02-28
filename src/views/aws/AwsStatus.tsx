@@ -100,7 +100,8 @@ export default class AwsStatus extends React.Component<any, IAwsStatusState> {
     return (
       <div>
         <div className="ms-fontSize-su">{numberOfAwsInstances} AWS Instances</div>
-        <div className="ms-fontSize-xl">Ensure you have enough AWS instances to host the Kubernetes Master and Workers.</div>
+        <div className="ms-fontSize-xxl">Ensure you have enough AWS instances to host the Kubernetes Master and Workers.</div>
+        <hr/>
         <div className="ms-Grid" style={{padding: 0}}>
           {out}
         </div>

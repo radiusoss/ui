@@ -17,7 +17,7 @@ export default class Settings extends React.Component<any, any> {
         <div className="ms-font-su">Platform Settings</div>
         <Pivot>
         <PivotItem linkText='Cloud Capacity' itemIcon='Cloud'>
-            <div className="ms-fontSize-su">Cloud K8S</div>
+            <div className="ms-fontSize-su">Cloud Capacity</div>
             <CloudStatus />
           </PivotItem>
 {/*
@@ -34,7 +34,7 @@ export default class Settings extends React.Component<any, any> {
             <div className="ms-fontSize-su">Spitfire Configuration</div>
             <SpitfireConfig />
           </PivotItem>
-          <PivotItem linkText='Spitfire Interpreters' itemIcon='AirplaneSolid'>
+          <PivotItem linkText='Spitfire Interpreters Config' itemIcon='AirplaneSolid'>
             <div className="ms-fontSize-su">Spitfire Interpreters Configuration</div>
             <SpitfireInterpretersConfig />
           </PivotItem>
