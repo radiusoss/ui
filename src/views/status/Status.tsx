@@ -45,10 +45,12 @@ export default class Status extends React.Component<any, any> {
           <PivotItem linkText='Amazon AWS' itemIcon='Cloud'>
             <AwsStatus />
           </PivotItem>
+{/*
           <PivotItem linkText='HDFS' itemIcon='OfflineStorageSolid'>
             <div className="ms-font-xxl">HDFS</div>
             <HDFStatus />
           </PivotItem>
+*/}
           <PivotItem linkText='Interpreters' itemIcon='Light'>
             <div className="ms-font-xxl">Interpreters</div>
             <SpitfireInterpretersStatus />
