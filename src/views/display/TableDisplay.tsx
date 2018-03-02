@@ -64,6 +64,7 @@ export default class TableDisplay extends React.Component<any, any> {
       icon: 'DonutChart',
       onClick: (e) => this.updateFormat(e, 'doughnut')
     },
+/*
     {
       key: 'Scatter',
       title: 'Scatter Display',
@@ -71,16 +72,17 @@ export default class TableDisplay extends React.Component<any, any> {
       icon: 'Dialpad',
       onClick: (e) => this.updateFormat(e, 'scatter')
     },
+*/
     {
       key: 'Bubble',
       title: 'Bubble Display',
       name: '',
-      icon: 'GridViewSmall',
+      icon: 'ProgressRingDots',
       onClick: (e) => this.updateFormat(e, 'bubble')
     },
     {
       key: 'Download',
-      title: 'Download CSV',
+      title: 'Download as CSV',
       name: '',
       icon: 'Download',
       onClick: (e) => this.downloadCsv(e)
@@ -92,10 +94,14 @@ export default class TableDisplay extends React.Component<any, any> {
   constructor(props) {
     super(props)
     var format = 'text'
-    if (props.p.config.results[0]) {
-      var f = props.p.config.results[0].graph.mode
-      if (f) {
-        format = f
+    if (props.p.config && props.p.config.results) {
+      if (props.p.config.results.length > 0) {
+        if (props.p.config.results[0]) {
+          var f = props.p.config.results[0].graph.mode
+          if (f) {
+            format = f
+          }
+        }
       }
     }
     var tableData = new TableData()
@@ -109,7 +115,8 @@ export default class TableDisplay extends React.Component<any, any> {
         fieldName: c,
         minWidth: 100,
         maxWidth: 200,
-        isResizable: true
+        isResizable: true,
+        isCollapsable: true
       }
     })
     var rowData: [any] = tableData.rows
@@ -138,7 +145,7 @@ export default class TableDisplay extends React.Component<any, any> {
   public render() {
     var { columns, items, format, showGraphBar } = this.state
     return (
-      <div>
+      <div style={{ maxWidth: '100%', maxHeight: '80vh', overflowY: 'hidden' }}>
        {
           (showGraphBar == true) && 
           <CommandBar
@@ -150,28 +157,28 @@ export default class TableDisplay extends React.Component<any, any> {
           />
         }
         {
-          (format == 'text') && <TableTextDisplay columns={this.state.columns} items={this.state.items} />
+          (format == 'text') && <div style={{ overflowY: 'hidden' }}><TableTextDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'line') && <TableLineDisplay columns={this.state.columns} items={this.state.items} />
+          (format == 'line') && <div style={{ overflowY: 'auto' }}><TableLineDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'barchart') && <TableBarDisplay columns={this.state.columns} items={this.state.items} />
+          (format == 'barchart') && <div style={{ overflowY: 'auto' }}><TableBarDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'barchart-horizontal') && <TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} />
+          (format == 'barchart-horizontal') && <div style={{ overflowY: 'auto' }}><TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'pie') && <TablePieDisplay columns={this.state.columns} items={this.state.items} />
+          (format == 'pie') && <div style={{ overflowY: 'auto' }}><TablePieDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'doughnut') && <TableDoughnutDisplay columns={this.state.columns} items={this.state.items} />
+          (format == 'doughnut') && <div style={{ overflowY: 'auto' }}><TableDoughnutDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'scatter') && <TableScatterDisplay columns={this.state.columns} items={this.state.items} />
+          (format == 'scatter') && <div style={{ overflowY: 'auto' }}><TableScatterDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'bubble') && <TableBubbleDisplay columns={this.state.columns} items={this.state.items} />
+          (format == 'bubble') && <div style={{ overflowY: 'auto' }}><TableBubbleDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
       </div>
     )
@@ -189,9 +196,8 @@ export default class TableDisplay extends React.Component<any, any> {
   private downloadCsv(e: MouseEvent) {
     e.stopPropagation()
     e.preventDefault()
-    console.log('---', this.state.items)
     downloadCSV({
-      filename: "data.csv",
+      filename: "data_" + new Date().toISOString().replace(" ", "_") + ".csv",
       items: this.state.items
     })
   }

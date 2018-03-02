@@ -382,7 +382,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
   }
 
   private insertParagraph() {
-    this.notebookApi.insertParagraph(this.state.index)
+    this.notebookApi.insertParagraph(this.state.index + 1)
     this.notebookApi.getNote(this.state.note.id)
   }
 

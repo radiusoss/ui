@@ -317,48 +317,62 @@ export default class ParagraphDisplay extends React.Component<any, any> {
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_UPDATE_OUTPUT")) {
       var paraOutput = webSocketMessageReceived.data
-      if ((paraOutput.noteId == this.state.note.id) && (paraOutput.paragraphId === this.state.paragraph.id)) {
-        var p = this.state.paragraph
-        if (!p.results) {
-          p.results = {
-            msg: []
+      if (paraOutput.type != 'TABLE') {
+        if ((paraOutput.noteId == this.state.note.id) && (paraOutput.paragraphId === this.state.paragraph.id)) {
+          var p = this.state.paragraph
+          if (!p.results) {
+            p.results = {
+              msg: []
+            }
           }
-        }
-        if (!p.results.msg[paraOutput.index]) {
-          for (var i = p.results.msg.length; i<=paraOutput.index; i++) {
-            p.results.msg.push({
-              data: '',
-              type: 'TEXT'
-            })
+          if (!p.results.msg) {
+            p.results = {
+              msg: []
+            }
           }
+          if (!p.results.msg[paraOutput.index]) {
+            for (var i = p.results.msg.length; i <= paraOutput.index; i++) {
+              p.results.msg.push({
+                data: '',
+                type: paraOutput.type
+              })
+            }
+          }
+          p.results.msg[paraOutput.index].data = paraOutput.data
+          this.setState({
+            paragraph: p
+          })
         }
-        p.results.msg[paraOutput.index].data = paraOutput.data
-        this.setState({
-          paragraph: p
-        })
       }
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_APPEND_OUTPUT")) {
-      var paraOutput = webSocketMessageReceived.data
-      if ((paraOutput.noteId == this.state.note.id) && (paraOutput.paragraphId === this.state.paragraph.id)) {
-        var p = this.state.paragraph
-        if (!p.results) {
-          p.results = {
-            msg: []
+      if (this.state.paragraph.status != ParagraphStatus.FINISHED) {
+        var paraOutput = webSocketMessageReceived.data
+        if ((paraOutput.noteId == this.state.note.id) && (paraOutput.paragraphId === this.state.paragraph.id)) {
+          var p = this.state.paragraph
+          if (!p.results) {
+            p.results = {
+              msg: []
+            }
           }
-        }
-        if (!p.results.msg[paraOutput.index]) {
-          for (var i = p.results.msg.length; i<=paraOutput.index; i++) {
-            p.results.msg.push({
-              data: '',
-              type: 'TEXT'
-            })
+          if (!p.results.msg) {
+            p.results = {
+              msg: []
+            }
           }
+          if (!p.results.msg[paraOutput.index]) {
+            for (var i = p.results.msg.length; i <= paraOutput.index; i++) {
+              p.results.msg.push({
+                data: '',
+                type: 'TEXT'
+              })
+            }
+          }
+          p.results.msg[paraOutput.index].data = p.results.msg[paraOutput.index].data + paraOutput.data
+          this.setState({
+            paragraph: p
+          })
         }
-        p.results.msg[paraOutput.index].data = p.results.msg[paraOutput.index].data + paraOutput.data
-        this.setState({
-          paragraph: p
-        })
       }
     }
     if (webSocketMessageReceived && (webSocketMessageReceived.op == "INTERPRETER_BINDINGS")) {

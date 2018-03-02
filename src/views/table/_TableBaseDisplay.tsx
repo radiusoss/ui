@@ -38,24 +38,19 @@ export default class TableBaseDisplay extends React.Component<any, any> {
           show: true
         }
       }
-     ]
+     ]}
    }
- }
 
-  constructor(props) {
+  public constructor(props) {
     super(props)
   }
 
   protected prepareData(columns, items, data) {
-
     var labels = []
-
     for (var i = 0; i < items.length; i++) {
       labels = labels.concat(items[i][columns[0]['name']])
     }
-
     data['labels'] = labels
-
     var datasets = []
     for (var i = 1; i < columns.length; i++) {
       var serieName = columns[i]['name']
@@ -82,11 +77,8 @@ export default class TableBaseDisplay extends React.Component<any, any> {
       dataset['data'] = data
       datasets = datasets.concat(dataset)
     }
-
     data['datasets'] = datasets
-
     return data
-
   }
 
   protected getRandomColor() {

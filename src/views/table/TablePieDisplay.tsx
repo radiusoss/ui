@@ -5,13 +5,13 @@ import {Pie} from 'react-chartjs-2'
 export default class TablePieDisplay extends TableBaseDisplay {
   pieData = {}
 
-  constructor(props) {
+  public constructor(props) {
     super(props)
     const { columns, items } = props
     this.pieData = this.preparePieData(columns, items, this.pieData)
   }
 
-  render() {
+  public render() {
     return (
       <div>
         <Pie
@@ -22,7 +22,6 @@ export default class TablePieDisplay extends TableBaseDisplay {
   }
 
   protected preparePieData(columns, items, data) {
-
     var labels = []
     var backgroundColor = []
     var hoverBackgroundColor = []
@@ -33,7 +32,6 @@ export default class TablePieDisplay extends TableBaseDisplay {
       hoverBackgroundColor = hoverBackgroundColor.concat(color)
     }
     data['labels'] = labels
-
     var datasets = []
     for (var i = 1; i < columns.length; i++) {
       var serieName = columns[i]['name']
@@ -49,11 +47,8 @@ export default class TablePieDisplay extends TableBaseDisplay {
       dataset['data'] = data
       datasets = datasets.concat(dataset)
     }
-
     data['datasets'] = datasets
-
     return data
-
   }
 
 }

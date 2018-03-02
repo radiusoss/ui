@@ -48,7 +48,7 @@ export default class AWSCapacity extends React.Component<any, any> {
           <div className="ms-Grid-row" style={{ maxWidth: "500px" }}>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <Slider
-                label='Maximum Number of Cloud Instances for K8S Workers.'
+                label='Maximum Number of Cloud Instances for Kubernetes Workers.'
                 min={ 0 }
                 max={ 10 }
                 step={ 1 }

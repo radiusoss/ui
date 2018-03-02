@@ -55,7 +55,7 @@ export default class ReleaseNotes extends React.Component<any, any> {
                   <li>Fetch K8s API for settings/config and settings/k8s</li>
                   <li>Remount HDFS Volumes on restart</li>
                   <li>Configure pull timeout (--runtime-request-timeout 4m0s on kubevar service)</li>
-                  <li>Ensure fixed IP address for K8S Master</li>
+                  <li>Ensure fixed IP address for Kubernetese Master</li>
                   <li>Manage HDFS with cluster-id</li>
                 </ul>              
               </div>

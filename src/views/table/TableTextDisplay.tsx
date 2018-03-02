@@ -3,83 +3,74 @@ import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-react/lib/DetailsList'
+import { DetailsList, DetailsListLayoutMode, ConstrainMode, Selection } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import * as isEqual from 'lodash.isequal'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class TableTextDisplay extends React.Component<any, any> {
   private detailsList: DetailsList
-//  private selection: Selection;
+  private selection: Selection
   private readonly notebookApi: NotebookApi
 
   state = {
     columns: [],
     items: [],
-    filteredItems: []
-//    selectionDetails: this._getSelectionDetails()
+    filteredItems: [],
+    selectionDetails: ''
   }
 
   public constructor(props) {
     super(props)
     this.notebookApi = window["NotebookApi"]
-/*
     this.selection = new Selection({
-      onSelectionChanged: () => this.setState({ selectionDetails: this._getSelectionDetails() })
+      onSelectionChanged: () => this.setState({ 
+        selectionDetails: this.getSelectionDetails() 
+      })
     })
-*/
     var { columns, items } = props
-
     if (items) {
       this.state = {
         columns: columns,
         items: items,
-        filteredItems: items
+        filteredItems: items,
+        selectionDetails: this.getSelectionDetails()
       }
     }
 
   }
 
   public render() {
-
-//    var { items, selectionDetails } = this.state
-    var { columns, items, filteredItems } = this.state
-
+    var { columns, items, filteredItems, selectionDetails } = this.state
     return (
-
       <div>
-{/*
         <div>{ selectionDetails }</div>
-*/}
         <TextField
-//          label='Filter by name:'
-          placeholder='Filter on first column'
+//          label='Filter on first column:'
+          placeholder='Filter on first column.'
           onChanged={ text => this.setState({
              filteredItems: text ? items.filter(i => i[this.state.columns[0]['name']].toLowerCase().indexOf(text) > -1) : items 
            })}
         />
-{/*
         <MarqueeSelection selection={ this.selection }>
-*/}
-        <DetailsList
-          columns={ columns }
-          items={ filteredItems }
-          setKey='set'
-          layoutMode={ DetailsListLayoutMode.fixedColumns }
-//            selection={ this.selection }
-          selectionPreservedOnEmptyClick={ true }
-          ref={ ref => this.detailsList = ref }
-          compact={ true }
-        />
-{/*
+          <DetailsList
+            columns={ columns }
+            items={ filteredItems }
+            layoutMode={ DetailsListLayoutMode.justified }
+            selection={ this.selection }
+            constrainMode={ ConstrainMode.horizontalConstrained }
+            selectionPreservedOnEmptyClick={ true }
+            ref={ ref => this.detailsList = ref }
+            compact={ true }
+            setKey='set'
+            />
         </MarqueeSelection>
-*/}
       </div>
     )
   }
-/*
-  private _getSelectionDetails(): string {
-    var selectionCount = this.selection.getSelectedCount();
+
+  private getSelectionDetails(): string {
+    var selectionCount = this.selection.getSelectedCount()
     switch (selectionCount) {
       case 0:
         return 'No items selected';
@@ -88,18 +79,6 @@ export default class TableTextDisplay extends React.Component<any, any> {
       default:
         return `${selectionCount} items selected`;
     }
-  }
-*/
-  public componentWillReceiveProps(nextProps) {
-    var { columns, items } = nextProps
-    if (items) {
-      this.setState({
-        columns: columns,
-        items: items,
-        filteredItems: items
-      })
-    }
-
   }
 
 }
