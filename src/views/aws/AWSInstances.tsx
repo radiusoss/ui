@@ -59,7 +59,6 @@ export default class AWSInstances extends React.Component<any, IAWSInstancesStat
       if (instances.Reservations && instances.Reservations.length > 0) {
         out = instances.Reservations.map(instances => {
           return instances.Instances.map(instance => {
-            console.log('---', instance)
             numberOfAwsInstances++
             return <div className="ms-Grid-row" style={{padding: 0}} key={instance.InstanceId}>
               <div className="ms-Grid-col ms-u-sm8 ms-u-md8 ms-u-lg8">

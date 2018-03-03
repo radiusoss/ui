@@ -80,7 +80,6 @@ export default class TableBubbleDisplay extends TableBaseDisplay {
         data: data
       }]
     }
-    console.log('---', bubbleData)
     this.bubbleData = bubbleData
   }
 

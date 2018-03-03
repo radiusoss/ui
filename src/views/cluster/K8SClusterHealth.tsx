@@ -99,7 +99,6 @@ export default class K8SClusterHealth extends React.Component<any, any> {
     if (cluster.result) {
       cluster.result.nodeList.nodes.map(n => {
         var ar = n.allocatedResources
-        console.log('---', ar)
         cpuUsed += ar.cpuRequests
         cpuTotal += ar.cpuCapacity
         memoryUsed += ar.memoryRequests
@@ -143,7 +142,6 @@ export default class K8SClusterHealth extends React.Component<any, any> {
   bg-danger
   */
   private toClassName(percentage) {
-    console.log('---', percentage)
     if (percentage < 40) return 'bg-success'
     if (percentage < 75) return 'bg-warning'
     if (percentage < 100) return 'bg-danger'

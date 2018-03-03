@@ -4,7 +4,7 @@ import { toastr } from 'react-redux-toastr'
 import { toastrSuccessOptions } from './../../util/Utils'
 import { connect } from 'react-redux'
 import { NotebookStore } from './../../store/NotebookStore'
-import { ISpitfireApi, SpitfireResponse } from './../spitfire/SpitfireApi'
+import SpitfireApi, { ISpitfireApi, SpitfireResponse } from './../spitfire/SpitfireApi'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from './../../actions/AuthActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import GoogleApi from './../google/GoogleApi'
@@ -21,7 +21,7 @@ export interface INotebookApi extends ISpitfireApi {}
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class NotebookApi extends React.Component<any, any> implements INotebookApi {
-  private spitfireApi: ISpitfireApi
+  private spitfireApi: SpitfireApi
   private googleApi: GoogleApi
   private microsoftApi: MicrosoftApi
   private twitterApi: TwitterApi
@@ -301,6 +301,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
           history.push("/500")
         }
         else {
+          this.spitfireApi.newRestClient(res.result.body.principal)
           var photoUrl = me.photos[0].url
           console.log("Google Photo Url", photoUrl)
           NotebookStore.state().profilePhoto = photoUrl

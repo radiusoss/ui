@@ -95,8 +95,8 @@ export default class TableDisplay extends React.Component<any, any> {
     super(props)
     var format = 'text'
     if (props.p.config && props.p.config.results) {
-      if (props.p.config.results.length > 0) {
-        if (props.p.config.results[0]) {
+      if (props.p.config.results[0]) {
+        if (props.p.config.results[0].graph) {
           var f = props.p.config.results[0].graph.mode
           if (f) {
             format = f
@@ -105,7 +105,10 @@ export default class TableDisplay extends React.Component<any, any> {
       }
     }
     var tableData = new TableData()
-    tableData.loadParagraphDisplay({type: "TABLE", msg: this.props.data})
+    tableData.loadParagraphDisplay({
+      type: "TABLE",
+      msg: this.props.data
+    })
     var columnsData = tableData.columns
     var columnNamesData = tableData.columnNames
     var columns = columnNamesData.map( c => {
@@ -145,7 +148,7 @@ export default class TableDisplay extends React.Component<any, any> {
   public render() {
     var { columns, items, format, showGraphBar } = this.state
     return (
-      <div style={{ maxWidth: '100%', maxHeight: '80vh', overflowY: 'hidden' }}>
+      <div style={{ maxHeight: '80vh', overflowY: 'auto' }}>
        {
           (showGraphBar == true) && 
           <CommandBar
@@ -157,28 +160,28 @@ export default class TableDisplay extends React.Component<any, any> {
           />
         }
         {
-          (format == 'text') && <div style={{ overflowY: 'hidden' }}><TableTextDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'text') && <div><TableTextDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'line') && <div style={{ overflowY: 'auto' }}><TableLineDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'line') && <div><TableLineDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'barchart') && <div style={{ overflowY: 'auto' }}><TableBarDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'barchart') && <div><TableBarDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'barchart-horizontal') && <div style={{ overflowY: 'auto' }}><TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'barchart-horizontal') && <div><TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'pie') && <div style={{ overflowY: 'auto' }}><TablePieDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'pie') && <div><TablePieDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'doughnut') && <div style={{ overflowY: 'auto' }}><TableDoughnutDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'doughnut') && <div><TableDoughnutDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'scatter') && <div style={{ overflowY: 'auto' }}><TableScatterDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'scatter') && <div><TableScatterDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'bubble') && <div style={{ overflowY: 'auto' }}><TableBubbleDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'bubble') && <div><TableBubbleDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
       </div>
     )

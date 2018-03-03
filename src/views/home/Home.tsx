@@ -39,8 +39,8 @@ export default class Home extends React.Component<any, any> {
         <div className="ms-Grid-row">
 
           <div className={`${styles.homeHeight} ms-Grid-col ms-u-sm3 ms-u-md3 ms-u-lg3`}>
-            <Icon iconName='ReadingMode' className='ms-Icon25' />
-            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/explorer/notes/list")}}>Notebook</a></span>
+            <Icon iconName='NoteForward' className='ms-Icon25' />
+            <span className='ms-font-xxl'> <a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/explorer/scratchpad")}}>Scratchpad</a></span>
             { (note.paragraphs.length > 0)  && 
               <ScratchpadDisplay 
                   showGraphBar={false}

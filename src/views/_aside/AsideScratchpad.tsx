@@ -7,7 +7,7 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 
 export type IAsideScratchpadState = {
     wsMessages: any[],
-    interpreterSettings: any[]
+    interpreterSettings: any
 }
 
 const MAX_MESSAGE_RECEIVED_LENGTH = 20

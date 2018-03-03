@@ -11,6 +11,8 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/C
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
 
+const SHARED_PASSWORD = 'spitfire-shared'
+
 export interface BooleanResponse {
   boolean: boolean
 }
@@ -74,7 +76,8 @@ export interface ISpitfireApi {
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class SpitfireApi extends React.Component<any, any>  implements ISpitfireApi {
   private config: IConfig = emptyConfig
-  private restClient: RestClient
+  private restClient: RestClient = null
+
   private webSocketClient: ReconnectingWebSocket
   private flows = []
 
@@ -99,25 +102,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, config } = nextProps
 
     if (config && ! isEqual(config, this.config)) {
-
       this.config = config
-
-      this.restClient = new RestClient({
-        name: 'SpitfireApi',
-        url: this.config.spitfireRest,
-        path: '/spitfire/api',
-        username: '',
-        password: ''
-      })
-/*
-    if (
-      (!this.state.isGoogleAuthenticated && isGoogleAuthenticated)
-      ||
-      (!this.state.isMicrosoftAuthenticated && isMicrosoftAuthenticated)
-      ||
-      (!this.state.isTwitterAuthenticated && isTwitterAuthenticated)
-    ) {
-*/
       this.webSocketClient = new ReconnectingWebSocket(this.config.spitfireWs + '/spitfire/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
         console.log("Spitfire WebSocket has been opened.");
@@ -154,35 +139,31 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       setInterval( _ => {
         this.ping()
       }, 10000 )
-/*
+      this.newRestClient(this.principalValue())
     }
-*/
-    }
-  
-    if (this.state.isGoogleAuthenticated != isGoogleAuthenticated) {
-      this.setState({
-        isGoogleAuthenticated: isGoogleAuthenticated
-      })
-    }
+    this.setState({
+      isGoogleAuthenticated: isGoogleAuthenticated,
+      isMicrosoftAuthenticated: isMicrosoftAuthenticated,
+      isTwitterAuthenticated: isTwitterAuthenticated
+    })
 
-    if (this.state.isMicrosoftAuthenticated != isMicrosoftAuthenticated) {
-      this.setState({
-        isMicrosoftAuthenticated: isMicrosoftAuthenticated
-      })
-    }
+  }
 
-    if (this.state.isTwitterAuthenticated != isTwitterAuthenticated) {
-      this.setState({
-        isTwitterAuthenticated: isTwitterAuthenticated
-      })
-    }
+  public newRestClient(username: string) {
+    this.restClient = new RestClient({
+      name: 'SpitfireApi',
+      url: this.config.spitfireRest,
+      path: '/spitfire/api',
+      username: username,
+      password: SHARED_PASSWORD
+    })
 
   }
 
 // ----------------------------------------------------------------------------
 
   public async login(userName, password): Promise<Result<SpitfireResponse>> {
-    password = "spitfire-shared"
+    password = SHARED_PASSWORD
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,
       async () => this.restClient.postForm<SpitfireResponse>({ userName: userName, password: password }, {}, jsonOpt, "/login")
