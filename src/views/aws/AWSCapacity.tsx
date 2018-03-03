@@ -15,14 +15,14 @@ export default class AWSCapacity extends React.Component<any, any> {
   public constructor(props) {
     super(props)
     var status = NotebookStore.state().kuberStatus
-    if (status.cluster) {
-      if (status.cluster.awsAutoscalingGroup) {
+    if (status.clusterStatus) {
+      if (status.clusterStatus.awsWorkerAutoscalingGroup) {
         var numberOfRunningInstances = 0
-        if (status.cluster.awsAutoscalingGroup.Instances) {
-          numberOfRunningInstances = status.cluster.awsAutoscalingGroup.Instances.length
+        if (status.clusterStatus.awsWorkerAutoscalingGroup.Instances) {
+          numberOfRunningInstances = status.clusterStatus.awsWorkerAutoscalingGroup.Instances.length
         }
         this.state = {
-          maxSize: status.cluster.awsAutoscalingGroup.MaxSize,
+          maxSize: status.clusterStatus.awsWorkerAutoscalingGroup.MaxSize,
           numberOfRunningInstances: numberOfRunningInstances
         }
       }
@@ -30,22 +30,29 @@ export default class AWSCapacity extends React.Component<any, any> {
     else {
       this.state = {
         maxSize: -1,
-        numberOfRunningInstances: -1
+        numberOfRunningMasterInstances: -1,
+        numberOfRunningWorkerInstances: -1
       }
     }
   }
   
   public render() {
-    const { maxSize, numberOfRunningInstances } = this.state
+    const { maxSize, numberOfRunningMasterInstances, numberOfRunningWorkerInstances } = this.state
     return (
       <div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <div className="ms-fontSize-xxl">You currently have {numberOfRunningInstances} running Cloud Instance(s) to host your Kubernetes Worker Node(s) (not the Master).</div>
+            <div className="ms-fontSize-su">Cloud Instances</div>
+            <div className="ms-fontSize-l">
+                {numberOfRunningMasterInstances} running instance(s) to host the Kubernetes Master(s).
+              </div>
+              <div className="ms-fontSize-l">
+                {numberOfRunningWorkerInstances} running instance(s) to host the Kubernetes Worker(s).
+              </div>
             </div>
           </div>
-          <div className="ms-Grid-row" style={{ maxWidth: "500px" }}>
+          <div className="ms-Grid-row" style={{ maxWidth: '500px', marginTop: '20px' }}>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <Slider
                 label='Maximum Number of Cloud Instances for Kubernetes Workers.'
@@ -57,7 +64,7 @@ export default class AWSCapacity extends React.Component<any, any> {
                 disabled={ false }
                 onChange={ (size) => this.setMaxWorkerCloudInstances(size) }
                 key={ maxSize }
-              />
+                />
             </div>
           </div>
         </div>
@@ -80,15 +87,20 @@ export default class AWSCapacity extends React.Component<any, any> {
   }
 
   private updateCapacityStatus(status) {
-    if (status.cluster) {
-      if (status.cluster.awsAutoscalingGroup) {
-        var numberOfRunningInstances = 0
-        if (status.cluster.awsAutoscalingGroup.Instances) {
-          numberOfRunningInstances = status.cluster.awsAutoscalingGroup.Instances.length
+    if (status.clusterStatus) {
+      if (status.clusterStatus.awsWorkerAutoscalingGroup) {
+        var numberOfRunningMasterInstances = 0
+        var numberOfRunningWorkerInstances = 0
+        if (status.clusterStatus.awsMasterAutoscalingGroup.Instances) {
+          numberOfRunningMasterInstances = status.clusterStatus.awsMasterAutoscalingGroup.Instances.length
+        }
+        if (status.clusterStatus.awsWorkerAutoscalingGroup.Instances) {
+          numberOfRunningWorkerInstances = status.clusterStatus.awsWorkerAutoscalingGroup.Instances.length
         }
         this.setState({
-          maxSize: status.cluster.awsAutoscalingGroup.MaxSize,
-          numberOfRunningInstances: numberOfRunningInstances
+          maxSize: status.clusterStatus.awsWorkerAutoscalingGroup.MaxSize,
+          numberOfRunningMasterInstances: numberOfRunningMasterInstances,
+          numberOfRunningWorkerInstances: numberOfRunningWorkerInstances
         })
       }
     }

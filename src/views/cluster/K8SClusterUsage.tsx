@@ -73,6 +73,7 @@ export default class K8SClusterUsage extends React.Component<any, any> {
                   />
               </div>
             </div>
+{/*
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <hr/>
               <div className="ms-fontSize-su">Complete Definition</div>
@@ -88,7 +89,8 @@ export default class K8SClusterUsage extends React.Component<any, any> {
                   />
               </div>
             </div>
-          </div>
+*/}
+            </div>
         </div>
       </div>
     )

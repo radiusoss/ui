@@ -43,7 +43,7 @@ export default class K8SClusterStatus extends React.Component<any, IClusterState
         numberOfNodes++
         return <div className="ms-Grid-row" style={{padding: 0}} key={node.objectMeta.name}>
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-            <div className="ms-fontSize-xxl">Kubernetes Node Name: {node.objectMeta.name}</div>
+            <div className="ms-fontSize-xxl">Kubernetes Node: {node.objectMeta.name}</div>
           </div>
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
             <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
@@ -111,6 +111,7 @@ export default class K8SClusterStatus extends React.Component<any, IClusterState
           {persistentVolumes}
         </div>
         <hr/>
+{/*
         <div className="ms-fontSize-su">Kubernetes Cluster Definition</div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
@@ -127,7 +128,8 @@ export default class K8SClusterStatus extends React.Component<any, IClusterState
               </div>
             </div>
           </div>
-        </div>
+          </div>
+*/}
       </div>
     )
 

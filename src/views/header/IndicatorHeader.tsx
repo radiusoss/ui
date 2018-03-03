@@ -46,10 +46,10 @@ export default class ControlHeader extends React.Component<any, any> {
   private spitfireApi: SpitfireApi
   private kuberApi: KuberApi
 
-  private clusterStatus: K8SClusterStatus
-  private cloudStatus: AWSCapacity
+  private k8sClusterStatus: K8SClusterStatus
+  private awsCapacity: AWSCapacity
   private reservationsStatus: ReservationsStatus
-  private clusterUsageStatus: K8SClusterUsage
+  private k8sClusterUsage: K8SClusterUsage
   private hdfsStatus: HDFStatus
   private sparkStatus: SparkStatus
   private runningStatus: RunningStatus
@@ -201,9 +201,9 @@ export default class ControlHeader extends React.Component<any, any> {
             <div>
               <div className="ms-font-su"><FabricIcon name="Health" /> Cluster</div>
               <hr/>
-              <AWSCapacity ref={ ref => this.cloudStatus = ref } />
+              <AWSCapacity ref={ ref => this.awsCapacity = ref } />
               <hr/>
-              <K8SClusterStatus ref={ ref => this.clusterStatus = ref } />
+              <K8SClusterStatus ref={ ref => this.k8sClusterStatus = ref } />
             </div>
           }
           {
@@ -217,7 +217,7 @@ export default class ControlHeader extends React.Component<any, any> {
             (statusPanel == 'usage') &&
             <div>
               <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Usage</div>
-              <K8SClusterUsage ref={ ref => this.clusterUsageStatus = ref } />
+              <K8SClusterUsage ref={ ref => this.k8sClusterUsage = ref } />
             </div>
           }
           {
@@ -305,13 +305,13 @@ export default class ControlHeader extends React.Component<any, any> {
       })
       return
     }
-    if (!kuberStatus.cluster.awsAutoscalingGroup.Instances) {
+    if (!kuberStatus.clusterStatus.awsWorkerAutoscalingGroup.Instances) {
       this.setState({
         clusterColor: Colors.RED
       })
       return
     }
-    if (kuberStatus.cluster.awsAutoscalingGroup.DesiredCapacity != kuberStatus.cluster.awsAutoscalingGroup.Instances.length) {
+    if (kuberStatus.clusterStatus.awsWorkerAutoscalingGroup.DesiredCapacity != kuberStatus.clusterStatus.awsWorkerAutoscalingGroup.Instances.length) {
       this.setState({
         clusterColor: Colors.RED
       })

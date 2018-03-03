@@ -97,7 +97,7 @@ export default class AWSInstances extends React.Component<any, IAWSInstancesStat
     return (
       <div>
         <div className="ms-fontSize-su">{numberOfAwsInstances} AWS Instances</div>
-        <div className="ms-fontSize-xxl">Ensure you have enough AWS instances to host the Kubernetes Master and Workers.</div>
+        <div className="ms-fontSize-xxl">Ensure you have enough AWS instances to host the Kubernetes Master(s) and Worker(s).</div>
         <hr/>
         <div className="ms-Grid" style={{padding: 0}}>
           {out}
