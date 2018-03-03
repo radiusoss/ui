@@ -30,20 +30,21 @@ export default class AWSCapacity extends React.Component<any, any> {
     else {
       this.state = {
         maxSize: -1,
-        numberOfRunningMasterInstances: -1,
-        numberOfRunningWorkerInstances: -1
+        numberOfRunningMasterInstances: 0,
+        numberOfRunningWorkerInstances: 0
       }
     }
   }
   
   public render() {
     const { maxSize, numberOfRunningMasterInstances, numberOfRunningWorkerInstances } = this.state
+    var numberOfRunningInstances = numberOfRunningMasterInstances + numberOfRunningWorkerInstances
     return (
       <div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-            <div className="ms-fontSize-su">Cloud Instances</div>
+            <div className="ms-fontSize-su">{numberOfRunningInstances} Cloud Instances</div>
             <div className="ms-fontSize-l">
                 {numberOfRunningMasterInstances} running instance(s) to host the Kubernetes Master(s).
               </div>

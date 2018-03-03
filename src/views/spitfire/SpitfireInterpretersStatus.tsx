@@ -26,6 +26,7 @@ export default class InterpretersStatus extends React.Component<any, any> {
             <div className="ms-Grid-row">
               <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
             </div>
+{/*
             <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
               <JSONTree
                 data={this.state.interpreterSettings} 
@@ -34,8 +35,9 @@ export default class InterpretersStatus extends React.Component<any, any> {
                 hideRoot={true}
                 sortObjectKeys={true}
                 shouldExpandNode={(keyName, data, level) => true}
-              />
-            </div>
+                />
+              </div>
+*/}
           </div>
         </div>
       </div>
