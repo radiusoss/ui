@@ -14,6 +14,7 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import NotebookApi from './../../api/notebook/NotebookApi'
 import * as stylesImport from './../_styles/Styles.scss'
 import { downloadCSV } from './../../util/data/CSV'
+import Html from './../../_widget/Html'
 const styles: any = stylesImport
 import * as isEqual from 'lodash.isequal'
 
@@ -148,7 +149,8 @@ export default class TableDisplay extends React.Component<any, any> {
   public render() {
     var { columns, items, format, showGraphBar } = this.state
     return (
-      <div style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+      <div style={{ overflowY: 'auto' }}>
+      <div>
        {
           (showGraphBar == true) && 
           <CommandBar
@@ -160,29 +162,30 @@ export default class TableDisplay extends React.Component<any, any> {
           />
         }
         {
-          (format == 'text') && <div><TableTextDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'text') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableTextDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'line') && <div><TableLineDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'line') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableLineDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'barchart') && <div><TableBarDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'barchart') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableBarDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'barchart-horizontal') && <div><TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'barchart-horizontal') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'pie') && <div><TablePieDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'pie') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TablePieDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'doughnut') && <div><TableDoughnutDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'doughnut') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableDoughnutDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'scatter') && <div><TableScatterDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'scatter') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableScatterDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
         {
-          (format == 'bubble') && <div><TableBubbleDisplay columns={this.state.columns} items={this.state.items} /></div>
+          (format == 'bubble') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableBubbleDisplay columns={this.state.columns} items={this.state.items} /></div>
         }
+        </div>
       </div>
     )
   }
@@ -197,7 +200,7 @@ export default class TableDisplay extends React.Component<any, any> {
   }
 
   private downloadCsv(e: MouseEvent) {
-    e.stopPropagation()
+//    e.stopPropagation()
     e.preventDefault()
     downloadCSV({
       filename: "data_" + new Date().toISOString().replace(" ", "_") + ".csv",
