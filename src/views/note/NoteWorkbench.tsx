@@ -5,10 +5,13 @@ import { toastr } from 'react-redux-toastr'
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle'
 import ParagraphEditor from './../paragraph/ParagraphEditor'
 import ParagraphDisplay from './../paragraph/ParagraphDisplay'
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import { ParagraphStatus, isParagraphRunning } from './../paragraph/ParagraphUtil'
 import InlineEditor from './../editor/InlineEditor'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import NotePermissions from './NotePermissions'
 import MockContent from './../message/MockContent'
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { Rating, RatingSize } from 'office-ui-fabric-react/lib/Rating'
 import { Facepile, IFacepilePersona, IFacepileProps } from 'office-ui-fabric-react/lib/Facepile'
@@ -46,20 +49,40 @@ export default class NoteWorkbench extends React.Component<any, any> {
     imagesFadeIn: true,
     extraDataType: ExtraDataType.none,
     personaSize: PersonaSize.extraSmall,
-    paragraphAnchor: ''
+    paragraphAnchor: null,
+    showPermissionsPanel: false
   }
 
   public constructor(props) {
     super(props)
     this.paragraphEditors = new Map<string, any>()
     this.paragraphDisplays = new Map<string, any>()
-    this.setState({
-      paragraphAnchor: this.props.match.params.paragraphId
-    })
+    this.state = {
+      note: {
+        id: '',
+        name: '',
+        paragraphs: [{
+          id: '',
+          title: '',
+          text: '',
+          status: '',
+          config: {
+            colWidth: '12'
+          }
+        }]
+      },
+      vertical: false,
+      numberOfFaces: 3,
+      imagesFadeIn: true,
+      extraDataType: ExtraDataType.none,
+      personaSize: PersonaSize.extraSmall,
+      paragraphAnchor: this.props.match.params.paragraphId,
+      showPermissionsPanel: false
+    }
   }
 
   public render() {
-    const { note, vertical } = this.state
+    const { note, vertical, showPermissionsPanel } = this.state
     if (note.id) {
       var index = 0
       var maxIndex = note.paragraphs.length - 1
@@ -68,6 +91,16 @@ export default class NoteWorkbench extends React.Component<any, any> {
         <div className={styles.rendererHeight} style={{ overflowX: "hidden", fontSize: "small" }}>
 */
         <div style={{ overflowX: "hidden" }}>
+          <Panel
+            isOpen={ showPermissionsPanel }
+            type={ PanelType.smallFixedFar }
+            headerText="Permissions"
+            onDismiss={() => this.setState({showPermissionsPanel: false})}
+            >
+            <div>
+              <NotePermissions permNote={note}/>
+            </div>
+          </Panel>        
           <div className="ms-Grid" style={{ backgroundColor: 'white', padding: 0, margin: 0 }}>
 {/*
           <div className="ms-Grid ms-clearfix" style={{ padding: 0 }}>
@@ -82,7 +115,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
                     maxLength={50}
                     change={this.updateTitle}
                     activeClassName="ms-font-xxl ms-fontWeight-semibold"
-                  />
+                    />
                 </div>
               </div>
               <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 ms-textAlignRight">
@@ -92,8 +125,22 @@ export default class NoteWorkbench extends React.Component<any, any> {
                   onText='Horizontal'
                   offText='Vertical'
                   onChanged={ (checked: boolean) => this.setState({vertical: checked}) }
-                />
+                  />
 */}
+                <CommandBar
+                  isSearchBoxVisible={ false }
+                  items={[]}
+                  farItems={[
+                    {
+                      key: 'permissions',
+                      title: 'Note Permissions',
+                      name: '',
+                      icon: 'Permissions',
+                      onClick: (e) => this.setState({showPermissionsPanel: true})
+                    }
+                  ]}
+                  className={ styles.commandBarBackgroundTransparent }
+                  />
               </div>
             </div>
 {/*
@@ -225,7 +272,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
           {
             <div style={{ height: 10}}>
               {
-                (this.state.paragraphAnchor != '') &&
+                (this.state.paragraphAnchor) &&
                   scroller.scrollTo(note.id + '-anchor-' + this.state.paragraphAnchor, {
                     duration: 1500,
                     delay: 100,

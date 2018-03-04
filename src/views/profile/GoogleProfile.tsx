@@ -11,7 +11,6 @@ import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTi
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
 import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle'
 import { DetailsList, DetailsListLayoutMode, Selection, IColumn} from 'office-ui-fabric-react/lib/DetailsList'
 import { lorem } from '../../spl/DataSpl'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
@@ -124,26 +123,10 @@ export default class GoogleProfile extends React.Component<any, IGoogleProfileSt
   public render() {
     var { columns, isCompactMode, items, selectionDetails } = this.state
     return (
-      <div className={`${styles.homeHeight}`}>
+      <div style={{ overflowY: 'auto'}}>
         <GoogleProfileWidget />
         <hr/>
         <div className='ms-font-xxl'>Contacts</div>
-{/*
-        <Toggle
-          label='Enable Compact Mode'
-          checked={ isCompactMode }
-          onChanged={ this.onChangeCompactMode }
-          onText='Compact'
-          offText='Normal'
-        />
-        <Toggle
-          label='Enable Modal Selection'
-          checked={ this.state.isModalSelection }
-          onChanged={ this.onChangeModalSelection }
-          onText='Modal'
-          offText='Normal'
-        />
-*/}
         <div>{ selectionDetails }</div>
         <TextField
           label='Filter by name:'

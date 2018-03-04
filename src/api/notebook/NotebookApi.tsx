@@ -75,6 +75,14 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.configuration()
   }
 
+  public async getNotePermissions(noteId: string) {
+    return this.spitfireApi.getNotePermissions(noteId)
+  }
+
+  public async putNotePermissions(noteId: string, permissions: any) {
+    return this.spitfireApi.putNotePermissions(noteId, permissions)
+  }
+
 // ----------------------------------------------------------------------------
 
   public listNotes() {

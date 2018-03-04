@@ -7,38 +7,39 @@ import NotebookApi from './../../api/notebook/NotebookApi'
 import { IUser } from './../../domain/Domain'
 import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTitle, IDocumentCardPreviewProps, DocumentCardActions } from 'office-ui-fabric-react/lib/DocumentCard'
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
+import { EADDRINUSE } from 'constants';
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class Users extends React.Component<any, any> {
+export default class NotePermissions extends React.Component<any, any> {
   private notebookApi: NotebookApi
 
   state = {
-    users: []
+    note: {
+      id: ''
+    },
+    users: [],
+    permissions: new Map<string, string>()
   }
 
   public constructor(props) {
     super(props)
     this.notebookApi = window["NotebookApi"]
+    this.state = {
+      note: props.permNote,
+      users: [],
+      permissions: new Map<string, string>()
+    }
   }
 
   public render() {
     return (      
       <div>
-        <div>
-          <div style={{float: "left"}}>
-            <Icon iconName='People' className='ms-Icon50' />
-          </div>
-          <div style={{float: "left"}}>
-            <div className='ms-font-su'>Users</div>
-          </div>
-        </div>
-        <div className="ms-clearfix"/>
         <div className="ms-Grid" style={{ padding: 0}}>
           <div className="ms-Grid-row">
             {
               this.state.users.map((user) => {
                 return (
-                  <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2" key={ user.principal }>
+                  <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" key={ user.principal }>
                     <DocumentCard>
                       <DocumentCardTitle
                         title = { user.displayName }
@@ -54,16 +55,7 @@ export default class Users extends React.Component<any, any> {
                       />
                       <DocumentCardActions
                         actions={
-                          [
-                            {
-                              iconProps: { iconName: 'Delete' },
-                              onClick: (ev: any) => {
-                                ev.preventDefault()
-                                ev.stopPropagation()
-                                this.deleteUser(user)
-                              }
-                            }
-                          ]
+                          [this.getActionButton(user)]
                         }
                       />
                     </DocumentCard>
@@ -86,15 +78,60 @@ export default class Users extends React.Component<any, any> {
     if (! webSocketMessageReceived) return
     if (webSocketMessageReceived.op == "LIST_USERS") {
       var users = webSocketMessageReceived.data.users
+      this.notebookApi.getNotePermissions(this.state.note.id).then(resp => {
+        var arr = resp.result.body
+        this.setState({
+          permissions: new Map<string, string>(arr.owners.map((i) => [i, i]))
+        })
+      })
       this.setState({
         users: Object.keys(users).map(function(k) { return users[k] })
       })
     }
   }
 
-  private deleteUser(user: any) {
-    this.notebookApi.removeUsers({
-      principal: user.userName + '#' + user.source
+  private getActionButton(user) {
+    if (this.state.permissions.get(user.email + "#" + user.source)) {
+      return {
+        iconProps: { iconName: 'Permissions' },
+        title: 'Remove Permissions from ' + user.displayName,
+        onClick: (ev: any) => {
+          ev.preventDefault()
+          ev.stopPropagation()
+          this.togglePermissions(user)
+        }
+      }
+    }
+    return {
+      iconProps: { iconName: 'PermissionsSolid' },
+      title: 'Give Permissions to ' + user.displayName,
+      onClick: (ev: any) => {
+        ev.preventDefault()
+        ev.stopPropagation()
+        this.togglePermissions(user)
+      }
+    }
+  }
+
+  private togglePermissions(user: any) {
+    var permissions = this.state.permissions
+    var perm = this.state.permissions.get(user.email + "#" + user.source)
+    if (perm) {
+      permissions.delete(user.email + "#" + user.source)
+    }
+    else {
+      permissions.set(user.email + "#" + user.source, user.email + "#" + user.source)
+    }
+    var permsArr = Array.from(permissions.keys())
+    var perms = {
+      readers: permsArr,
+      owners: permsArr,
+      writers: permsArr,
+      runners: permsArr
+    }
+    this.notebookApi.putNotePermissions(this.state.note.id, perms)
+    this.setState({
+      permissions: permissions
     })
   }
 

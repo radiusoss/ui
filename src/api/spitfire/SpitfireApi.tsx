@@ -69,6 +69,8 @@ export interface ISpitfireApi {
   clearParagraphOutput(paragraphId: string): void
   getInterpreterBindings(noteId: string): any
   saveInterpreterBindings(noteId: string, interpreterIds: [string]): void
+  getNotePermissions(noteId: string): any
+  putNotePermissions(noteId: string, permissions: any): void
 }
 
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
@@ -98,9 +100,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   }
 
   public componentWillReceiveProps(nextProps) {
-
     const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, config } = nextProps
-
     if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.webSocketClient = new ReconnectingWebSocket(this.config.spitfireWs + '/spitfire/ws')
@@ -146,7 +146,6 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       isMicrosoftAuthenticated: isMicrosoftAuthenticated,
       isTwitterAuthenticated: isTwitterAuthenticated
     })
-
   }
 
   public newRestClient(username: string) {
@@ -202,6 +201,20 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,
       async () => this.restClient.get<SpitfireResponse>({}, jsonOpt, "/configurations/all")
+    )
+  }
+
+  public async getNotePermissions(noteId: string): Promise<Result<SpitfireResponse>> {
+    return this.wrapResult<SpitfireResponse, SpitfireResponse>(
+      r => r,
+      async () => this.restClient.get<SpitfireResponse>({}, jsonOpt, `/notebook/${noteId}/permissions`)
+    )
+  }
+
+  public async putNotePermissions(noteId: string, permissions: any): Promise<Result<SpitfireResponse>> {
+    return this.wrapResult<SpitfireResponse, SpitfireResponse>(
+      r => r,
+      async () => this.restClient.put<SpitfireResponse>(permissions, {}, jsonOpt, `/notebook/${noteId}/permissions`)
     )
   }
 
@@ -372,8 +385,8 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
 
 // ----------------------------------------------------------------------------
-/*
-  private async wrapOutcome(action: () => Promise<boolean>): Promise<Outcome> {
+
+private async wrapOutcome(action: () => Promise<boolean>): Promise<Outcome> {
     var outcome = new Outcome()
     try {
       outcome.success = await action()
@@ -382,7 +395,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     }
     return outcome
   }
-*/
+
   private async wrapResult<TRaw, TOut>(selector: (input: TRaw) => TOut, action: () => Promise<TRaw>): Promise<Result<TOut>> {
     var result: Result<TOut> = new Result<TOut>()
     try {

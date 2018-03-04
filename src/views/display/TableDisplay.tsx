@@ -10,7 +10,7 @@ import TableBarHorizontalDisplay from './../table/TableBarHorizontalDisplay'
 import TableBubbleDisplay from './../table/TableBubbleDisplay'
 import TableDoughnutDisplay from './../table/TableDoughnutDisplay'
 import TableScatterDisplay from './../table/TableScatterDisplay'
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import * as stylesImport from './../_styles/Styles.scss'
 import { downloadCSV } from './../../util/data/CSV'
