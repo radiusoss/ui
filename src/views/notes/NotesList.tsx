@@ -201,6 +201,7 @@ export default class NotesList extends React.Component<any, any> {
       ? this.notebookApi.deleteNote(this.state.selectedNoteId)
       : this.notebookApi.moveNoteToTrash(this.state.selectedNoteId)
     this.closeDeletePanel()
+//    this.notebookApi.listNotes()
   }
 
   private showRenamePanel(e: React.MouseEvent<HTMLAnchorElement>, noteId, noteName) {
@@ -222,6 +223,7 @@ export default class NotesList extends React.Component<any, any> {
     e.preventDefault()
     this.notebookApi.renameNote(this.state.selectedNoteId, this.renameNoteTextField.value)
     this.closeRenamePanel()
+//    this.notebookApi.listNotes()
   }
 
   private handleTextFieldChange(value: string): void {

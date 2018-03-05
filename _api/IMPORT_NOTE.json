@@ -1,0 +1,98 @@
+{
+    "op": "IMPORT_NOTE",
+    "data": {
+        "note": {
+            "paragraphs": [
+                {
+                    "text": "%md\n\n![Datalayer](http://datalayer.io/blog/ext/images/logo_horizontal_072ppi.png)\n\n## Welcome to the Datalayer Science Platform\nThis tool is adressed to both data scientist and business, the former to run spark/R/Python code and the latter to show the results in a business point of view on the same interface and in a collaborative way.\n\nI'm pleased to offer you this service and hope you will enjoy. Our team was hard at work to provide to you the best experience a notebook can offer. But this is just a beginning, a \"beta\" release, a lot of ideas are still in preparation and will come in its time. The following is an introduction to the Datalayer Notebook capabilities, so at the end you will be ready to use for your own project.\n\nEnjoy!ddd\n\n<br>\n![Eric Charles](https://s.gravatar.com/avatar/f78b756a5c0eb7dd186b6622c0afed82?s=80)\n\nEric Charles\n*Founder of Datalayer*",
+                    "user": "eric.umg.charles@gmail.com#google",
+                    "dateUpdated": "2018-02-24 23:13:16.154",
+                    "config": {
+                        "colWidth": 12,
+                        "enabled": true,
+                        "results": {},
+                        "editorSetting": {
+                            "language": "markdown",
+                            "editOnDblClick": true
+                        },
+                        "editorMode": "ace/mode/markdown",
+                        "fontSize": 9,
+                        "editorHide": true,
+                        "tableHide": false
+                    },
+                    "settings": {
+                        "params": {},
+                        "forms": {}
+                    },
+                    "results": {
+                        "code": "SUCCESS",
+                        "msg": [
+                            {
+                                "type": "HTML",
+                                "data": "<div class=\"markdown-body\">\n<p><img src=\"http://datalayer.io/blog/ext/images/logo_horizontal_072ppi.png\" alt=\"Datalayer\" /></p>\n<h2>Welcome to the Datalayer Science Platform</h2>\n<p>This tool is adressed to both data scientist and business, the former to run spark/R/Python code and the latter to show the results in a business point of view on the same interface and in a collaborative way.</p>\n<p>I&rsquo;m pleased to offer you this service and hope you will enjoy. Our team was hard at work to provide to you the best experience a notebook can offer. But this is just a beginning, a &ldquo;beta&rdquo; release, a lot of ideas are still in preparation and will come in its time. The following is an introduction to the Datalayer Notebook capabilities, so at the end you will be ready to use for your own project.</p>\n<p>Enjoy!ddd</p>\n<br>\n<p><img src=\"https://s.gravatar.com/avatar/f78b756a5c0eb7dd186b6622c0afed82?s=80\" alt=\"Eric Charles\" /></p>\n<p>Eric Charles<br/><em>Founder of Datalayer</em></p>\n</div>"
+                            }
+                        ]
+                    },
+                    "apps": [],
+                    "jobName": "paragraph_2CF4T52HK_17",
+                    "id": "2CF4T52HK_17",
+                    "dateCreated": "2018-02-24 23:13:16.153",
+                    "dateStarted": "2018-02-24 23:13:16.156",
+                    "dateFinished": "2018-02-24 23:13:16.161",
+                    "status": "FINISHED",
+                    "progressUpdateIntervalMs": 500
+                },
+                {
+                    "text": "%md\n### What's next ?\n\nNow that you get the basics lets dive into awesomeness:\n\n+ A brief overview of the Datalayer Notebook\n+ Machine learning with Spark\n+ Spark and R integration\n+ Plotting (spark) data\n+ Markdown and presentation",
+                    "user": "eric.umg.charles@gmail.com#google",
+                    "dateUpdated": "2018-02-24 23:13:16.156",
+                    "config": {
+                        "colWidth": 12,
+                        "enabled": true,
+                        "results": {},
+                        "editorSetting": {
+                            "language": "scala"
+                        },
+                        "editorMode": "ace/mode/scala"
+                    },
+                    "settings": {
+                        "params": {},
+                        "forms": {}
+                    },
+                    "results": {
+                        "code": "SUCCESS",
+                        "msg": [
+                            {
+                                "type": "HTML",
+                                "data": "<div class=\"markdown-body\">\n<h3>What&rsquo;s next ?</h3>\n<p>Now that you get the basics lets dive into awesomeness:</p>\n<ul>\n  <li>A brief overview of the Datalayer Notebook</li>\n  <li>Machine learning with Spark</li>\n  <li>Spark and R integration</li>\n  <li>Plotting (spark) data</li>\n  <li>Markdown and presentation</li>\n</ul>\n</div>"
+                            }
+                        ]
+                    },
+                    "apps": [],
+                    "jobName": "paragraph_2CF4T52HK_27",
+                    "id": "2CF4T52HK_27",
+                    "dateCreated": "2018-02-24 23:13:16.156",
+                    "dateStarted": "2018-02-24 23:13:16.164",
+                    "dateFinished": "2018-02-24 23:13:16.167",
+                    "status": "FINISHED",
+                    "progressUpdateIntervalMs": 500
+                }
+            ],
+            "name": "Welcome",
+            "id": "2CF4T52HK",
+            "noteParams": {},
+            "noteForms": {},
+            "angularObjects": {
+                "2CCMX5R9J:shared_process": [],
+                "2CBEJNFR7:shared_process": []
+            },
+            "config": {
+                "looknfeel": "default"
+            },
+            "info": {}
+        }
+    },
+    "principal": "eric.umg.charles@gmail.com#google",
+    "ticket": "e7aef344-62d5-4679-9c24-8259adafac1b",
+    "roles": "[]"
+}

@@ -175,9 +175,17 @@ export default class ControlHeader extends React.Component<any, any> {
       })
     }
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NEW_NOTE") {
+      this.notebookApi.showNoteLayout(noteId, 'workbench')
       this.notebookApi.listNotes()
       var noteId = webSocketMessageReceived.data.note.id
-      this.notebookApi.showNoteLayout(noteId, 'workbench')
+      var user = NotebookStore.state().notebookLogin.result.body.principal
+      var perms = {
+        readers: [user],
+        owners: [user],
+        writers: [user],
+        runners: [user]
+      }
+      this.notebookApi.putNotePermissions(noteId, perms)
     }
     if (webSocketMessageReceived && webSocketMessageReceived.op == "NOTES_INFO") {
       var notes = webSocketMessageReceived.data.notes

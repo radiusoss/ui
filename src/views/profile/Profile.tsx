@@ -30,20 +30,16 @@ export default class Profile extends React.Component<any, any> {
 
   public render() {
     const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.state
+/*
     var selectedKey = 'google'
     if (isMicrosoftAuthenticated) selectedKey = 'microsoft'
     if (isTwitterAuthenticated) selectedKey = 'twitter'
+*/
     return (
       <div>
-        { (isGoogleAuthenticated) &&
-          <GoogleProfile/>
-        }
-        { (isMicrosoftAuthenticated) &&
-          <MicrosoftProfile />
-        }
-        { (isTwitterAuthenticated) &&
-          <TwitterProfile/>
-        }
+        { (isGoogleAuthenticated) &&  <GoogleProfile/> }
+        { (isMicrosoftAuthenticated) && <MicrosoftProfile/> }
+        { (isTwitterAuthenticated) && <TwitterProfile/> }
 {/*
         <Pivot selectedKey={ selectedKey }>
           <PivotItem linkText='Google' itemIcon='SocialListeningLogo' itemKey='google'>

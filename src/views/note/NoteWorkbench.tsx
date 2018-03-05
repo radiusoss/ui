@@ -132,6 +132,13 @@ export default class NoteWorkbench extends React.Component<any, any> {
                   items={[]}
                   farItems={[
                     {
+                      key: 'clone',
+                      title: 'Clone Note',
+                      name: '',
+                      icon: 'Copy',
+                      onClick: (e) => this.cloneNote()
+                    },
+                    {
                       key: 'permissions',
                       title: 'Note Permissions',
                       name: '',
@@ -344,6 +351,10 @@ export default class NoteWorkbench extends React.Component<any, any> {
   private updateTitle(message) {
     this.notebookApi.renameNote(this.state.note.id, message.title)
     this.state.note.name = message.title
+  }
+
+  private cloneNote() {
+    this.notebookApi.cloneNote(this.state.note.id, 'Clone of ' + this.state.note.name)
   }
 
 }

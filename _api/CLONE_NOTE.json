@@ -1,0 +1,10 @@
+{
+    "op": "CLONE_NOTE",
+    "data": {
+        "id": "2D77H4GTW",
+        "name": "test1 1"
+    },
+    "principal": "eric.umg.charles@gmail.com#google",
+    "ticket": "e7aef344-62d5-4679-9c24-8259adafac1b",
+    "roles": "[]"
+}

@@ -35,6 +35,7 @@ export interface ISpitfireApi {
   ticket(): Promise<Result<SpitfireResponse>>
   version(): Promise<Result<SpitfireResponse>>
   newNote(name: string): void
+  cloneNote(id: string, name: string): void
   listNotes(): void
   getNote(id: string): void
   renameNote(id: string, newName: string)
@@ -226,6 +227,10 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
   public newNote(name: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.NEW_NOTE(name)))
+  }
+
+  public cloneNote(id: string, name: string): void {
+    this.sendWebSocketMessage(JSON.stringify(this.CLONE_NOTE(id, name)))
   }
 
   public listNotes(): void {
@@ -458,6 +463,19 @@ private async wrapOutcome(action: () => Promise<boolean>): Promise<Outcome> {
       'ticket':	this.ticketValue(),
       'roles': this.rolesValue(),
       'data': {
+        'name': name
+      }
+    }
+  }
+
+  private CLONE_NOTE(id: string, name: string) {
+    return {
+      'op':	'NEW_NOTE',
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      'data': {
+        'id': id,
         'name': name
       }
     }
