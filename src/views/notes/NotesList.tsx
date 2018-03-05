@@ -8,7 +8,9 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { connect } from 'react-redux'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import Dropzone from 'react-dropzone'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
+import { toastr } from 'react-redux-toastr'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
@@ -54,7 +56,8 @@ export default class NotesList extends React.Component<any, any> {
     showRenamePanel: false,
     newName: '',
     isNewNameValid: false,
-    selectionDetails: this.getSelectionDetails()
+    selectionDetails: this.getSelectionDetails(),
+    drops: []
   }
 
   constructor(props) {
@@ -64,92 +67,141 @@ export default class NotesList extends React.Component<any, any> {
   }
 
   public render() {
-    var { notes, selectedNotes, selectionDetails } = this.state
+    var { notes, selectedNotes, selectionDetails, drops } = this.state
     return (
       <div>
 {/*
         <div>{ selectionDetails }</div>
 */}
-        <TextField
-          ref={ ref => this.selectionTextField = ref }
-          onChanged={ text => this.setState({ selectedNotes: text ? notes.filter(n => n.name.toLowerCase().indexOf(text) > -1) : notes }) }
-        />
+        <div className="ms-Grid">
+ 
+          <div className="ms-Grid-row">
+
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
+
+              <Dropzone 
+                accept="application/json"
+                onDrop={ this.onDrop }
+                style={{ width: '100%', height: '50px', borderWidth: '2px', borderColor: 'rgb(102, 102, 102)', borderStyle: 'dashed', borderRadius: '5px' }}
+                >
+                <div className="ms-fontSize-m">To import notes, drop the json file here, or click to select json file to upload.</div>
+                {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
+                  if (isDragActive) {
+                    return "This note is authorized."
+                  }
+                  if (isDragReject) {
+                    return "This note is not authorized."
+                  }
+                  return acceptedFiles.length || rejectedFiles.length
+                    ? `Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`
+                    : "Try dropping some note."
+                }}
 {/*
-        <MarqueeSelection selection={ this.selection }>
+                <div className="ms-fontWeight-semibold">
+                  {
+                    drops.map(d => {
+                      return <div>
+                        <div key={d.name}>{d.name} - {d.size} bytes</div>
+                        <img src={d.preview} />
+                      </div>
+                    })
+                  }
+                </div>
 */}
-          <DetailsList
-            items={ selectedNotes }
-            columns={ this.columns }
-            setKey='set'
-            layoutMode={ DetailsListLayoutMode.fixedColumns }
-            selection={ this.selection }
-            selectionPreservedOnEmptyClick={ true }
-            onRenderItemColumn={ this.renderItemColumn }
-          />
-{/*
-        </MarqueeSelection>
-*/}
-{/*
-        {notes && notes.map(n => {
-          return (
-            <div key={n.id}>
-              <a href="#"  onClick={ e => this.loadNote(e, n.id) }>{n.name}</a>
-              &nbsp;&nbsp;
-              <a href="#"  onClick={ e => this.showRenamePanel(e, n.id, n.name) }>rename</a>
-              &nbsp;&nbsp;
-              <a href="#"  onClick={ e => this.showDeletePanel(e, n.id, n.name) }>delete</a>
-              <br/>
+              </Dropzone>
+
             </div>
-          )
-        })}
-*/}
-        <Panel
-          isOpen={ this.state.showDeletePanel }
-          type={ PanelType.smallFixedNear }          
-          onDismiss={ () => this.closeDeletePanel() }
-          headerText='Confirm Note Delete'
-          isBlocking={ true }
-        >
-            <CompoundButton
-              description={this.state.selectedNoteName}
-              onClick={ (e => this.deleteSelectedNote(e))}
-              className='ms-Button--primary'
-              autoFocus={true}
-            >
-              Yes, Delete this Note
-            </CompoundButton>
-            <hr/>
-            <DefaultButton
-              text='No, cancel'
-              onClick={ () => this.closeDeletePanel() }
-           />
-        </Panel>
-        <Panel
-          isOpen={ this.state.showRenamePanel }
-          type={ PanelType.smallFixedNear }          
-          onDismiss={ () => this.closeRenamePanel() }
-          headerText='Rename Note'
-          isBlocking={ true }
-        >
-          <form onSubmit={e => this.submitRenameForm(e) }>
-            <TextField
-              placeholder='New name'
-              defaultValue={this.state.selectedNoteName}
-              label={this.state.selectedNoteName}
-              autoFocus={true}
-              onChanged={v => this.handleTextFieldChange(v)}
-              ref={ ref => this.renameNoteTextField = ref }
-              onGetErrorMessage={ v => this.getErrorMessage(v) }
-            />
-            <br/>
-            <PrimaryButton
-              text='Rename Note'
-              disabled={!this.state.isNewNameValid}
-              onClick={ (e) => this.renameSelectedNote(e) }
-            />
-          </form>
-        </Panel>
+
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
+
+              <TextField
+                ref={ ref => this.selectionTextField = ref }
+                onChanged={ text => this.setState({ selectedNotes: text ? notes.filter(n => n.name.toLowerCase().indexOf(text) > -1) : notes }) }
+              />
+      {/*
+              <MarqueeSelection selection={ this.selection }>
+      */}
+                <DetailsList
+                  items={ selectedNotes }
+                  columns={ this.columns }
+                  setKey='set'
+                  layoutMode={ DetailsListLayoutMode.fixedColumns }
+                  selection={ this.selection }
+                  selectionPreservedOnEmptyClick={ true }
+                  onRenderItemColumn={ this.renderItemColumn }
+                />
+      {/*
+              </MarqueeSelection>
+      */}
+      {/*
+              {notes && notes.map(n => {
+                return (
+                  <div key={n.id}>
+                    <a href="#"  onClick={ e => this.loadNote(e, n.id) }>{n.name}</a>
+                    &nbsp;&nbsp;
+                    <a href="#"  onClick={ e => this.showRenamePanel(e, n.id, n.name) }>rename</a>
+                    &nbsp;&nbsp;
+                    <a href="#"  onClick={ e => this.showDeletePanel(e, n.id, n.name) }>delete</a>
+                    <br/>
+                  </div>
+                )
+              })}
+      */}
+              <Panel
+                isOpen={ this.state.showDeletePanel }
+                type={ PanelType.smallFixedNear }          
+                onDismiss={ () => this.closeDeletePanel() }
+                headerText='Confirm Note Delete'
+                isBlocking={ true }
+              >
+                  <CompoundButton
+                    description={this.state.selectedNoteName}
+                    onClick={ (e => this.deleteSelectedNote(e))}
+                    className='ms-Button--primary'
+                    autoFocus={true}
+                  >
+                    Yes, Delete this Note
+                  </CompoundButton>
+                  <hr/>
+                  <DefaultButton
+                    text='No, cancel'
+                    onClick={ () => this.closeDeletePanel() }
+                />
+              </Panel>
+              <Panel
+                isOpen={ this.state.showRenamePanel }
+                type={ PanelType.smallFixedNear }          
+                onDismiss={ () => this.closeRenamePanel() }
+                headerText='Rename Note'
+                isBlocking={ true }
+              >
+                <form onSubmit={e => this.submitRenameForm(e) }>
+                  <TextField
+                    placeholder='New name'
+                    defaultValue={this.state.selectedNoteName}
+                    label={this.state.selectedNoteName}
+                    autoFocus={true}
+                    onChanged={v => this.handleTextFieldChange(v)}
+                    ref={ ref => this.renameNoteTextField = ref }
+                    onGetErrorMessage={ v => this.getErrorMessage(v) }
+                  />
+                  <br/>
+                  <PrimaryButton
+                    text='Rename Note'
+                    disabled={!this.state.isNewNameValid}
+                    onClick={ (e) => this.renameSelectedNote(e) }
+                  />
+                </form>
+              </Panel>
+
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
+
     )
 
   }
@@ -171,6 +223,32 @@ export default class NotesList extends React.Component<any, any> {
         value: ''
       })
     }
+  }
+
+  @autobind
+  private onDrop(drops) {
+/*
+    this.setState({
+      drops: drops
+    })
+*/
+    drops.forEach(file => {
+      const reader = new FileReader()
+      reader.onload = () => {
+          const fileAsBinaryString = reader.result
+          var note = JSON.parse(fileAsBinaryString)
+          console.log('---', note)
+          if (note.id) {
+            toastr.info("Import", "Importing note " + note.id)
+            this.notebookApi.importNote(note)
+          } else {
+            toastr.warning("Import", "Uploaded file does not have the correct format.")
+          }
+      }
+      reader.onabort = () => console.warn('File reading was aborted.')
+      reader.onerror = () => console.warn('File reading has failed.')
+      reader.readAsBinaryString(file)
+    })
   }
 
   @autobind

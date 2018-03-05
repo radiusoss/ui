@@ -97,6 +97,10 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.cloneNote(id, name)
   }
 
+  public importNote(note: any) {
+    return this.spitfireApi.importNote(note)
+  }
+
   public showNoteLayout(id: string, layout: string) {
     history.push(`/dla/explorer/note/${layout}/${id}`)
     return this.spitfireApi.getNote(id)
