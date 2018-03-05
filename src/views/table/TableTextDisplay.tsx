@@ -6,6 +6,8 @@ import NotebookApi from './../../api/notebook/NotebookApi'
 import { DetailsList, DetailsListLayoutMode, ConstrainMode, Selection } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import * as isEqual from 'lodash.isequal'
+import * as stylesImport from './../_styles/Styles.scss'
+const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class TableTextDisplay extends React.Component<any, any> {
@@ -52,7 +54,7 @@ export default class TableTextDisplay extends React.Component<any, any> {
              filteredItems: text ? items.filter(i => i[this.state.columns[0]['name']].toLowerCase().indexOf(text) > -1) : items 
            })}
         />
-        <div style={{maxHeight: '80vh', overflowX: 'hidden', overflowY: 'auto', position: 'relative'}}>
+        <div className={styles.overflowYOverlay} style={{maxHeight: '80vh', overflowX: 'hidden', overflowY: 'auto', position: 'relative'}}>
           <MarqueeSelection selection={ this.selection }>
             <DetailsList
               columns={ columns }

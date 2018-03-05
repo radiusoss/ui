@@ -12,11 +12,11 @@ import TableDoughnutDisplay from './../table/TableDoughnutDisplay'
 import TableScatterDisplay from './../table/TableScatterDisplay'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import * as stylesImport from './../_styles/Styles.scss'
 import { downloadCSV } from './../../util/data/CSV'
 import Html from './../../_widget/Html'
-const styles: any = stylesImport
 import * as isEqual from 'lodash.isequal'
+import * as stylesImport from './../_styles/Styles.scss'
+const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class TableDisplay extends React.Component<any, any> {
@@ -149,42 +149,42 @@ export default class TableDisplay extends React.Component<any, any> {
   public render() {
     var { columns, items, format, showGraphBar } = this.state
     return (
-      <div style={{ overflowY: 'auto' }}>
       <div>
-       {
-          (showGraphBar == true) && 
-          <CommandBar
-            isSearchBoxVisible={ false }
-            items={ this.leftItems }
-            farItems={ this.rightItems }
-            ref="table-renderer-command-bar"
-            className={ styles.commandBarBackgroundTransparent }
-          />
-        }
-        {
-          (format == 'text') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableTextDisplay columns={this.state.columns} items={this.state.items} /></div>
-        }
-        {
-          (format == 'line') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableLineDisplay columns={this.state.columns} items={this.state.items} /></div>
-        }
-        {
-          (format == 'barchart') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableBarDisplay columns={this.state.columns} items={this.state.items} /></div>
-        }
-        {
-          (format == 'barchart-horizontal') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} /></div>
-        }
-        {
-          (format == 'pie') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TablePieDisplay columns={this.state.columns} items={this.state.items} /></div>
-        }
-        {
-          (format == 'doughnut') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableDoughnutDisplay columns={this.state.columns} items={this.state.items} /></div>
-        }
-        {
-          (format == 'scatter') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableScatterDisplay columns={this.state.columns} items={this.state.items} /></div>
-        }
-        {
-          (format == 'bubble') && <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh' }}><TableBubbleDisplay columns={this.state.columns} items={this.state.items} /></div>
-        }
+        <div>
+          {
+            (showGraphBar == true) && 
+            <CommandBar
+              isSearchBoxVisible={ false }
+              items={ this.leftItems }
+              farItems={ this.rightItems }
+              ref="table-renderer-command-bar"
+              className={ styles.commandBarBackgroundTransparent }
+            />
+          }
+          {
+            (format == 'text') && <TableTextDisplay columns={this.state.columns} items={this.state.items} />
+          }
+          {
+            (format == 'line') && <TableLineDisplay columns={this.state.columns} items={this.state.items} />
+          }
+          {
+            (format == 'barchart') && <TableBarDisplay columns={this.state.columns} items={this.state.items} />
+          }
+          {
+            (format == 'barchart-horizontal') && <TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} />
+          }
+          {
+            (format == 'pie') && <TablePieDisplay columns={this.state.columns} items={this.state.items} />
+          }
+          {
+            (format == 'doughnut') && <TableDoughnutDisplay columns={this.state.columns} items={this.state.items} />
+          }
+          {
+            (format == 'scatter') && <TableScatterDisplay columns={this.state.columns} items={this.state.items} />
+          }
+          {
+            (format == 'bubble') && <TableBubbleDisplay columns={this.state.columns} items={this.state.items} />
+          }
         </div>
       </div>
     )

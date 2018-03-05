@@ -52,7 +52,7 @@ export default class K8SClusterStatus extends React.Component<any, IClusterState
                 theme={jsonTreeMonokaiTheme}
                 invertTheme={false}
                 hideRoot={true}
-                sortObjectKeys={true}
+                // sortObjectKeys={true}
                 shouldExpandNode={(keyName, data, level) => true}
                 />
             </div>
@@ -65,7 +65,7 @@ export default class K8SClusterStatus extends React.Component<any, IClusterState
                 theme={jsonTreeMonokaiTheme}
                 invertTheme={false}
                 hideRoot={true}
-                sortObjectKeys={true}
+                // sortObjectKeys={true}
                 shouldExpandNode={(keyName, data, level) => true}
                 />
             </div>
@@ -122,7 +122,7 @@ export default class K8SClusterStatus extends React.Component<any, IClusterState
                   theme={jsonTreeMonokaiTheme}
                   invertTheme={false}
                   hideRoot={true}
-                  sortObjectKeys={true}
+                  // sortObjectKeys={true}
                   shouldExpandNode={(keyName, data, level) => true}
                   />
               </div>

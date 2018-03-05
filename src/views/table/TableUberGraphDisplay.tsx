@@ -1,4 +1,6 @@
 import * as React from 'react'
+import * as stylesImport from './../_styles/Styles.scss'
+const styles: any = stylesImport
 
 /*
 import {XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries} from 'react-vis'
@@ -68,9 +70,9 @@ const data = {
 export default class TableUberGraphDisplay extends React.Component<any, any> {
   displayName: 'BarExample'
 
-  render() {
+  public render() {
     return (
-      <div>
+      <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh', overflowY: 'auto' }}>
         <h2>Bar Example (custom size)</h2>
         <Bar
           data={data}
@@ -83,4 +85,5 @@ export default class TableUberGraphDisplay extends React.Component<any, any> {
       </div>
     )
   }
+
 }

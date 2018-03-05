@@ -2,8 +2,6 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { toastr } from 'react-redux-toastr'
 import HDFSCapacity from './HDFSCapacity'
-import TableDoughnutDisplay from './../table/TableDoughnutDisplay'
-import {columns, items} from './../../spl/TableSpl'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -16,9 +14,6 @@ export default class HDFSStatus extends React.Component<any, any> {
           <div className="ms-Grid-row">
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <HDFSCapacity/>
-            </div>
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <TableDoughnutDisplay columns={columns} items={items} />
             </div>
           </div>
         </div>

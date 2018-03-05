@@ -79,7 +79,7 @@ export default class AWSInstances extends React.Component<any, IAWSInstancesStat
                     theme={jsonTreeMonokaiTheme}
                     invertTheme={false}
                     hideRoot={true}
-                    sortObjectKeys={true}
+                    // sortObjectKeys={true}
                     shouldExpandNode={(keyName, data, level) => true}
                     />
                 </div>

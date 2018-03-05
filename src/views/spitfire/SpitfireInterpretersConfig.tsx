@@ -57,7 +57,7 @@ export default class SpitfireInterpretersConfig extends React.Component<any, any
                   theme={jsonTreeMonokaiTheme}
                   invertTheme={false}
                   hideRoot={true}
-                  sortObjectKeys={true}
+                  // sortObjectKeys={true}
                   shouldExpandNode={(keyName, data, level) => true}
                   />
               </div>

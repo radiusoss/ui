@@ -1,6 +1,8 @@
 import * as React from 'react'
 import TableBaseDisplay from './_TableBaseDisplay'
 import { Scatter } from 'react-chartjs-2'
+import * as stylesImport from './../_styles/Styles.scss'
+const styles: any = stylesImport
 
 export default class TableScatterDisplay extends TableBaseDisplay {
 
@@ -14,7 +16,7 @@ export default class TableScatterDisplay extends TableBaseDisplay {
 
   public render() {
     return (
-      <div>
+      <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh', overflowY: 'auto' }}>
         <Scatter
           data={this.scatterData}
           options={this.options}

@@ -1,6 +1,8 @@
 import * as React from 'react'
 import TableBaseDisplay from './_TableBaseDisplay'
 import { Bubble } from 'react-chartjs-2/lib'
+import * as stylesImport from './../_styles/Styles.scss'
+const styles: any = stylesImport
 
 export default class TableBubbleDisplay extends TableBaseDisplay {
   bubbleData = {}
@@ -13,7 +15,7 @@ export default class TableBubbleDisplay extends TableBaseDisplay {
 
   public render() {
     return (
-      <div>
+      <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh', overflowY: 'auto' }}>
         <Bubble
           data={this.bubbleData}
 //          options={this.options}

@@ -17,15 +17,12 @@ export default class Settings extends React.Component<any, any> {
         <div className="ms-font-su">Platform Settings</div>
         <Pivot>
         <PivotItem linkText='AWS Capacity' itemIcon='Cloud'>
-            <div className="ms-fontSize-su">AWS Capacity</div>
             <AWSCapacity />
           </PivotItem>
-{/*
           <PivotItem linkText='HDFS Capacity' itemIcon='OfflineStorageSolid'>
             <div className="ms-fontSize-su">HDFS Capacity</div>
             <HDFSCapacity />
           </PivotItem>
-*/}
           <PivotItem linkText='Kuber Config' itemIcon='Equalizer'>
             <div className="ms-fontSize-su">Kuber Config</div>
             <KuberConfig />

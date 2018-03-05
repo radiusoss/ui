@@ -68,7 +68,7 @@ export default class K8SClusterUsage extends React.Component<any, any> {
                   data={this.state.selectedNode}
                   invertTheme={false}
                   hideRoot={true}
-                  sortObjectKeys={true}
+                  // sortObjectKeys={true}
                   shouldExpandNode={(keyName, data, level) => true}
                   />
               </div>
@@ -84,7 +84,7 @@ export default class K8SClusterUsage extends React.Component<any, any> {
                   data={this.state.overview} 
                   invertTheme={false}
                   hideRoot={true}
-                  sortObjectKeys={true}
+                  // sortObjectKeys={true}
                   shouldExpandNode={(keyName, data, level) => true}
                   />
               </div>

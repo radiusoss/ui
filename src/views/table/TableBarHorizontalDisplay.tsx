@@ -1,6 +1,8 @@
 import * as React from 'react'
 import TableBaseDisplay from './_TableBaseDisplay'
 import {HorizontalBar} from 'react-chartjs-2'
+import * as stylesImport from './../_styles/Styles.scss'
+const styles: any = stylesImport
 
 export default class TableBarHorizontalDisplay extends TableBaseDisplay {
   barHorizontalData = {}
@@ -28,7 +30,7 @@ export default class TableBarHorizontalDisplay extends TableBaseDisplay {
 
   render() {
     return (
-      <div>
+      <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh', overflowY: 'auto' }}>
         <HorizontalBar
           data={this.barHorizontalData}
         />
