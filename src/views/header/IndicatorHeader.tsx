@@ -17,11 +17,10 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/C
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
-import { SwatchColorPicker } from 'office-ui-fabric-react/lib/SwatchColorPicker'
 import GoogleProfileWidget from './../profile/GoogleProfileWidget'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import AWSCapacity from './../aws/AWSCapacity'
-import K8SClusterUsage from './../cluster/K8SClusterUsage'
+import K8SClusterTopology from './../cluster/K8SClusterTopology'
 import K8SClusterStatus from './../cluster/K8SClusterStatus'
 import ReservationsStatus from './../reservations/ReservationsStatus'
 import HDFStatus from './../hdfs/HDFSStatus'
@@ -49,7 +48,7 @@ export default class ControlHeader extends React.Component<any, any> {
   private k8sClusterStatus: K8SClusterStatus
   private awsCapacity: AWSCapacity
   private reservationsStatus: ReservationsStatus
-  private k8sClusterUsage: K8SClusterUsage
+  private k8sClusterTopology: K8SClusterTopology
   private hdfsStatus: HDFStatus
   private sparkStatus: SparkStatus
   private runningStatus: RunningStatus
@@ -61,8 +60,8 @@ export default class ControlHeader extends React.Component<any, any> {
     statusPanel: '',
     clusterColor: Colors.GREEN,
     reservationsColor: Colors.GREEN,
-    usageColor: Colors.GREEN,
-    hdfsColor: Colors.GREY,
+    topologyColor: Colors.GREEN,
+    hdfsColor: Colors.GREEN,
     sparkColor: Colors.GREEN,
     runningColor: Colors.GREEN,
     networkColor: Colors.GREEN
@@ -77,7 +76,7 @@ export default class ControlHeader extends React.Component<any, any> {
 
   public render() {
     const { statusPanel, profilePhoto, clusterColor, reservationsColor,
-       usageColor, hdfsColor, sparkColor, runningColor, networkColor } = this.state
+       topologyColor, hdfsColor, sparkColor, runningColor, networkColor } = this.state
     return (
       <div>
         <div style={{ float: 'right', padding: '0px 10px' }}>
@@ -112,11 +111,11 @@ export default class ControlHeader extends React.Component<any, any> {
           </a>
           <a href="#"
             onClick={(e) => {e.preventDefault(); this.setState({
-              statusPanel: 'usage'
+              statusPanel: 'topology'
             })}}>
             <Icon iconName="TFVCLogo" 
-              className={`${styles.dlaIndicatorIcon} ms-fontColor-${usageColor}`}
-              title="Usage"
+              className={`${styles.dlaIndicatorIcon} ms-fontColor-${topologyColor}`}
+              title="Topology"
               />
           </a>
           <a href="#"
@@ -156,31 +155,7 @@ export default class ControlHeader extends React.Component<any, any> {
               title="Network"
               />
           </a>
-{/*
-          <SwatchColorPicker
-            columnCount={ 9 }
-            cellShape={ 'circle' }
-            colorCells={
-              [
-                { id: 'cluster', label: 'Cluster', color: clusterColor },
-                { id: 'reservations', label: 'Reservations', color: reservationsColor },
-                { id: 'usage', label: 'Usage', color: usageColor },
-                { id: 'hdfs', label: 'HDFS', color: hdfsColor },
-                { id: 'spark', label: 'Spark', color: sparkColor },
-                { id: 'running', label: 'Running', color: runningColor },
-                { id: 'network', label: 'Network', color: networkColor }
-              ]
-            }
-            onCellFocused={(id?: string, color?: string) => {
-            if (id) {
-              this.setState({
-                statusPanel: id
-              })
-            }
-            }}
-          />
-*/}
-          </div>
+        </div>
         <Panel
           isBlocking={ true }
           isOpen={ statusPanel != '' }
@@ -212,10 +187,10 @@ export default class ControlHeader extends React.Component<any, any> {
             </div>
           }
           {
-            (statusPanel == 'usage') &&
+            (statusPanel == 'topology') &&
             <div>
-              <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Usage</div>
-              <K8SClusterUsage ref={ ref => this.k8sClusterUsage = ref } />
+              <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Topology</div>
+              <K8SClusterTopology ref={ ref => this.k8sClusterTopology = ref } />
             </div>
           }
           {

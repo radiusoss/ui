@@ -23,7 +23,7 @@ export type IClusterState = {
 
 @connect(mapStateToPropsKuber, mapDispatchToPropsKuber)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
-export default class K8SClusterUsage extends React.Component<any, any> {
+export default class K8SClusterTopology extends React.Component<any, any> {
   private config: IConfig = NotebookStore.state().config
   private restClient: RestClient
   private kuberApi: KuberApi
@@ -47,15 +47,22 @@ export default class K8SClusterUsage extends React.Component<any, any> {
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <VegaDla
-                renderer="svg"
+                renderer="canvas"
                 data={[
                   {
                     "name": "node-data2",
-                    "values": [{"name":"Myriel","group":1,"index":0},{"name":"Napoleon","group":1,"index":1},{"name":"Mlle.Baptistine","group":1,"index":2}]
+                    "values": [ 
+                      {"name":"Myriel","group":1,"index":0},
+                      {"name":"Napoleon","group":1,"index":1},
+                      {"name":"Mlle.Baptistine","group":1,"index":2}
+                    ]
                   },
                   {
                     "name": "link-data2",
-                    "values": [{"source":1,"target":0,"value":1},{"source":2,"target":0,"value":8} ]
+                    "values": [
+                      {"source":1,"target":0,"value":1},
+                      {"source":2,"target":0,"value":8}
+                    ]
                   }
                 ]}
                 spec={miserables_specs.default}
