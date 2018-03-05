@@ -10,22 +10,20 @@ import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTi
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
 import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
-import { DetailsList, DetailsListLayoutMode, Selection, IColumn} from 'office-ui-fabric-react/lib/DetailsList'
+import { DetailsList, DetailsListLayoutMode, ConstrainMode, Selection, IColumn} from 'office-ui-fabric-react/lib/DetailsList'
 import { lorem } from '../../spl/DataSpl'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
-var googleContacts: IUser[] = []
-
 export interface IGoogleProfileState {
-  contacts: any[];
-  columns: IColumn[];
-  items: IUser[];
-  selectionDetails: JSX.Element;
-  isModalSelection: boolean;
-  isCompactMode: boolean;
+  columns: IColumn[]
+  items: IUser[]
+  filteredItems: IUser[]
+  selectionDetails: JSX.Element
+  isModalSelection: boolean
+  isCompactMode: boolean
 }
 
 const columns: IColumn[] = [
@@ -105,8 +103,8 @@ export default class GoogleProfile extends React.Component<any, IGoogleProfileSt
   })
 
   state = {
-    contacts: [],
-    items: googleContacts,
+    items: [],
+    filteredItems: [],
     columns: null,
     selectionDetails: null,
     isModalSelection: false,
@@ -117,12 +115,20 @@ export default class GoogleProfile extends React.Component<any, IGoogleProfileSt
     super(props)
     this.notebookApi = window["NotebookApi"]
     this.googleApi = window["GoogleApi"]
+    this.state = {
+      items: [],
+      filteredItems: [],
+      columns: columns,
+      selectionDetails: this.getSelectionDetails(),
+      isModalSelection: this.selection.isModal(),
+      isCompactMode: false
+    }
   }
 
   public render() {
-    var { columns, isCompactMode, items, selectionDetails } = this.state
+    var { columns, isCompactMode, filteredItems, selectionDetails } = this.state
     return (
-      <div style={{ overflowY: 'auto'}}>
+      <div>
         <div className='ms-font-xxl'>Contacts</div>
         <div>{ selectionDetails }</div>
         <TextField
@@ -131,12 +137,13 @@ export default class GoogleProfile extends React.Component<any, IGoogleProfileSt
         />
         <MarqueeSelection selection={ this.selection }>
           <DetailsList
-            items={ items }
+            items={ filteredItems }
             compact={ isCompactMode }
             columns={ columns }
             setKey='set'
             layoutMode={ DetailsListLayoutMode.justified }
             isHeaderVisible={ true }
+            constrainMode={ ConstrainMode.horizontalConstrained }
             selection={ this.selection }
             selectionPreservedOnEmptyClick={ true }
             onItemInvoked={ this.onItemInvoked }
@@ -148,13 +155,7 @@ export default class GoogleProfile extends React.Component<any, IGoogleProfileSt
   }
 
   public componentDidMount() {
-    this.setState({
-      items: googleContacts,
-      columns: columns,
-      selectionDetails: this.getSelectionDetails(),
-      isModalSelection: this.selection.isModal(),
-    })
-  this.updateContacts()
+    this.updateContacts()
   }
 
   private updateContacts() {
@@ -162,7 +163,7 @@ export default class GoogleProfile extends React.Component<any, IGoogleProfileSt
       .then(contacts => {
         var connections = contacts.result.connections
         if (connections.length != 0) {
-          googleContacts = []
+          var googleContacts = []
           connections.map( c => {
             var resourceName = c.resourceName
             var userName = resourceName
@@ -187,8 +188,8 @@ export default class GoogleProfile extends React.Component<any, IGoogleProfileSt
         }
         googleContacts = this.sortItems(googleContacts, 'displayName');    
         this.setState({
-          contacts: connections,
-          items: googleContacts
+          items: googleContacts,
+          filteredItems: googleContacts
         })
     })
   }
@@ -211,7 +212,9 @@ export default class GoogleProfile extends React.Component<any, IGoogleProfileSt
 
   @autobind
   private onChangeText(text: any): void {
-    this.setState({ items: text ? googleContacts.filter(i => i.displayName.toLowerCase().indexOf(text) > -1) : googleContacts })
+    this.setState({ 
+      filteredItems: text ? this.state.items.filter(i => i.displayName.toLowerCase().indexOf(text) > -1) : this.state.items 
+    })
   }
 
   private onItemInvoked(item: any): void {

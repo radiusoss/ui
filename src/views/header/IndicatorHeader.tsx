@@ -119,7 +119,6 @@ export default class ControlHeader extends React.Component<any, any> {
               title="Usage"
               />
           </a>
-{/*
           <a href="#"
             onClick={(e) => {e.preventDefault(); this.setState({
               statusPanel: 'hdfs'
@@ -130,7 +129,6 @@ export default class ControlHeader extends React.Component<any, any> {
               title="HDFS"
               />
           </a>
-*/}
           <a href="#"
             onClick={(e) => {e.preventDefault(); this.setState({
               statusPanel: 'spark'
