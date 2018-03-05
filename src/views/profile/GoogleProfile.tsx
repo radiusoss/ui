@@ -16,6 +16,7 @@ export default class GoogleProfile extends React.Component<any, any> {
     return (
       <div style={{ overflowY: 'auto'}}>
         <GoogleProfileWidget />
+        <hr/>
       </div>
     )
   }

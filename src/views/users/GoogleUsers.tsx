@@ -135,21 +135,24 @@ export default class GoogleProfile extends React.Component<any, IGoogleProfileSt
           label='Filter by name:'
           onChanged={ this.onChangeText }
         />
-        <MarqueeSelection selection={ this.selection }>
-          <DetailsList
-            items={ filteredItems }
-            compact={ isCompactMode }
-            columns={ columns }
-            setKey='set'
-            layoutMode={ DetailsListLayoutMode.justified }
-            isHeaderVisible={ true }
-            constrainMode={ ConstrainMode.horizontalConstrained }
-            selection={ this.selection }
-            selectionPreservedOnEmptyClick={ true }
-            onItemInvoked={ this.onItemInvoked }
-            enterModalSelectionOnTouch={ true }
-          />
-        </MarqueeSelection>
+        <div style={{maxHeight: '80vh', overflowX: 'hidden', overflowY: 'auto', position: 'relative'}}>
+          <MarqueeSelection selection={ this.selection }>
+            <DetailsList
+              items={ filteredItems }
+              compact={ isCompactMode }
+              columns={ columns }
+              setKey='set'
+              layoutMode={ DetailsListLayoutMode.justified }
+              isHeaderVisible={ true }
+              constrainMode={ ConstrainMode.horizontalConstrained }
+              selection={ this.selection }
+              selectionPreservedOnEmptyClick={ true }
+              onItemInvoked={ this.onItemInvoked }
+              enterModalSelectionOnTouch={ true }
+              usePageCache={false}
+            />
+          </MarqueeSelection>
+        </div>
       </div>
     )
   }

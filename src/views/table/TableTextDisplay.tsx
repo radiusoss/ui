@@ -52,19 +52,21 @@ export default class TableTextDisplay extends React.Component<any, any> {
              filteredItems: text ? items.filter(i => i[this.state.columns[0]['name']].toLowerCase().indexOf(text) > -1) : items 
            })}
         />
-        <MarqueeSelection selection={ this.selection }>
-          <DetailsList
-            columns={ columns }
-            items={ filteredItems }
-            layoutMode={ DetailsListLayoutMode.justified }
-            selection={ this.selection }
-            constrainMode={ ConstrainMode.horizontalConstrained }
-            selectionPreservedOnEmptyClick={ true }
-            ref={ ref => this.detailsList = ref }
-            compact={ true }
-            setKey='set'
-            />
-        </MarqueeSelection>
+        <div style={{maxHeight: '80vh', overflowX: 'hidden', overflowY: 'auto', position: 'relative'}}>
+          <MarqueeSelection selection={ this.selection }>
+            <DetailsList
+              columns={ columns }
+              items={ filteredItems }
+              layoutMode={ DetailsListLayoutMode.justified }
+              selection={ this.selection }
+              constrainMode={ ConstrainMode.horizontalConstrained }
+              selectionPreservedOnEmptyClick={ true }
+              ref={ ref => this.detailsList = ref }
+              compact={ true }
+              setKey='set'
+              />
+          </MarqueeSelection>
+        </div>
       </div>
     )
   }
