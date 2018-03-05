@@ -39,6 +39,7 @@ export interface ISpitfireApi {
   importNote(note: any): void
   listNotes(): void
   getNote(id: string): void
+  checkpointNote(noteId: string, message: string): void
   renameNote(id: string, newName: string)
   moveNoteToTrash(id: string): void
   deleteNote(id: string): void
@@ -244,6 +245,10 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
   public getNote(id: string): void {
     this.sendWebSocketMessage(JSON.stringify(this.GET_NOTE(id)))
+  }
+
+  public checkpointNote(noteId: string, message: string): void {
+    this.sendWebSocketMessage(JSON.stringify(this.CHECKPOINT_NOTE(noteId, message)))
   }
 
   public renameNote(id: string, newName: string): void {
@@ -524,6 +529,19 @@ private async wrapOutcome(action: () => Promise<boolean>): Promise<Outcome> {
       'roles': this.rolesValue(),
       'data':	{ 
         'id': id 
+      }
+    }
+  }
+
+  private CHECKPOINT_NOTE(noteId: string, message: string) {
+    return {
+      "op": "CHECKPOINT_NOTE",
+      'principal': this.principalValue(),
+      'ticket':	this.ticketValue(),
+      'roles': this.rolesValue(),
+      "data": {
+          "noteId": noteId,
+          "commitMessage": message
       }
     }
   }

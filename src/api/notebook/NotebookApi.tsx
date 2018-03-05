@@ -114,6 +114,10 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.getNote(id)
   }
 
+  public checkpointNote(noteId: string, message: string) {
+    return this.spitfireApi.checkpointNote(noteId, message)
+  }
+
   public renameNote(id: string, newName: string) {
     return this.spitfireApi.renameNote(id, newName)
   }

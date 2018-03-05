@@ -277,9 +277,9 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                 }}
                 value="eric@datalayer.io"
                 inputKey='email'
-                validators={ [
+                validators={[
                   Validators.regex(emailRegexp, 'This is not a valid email.')
-                  ] }
+                  ]}
               />
               <FormTextInput
                 textFieldProps={{
@@ -287,9 +287,9 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                 }}
                 value="A phone number..."
                 inputKey='phone'
-                validators={ [
+                validators={[
                   Validators.required('Field is required')
-                ] }
+                ]}
               />
 
             </LayoutGroup>

@@ -10,7 +10,6 @@ import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTi
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
 import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle'
 import { DetailsList, DetailsListLayoutMode, Selection, IColumn} from 'office-ui-fabric-react/lib/DetailsList'
 import { lorem } from '../../spl/DataSpl'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'

@@ -4,6 +4,8 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { NotebookStore } from './../../store/NotebookStore'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle'
+import { toastr } from 'react-redux-toastr'
 import { IUser } from './../../domain/Domain'
 import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTitle, IDocumentCardPreviewProps, DocumentCardActions } from 'office-ui-fabric-react/lib/DocumentCard'
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
@@ -59,6 +61,14 @@ export default class NotePermissions extends React.Component<any, any> {
                         }
                       />
                     </DocumentCard>
+                    <br/>
+                    <Toggle
+                      checked={ this.hasAccess(user) }
+                      onText={ user.displayName + ' has access.'}
+                      offText={ user.displayName + ' does not have access.'}
+                      onChanged={ (checked: boolean) => this.togglePermissions(user) }
+                      />
+                    <hr/>
                   </div>
                 )
               })
@@ -90,6 +100,13 @@ export default class NotePermissions extends React.Component<any, any> {
     }
   }
 
+  private hasAccess(user) {
+    if (this.state.permissions.get(user.email + "#" + user.source)) {
+      return true
+    }
+    return false
+  }
+
   private getActionButton(user) {
     if (this.state.permissions.get(user.email + "#" + user.source)) {
       return {
@@ -118,9 +135,11 @@ export default class NotePermissions extends React.Component<any, any> {
     var perm = this.state.permissions.get(user.email + "#" + user.source)
     if (perm) {
       permissions.delete(user.email + "#" + user.source)
+      toastr.info("Permission", user.displayName + ' access has been removed.')
     }
     else {
       permissions.set(user.email + "#" + user.source, user.email + "#" + user.source)
+      toastr.info("Permission", user.displayName + ' has been given access to this note.')
     }
     var permsArr = Array.from(permissions.keys())
     var perms = {

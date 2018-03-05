@@ -1,0 +1,10 @@
+{
+    "op": "CHECKPOINT_NOTE",
+    "data": {
+        "noteId": "2D938VZY5",
+        "commitMessage": "d"
+    },
+    "principal": "eleonore1308.charles@gmail.com#google",
+    "ticket": "7ff22ede-1ecd-4388-878e-99ca1081d73f",
+    "roles": "[]"
+}

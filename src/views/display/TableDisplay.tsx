@@ -12,7 +12,7 @@ import TableDoughnutDisplay from './../table/TableDoughnutDisplay'
 import TableScatterDisplay from './../table/TableScatterDisplay'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import NotebookApi from './../../api/notebook/NotebookApi'
-import { downloadCSV } from './../../util/data/CSV'
+import { downloadCSV } from './../../util/data/DataActions'
 import Html from './../../_widget/Html'
 import * as isEqual from 'lodash.isequal'
 import * as stylesImport from './../_styles/Styles.scss'
@@ -82,11 +82,11 @@ export default class TableDisplay extends React.Component<any, any> {
       onClick: (e) => this.updateFormat(e, 'bubble')
     },
     {
-      key: 'Download',
+      key: 'download',
       title: 'Download as CSV',
       name: '',
       icon: 'Download',
-      onClick: (e) => this.downloadCsv(e)
+      onClick: (e) => this.downloadCSV(e)
     }
   ]
 
@@ -158,7 +158,7 @@ export default class TableDisplay extends React.Component<any, any> {
               items={ this.leftItems }
               farItems={ this.rightItems }
               ref="table-renderer-command-bar"
-              className={ styles.commandBarBackgroundTransparent }
+              className={ styles.commandBarBackgroundTransparentMarginLeftMinus30 }
             />
           }
           {
@@ -199,8 +199,7 @@ export default class TableDisplay extends React.Component<any, any> {
     this.notebookApi.commitParagraphWithGraph(this.state.p, this.graph(format))
   }
 
-  private downloadCsv(e: MouseEvent) {
-//    e.stopPropagation()
+  private downloadCSV(e: MouseEvent) {
     e.preventDefault()
     downloadCSV({
       filename: "data_" + new Date().toISOString().replace(" ", "_") + ".csv",

@@ -22,20 +22,33 @@ export function convertArrayOfObjectsToCSV(args) {
   return result
 }
 
-export function downloadCSV(args) {  
-  var data, filename, link
+export function downloadCSV(args) {
   var csv = this.convertArrayOfObjectsToCSV({
       data: args.items
   })
   if (csv == null) return
-  filename = args.filename || 'data.csv'
+  var filename = args.filename || 'data.csv'
   if (!csv.match(/^data:text\/csv/i)) {
       csv = 'data:text/csv;charset=UTF-8,' + csv
   }
-  data = encodeURI(csv)
-  link = document.createElement('a')
+  var data = encodeURI(csv)
+  var link = document.createElement('a')
   link.setAttribute('href', data)
   link.setAttribute('download', filename)
   document.getElementById('preloader').appendChild(link)
   link.click()
 }
+
+export function downloadJSON(args) {
+    var json = encodeURIComponent(JSON.stringify(args.json))
+    var filename = args.filename || 'data.csv'
+    if (!json.match(/^data:json/i)) {
+        json = 'data:text/csv;charset=UTF-8,' + json
+    }
+    var link = document.createElement('a')
+    link.setAttribute('href', json)
+    link.setAttribute('download', filename)
+    document.getElementById('preloader').appendChild(link)
+    link.click()
+  }
+  

@@ -84,7 +84,7 @@ export default class NotesList extends React.Component<any, any> {
                 onDrop={ this.onDrop }
                 style={{ width: '100%', height: '50px', borderWidth: '2px', borderColor: 'rgb(102, 102, 102)', borderStyle: 'dashed', borderRadius: '5px' }}
                 >
-                <div className="ms-fontSize-m">To import notes, drop the json file here, or click to select json file to upload.</div>
+                <div className="ms-fontSize-" >Drop a JSON file here (or click and upload) to import a Note.</div>
                 {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
                   if (isDragActive) {
                     return "This note is authorized."

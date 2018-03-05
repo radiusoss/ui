@@ -8,6 +8,7 @@ import ParagraphDisplay from './../paragraph/ParagraphDisplay'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import { ParagraphStatus, isParagraphRunning } from './../paragraph/ParagraphUtil'
 import InlineEditor from './../editor/InlineEditor'
+import { downloadJSON } from './../../util/data/DataActions'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import NotePermissions from './NotePermissions'
 import MockContent from './../message/MockContent'
@@ -132,8 +133,15 @@ export default class NoteWorkbench extends React.Component<any, any> {
                   items={[]}
                   farItems={[
                     {
+                      key: 'download',
+                      title: 'Download this note as JSON',
+                      name: '',
+                      icon: 'Download',
+                      onClick: (e) => this.downloadNote(e, this.state.note)
+                    },
+                    {
                       key: 'clone',
-                      title: 'Clone Note',
+                      title: 'Clone this Note',
                       name: '',
                       icon: 'Copy',
                       onClick: (e) => this.cloneNote()
@@ -356,5 +364,13 @@ export default class NoteWorkbench extends React.Component<any, any> {
   private cloneNote() {
     this.notebookApi.cloneNote(this.state.note.id, 'Clone of ' + this.state.note.name)
   }
+
+  private downloadNote(e: React.MouseEvent<HTMLElement>, json: {}) {
+    e.preventDefault()
+    downloadJSON({
+      filename: "note_" + new Date().toISOString().replace(" ", "_") + ".json",
+      json: json
+    })
+  }    
 
 }
