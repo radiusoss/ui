@@ -46,7 +46,7 @@ export default class Status extends React.Component<any, any> {
             <AWSInstances />
           </PivotItem>
           <PivotItem linkText='HDFS' itemIcon='OfflineStorageSolid'>
-            <div className="ms-font-xxl">HDFS</div>
+            <div className="ms-fontSize-su">HDFS</div>
             <HDFStatus />
           </PivotItem>
           <PivotItem linkText='Spark' itemIcon='LightningBolt'>

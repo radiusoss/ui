@@ -38,7 +38,7 @@ export default class ScratchpadEditor extends React.Component<any, any> {
   public render() {
     const { note, paragraphs, code } = this.state
     return (
-      <div className={styles.editorHeight}>
+      <div className={styles.editorHeight} style={{overflowY: 'auto'}}>
         <CodeEditor
           name={note.id}
           note={note}
@@ -56,6 +56,7 @@ export default class ScratchpadEditor extends React.Component<any, any> {
           showGutter={true}
           fontSize={20}
           focus={true}
+          wrapEnabled={true}
           readOnly={false}
 //          onLoad={this.onLoad}
 //          onChange={this.onChange}

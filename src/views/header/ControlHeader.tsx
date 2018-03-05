@@ -363,27 +363,25 @@ export default class ControlHeader extends React.Component<any, any> {
     if (this.runIndicator.key) {
       this.leftItems.push(this.runIndicator)
     }
+    if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/scratchpad") != -1) {
+      this.leftItems.push(
+        {
+          key: 'clear',
+          icon: 'ClearFormatting',
+          title: 'Clear Scratchpad',
+          onClick: () => this.props.dispatchClearScratchpadAction()
+        }
+      )
+    }
     if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/note/") != -1) {
-      if (window.location.hash.replace(/\/$/, '').indexOf("dla/explorer/scratchpad") == -1) {
-        this.leftItems.push(
-          {
-            key: 'SingleColumn',
-            icon: 'SingleColumn',
-            title: 'Note Results Layout',
-            onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'cover')
-          }
-        )
-      }
-      else {
-        this.leftItems.push(
-          {
-            key: 'clear',
-            icon: 'ClearFormatting',
-            title: 'Clear Scratchpad',
-            onClick: () => this.props.dispatchClearScratchpadAction()
-          }
-        )
-      }
+      this.leftItems.push(
+        {
+          key: 'SingleColumn',
+          icon: 'SingleColumn',
+          title: 'Note Results Layout',
+          onClick: () => this.notebookApi.showNoteLayout(this.state.note.id, 'cover')
+        }
+      )
     }
   }
 

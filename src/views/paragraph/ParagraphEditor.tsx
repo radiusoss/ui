@@ -150,9 +150,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
     var statusClassNames = getStatusClassNames(paragraph)
 
     return (
-
       <div>
-
         <Panel
           isOpen={ showPanel }
           type={ PanelType.smallFixedFar }
@@ -296,6 +294,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
                     focus={focus}
     //              onLoad={this.onLoad}
     //              onChange={this.onChange}
+                    wrapEnabled={true}
                     setOptions={{
                       enableBasicAutocompletion: false,
                       enableLiveAutocompletion: false
@@ -315,7 +314,6 @@ export default class ParagraphEditor extends React.Component<any, any> {
             </div>
           </div>
         </div>
-
       </div>
     )
 

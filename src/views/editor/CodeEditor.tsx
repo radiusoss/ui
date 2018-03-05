@@ -159,7 +159,7 @@ export default class CodeEditor extends React.Component<any, any> {
     this.editor = ace.edit(this.refEditor)
     this.editor.setAutoScrollEditorIntoView(true)
     this.editor.setOptions({
-//      autoScrollEditorIntoView: false,
+//      autoScrollEditorIntoView: true,
       indentedSoftWrap: false
     })
     this.editor.$blockScrolling = Infinity
