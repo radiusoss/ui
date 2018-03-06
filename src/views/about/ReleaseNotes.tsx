@@ -69,8 +69,10 @@ export default class ReleaseNotes extends React.Component<any, any> {
                 <img src="img/releases/basic-1.jpg" style={{ maxHeight: 150 }} />
                 <p className="ms-font-xl">#Basic</p>
                 <p>Version 0.0.1 is the very first release of the Datalayer Science Platform. Follow the provided <a href="http://docs.datalayer.io/docs/install">quick start install guide</a> to deploy your first cluster.</p>
-                <p>You will get as many as you want Zeppelin based Notebooks with with Apache Spark (data analytics) and Apache Hadoop (distributed file system) running natively on Kubernetes in [Amazon AWS Cloud](https://aws.amazon.com).</p>
-                <p>Last but not least, we also ship the premises of Kuber Board, a nice user interface to control your cluster which also acts as a collaborative Data Science Notebook to share datasets analysis with authentication via Twitter OAuth.</p>
+                <ul>
+                  <li>You will get as many as you want Zeppelin based Notebooks with with Apache Spark (data analytics) and Apache Hadoop (distributed file system) running natively on Kubernetes in [Amazon AWS Cloud](https://aws.amazon.com).</li>
+                  <li>Last but not least, we also ship the premises of Kuber Board, a nice user interface to control your cluster which also acts as a collaborative Data Science Notebook to share datasets analysis with authentication via Twitter OAuth.</li>
+                </ul>
               </div>
             </div>
           </div>

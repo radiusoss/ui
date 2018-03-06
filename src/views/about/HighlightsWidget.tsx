@@ -32,11 +32,11 @@ Charts are packages of pre-configured Kubernetes resources. Use Helm to:
 
 const RELEASE_TEXT = `
 <strong>Datalayer Science Platform</strong><br/>
-Version 0.0.2<br/>
+Release 0.0.2<br/>
 Arcadia Release<br/>
 <br/>
 Author: Eric Charles<br/>
-<small>Disrupt or Die</small><br/>
+<small>#Disrupt or #Die</small><br/>
 `
 
 export default class HighlightsWidget extends React.Component<any, any> {

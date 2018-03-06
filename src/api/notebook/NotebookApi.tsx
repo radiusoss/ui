@@ -93,8 +93,8 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.newNote(name)
   }
 
-  public cloneNote(id: string, name: string) {
-    return this.spitfireApi.cloneNote(id, name)
+  public cloneNote(noteId: string, name: string) {
+    return this.spitfireApi.cloneNote(noteId, name)
   }
 
   public importNote(note: any) {

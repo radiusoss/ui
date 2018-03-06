@@ -14,7 +14,7 @@ export default class Platform extends React.Component<any, any> {
               <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 text-center">
                 <div>
                   <p className="ms-font-su">Datalayer Science Platform</p>
-                  <p className="ms-font-xxl">Version 0.0.2 #Arcadia</p>
+                  <p className="ms-font-xxl">Release 0.0.2 #Arcadia</p>
                   <p className="ms-font-xxl"><a href="/#/dla/about/release-notes">Release Notes</a></p>                  
 {/*
                   <p className="ms-font-xl">Simple. Collaborative. Multi Cloud. Big Data Science</p>

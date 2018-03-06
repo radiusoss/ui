@@ -127,12 +127,6 @@ export default class ParagraphEditor extends React.Component<any, any> {
     
     leftItems.push(      
       {
-        key: 'delete',
-        icon: 'Delete',
-        title: 'Delete Paragraph',
-        onClick: () => this.removeParagraph()
-      },
-      {
         key: 'panel',
         icon: 'SidePanelMirrored',
         title: 'Show Control Panel',
@@ -200,6 +194,16 @@ export default class ParagraphEditor extends React.Component<any, any> {
                   key='clear'
                   title='Clear Paragraph Output'
                   onClick={() => this.clearParagraphOutput()}
+                  />
+              }
+              {
+                <IconButton
+                  iconProps={{
+                    iconName: 'Delete'
+                  }}
+                  key='delete'
+                  title='Delete This Paragraph'
+                  onClick={() => this.removeParagraph()}
                   />
               }
             </div>
