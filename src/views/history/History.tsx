@@ -38,15 +38,17 @@ export default class History extends React.Component<any, any> {
                <LayoutGroup layoutGap={ 20 } direction='vertical' justify='fill'>
                   <FormTextInput
                     textFieldProps={{
-                      label: 'Commit Message',
+                      label: 'Type here the message that represents the changes you are willing to push in the history.',
                       placeholder: 'Type your commit message...',
-                      iconProps: { iconName: 'BranchCommit' }
+                      iconProps: { iconName: 'BranchCommit' },
+                      multiline: true,
+                      rows: 10
                     }}
                     value={message}
                     inputKey='message'
                     validators={[
-                      Validators.minLength(3, (length: number) => 'Your commit message must be greater than 3 characters.'),
-                      Validators.maxLength(20, (length: number) => 'Your commit message must be less than 20 characters.')
+                      Validators.minLength(4, (length: number) => 'Your commit message must be more than 3 characters.'),
+                      Validators.maxLength(100, (length: number) => 'Your commit message must be less than 100 characters.')
                     ]}
                     />
                     <FormConditionalSubmitButton
@@ -55,7 +57,7 @@ export default class History extends React.Component<any, any> {
                         }
                       }}
                       >
-                      Commit
+                      Commit and Push
                     </FormConditionalSubmitButton>
                   </LayoutGroup>
                 </Form>

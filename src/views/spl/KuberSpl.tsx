@@ -57,16 +57,12 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
     const { disabled, checked } = this.state
 
     return (
-
       <div>
-
         <Form 
           onSubmit={ this.submit } 
           showErrorsWhenPristine={ true }
         >
-
           <LayoutGroup layoutGap={ 20 } direction='vertical'>
-
             <div className="ms-Grid	ms-slideRightIn40 ms-clearfix">
               <div className="ms-Grid-row ms-clearfix">
                 <div className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 ms-clearfix">
@@ -227,7 +223,6 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                 </div>
               </div>
             </div>
-
             <div className="ms-Grid	ms-slideRightIn40 ms-clearfix">
               <div className="ms-Grid-row ms-clearfix" style={{ width: "100%"}}>
                 <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6 ms-clearfix">
@@ -257,9 +252,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                 </div>
               </div>
             </div>
-
             <LayoutGroup layoutGap={ 20 } direction='horizontal' justify='fill'>
-
               <FormTextInput
                 textFieldProps={{ 
                   label: 'Name'
@@ -291,11 +284,8 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                   Validators.required('Field is required')
                 ]}
               />
-
             </LayoutGroup>
-
             <LayoutGroup layoutGap={ 20 } direction='horizontal' justify='fill'>
-
               <FormTextInput 
                 textFieldProps={{
                   label: 'TextField with a placeholder',
@@ -324,11 +314,8 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                 }}                
                 inputKey='name'                
               />
-
             </LayoutGroup>
-
             <LayoutGroup layoutGap={ 20 } direction='horizontal' justify='fill'>
-
               <ChoiceGroup
                 defaultSelectedKey='B'
                 options={ [
@@ -356,7 +343,6 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                 label='Pick one'
                 required={ true }
               />
-
               <LayoutGroup layoutGap={ 10 }>
                 <Label>Pick a few</Label>
                 <FormCheckBox
@@ -380,15 +366,10 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                   inputKey='checkE'
                 />
               </LayoutGroup>
-
             </LayoutGroup>
-
           </LayoutGroup>
-
         </Form>
-
       </div>
-
     )
 
   }
