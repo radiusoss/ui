@@ -53,7 +53,7 @@ export default class NoteCover extends React.Component<any, any> {
 //              imageShouldFadeIn: {this.state.imagesFadeIn}
 //              hidePersonaDetails={false}
 //            }
-          />
+            />
           <Rating
             min={ 1 }
             max={ 5 }
@@ -61,12 +61,17 @@ export default class NoteCover extends React.Component<any, any> {
             onChanged={ rating => toastr.warning('Not yet available', 'Looks like you are eager for the next release to give rating ' + rating) }
             onFocus={ () => console.log('onFocus called') }
             onBlur={ () => console.log('onBlur called') }
-          />
+            />
 */}
           <div className="ms-Grid">
             <div className="ms-Grid-row">
               <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px'}} >
-                <NoteResults note={note} showControlBar={false} showGraphBar={false} showParagraphTitle={true} />
+                <NoteResults 
+                  note={note} 
+                  showControlBar={false} 
+                  showGraphBar={false} 
+                  showParagraphTitle={true} 
+                  />
               </div>
             </div>
           </div>
@@ -75,7 +80,12 @@ export default class NoteCover extends React.Component<any, any> {
         <div className="ms-Grid">
           <div className="ms-Grid-row">
            <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12`} style={{ paddingLeft: '0px', margin: '0px' }} >
-             <NoteResults note={note} showControlBar={true} showGraphBar={true} showParagraphTitle={true} />
+             <NoteResults 
+               note={note} 
+               showControlBar={true} 
+               showGraphBar={true} 
+               showParagraphTitle={true} 
+               />
            </div>
           </div>
         </div>
