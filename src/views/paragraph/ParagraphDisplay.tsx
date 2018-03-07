@@ -291,7 +291,7 @@ export default class ParagraphDisplay extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { isStartParagraphRun, webSocketMessageSent, webSocketMessageReceived } = nextProps
+    const { isStartParagraphRun, spitfireMessageSent, spitfireMessageReceived } = nextProps
 /*
     if (isStartParagraphRun) {
       if (isStartParagraphRun.paragraphId == this.state.paragraph.id) {
@@ -307,16 +307,16 @@ export default class ParagraphDisplay extends React.Component<any, any> {
       }
     }
 */
-    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
-      var paragraph = webSocketMessageReceived.data.paragraph
+    if (spitfireMessageReceived && (spitfireMessageReceived.op == "PARAGRAPH")) {
+      var paragraph = spitfireMessageReceived.data.paragraph
       if (paragraph.id == this.state.paragraph.id) {
         this.setState({
           paragraph: paragraph
         })
       }
     }
-    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_UPDATE_OUTPUT")) {
-      var paraOutput = webSocketMessageReceived.data
+    if (spitfireMessageReceived && (spitfireMessageReceived.op == "PARAGRAPH_UPDATE_OUTPUT")) {
+      var paraOutput = spitfireMessageReceived.data
       if (paraOutput.type != 'TABLE') {
         if ((paraOutput.noteId == this.state.note.id) && (paraOutput.paragraphId === this.state.paragraph.id)) {
           var p = this.state.paragraph
@@ -345,9 +345,9 @@ export default class ParagraphDisplay extends React.Component<any, any> {
         }
       }
     }
-    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH_APPEND_OUTPUT")) {
+    if (spitfireMessageReceived && (spitfireMessageReceived.op == "PARAGRAPH_APPEND_OUTPUT")) {
       if (this.state.paragraph.status != ParagraphStatus.FINISHED) {
-        var paraOutput = webSocketMessageReceived.data
+        var paraOutput = spitfireMessageReceived.data
         if ((paraOutput.noteId == this.state.note.id) && (paraOutput.paragraphId === this.state.paragraph.id)) {
           var p = this.state.paragraph
           if (!p.results) {
@@ -375,15 +375,15 @@ export default class ParagraphDisplay extends React.Component<any, any> {
         }
       }
     }
-    if (webSocketMessageReceived && (webSocketMessageReceived.op == "INTERPRETER_BINDINGS")) {
+    if (spitfireMessageReceived && (spitfireMessageReceived.op == "INTERPRETER_BINDINGS")) {
       var bind = false
-      webSocketMessageReceived.data.interpreterBindings.map(intBind => {
+      spitfireMessageReceived.data.interpreterBindings.map(intBind => {
         if (intBind.selected == false) {
           bind = true
         }
       })
       if (bind) {
-        var ids = webSocketMessageReceived.data.interpreterBindings.map(intBind => {return intBind.id})
+        var ids = spitfireMessageReceived.data.interpreterBindings.map(intBind => {return intBind.id})
         this.notebookApi.saveInterpreterBindings(this.state.note.id, ids)
         toastr.info('Interpreters', 'Interpreters Bindings to current note is requested - Try again...')
       } else {

@@ -328,7 +328,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { isStartParagraphRun, webSocketMessageReceived } = nextProps
+    const { isStartParagraphRun, spitfireMessageReceived } = nextProps
 /*
     if (isStartParagraphRun) {
       if (isStartParagraphRun.paragraphId == this.state.paragraph.id) {
@@ -340,16 +340,16 @@ export default class ParagraphEditor extends React.Component<any, any> {
       }
     }
 */
-    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PROGRESS")) {
-      var data = webSocketMessageReceived.data
+    if (spitfireMessageReceived && (spitfireMessageReceived.op == "PROGRESS")) {
+      var data = spitfireMessageReceived.data
       if (data.id == this.state.paragraph.id) {
         this.setState({
           percentComplete: data.progress
         })
       }
     }
-    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
-      var paragraph = webSocketMessageReceived.data.paragraph
+    if (spitfireMessageReceived && (spitfireMessageReceived.op == "PARAGRAPH")) {
+      var paragraph = spitfireMessageReceived.data.paragraph
       if (paragraph.id == this.state.paragraph.id) {        
         this.setState({
           paragraph: paragraph

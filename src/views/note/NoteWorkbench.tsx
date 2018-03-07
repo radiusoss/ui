@@ -311,7 +311,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { webSocketMessageReceived, isStartNoteRun, isStartParagraphRun } = nextProps
+    const { spitfireMessageReceived, isStartNoteRun, isStartParagraphRun } = nextProps
     if (isStartNoteRun) {
       var i = 0
       if (isStartNoteRun.noteId) {
@@ -346,11 +346,11 @@ export default class NoteWorkbench extends React.Component<any, any> {
         this.notebookApi.runParagraph(editor.state.paragraph, code)
       }
     }
-    if (! webSocketMessageReceived) return
-    var op = webSocketMessageReceived.op
+    if (! spitfireMessageReceived) return
+    var op = spitfireMessageReceived.op
     if (op == "NOTE") {
       this.setState({
-        note: webSocketMessageReceived.data.note
+        note: spitfireMessageReceived.data.note
       })
     }
   }

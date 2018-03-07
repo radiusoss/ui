@@ -11,13 +11,13 @@ export const notebookTicketAction = (notebookLogin: string): NotebookAction => (
   message: notebookLogin
 })
 
-export const webSocketMessageSentAction = (message: any): NotebookAction => ({
-  type: 'WS_MESSAGE_SENT',
+export const spitfireMessageSentAction = (message: any): NotebookAction => ({
+  type: 'SPITFIRE_MESSAGE_SENT',
   message: message
 })
 
-export const webSocketMessageReceivedAction = (message: any): NotebookAction => ({
-  type: 'WS_MESSAGE_RECEIVED',
+export const spitfireMessageReceivedAction = (message: any): NotebookAction => ({
+  type: 'SPITFIRE_MESSAGE_RECEIVED',
   message: message
 })
 
@@ -47,8 +47,8 @@ export const goTo = (path: string): NotebookAction => ({
 
 export type NotebookProps = {
   notebookLogin: {},
-  webSocketMessageSent: any,
-  webSocketMessageReceived: any,
+  spitfireMessageSent: any,
+  spitfireMessageReceived: any,
   note: any,
   notes: any,
   runningParagraphs: Map<string, any>,
@@ -60,8 +60,8 @@ export type NotebookProps = {
 
 export const mapStateToPropsNotebook = (state: ApplicationState.State): NotebookProps => ({
   notebookLogin: state.notebookLogin,
-  webSocketMessageSent: state.webSocketMessageSent,
-  webSocketMessageReceived: state.webSocketMessageReceived,
+  spitfireMessageSent: state.spitfireMessageSent,
+  spitfireMessageReceived: state.spitfireMessageReceived,
   note: state.note,
   notes: state.notes,
   runningParagraphs: state.runningParagraphs,
@@ -87,10 +87,10 @@ export const mapDispatchToPropsNotebook = (dispatch: Dispatch<ApplicationState.S
     dispatch(notebookTicketAction(notebookLogin))
   },
   dispatchWsMessageSentAction: (message: any) => {
-    dispatch(webSocketMessageSentAction(message))
+    dispatch(spitfireMessageSentAction(message))
   },
   dispatchWsMessageReceivedAction: (message: any) => {
-    dispatch(webSocketMessageReceivedAction(message))
+    dispatch(spitfireMessageReceivedAction(message))
   },
   dispatchRunNoteAction: (noteId: any) => { 
     dispatch(runNote({noteId: noteId}))

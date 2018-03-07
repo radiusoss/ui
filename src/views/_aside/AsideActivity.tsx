@@ -194,7 +194,7 @@ export default class AsideActivity extends React.Component<any, any> {
           <small><b>Received Messages</b></small>
         </div>
         {
-          this.state.wsMessages.map((w) => {
+          this.state.spitfireMessages.map((w) => {
             return (
               <small key={ Math.random() } className="text-muted">
                 { JSON.stringify(w) }

@@ -70,21 +70,21 @@ export default class   extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { note, webSocketMessageSent, webSocketMessageReceived } = nextProps
-    if (webSocketMessageSent) {
-      if (webSocketMessageSent.op == "RUN_ALL_PARAGRAPHS_SPITFIRE") {
+    const { note, spitfireMessageSent, spitfireMessageReceived } = nextProps
+    if (spitfireMessageSent) {
+      if (spitfireMessageSent.op == "RUN_ALL_PARAGRAPHS_SPITFIRE") {
         this.setState({
           note: {
-            id: webSocketMessageSent.data.noteId,
-            paragraphs: webSocketMessageSent.data.paragraphs
+            id: spitfireMessageSent.data.noteId,
+            paragraphs: spitfireMessageSent.data.paragraphs
           }
         })
         return
       }
     }
-    if (webSocketMessageReceived) {
-      if (webSocketMessageReceived.op == "PARAGRAPH") {
-        var paragraph = webSocketMessageReceived.data.paragraph
+    if (spitfireMessageReceived) {
+      if (spitfireMessageReceived.op == "PARAGRAPH") {
+        var paragraph = spitfireMessageReceived.data.paragraph
         var updatedParagraphs = this.state.note.paragraphs.map( p => {
           if (p.id == paragraph.id) {
             return paragraph

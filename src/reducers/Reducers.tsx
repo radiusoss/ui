@@ -17,8 +17,8 @@ import {
   isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer
  } from './AuthReducer'
 import { 
-  notebookLoginReducer, webSocketMessageSentReducer, 
-  webSocketMessageReceivedReducer, noteReducer, clearScratchpadReducer,
+  notebookLoginReducer, spitfireMessageSentReducer, 
+  spitfireMessageReceivedReducer, noteReducer, clearScratchpadReducer,
   runningParagraphsReducer, notesReducer, isStartNoteRunReducer,
   goToReducer, isStartParagraphRunReducer
 } from './NotebookReducer'
@@ -41,8 +41,8 @@ export const reducers = combineReducers<ApplicationState.State>({
   isToTwitter: isToTwitterReducer,
   twitterToken: twitterTokenReducer,
   notebookLogin: notebookLoginReducer,
-  webSocketMessageSent: webSocketMessageSentReducer,
-  webSocketMessageReceived: webSocketMessageReceivedReducer,
+  spitfireMessageSent: spitfireMessageSentReducer,
+  spitfireMessageReceived: spitfireMessageReceivedReducer,
   note: noteReducer,
   notes: notesReducer,
   runningParagraphs: runningParagraphsReducer,

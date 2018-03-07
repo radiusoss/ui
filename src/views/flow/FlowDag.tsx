@@ -92,16 +92,16 @@ export default class FlowDag extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { webSocketMessageReceived } = nextProps
-    if (! webSocketMessageReceived) return
-    if (webSocketMessageReceived.op == "NOTES_INFO") {
-      var notes = webSocketMessageReceived.data.notes.map(note => ({ id: note.id, name: note.name }))
+    const { spitfireMessageReceived } = nextProps
+    if (! spitfireMessageReceived) return
+    if (spitfireMessageReceived.op == "NOTES_INFO") {
+      var notes = spitfireMessageReceived.data.notes.map(note => ({ id: note.id, name: note.name }))
       this.setState({notes: notes})
     }
-    if (webSocketMessageReceived.op == "SAVE_FLOWS") {
-      console.log('flows', webSocketMessageReceived.data.flows)
+    if (spitfireMessageReceived.op == "SAVE_FLOWS") {
+      console.log('flows', spitfireMessageReceived.data.flows)
       var flowId = this.props.match.params.flowId
-      webSocketMessageReceived.data.flows.map(flow => {
+      spitfireMessageReceived.data.flows.map(flow => {
         if (flow['id'] === flowId) {
           this.setState({
             flow: flow,

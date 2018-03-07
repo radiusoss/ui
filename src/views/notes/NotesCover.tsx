@@ -96,15 +96,15 @@ export default class NotesCover extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { webSocketMessageReceived } = nextProps
-    if (! webSocketMessageReceived) return
-    if (webSocketMessageReceived.op == "NOTES_INFO") {
-      var notes = webSocketMessageReceived.data.notes.filter(n => n.name != '_conf')
+    const { spitfireMessageReceived } = nextProps
+    if (! spitfireMessageReceived) return
+    if (spitfireMessageReceived.op == "NOTES_INFO") {
+      var notes = spitfireMessageReceived.data.notes.filter(n => n.name != '_conf')
       var notesMap = {}
       notes.forEach(function (note, key, notes) {
         notesMap[note.id] = note
       })
-      var layoutMap = webSocketMessageReceived.data.layout
+      var layoutMap = spitfireMessageReceived.data.layout
       var ii = -1
       var layout = notes.map((note, key, nt) => {
         ii += 1

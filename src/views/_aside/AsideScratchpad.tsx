@@ -6,7 +6,7 @@ import NotebookApi from './../../api/notebook/NotebookApi'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 export type IAsideScratchpadState = {
-    wsMessages: any[],
+    spitfireMessages: any[],
     interpreterSettings: any
 }
 
@@ -17,7 +17,7 @@ export default class AsideScratchpad extends React.Component<any, IAsideScratchp
   private notebookApi: NotebookApi
 
   state = {
-    wsMessages: new Array(),
+    spitfireMessages: new Array(),
     interpreterSettings: new Array()
   }
 
@@ -63,15 +63,15 @@ export default class AsideScratchpad extends React.Component<any, IAsideScratchp
 
   public componentWillReceiveProps(nextProps) {
 /*
-    const { webSocketMessageReceived } = nextProps
-    if (webSocketMessageReceived.op) {
-      var msg = this.state.wsMessages
+    const { spitfireMessageReceived } = nextProps
+    if (spitfireMessageReceived.op) {
+      var msg = this.state.spitfireMessages
       if (msg.length > MAX_MESSAGE_RECEIVED_LENGTH) {
         msg = msg.slice(0, MAX_MESSAGE_RECEIVED_LENGTH - 1)
       }
-      msg.unshift(webSocketMessageReceived)
+      msg.unshift(spitfireMessageReceived)
       this.setState({
-        wsMessages: msg
+        spitfireMessages: msg
       })
     }
 */

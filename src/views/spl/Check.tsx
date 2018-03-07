@@ -98,7 +98,7 @@ export default class Counter extends React.Component<CounterProps & CounterDispa
 
   public render() {
 
-    const { counter, label, isSavingCounter, isLoadingCounter, errorCounter, isMicrosoftAuthenticated, microsoftToken, webSocketMessageReceived } = this.props
+    const { counter, label, isSavingCounter, isLoadingCounter, errorCounter, isMicrosoftAuthenticated, microsoftToken, spitfireMessageReceived } = this.props
     const { hdfsStatuses, ticket, ip, version, kerberosWho } = this.state
 
     return (
@@ -118,8 +118,8 @@ export default class Counter extends React.Component<CounterProps & CounterDispa
           <div>Ticket: { JSON.stringify(ticket) }</div>
           <div>+ Status: { ticket.status } - Message: { ticket.message } - Principal: { ticket.body.principal }</div>
           <div>Version: { JSON.stringify(version) }</div>
-          <div>Check Web Socket Message Received: { JSON.stringify(webSocketMessageReceived) }</div>
-          <div>+ op: { webSocketMessageReceived.op }</div>
+          <div>Check Web Socket Message Received: { JSON.stringify(spitfireMessageReceived) }</div>
+          <div>+ op: { spitfireMessageReceived.op }</div>
           <div>KerberosWho: { kerberosWho }</div>
         </div>
 

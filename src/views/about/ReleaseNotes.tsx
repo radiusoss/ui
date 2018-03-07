@@ -20,19 +20,20 @@ export default class ReleaseNotes extends React.Component<any, any> {
             </div>
             <div className="ms-Grid-row">
               <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                <p className="ms-font-xxl">Version 0.2.0</p>
+                <p className="ms-font-xxl">Version 1.0.0</p>
                 <img src="img/releases/arcadia.png" style={{ maxHeight: 150 }} />
                 <p className="ms-font-xl">#Arcadia</p>
-                <p>The release `0.2.0` of the `Datalayer Science Platform` contains the following features.</p>
+                <p>The release `1.0.0` of the `Datalayer Science Platform` contains the following features.</p>
                 <ul>
-                  <li>Google Authentication</li>
+                  <li>Note Permissions</li>
+                  <li>Google Authentication and Contacts</li>
                   <li>Spitfire Shiro Authentication</li>
-                  <li>Basic User Management with Authorized Users</li>
-                  <li>Fully Operational Note Lines View</li>
-                  <li>Scratchpad Note</li>
-                  <li>Notebook Title</li>
-                  <li>Cluster Calendar with On-Off Slots</li>
-                  <li>Board and Side Views: Day Calendar + Cluster Usage + Latests Paragraphs</li>
+                  <li>Basic User Management</li>
+                  <li>Fully Operational Note Workbench</li>
+                  <li>Scratchpad Sidebar</li>
+                  <li>Note and Paragraph Title</li>
+                  <li>Cluster Reservations</li>
+                  <li>Home View: Latest Paragraph + Reservations + Cluster Status</li>
                 </ul>
               </div>
             </div>

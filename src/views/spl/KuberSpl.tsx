@@ -19,7 +19,7 @@ import KuberApi from '../../api/kuber/KuberApi'
 const MAX_LENGTH = 20
 
 export type IKuberState = {
-  wsMessages: any[]
+  spitfireMessages: any[]
   restResponse: any
   formResults: any
   disabled: boolean
@@ -34,10 +34,10 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
   private kuberApi: KuberApi
   private method: string
   private url: string
-  private wsMessage: any
+  private spitfireMessage: any
 
   state = {
-    wsMessages: new Array(),
+    spitfireMessages: new Array(),
     restResponse: {},
     formResults: null,
     disabled: false,
@@ -178,7 +178,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                         buttonProps={{
                           onClick: (e) => {
                             this.method = 'WS'
-                            this.wsMessage = this.kuberApi.KUBER_PING()
+                            this.spitfireMessage = this.kuberApi.KUBER_PING()
                           }
                         }}
                       >
@@ -190,7 +190,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                       buttonProps={{
                         onClick: (e) => {
                           this.method = 'WS'
-                          this.wsMessage = this.kuberApi.CREATE_CLUSTER_DEF()
+                          this.spitfireMessage = this.kuberApi.CREATE_CLUSTER_DEF()
                         }
                       }}
                     >
@@ -202,7 +202,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                       buttonProps={{
                         onClick: (e) => {
                           this.method = 'WS'
-                          this.wsMessage = this.kuberApi.CREATE_CLUSTER()
+                          this.spitfireMessage = this.kuberApi.CREATE_CLUSTER()
                         }
                       }}
                     >
@@ -214,7 +214,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                       buttonProps={{
                         onClick: (e) => {
                           this.method = 'WS'
-                          this.wsMessage = this.kuberApi.DELETE_CLUSTER()
+                          this.spitfireMessage = this.kuberApi.DELETE_CLUSTER()
                         }
                       }}
                     >
@@ -239,7 +239,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
                 <h4>Websocket Messages</h4>
                   <div style={{ padding: "10px", backgroundColor: "black", color: "rgb(0, 187, 0)"}}>
                     {
-                      this.state.wsMessages.map((w) => {
+                      this.state.spitfireMessages.map((w) => {
                         return (
                           <small key={ Math.random() }>
                               { w }
@@ -381,13 +381,13 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
     }
     if (kuberMessageReceived && kuberMessageReceived.op) {
       if (kuberMessageReceived.op != "PING") {
-        var msg = this.state.wsMessages
+        var msg = this.state.spitfireMessages
         if (msg.length > MAX_LENGTH) {
             msg = msg.slice(0, MAX_LENGTH - 1)
         }
         msg.unshift(new Date().toTimeString() + ' - ' + JSON.stringify(kuberMessageReceived))
         this.setState({
-          wsMessages: msg
+          spitfireMessages: msg
         })
       }
     }
@@ -406,7 +406,7 @@ export default class KuberSpl extends React.Component<any, IKuberState> {
   private submit(values: any): void {
     values.name = values.name_input
     if (this.method == 'WS') {
-      this.kuberApi.send(this.wsMessage)
+      this.kuberApi.send(this.spitfireMessage)
       return
     }
     this.restClient = this.newRestClient(this.url)

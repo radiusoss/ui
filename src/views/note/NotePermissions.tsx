@@ -84,10 +84,10 @@ export default class NotePermissions extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { webSocketMessageReceived } = nextProps
-    if (! webSocketMessageReceived) return
-    if (webSocketMessageReceived.op == "LIST_USERS") {
-      var users = webSocketMessageReceived.data.users
+    const { spitfireMessageReceived } = nextProps
+    if (! spitfireMessageReceived) return
+    if (spitfireMessageReceived.op == "LIST_USERS") {
+      var users = spitfireMessageReceived.data.users
       this.notebookApi.getNotePermissions(this.state.note.id).then(resp => {
         var arr = resp.result.body
         this.setState({

@@ -32,7 +32,7 @@ Charts are packages of pre-configured Kubernetes resources. Use Helm to:
 
 const RELEASE_TEXT = `
 <strong>Datalayer Science Platform</strong><br/>
-Release 0.0.2<br/>
+Release 1.0.0<br/>
 Arcadia Release<br/>
 <br/>
 Author: Eric Charles<br/>

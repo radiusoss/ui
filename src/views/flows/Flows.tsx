@@ -163,12 +163,12 @@ export default class Flows extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { webSocketMessageReceived } = nextProps
-    if (! webSocketMessageReceived) return
-    if ((webSocketMessageReceived.op == "LIST_FLOWS") || (webSocketMessageReceived.op == "SAVE_FLOWS")) {
+    const { spitfireMessageReceived } = nextProps
+    if (! spitfireMessageReceived) return
+    if ((spitfireMessageReceived.op == "LIST_FLOWS") || (spitfireMessageReceived.op == "SAVE_FLOWS")) {
       this.setState ({
-        flows: webSocketMessageReceived.data.flows,
-        selectedFlows: webSocketMessageReceived.data.flows
+        flows: spitfireMessageReceived.data.flows,
+        selectedFlows: spitfireMessageReceived.data.flows
       })
       this.selectionTextField.setState({
         value: ''

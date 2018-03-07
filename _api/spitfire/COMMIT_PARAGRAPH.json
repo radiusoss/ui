@@ -1,84 +1,23 @@
 {
-    "op": "COMMIT_PARAGRAPH",
-    "data": {
-        "id": "2CETCX3MY_63",
-        "paragraph": "%spark\n\nprintln(lr_table)",
-        "config": {
-            "colWidth": 12,
-            "enabled": true,
-            "results": {
-                "0": {
-                    "graph": {
-                        "mode": "multiBarChart",
-                        "height": 300,
-                        "optionOpen": false,
-                        "setting": {
-                            "table": {
-                                "tableGridState": {},
-                                "tableColumnTypeState": {
-                                    "names": {
-                                        "name": "string",
-                                        "weights": "string"
-                                    },
-                                    "updated": false
-                                },
-                                "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
-                                "tableOptionValue": {
-                                    "useFilter": false,
-                                    "showPagination": false,
-                                    "showAggregationFooter": false
-                                },
-                                "updated": false,
-                                "initialized": false
-                            },
-                            "multiBarChart": {
-                                "rotate": {
-                                    "degree": "-45"
-                                },
-                                "xLabelStatus": "default"
-                            },
-                            "stackedAreaChart": {
-                                "rotate": {
-                                    "degree": "-45"
-                                },
-                                "xLabelStatus": "default"
-                            },
-                            "lineChart": {
-                                "rotate": {
-                                    "degree": "-45"
-                                },
-                                "xLabelStatus": "default"
-                            }
-                        },
-                        "commonSetting": {},
-                        "keys": [
-                            {
-                                "name": "name",
-                                "index": 0,
-                                "aggr": "sum"
-                            }
-                        ],
-                        "groups": [],
-                        "values": [
-                            {
-                                "name": "weights",
-                                "index": 1,
-                                "aggr": "sum"
-                            }
-                        ]
-                    },
-                    "helium": {}
-                }
-            },
-            "editorSetting": {
-                "language": "scala"
-            },
-            "editorMode": "ace/mode/scala",
-            "fontSize": 9
+    "id": "2CF4T52HK_17",
+    "noteId": "2CF4T52HK",
+    "paragraph": "%md\n\n![Datalayer](http://datalayer.io/blog/ext/images/logo_horizontal_072ppi.png)\n\n## Welcome to the Datalayer Science Platform\nThis tool is adressed to both data scientist and business, the former to run spark/R/Python code and the latter to show the results in a business point of view on the same interface and in a collaborative way.\n\nI'm pleased to offer you this service and hope you will enjoy. Our team was hard at work to provide to you the best experience a notebook can offer. But this is just a beginning, a \"beta\" release, a lot of ideas are still in preparation and will come in its time. The following is an introduction to the Datalayer Notebook capabilities, so at the end you will be ready to use for your own project.\n\nEnjoy!\n\n<br>\n![Eric Charles](https://s.gravatar.com/avatar/f78b756a5c0eb7dd186b6622c0afed82?s=80)\n\nEric Charles\n*Founder of Datalayer*",
+    "config": {
+        "colWidth": 12,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+            "language": "markdown",
+            "editOnDblClick": true
         },
-        "params": {}
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "tableHide": false
     },
-    "principal": "anonymous",
-    "ticket": "anonymous",
-    "roles": "[]"
+    "params": {}
+},
+"principal": "anonymous",
+"ticket": "anonymous",
+"roles": "[]"
 }

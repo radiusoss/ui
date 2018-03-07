@@ -16,7 +16,7 @@ import KuberApi from '../../api/kuber/KuberApi'
 import JSONTree from 'react-json-tree'
 
 export type IKuberState = {
-    wsMessages: any[]
+    spitfireMessages: any[]
     restResponse: any
     formResults: any
     disabled: boolean
@@ -33,7 +33,7 @@ export default class Spl extends React.Component<any, IKuberState> {
   private restClient: RestClient
 
   state = {
-    wsMessages: new Array(),
+    spitfireMessages: new Array(),
     restResponse: {},
     formResults: null,
     disabled: false,
@@ -59,7 +59,7 @@ export default class Spl extends React.Component<any, IKuberState> {
           <small><b>Received Messages</b></small>
         </div>
         {
-          this.state.wsMessages.map((w) => {
+          this.state.spitfireMessages.map((w) => {
             return (
               <small key={ Math.random() }>
                   { JSON.stringify(w) }
@@ -182,14 +182,14 @@ export default class Spl extends React.Component<any, IKuberState> {
     }
     const { kuberMessageReceived } = nextProps
     if (kuberMessageReceived.op) {
-      var msg = this.state.wsMessages
+      var msg = this.state.spitfireMessages
       if (msg.length > MAX_LENGTH) {
           msg = msg.slice(0, MAX_LENGTH - 1)
       }
 //      msg.unshift(kuberMessageReceived.message)
       msg.unshift(kuberMessageReceived)
       this.setState({
-        wsMessages: msg
+        spitfireMessages: msg
       })
     }
   }

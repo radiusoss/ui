@@ -93,10 +93,10 @@ export default class Users extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { webSocketMessageReceived } = nextProps
-    if (! webSocketMessageReceived) return
-    if (webSocketMessageReceived.op == "LIST_USERS") {
-      var users = webSocketMessageReceived.data.users
+    const { spitfireMessageReceived } = nextProps
+    if (! spitfireMessageReceived) return
+    if (spitfireMessageReceived.op == "LIST_USERS") {
+      var users = spitfireMessageReceived.data.users
       this.setState({
         users: Object.keys(users).map(function(k) { return users[k] })
       })

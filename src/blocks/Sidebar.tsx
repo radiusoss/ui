@@ -177,11 +177,11 @@ export default class Sidebar extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { webSocketMessageReceived } = nextProps
-    if (! webSocketMessageReceived) return
-    if (webSocketMessageReceived.op == "NOTES_INFO") {
+    const { spitfireMessageReceived } = nextProps
+    if (! spitfireMessageReceived) return
+    if (spitfireMessageReceived.op == "NOTES_INFO") {
       this.setState({
-        notes: webSocketMessageReceived.data.notes
+        notes: spitfireMessageReceived.data.notes
       })
     }
   }

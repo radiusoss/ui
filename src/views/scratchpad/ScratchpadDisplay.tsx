@@ -68,20 +68,20 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { note, webSocketMessageSent, webSocketMessageReceived, clearScratchpad } = nextProps
+    const { note, spitfireMessageSent, spitfireMessageReceived, clearScratchpad } = nextProps
     if (clearScratchpad) {
       this.state.note.paragraphs = []
     }
-    if (webSocketMessageSent) {
-      if (webSocketMessageSent.op == "RUN_ALL_PARAGRAPHS_SPITFIRE") {
-        webSocketMessageSent.data.paragraphs.map(p => {
+    if (spitfireMessageSent) {
+      if (spitfireMessageSent.op == "RUN_ALL_PARAGRAPHS_SPITFIRE") {
+        spitfireMessageSent.data.paragraphs.map(p => {
           this.state.note.paragraphs.unshift(p)
         })
       }
     }
-    if (webSocketMessageReceived) {
-      if (webSocketMessageReceived.op == "PARAGRAPH") {
-        var paragraph = webSocketMessageReceived.data.paragraph
+    if (spitfireMessageReceived) {
+      if (spitfireMessageReceived.op == "PARAGRAPH") {
+        var paragraph = spitfireMessageReceived.data.paragraph
         var n = this.state.note
         for (var i = 0; i < n.paragraphs.length; i++) {
           if (n.paragraphs[i].id == paragraph.id) {
@@ -90,15 +90,15 @@ export default class ScratchpadDisplay extends React.Component<any, any> {
         }
       }
     }
-    if (webSocketMessageReceived && (webSocketMessageReceived.op == "INTERPRETER_BINDINGS")) {
+    if (spitfireMessageReceived && (spitfireMessageReceived.op == "INTERPRETER_BINDINGS")) {
       var bind = false
-      webSocketMessageReceived.data.interpreterBindings.map(intBind => {
+      spitfireMessageReceived.data.interpreterBindings.map(intBind => {
         if (intBind.selected == false) {
           bind = true
         }
       })
       if (bind) {
-        var ids = webSocketMessageReceived.data.interpreterBindings.map(intBind => {return intBind.id})
+        var ids = spitfireMessageReceived.data.interpreterBindings.map(intBind => {return intBind.id})
         this.notebookApi.saveInterpreterBindings(this.state.note.id, ids)
         toastr.info('Interpreters', 'Interpreters Bindings to current note is requested - Try again...')
       } else {

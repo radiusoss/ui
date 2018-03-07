@@ -238,7 +238,7 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, runningParagraphs, webSocketMessageReceived } = nextProps
+    const { config, runningParagraphs, spitfireMessageReceived } = nextProps
     if (config && ! isEqual(config, this.state.config)) {
       this.setState({
         config: config
@@ -249,8 +249,8 @@ export default class ControlHeader extends React.Component<any, any> {
         runningParagraphs: runningParagraphs
       })
     }
-    if (webSocketMessageReceived && (webSocketMessageReceived.op == "PARAGRAPH")) {
-      var p = webSocketMessageReceived.data.paragraph 
+    if (spitfireMessageReceived && (spitfireMessageReceived.op == "PARAGRAPH")) {
+      var p = spitfireMessageReceived.data.paragraph 
       if (p.status == ParagraphStatus.ERROR) {
         var errorMessage = p.errorMessage
         if (p.results && p.results.msg && p.results.msg.length > 0) {

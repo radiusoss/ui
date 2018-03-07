@@ -148,7 +148,7 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, webSocketMessageReceived, note } = nextProps
+    const { config, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, spitfireMessageReceived, note } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.notebookApi.listNotes()
@@ -174,10 +174,10 @@ export default class ControlHeader extends React.Component<any, any> {
         note: note
       })
     }
-    if (webSocketMessageReceived && webSocketMessageReceived.op == "NEW_NOTE") {
+    if (spitfireMessageReceived && spitfireMessageReceived.op == "NEW_NOTE") {
       this.notebookApi.showNoteLayout(noteId, 'workbench')
       this.notebookApi.listNotes()
-      var noteId = webSocketMessageReceived.data.note.id
+      var noteId = spitfireMessageReceived.data.note.id
       var user = NotebookStore.state().notebookLogin.result.body.principal
       var perms = {
         readers: [user],
@@ -187,14 +187,14 @@ export default class ControlHeader extends React.Component<any, any> {
       }
       this.notebookApi.putNotePermissions(noteId, perms)
     }
-    if (webSocketMessageReceived && webSocketMessageReceived.op == "NOTES_INFO") {
-      var notes = webSocketMessageReceived.data.notes
+    if (spitfireMessageReceived && spitfireMessageReceived.op == "NOTES_INFO") {
+      var notes = spitfireMessageReceived.data.notes
       this.setState({
         notes: this.asNotes(notes)
       })
     }
-    if (webSocketMessageReceived && webSocketMessageReceived.op == "SAVE_FLOWS") {
-      var flows = webSocketMessageReceived.data.flows
+    if (spitfireMessageReceived && spitfireMessageReceived.op == "SAVE_FLOWS") {
+      var flows = spitfireMessageReceived.data.flows
       this.setState({
         flows: this.asFlows(flows)
       })

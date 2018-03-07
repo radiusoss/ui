@@ -82,11 +82,11 @@ export default class Home extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { webSocketMessageReceived } = nextProps
-    if (! webSocketMessageReceived) return
-    if (webSocketMessageReceived.op == "NOTE") {
+    const { spitfireMessageReceived } = nextProps
+    if (! spitfireMessageReceived) return
+    if (spitfireMessageReceived.op == "NOTE") {
       this.setState({
-        note: webSocketMessageReceived.data.note
+        note: spitfireMessageReceived.data.note
       })
     }
   }

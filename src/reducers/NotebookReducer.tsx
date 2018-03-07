@@ -13,18 +13,18 @@ export const notebookLoginReducer = (state: {} = initialState.notebookLogin, act
   }
 }
 
-export const webSocketMessageSentReducer = (state: any = initialState.webSocketMessageSent, action: NotebookAction): any => {
+export const spitfireMessageSentReducer = (state: any = initialState.spitfireMessageSent, action: NotebookAction): any => {
   switch (action.type) {
-    case 'WS_MESSAGE_SENT':
+    case 'SPITFIRE_MESSAGE_SENT':
       return action.message
     default:
       return {}
   }
 }
 
-export const webSocketMessageReceivedReducer = (state: any = initialState.webSocketMessageReceived, action: NotebookAction): any => {
+export const spitfireMessageReceivedReducer = (state: any = initialState.spitfireMessageReceived, action: NotebookAction): any => {
   switch (action.type) {
-    case 'WS_MESSAGE_RECEIVED':
+    case 'SPITFIRE_MESSAGE_RECEIVED':
       return action.message
     default:
       return {}
@@ -33,7 +33,7 @@ export const webSocketMessageReceivedReducer = (state: any = initialState.webSoc
 
 export const runningParagraphsReducer = (state: Map<string, any> = initialState.runningParagraphs, action: NotebookAction): Map<string, any> => {
   switch (action.type) {
-    case 'WS_MESSAGE_SENT':
+    case 'SPITFIRE_MESSAGE_SENT':
       if (action.message.op == 'RUN_ALL_PARAGRAPHS_SPITFIRE') {
         var ps = state
         action.message.data.paragraphs.map(p => ps.set(p.id, p))
@@ -46,7 +46,7 @@ export const runningParagraphsReducer = (state: Map<string, any> = initialState.
         return ps
       }
       return state
-    case 'WS_MESSAGE_RECEIVED':
+    case 'SPITFIRE_MESSAGE_RECEIVED':
       if (action.message.op == 'PARAGRAPH') {
         var ps = state
         var p = action.message.data.paragraph
@@ -84,7 +84,7 @@ export const isStartParagraphRunReducer = (state: {noteId: any, paragraphId: any
 
 export const noteReducer = (state: any = initialState.note, action: NotebookAction): any => {
   switch (action.type) {
-    case 'WS_MESSAGE_RECEIVED':
+    case 'SPITFIRE_MESSAGE_RECEIVED':
       if (action.message.op == 'NOTE') {
         return action.message.data.note
       }
@@ -96,7 +96,7 @@ export const noteReducer = (state: any = initialState.note, action: NotebookActi
 
 export const notesReducer = (state: any[] = initialState.notes, action: NotebookAction): any[] => {
   switch (action.type) {
-    case 'WS_MESSAGE_RECEIVED':
+    case 'SPITFIRE_MESSAGE_RECEIVED':
       if (action.message.op == 'NOTES_INFO') {
         return action.message.data.notes
       }
