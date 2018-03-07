@@ -122,7 +122,7 @@ export default class Home extends React.Component<any, any> {
           latestParagraph = n.p
         }
         else {
-          if (n.p.dateFinished < latestParagraph.dateFinished) {
+          if (n.p.dateFinished > latestParagraph.dateFinished) {
             latestNote = n
             latestParagraph = n.p
           }
