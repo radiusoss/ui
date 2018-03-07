@@ -3,25 +3,40 @@ import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { DefaultButton, PrimaryButton, CompoundButton } from 'office-ui-fabric-react/lib/Button'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
-import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { DetailsList, DetailsListLayoutMode } from 'office-ui-fabric-react/lib/DetailsList'
+// import { Selection } from 'office-ui-fabric-react/lib/DetailsList'
+import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
+import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
 import { connect } from 'react-redux'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import Dropzone from 'react-dropzone'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { toastr } from 'react-redux-toastr'
+
+import { Selection, SelectionMode, SelectionZone } from 'office-ui-fabric-react/lib/utilities/selection/index'
+import { GroupedList, IGroup } from 'office-ui-fabric-react/lib/components/GroupedList/index'
+import { IColumn } from 'office-ui-fabric-react/lib/DetailsList'
+import { DetailsRow } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsRow'
+import { FocusZone } from 'office-ui-fabric-react/lib/FocusZone'
+import { createListItems, createGroups } from './../../spl/DataSpl'
+
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
+
+const groupCount = 3
+const groupDepth = 3
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class NotesList extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private renameNoteTextField: TextField
-  private selectionTextField: TextField
+//  private selectionTextField: TextField
+  private _selection: Selection
+/*
   private selection: Selection = new Selection({
     onSelectionChanged: () => this.setState({ selectionDetails: this.getSelectionDetails() })
   })
+*/
   private columns = [
     {
       key: 'name',
@@ -56,29 +71,29 @@ export default class NotesList extends React.Component<any, any> {
     showRenamePanel: false,
     newName: '',
     isNewNameValid: false,
-    selectionDetails: this.getSelectionDetails(),
-    drops: []
+//    selectionDetails: this.getSelectionDetails(),
+    drops: [],
+    _items: [],
+    _groups: Array<IGroup>()
   }
 
   constructor(props) {
     super(props)
     this.notebookApi = window["NotebookApi"]
-    this.renderItemColumn = this.renderItemColumn.bind(this)
+    this._selection = new Selection()
   }
 
   public render() {
-    var { notes, selectedNotes, selectionDetails, drops } = this.state
+    const { notes, selectedNotes, drops, _items, _groups } = this.state
+//    const { selectionDetails } = this.state
     return (
       <div>
 {/*
         <div>{ selectionDetails }</div>
 */}
         <div className="ms-Grid">
- 
           <div className="ms-Grid-row">
-
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
-
               <Dropzone 
                 accept="application/json"
                 onDrop={ this.onDrop }
@@ -109,101 +124,91 @@ export default class NotesList extends React.Component<any, any> {
                 </div>
 */}
               </Dropzone>
-
             </div>
-
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
-
+              <FocusZone>
+                <SelectionZone
+                  selection={ this._selection }
+                  selectionMode={ SelectionMode.multiple }
+                >
+                  <GroupedList
+                    items={ _items }
+                    onRenderCell={ this._onRenderCell }
+                    selection={ this._selection }
+                    selectionMode={ SelectionMode.multiple }
+                    groups={ _groups }
+                  />
+                </SelectionZone>
+              </FocusZone>
+            </div>
+{/*
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
               <TextField
                 ref={ ref => this.selectionTextField = ref }
                 onChanged={ text => this.setState({ selectedNotes: text ? notes.filter(n => n.name.toLowerCase().indexOf(text) > -1) : notes }) }
               />
-      {/*
-              <MarqueeSelection selection={ this.selection }>
-      */}
+//              <MarqueeSelection selection={ this.selection }>
                 <DetailsList
                   items={ selectedNotes }
                   columns={ this.columns }
                   setKey='set'
                   layoutMode={ DetailsListLayoutMode.fixedColumns }
-                  selection={ this.selection }
+//                  selection={ this.selection }
                   selectionPreservedOnEmptyClick={ true }
                   onRenderItemColumn={ this.renderItemColumn }
                 />
-      {/*
-              </MarqueeSelection>
-      */}
-      {/*
-              {notes && notes.map(n => {
-                return (
-                  <div key={n.id}>
-                    <a href="#"  onClick={ e => this.loadNote(e, n.id) }>{n.name}</a>
-                    &nbsp;&nbsp;
-                    <a href="#"  onClick={ e => this.showRenamePanel(e, n.id, n.name) }>rename</a>
-                    &nbsp;&nbsp;
-                    <a href="#"  onClick={ e => this.showDeletePanel(e, n.id, n.name) }>delete</a>
-                    <br/>
-                  </div>
-                )
-              })}
-      */}
-              <Panel
-                isOpen={ this.state.showDeletePanel }
-                type={ PanelType.smallFixedNear }          
-                onDismiss={ () => this.closeDeletePanel() }
-                headerText='Confirm Note Delete'
-                isBlocking={ true }
-              >
-                  <CompoundButton
-                    description={this.state.selectedNoteName}
-                    onClick={ (e => this.deleteSelectedNote(e))}
-                    className='ms-Button--primary'
-                    autoFocus={true}
-                  >
-                    Yes, Delete this Note
-                  </CompoundButton>
-                  <hr/>
-                  <DefaultButton
-                    text='No, cancel'
-                    onClick={ () => this.closeDeletePanel() }
-                />
-              </Panel>
-              <Panel
-                isOpen={ this.state.showRenamePanel }
-                type={ PanelType.smallFixedNear }          
-                onDismiss={ () => this.closeRenamePanel() }
-                headerText='Rename Note'
-                isBlocking={ true }
-              >
-                <form onSubmit={e => this.submitRenameForm(e) }>
-                  <TextField
-                    placeholder='New name'
-                    defaultValue={this.state.selectedNoteName}
-                    label={this.state.selectedNoteName}
-                    autoFocus={true}
-                    onChanged={v => this.handleTextFieldChange(v)}
-                    ref={ ref => this.renameNoteTextField = ref }
-                    onGetErrorMessage={ v => this.getErrorMessage(v) }
-                  />
-                  <br/>
-                  <PrimaryButton
-                    text='Rename Note'
-                    disabled={!this.state.isNewNameValid}
-                    onClick={ (e) => this.renameSelectedNote(e) }
-                  />
-                </form>
-              </Panel>
-
+//              </MarqueeSelection>
+*/}
             </div>
-
           </div>
-
+          <Panel
+            isOpen={ this.state.showDeletePanel }
+            type={ PanelType.smallFixedNear }          
+            onDismiss={ () => this.closeDeletePanel() }
+            headerText='Confirm Note Delete'
+            isBlocking={ true }
+            >
+              <CompoundButton
+                description={this.state.selectedNoteName}
+                onClick={ (e => this.deleteSelectedNote(e))}
+                className='ms-Button--primary'
+                autoFocus={true}
+              >
+                Yes, Delete this Note
+              </CompoundButton>
+              <hr/>
+              <DefaultButton
+                text='No, cancel'
+                onClick={ () => this.closeDeletePanel() }
+            />
+          </Panel>
+          <Panel
+            isOpen={ this.state.showRenamePanel }
+            type={ PanelType.smallFixedNear }          
+            onDismiss={ () => this.closeRenamePanel() }
+            headerText='Rename Note'
+            isBlocking={ true }
+            >
+            <form onSubmit={e => this.submitRenameForm(e) }>
+              <TextField
+                placeholder='New name'
+                defaultValue={this.state.selectedNoteName}
+                label={this.state.selectedNoteName}
+                autoFocus={true}
+                onChanged={v => this.handleTextFieldChange(v)}
+                ref={ ref => this.renameNoteTextField = ref }
+                onGetErrorMessage={ v => this.getErrorMessage(v) }
+                />
+              <br/>
+              <PrimaryButton
+                text='Rename Note'
+                disabled={!this.state.isNewNameValid}
+                onClick={ (e) => this.renameSelectedNote(e) }
+                />
+            </form>
+          </Panel>
         </div>
-
-      </div>
-
     )
-
   }
 
   public componentDidMount() {
@@ -214,14 +219,66 @@ export default class NotesList extends React.Component<any, any> {
     const { spitfireMessageReceived } = nextProps
     if (! spitfireMessageReceived) return
     if (spitfireMessageReceived.op == "NOTES_INFO") {
-      var notes = spitfireMessageReceived.data.notes.filter(n => n.name != '_conf')
+      var notes = spitfireMessageReceived.data.notes.filter(n => !n.name.startsWith('_'))
+      var previousIndex = 0
+      var index = 0
+      var count = -1
+      var folder = ''
+      var children = []
+      for (var i = 0; i < notes.length; i++) {
+        var note = notes[i]
+        var name = note.name
+        var splits = name.split("/")
+        var nextFolder = ''
+        if (splits.length > 1) {
+          nextFolder = splits[0]
+        }
+        if (folder != nextFolder) {
+          var level = 0
+          if (folder != '') {
+            level = 1
+          }
+          children.push({
+            key: folder,
+            name: folder,
+            count: count + 1,
+            startIndex: previousIndex
+//            level: level
+          })
+          previousIndex = index
+          index++
+          count = 0
+        }
+        else {
+          index++
+          count++
+        }
+        folder = nextFolder
+      }
+      children.push({
+        key: folder,
+        name: folder,
+        count: count + 1,
+        startIndex: previousIndex
+//            level: level
+      })
+      var groups = [{
+        key: 'notebook',
+        name: 'Notebook',
+        children: children
+      }]
+      this._selection.setItems(notes)
       this.setState ({
         notes: notes,
-        selectedNotes: notes
+        selectedNotes: notes,
+        _items: notes,
+        _groups: groups
       })
+/*
       this.selectionTextField.setState({
         value: ''
       })
+*/
     }
   }
 
@@ -237,7 +294,6 @@ export default class NotesList extends React.Component<any, any> {
       reader.onload = () => {
           const fileAsBinaryString = reader.result
           var note = JSON.parse(fileAsBinaryString)
-          console.log('---', note)
           if (note.id) {
             toastr.info("Import", "Importing note " + note.id)
             this.notebookApi.importNote(note)
@@ -279,7 +335,6 @@ export default class NotesList extends React.Component<any, any> {
       ? this.notebookApi.deleteNote(this.state.selectedNoteId)
       : this.notebookApi.moveNoteToTrash(this.state.selectedNoteId)
     this.closeDeletePanel()
-//    this.notebookApi.listNotes()
   }
 
   private showRenamePanel(e: React.MouseEvent<HTMLAnchorElement>, noteId, noteName) {
@@ -301,7 +356,6 @@ export default class NotesList extends React.Component<any, any> {
     e.preventDefault()
     this.notebookApi.renameNote(this.state.selectedNoteId, this.renameNoteTextField.value)
     this.closeRenamePanel()
-//    this.notebookApi.listNotes()
   }
 
   private handleTextFieldChange(value: string): void {
@@ -317,20 +371,24 @@ export default class NotesList extends React.Component<any, any> {
 
   @autobind
   private getErrorMessage(value: string): string {
-    if (value.length > 2) {
-      if (this) this.setState({
-        isNewNameValid: true
+    if (value.startsWith('_')) {
+      this.setState({
+        isNewNameValid: false
       })
-      return ""
+      return "You are not allowed to use a underscore as first letter of the note name."
     }
-    else {
-      if (this) this.setState({
+    if (value.length < 2) {
+      this.setState({
         isNewNameValid: false
       })
       return `The length of the input value should more than 2, actual is ${value.length}.`
     }
+    this.setState({
+      isNewNameValid: true
+    })
+    return ""
   }
-
+/*
   private getSelectionDetails(): string {
     var selectionCount = this.selection.getSelectedCount();
     switch (selectionCount) {
@@ -342,12 +400,17 @@ export default class NotesList extends React.Component<any, any> {
         return `${selectionCount} items selected`;
     }
   }
-
+*/
+  @autobind
   private renderItemColumn(item, index, column) {
     var fieldContent = item[column.fieldName]
     switch (column.key) {
       case 'name':
-        return <a href="#" onClick={ e => this.loadNote(e, item.id) }><strong>{item.name}</strong></a>
+        return <div style={{ width: '500px'}}>
+          <a href="#" onClick={ e => this.loadNote(e, item.id) }>
+            <strong>{this.getShortname(item.name)}</strong>
+          </a>
+        </div>
       case 'rename':
         return <a href="#" onClick={ e => this.showRenamePanel(e, item.id, item.name) }>rename</a>
       case 'delete':
@@ -355,6 +418,28 @@ export default class NotesList extends React.Component<any, any> {
       default:
         return <span>{ fieldContent }</span>
     }
+  }
+
+  @autobind
+  private getShortname(name) {
+    var splits = name.split('/')
+    if (splits.length > 1) return splits[1]
+    return name
+  }
+
+  @autobind
+  private _onRenderCell(nestingDepth: number, item: any, itemIndex: number) {
+    return (
+      <DetailsRow
+        columns={ this.columns }
+        groupNestingDepth={ nestingDepth }
+        item={ item }
+        itemIndex={ itemIndex }
+        selection={ this._selection }
+        selectionMode={ SelectionMode.multiple }
+        onRenderItemColumn={ this.renderItemColumn }
+        />
+    )
   }
 
 }

@@ -4,6 +4,7 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { NotebookStore } from '../../store/NotebookStore'
 import { IConfig, emptyConfig } from './../../api/config/ConfigApi'
 import { RestClient, Result, Outcome, ClientOptions, jsonOpt } from '../../util/rest/RestClient'
+import NotYetAvailable from './../message/NotYetAvailable'
 import JSONTree from 'react-json-tree'
 import { jsonTreeMonokaiTheme } from './../../theme/Themes'
 import { toastr } from 'react-redux-toastr'
@@ -45,6 +46,9 @@ export default class K8SClusterTopology extends React.Component<any, any> {
       <div>
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <NotYetAvailable/>
+            </div>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <VegaDla
                 renderer="canvas"

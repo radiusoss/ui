@@ -15757,7 +15757,7 @@ app-root {
       .sidebar .nav .nav-item.nav-dropdown.open {
         background: rgba(0, 0, 0, 0.2); }
         .sidebar .nav .nav-item.nav-dropdown.open > ul, .sidebar .nav .nav-item.nav-dropdown.open > ol {
-          max-height: 1000px; }
+          max-height: 10000px; }
         .sidebar .nav .nav-item.nav-dropdown.open a.nav-link, .sidebar .nav .nav-item.nav-dropdown.open .navbar a.dropdown-toggle, .navbar .sidebar .nav .nav-item.nav-dropdown.open a.dropdown-toggle {
           color: #fff;
           border-left: 0 !important; }

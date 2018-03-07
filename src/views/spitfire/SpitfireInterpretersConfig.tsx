@@ -6,7 +6,6 @@ import JSONTree from 'react-json-tree'
 import { jsonTreeMonokaiTheme } from './../../theme/Themes'
 import { Link } from 'office-ui-fabric-react/lib/Link'
 import { DetailsList, IGroup } from 'office-ui-fabric-react/lib/DetailsList'
-import { createListItems, createGroups } from '../../util/msc/data'
 import './../_styles/DetailsList.scss'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)

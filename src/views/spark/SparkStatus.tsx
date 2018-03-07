@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import NotYetAvailable from './../message/NotYetAvailable'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -16,6 +17,7 @@ export default class SparkStatus extends React.Component<any, any> {
   public render() {
     return (
       <div>
+        <NotYetAvailable/>
         <hr/>
         <div className="ms-font-l">Executors</div>
         <div className="ms-Grid" style={{ padding: 0 }}>

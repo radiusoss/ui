@@ -39,14 +39,16 @@ export default class ControlHeader extends React.Component<any, any> {
     isMicrosoftAuthenticated: false,
     isTwitterAuthenticated: false,
     note: undefined,
-    notes: [{
+    notes: [],
+    notesMenuItems: [{
       key: 'new-note',
       name: 'New note...',
       icon: 'QuickNote',
       onClick: () => this.setState({ showNewNotePanel: true })
     }],
     noteScratchpadId: '_conf',
-    flows: [{
+    flows: [],
+    flowsMenuItems: [{
       key: 'new-flow',
       name: 'New flow...',
       icon: 'Flow',
@@ -188,15 +190,17 @@ export default class ControlHeader extends React.Component<any, any> {
       this.notebookApi.putNotePermissions(noteId, perms)
     }
     if (spitfireMessageReceived && spitfireMessageReceived.op == "NOTES_INFO") {
-      var notes = spitfireMessageReceived.data.notes
+      var notes = spitfireMessageReceived.data.notes.filter(n => !n.name.startsWith('_'))
       this.setState({
-        notes: this.asNotes(notes)
+        notes: notes,
+        notesMenuItems: this.asNotesMenuItems(notes)
       })
     }
     if (spitfireMessageReceived && spitfireMessageReceived.op == "SAVE_FLOWS") {
       var flows = spitfireMessageReceived.data.flows
       this.setState({
-        flows: this.asFlows(flows)
+        flows: flows,
+        flowsMenuItems: this.asFlowsMenuItems(flows)
       })
     }
   }
@@ -205,7 +209,7 @@ export default class ControlHeader extends React.Component<any, any> {
     this.props.dispatchRunNoteAction(this.state.note.id)
   }
 
-  private asNotes(notes) {
+  private asNotesMenuItems(notes) {
     var ns = []
     ns.push({
       key: 'new-note',
@@ -213,17 +217,49 @@ export default class ControlHeader extends React.Component<any, any> {
       icon: 'QuickNote',
       onClick: () => this.setState({ showNewNotePanel: true })
     })
-    notes.map(n => {
-      var id = n.id
-      if (n.name != '_conf') {
-        var note = { 
-          key: id,
-          name: n.name,
-          onClick: () => this.notebookApi.showNoteLayout(id, 'workbench')
-        }
-        ns.push(note)
+    var previousIndex = 0
+    var folder = ''
+    var items = new Array<any>()
+    notes.map( note => {
+      var name = note.name
+      var id = note.id
+      var splits = name.split("/")
+      var nextFolder = ''
+      if (splits.length > 1) {
+        nextFolder = splits[0]
       }
+      if (folder != nextFolder) {
+        if (folder == '') {
+          items.map(i => ns.push(i))
+        }
+        else {
+          ns.push({
+            key: folder + '-' + id,
+            name: folder,
+            items: items
+          })
+        }
+        items = new Array<any>()
+      }
+      items.push({
+        key: 'item-' + id,
+        name: this.getShortname(name),
+        onClick: () => {
+          this.notebookApi.showNoteLayout(id, 'workbench')
+        }
+      })
+      folder = nextFolder
     })
+    if (folder == '') {
+      items.map(i => ns.push(i))
+    }
+    else {
+      ns.push({
+        key: folder + '-',
+        name: folder,
+        items: items
+      })
+    }
     ns.push({
       key: 'list',
       name: 'Notes List',
@@ -241,7 +277,7 @@ export default class ControlHeader extends React.Component<any, any> {
     return ns
   }
 
-  private asFlows(flows) {
+  private asFlowsMenuItems(flows) {
     var fl = []
     fl.push(
       {
@@ -343,7 +379,7 @@ export default class ControlHeader extends React.Component<any, any> {
         key: 'explorer',
         name: 'Explorer',
         icon: '',
-        items: this.state.notes
+        items: this.state.notesMenuItems
       },
 /*
       {
@@ -400,9 +436,9 @@ export default class ControlHeader extends React.Component<any, any> {
       if (note.name != this.state.noteScratchpadId) {
         this.runIndicator = {
           key: 'run-indicator',
-          name: stripString(note.name, 8),
+          name: stripString(this.getShortname(note.name), 8),
           icon: 'Play',
-          title: 'Run [SHIFT+Enter] ' + note.name,
+          title: 'Run [SHIFT+Enter] ' + this.getShortname(note.name),
           onClick: () => this.runNote()
           }
       }
@@ -484,6 +520,13 @@ export default class ControlHeader extends React.Component<any, any> {
   private createFlow(): void {    
     this.setState({ showNewFlowPanel: false })
     this.notebookApi.newFlow(this.newFlowTextField.value)
+  }
+
+  @autobind
+  private getShortname(name) {
+    var splits = name.split('/')
+    if (splits.length > 1) return splits[1]
+    return name
   }
 
 }

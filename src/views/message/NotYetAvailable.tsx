@@ -24,12 +24,13 @@ export default class NotYetAvailable extends React.Component<any, any> {
           actions={
             <div>
               <MessageBarButton
-                onClick={() => this.setState({showReleases: true})}
+//                onClick={() => this.setState({showReleases: true})}
+                onClick={() => window.open('http://docs.datalayer.io/docs/releases')}
                 >Releases</MessageBarButton>
             </div>
           }
         >
-          <span>Severe Warning - This feature is not yet available. Send comments or questions to our Twitter account <a href="https://twitter.com/datalayerio" target="_blank">@datalayerio</a>.</span>
+          <span>This feature is not yet available. Send comments or questions to our Twitter account <a href="https://twitter.com/datalayerio" target="_blank">@datalayerio</a>.</span>
         </MessageBar>
         }
         {
