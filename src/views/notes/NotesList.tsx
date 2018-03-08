@@ -100,6 +100,7 @@ export default class NotesList extends React.Component<any, any> {
                 style={{ width: '100%', height: '50px', borderWidth: '2px', borderColor: 'rgb(102, 102, 102)', borderStyle: 'dashed', borderRadius: '5px' }}
                 >
                 <div className="ms-fontSize-" >Drop a JSON file here (or click and upload) to import a Note.</div>
+{/*
                 {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
                   if (isDragActive) {
                     return "This note is authorized."
@@ -111,6 +112,7 @@ export default class NotesList extends React.Component<any, any> {
                     ? `Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`
                     : "Try dropping some note."
                 }}
+*/}
 {/*
                 <div className="ms-fontWeight-semibold">
                   {
@@ -291,19 +293,29 @@ export default class NotesList extends React.Component<any, any> {
 */
     drops.forEach(file => {
       const reader = new FileReader()
-      reader.onload = () => {
-          const fileAsBinaryString = reader.result
-          var note = JSON.parse(fileAsBinaryString)
-          if (note.id) {
-            toastr.info("Import", "Importing note " + note.id)
-            this.notebookApi.importNote(note)
-          } else {
-            toastr.warning("Import", "Uploaded file does not have the correct format.")
-          }
+      reader.onabort = () => {
+        toastr.error("Import", "File upload has been aborted.")
       }
-      reader.onabort = () => console.warn('File reading was aborted.')
-      reader.onerror = () => console.warn('File reading has failed.')
-      reader.readAsBinaryString(file)
+      reader.onerror = () => {
+        toastr.error("Import", "Error during the file upload. Check your network connectivity.")        
+      }
+      reader.onload = () => {
+        const fileAsBinaryString = reader.result
+        try {
+          var note = JSON.parse(fileAsBinaryString)
+        }
+        catch (err) {
+          toastr.error("Import", "Uploaded file is not a JSON format.")
+          return
+        }
+        if (note.id) {
+          toastr.info("Import", "Importing note " + note.id)
+          this.notebookApi.importNote(note)
+        } else {
+          toastr.error("Import", "Uploaded file is a JSON file but is missing the id field to be valid.")
+        }
+      }
+      reader.readAsText(file)
     })
   }
 
