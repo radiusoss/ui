@@ -257,9 +257,11 @@ export default class ControlHeader extends React.Component<any, any> {
           errorMessage = p.results.msg[0].data
         }
         toastr.warning('Run Error', stripString(errorMessage, 100))
+/*
         this.setState({
           statusPanel: 'running'
         })
+*/
       }
   }
   }
