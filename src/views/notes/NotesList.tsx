@@ -23,9 +23,6 @@ import { createListItems, createGroups } from './../../spl/DataSpl'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
-const groupCount = 3
-const groupDepth = 3
-
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class NotesList extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
@@ -74,7 +71,8 @@ export default class NotesList extends React.Component<any, any> {
 //    selectionDetails: this.getSelectionDetails(),
     drops: [],
     _items: [],
-    _groups: Array<IGroup>()
+    _groups: Array<IGroup>(),
+    draggableSupport: false
   }
 
   constructor(props) {
@@ -84,7 +82,7 @@ export default class NotesList extends React.Component<any, any> {
   }
 
   public render() {
-    const { notes, selectedNotes, drops, _items, _groups } = this.state
+    const { notes, selectedNotes, drops, _items, _groups, draggableSupport } = this.state
 //    const { selectionDetails } = this.state
     return (
       <div>
@@ -93,7 +91,7 @@ export default class NotesList extends React.Component<any, any> {
 */}
         <div className="ms-Grid">
           <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
+            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg16" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
               <Dropzone 
                 accept="application/json"
                 onDrop={ this.onDrop }
@@ -126,6 +124,19 @@ export default class NotesList extends React.Component<any, any> {
                 </div>
 */}
               </Dropzone>
+            </div>
+            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg16" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
+              <div>
+                <input 
+                  type="file"
+                  name="import-note"
+                  title=""
+                  onChange={this.onUploadFile}/>
+              </div>
+              <div>Select a JSON file to import a Note.
+                { (draggableSupport) && (<span className="ms-fontColor-green"> (Your Browser supports Drag-and-Drop)</span>) }
+                { (!draggableSupport) && (<span className="ms-fontColor-orange"> (Your Browser does not support Drag-and-Drop)</span>) }
+              </div>
             </div>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
               <FocusZone>
@@ -215,6 +226,11 @@ export default class NotesList extends React.Component<any, any> {
 
   public componentDidMount() {
     this.notebookApi.listNotes()
+    if ('draggable' in document.createElement('span')) {
+      this.setState({
+        draggableSupport: true
+      })
+    }    
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -285,6 +301,15 @@ export default class NotesList extends React.Component<any, any> {
   }
 
   @autobind
+  onUploadFile(event) {
+    var file = event.target.files[0]
+    console.log(file)
+    if (file) {
+      this.doRead(file)
+    }
+  }
+
+  @autobind
   private onDrop(drops) {
 /*
     this.setState({
@@ -292,32 +317,36 @@ export default class NotesList extends React.Component<any, any> {
     })
 */
     drops.forEach(file => {
-      const reader = new FileReader()
-      reader.onabort = () => {
-        toastr.error("Import", "File upload has been aborted.")
-      }
-      reader.onerror = () => {
-        toastr.error("Import", "Error during the file upload. Check your network connectivity.")        
-      }
-      reader.onload = () => {
-        const fileAsBinaryString = reader.result
-        try {
-          var note = JSON.parse(fileAsBinaryString)
-        }
-        catch (err) {
-          toastr.error("Import", "Uploaded file is not a JSON format.")
-          return
-        }
-        if (note.id) {
-          toastr.info("Import", "Importing note " + note.id)
-          this.notebookApi.importNote(note)
-        } else {
-          toastr.error("Import", "Uploaded file is a JSON file but is missing the id field to be valid.")
-        }
-      }
-      reader.readAsText(file)
+      this.doRead(file)
     })
   }
+
+  private doRead(file) {
+    const reader = new FileReader()
+    reader.onabort = () => {
+      toastr.error("Import", "File upload has been aborted.")
+    }
+    reader.onerror = () => {
+      toastr.error("Import", "Error during the file upload. Check your network connectivity.")        
+    }
+    reader.onload = () => {
+      const fileAsBinaryString = reader.result
+      try {
+        var note = JSON.parse(fileAsBinaryString)
+      }
+      catch (err) {
+        toastr.error("Import", "Uploaded file is not a JSON format.")
+        return
+      }
+      if (note.id) {
+        toastr.info("Import", "Importing note " + note.id)
+        this.notebookApi.importNote(note)
+      } else {
+        toastr.error("Import", "Uploaded file is a JSON but is missing the id field to be valid.")
+      }
+    }
+    reader.readAsText(file)
+}
 
   @autobind
   private loadNote(e: React.MouseEvent<HTMLAnchorElement>, noteId) {
