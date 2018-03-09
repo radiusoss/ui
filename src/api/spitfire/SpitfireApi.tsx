@@ -152,16 +152,58 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     })
   }
 
-  public newRestClient(username: string) {
-    this.restClient = new RestClient({
-      name: 'SpitfireApi',
-      url: this.config.spitfireRest,
-      path: '/spitfire/api',
-      username: username,
-      password: SHARED_PASSWORD
-    })
+    public componentDidMount() {
+        this.webSocketClient = new ReconnectingWebSocket('ws://localhost:8080/ws/')
+        console.log('websocket attempt:', this.webSocketClient);
+        this.webSocketClient.onopen = (event: MessageEvent) => {
+            console.log("Spitfire WebSocket has been opened.");
+            toastr.success('Spitfire', 'Connected to Spitfire Server.')
+            this.setState({
+                webSocketHealthy: true
+            })
+        }
+        this.webSocketClient.onmessage = (event: MessageEvent) => {
+            var message = JSON.parse(event.data)
+            console.log('Spitfire Receive << %o, %o', message.op, message)
+            this.props.dispatchWsMessageReceivedAction(message)
+            this.setState({
+                webSocketHealthy: true
+            })
+        }
+        this.webSocketClient.onerror = (event: MessageEvent) => {
+            console.log("Spitfire WebSocket Error: " + event.data)
+            toastr.error('Issue while connecting to Spitfire', 'Check your network and/or force reload your browser.')
+            this.setState({
+                webSocketHealthy: false
+            })
+        }
+        this.webSocketClient.onclose = (event: CloseEvent) => {
+            var code = event.code
+            console.log("Spitfire WebSocket Closed: " + code)
+            if (code != 1001) {
+                toastr.warning('Spitfire Connection closed', 'Spitfire Server is not reachable - Ensure it is online and your network is available, then reload your browser [' + code + ']')
+            }
+            this.setState({
+                webSocketHealthy: false
+            })
+        }
+        setInterval( _ => {
+            this.ping()
+        }, 10000 )
+        this.newRestClient(this.principalValue())
+    }
 
-  }
+    public newRestClient(username: string) {
+        this.restClient = new RestClient({
+            name: 'SpitfireApi',
+            url: 'http://localhost:8080',
+            path: '/api/',
+            username: username,
+            password: SHARED_PASSWORD
+        })
+
+    }
+
 
 // ----------------------------------------------------------------------------
 
@@ -906,22 +948,22 @@ private async wrapOutcome(action: () => Promise<boolean>): Promise<Outcome> {
     if (NotebookStore.state().spitfireLogin.result) {
       return NotebookStore.state().spitfireLogin.result.body.principal
     }
-    return ""
+    return "anonymous";
   }
 
-  private rolesValue(): [string] {
+  private rolesValue(): string {
     if (NotebookStore.state().spitfireLogin.result) {
       return NotebookStore.state().spitfireLogin.result.body.roles
     }
-    return [""]
+    return "[anonymous]";
   }
   
   private ticketValue(): string {
     if (NotebookStore.state().spitfireLogin.result) {
       return NotebookStore.state().spitfireLogin.result.body.ticket
     }
-    return ""
-  }
+    return "anonymous";
+    }
  
 // ----------------------------------------------------------------------------
 

@@ -190,7 +190,7 @@ export default class ControlHeader extends React.Component<any, any> {
         })
       }
       this.notebookApi.listNotes()
-      var user = NotebookStore.state().spitfireLogin.result.body.principal
+      var user = "anonymous"
       var perms = {
         readers: [user],
         owners: [user],
