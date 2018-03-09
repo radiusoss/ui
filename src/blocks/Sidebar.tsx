@@ -94,7 +94,7 @@ export default class Sidebar extends React.Component<any, any> {
             <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}>Kuber</a>
             <ul className="nav-dropdown-items">
             <li className="nav-item">
-                <NavLink to={'/dla/kuber/reservations'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Calendar</NavLink>
+                <NavLink to={'/dla/kuber/reservations'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Reservations</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to={'/dla/kuber/users'} className="nav-link" activeClassName="active"><FabricIcon name="People"/> Users</NavLink>

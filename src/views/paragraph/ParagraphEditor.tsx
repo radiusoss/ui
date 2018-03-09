@@ -196,16 +196,6 @@ export default class ParagraphEditor extends React.Component<any, any> {
                   onClick={() => this.clearParagraphOutput()}
                   />
               }
-              {
-                <IconButton
-                  iconProps={{
-                    iconName: 'Delete'
-                  }}
-                  key='delete'
-                  title='Delete This Paragraph'
-                  onClick={() => this.removeParagraph()}
-                  />
-              }
             </div>
             <div style={{ width: '10px', float: 'left'}}>
               <SpinButton
@@ -239,6 +229,18 @@ export default class ParagraphEditor extends React.Component<any, any> {
                   }
                 }}
               />
+            </div>
+            <div>
+              {
+                <IconButton
+                  iconProps={{
+                    iconName: 'Delete'
+                  }}
+                  key='delete'
+                  title='Delete This Paragraph'
+                  onClick={() => this.removeParagraph()}
+                  />
+              }
             </div>
           </div>
         </Panel>
@@ -288,7 +290,7 @@ export default class ParagraphEditor extends React.Component<any, any> {
                     value={code}
                     defaultValue=""
                     minLines={1}
-                    maxLines={30}
+                    maxLines={200}
                     width="100%"
                     mode="scala"
                     theme="tomorrow"
