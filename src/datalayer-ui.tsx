@@ -10,7 +10,6 @@ import { NotebookStore } from './store/NotebookStore'
 import ConfigApi from './api/config/ConfigApi'
 import GoogleApi from './api/google/GoogleApi'
 import MicrosoftApi from './api/microsoft/MicrosoftApi'
-import TwitterApi from './api/twitter/TwitterApi'
 import NotebookApi from './api/notebook/NotebookApi'
 import SpitfireApi from './api/spitfire/SpitfireApi'
 import BigCalendar from 'react-big-calendar'
@@ -54,7 +53,6 @@ function start(): void {
             <KuberApi/>
             <GoogleApi/>
             <MicrosoftApi/>
-            <TwitterApi/>
             <NotebookApi/>
             <ConnectedRouter history = { routerHistory } >
             <Routes />

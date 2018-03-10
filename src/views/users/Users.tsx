@@ -17,7 +17,6 @@ export default class Users extends React.Component<any, any> {
     users: [],
     isGoogleAuthenticated: NotebookStore.state().isGoogleAuthenticated,
     isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
-    isTwitterAuthenticated: NotebookStore.state().isTwitterAuthenticated
   }
 
   public constructor(props) {
@@ -26,7 +25,7 @@ export default class Users extends React.Component<any, any> {
   }
 
   public render() {
-    const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.state
+    const { isGoogleAuthenticated, isMicrosoftAuthenticated } = this.state
     return (      
       <div>
         <div>

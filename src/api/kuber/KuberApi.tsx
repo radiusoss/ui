@@ -54,7 +54,6 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
   state = {
     isGoogleAuthenticated: false,
     isMicrosoftAuthenticated: false,
-    isTwitterAuthenticated: false,
     webSocketHealthy: false
   }
 

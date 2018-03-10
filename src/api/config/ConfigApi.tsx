@@ -25,7 +25,6 @@ export type IConfig = {
 	microsoftScope: string
 	spitfireRest: string
 	spitfireWs: string
-	twitterRedirect: string
 }
 
 export const emptyConfig: IConfig = {
@@ -42,7 +41,6 @@ export const emptyConfig: IConfig = {
   microsoftScope: '',
   spitfireRest: '',
   spitfireWs: '',
-  twitterRedirect: ''
 }
 
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
@@ -115,9 +113,6 @@ export default class ConfigApi extends React.Component<any, any> {
       }
       if (config.microsoftRedirect == '') {
         config.microsoftRedirect = config.kuberUi + "/kuber/auth/microsoft/redirect"
-      }
-      if (config.twitterRedirect == '') {
-        config.twitterRedirect = config.kuberUi + "/kuber/api/v1/twitter/maketoken"
       }
       console.log('Updated Config', config)
       this.setState({

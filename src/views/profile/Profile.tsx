@@ -5,7 +5,6 @@ import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Piv
 import { NotebookStore } from './../../store/NotebookStore'
 import KerberosProfile from './KerberosProfile'
 import MicrosoftProfile from './MicrosoftProfile'
-import TwitterProfile from './TwitterProfile'
 import GoogleProfile from './GoogleProfile'
 import { connect } from 'react-redux'
 import { MessageBarButton } from 'office-ui-fabric-react/lib/Button'
@@ -21,7 +20,6 @@ export default class Profile extends React.Component<any, any> {
   state = {
     isGoogleAuthenticated: NotebookStore.state().isGoogleAuthenticated,
     isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
-    isTwitterAuthenticated: NotebookStore.state().isTwitterAuthenticated
   }
 
   public constructor(props) {
@@ -29,7 +27,7 @@ export default class Profile extends React.Component<any, any> {
   }
 
   public render() {
-    const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.state
+    const { isGoogleAuthenticated, isMicrosoftAuthenticated } = this.state
 /*
     var selectedKey = 'google'
     if (isMicrosoftAuthenticated) selectedKey = 'microsoft'
@@ -39,7 +37,6 @@ export default class Profile extends React.Component<any, any> {
       <div>
         { (isGoogleAuthenticated) &&  <GoogleProfile/> }
         { (isMicrosoftAuthenticated) && <MicrosoftProfile/> }
-        { (isTwitterAuthenticated) && <TwitterProfile/> }
 {/*
         <Pivot selectedKey={ selectedKey }>
           <PivotItem linkText='Google' itemIcon='SocialListeningLogo' itemKey='google'>
@@ -99,10 +96,9 @@ export default class Profile extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { isMicrosoftAuthenticated, isTwitterAuthenticated, profileDisplayName, profilePhoto } = nextProps
+    const { isMicrosoftAuthenticated, profileDisplayName, profilePhoto } = nextProps
     this.setState({
       isMicrosoftAuthenticated: isMicrosoftAuthenticated, 
-      isTwitterAuthenticated: isTwitterAuthenticated
     })
   }
 

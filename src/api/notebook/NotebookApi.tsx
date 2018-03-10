@@ -11,8 +11,6 @@ import GoogleApi from './../google/GoogleApi'
 import { GoogleProfileStorageKey } from './../google/GoogleApi'
 import MicrosoftApi from './../microsoft/MicrosoftApi'
 import { MicrosoftProfileStorageKey } from './../microsoft/MicrosoftApi'
-import TwitterApi from './../twitter/TwitterApi'
-import { TwitterProfileStorageKey } from './../twitter/TwitterApi'
 
 export const MeStorageKey = 'me'
 
@@ -24,7 +22,6 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   private spitfireApi: SpitfireApi
   private googleApi: GoogleApi
   private microsoftApi: MicrosoftApi
-  private twitterApi: TwitterApi
 
   state = {
     initialPath: ''
@@ -46,7 +43,6 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     this.spitfireApi = window['SpitfireApi']
     this.googleApi = window['GoogleApi']
     this.microsoftApi = window['MicrosoftApi']
-    this.twitterApi = window['TwitterApi']
   }
 
 // ----------------------------------------------------------------------------
@@ -284,7 +280,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   // ----------------------------------------------------------------------------
   
   public componentWillReceiveProps(nextProps) {
-    const { goTo, dispatch, location, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
+    const { goTo, dispatch, location, isGoogleAuthenticated, isMicrosoftAuthenticated, } = this.props
     if (goTo) {
       history.push(goTo)
     }
@@ -396,58 +392,6 @@ export default class NotebookApi extends React.Component<any, any> implements IN
         }
       })
     }
-  }
-
-// ----------------------------------------------------------------------------
-
-  public updateTwitterProfile() {
-    var me: any
-    try {
-     me = JSON.parse(localStorage.getItem(MeStorageKey))
-    }
-    catch(e) {
-      console.log(e)
-    }
-    if (me && me.screen_name) {
-      this.processTwitterMe(me)
-    }
-    else {
-      var cred = localStorage.getItem(TwitterProfileStorageKey)
-      if (cred) {
-        this.twitterApi.getMe()
-          .then(me => {
-            this.processTwitterMe(me.result)
-          })
-        }
-      }
-  }
-
-  private processTwitterMe(me: any) {
-    console.log('Twitter Me', me)
-    NotebookStore.state().me = me
-    localStorage.setItem(MeStorageKey, JSON.stringify(me))
-    var principalName = me.screen_name
-    console.log("Twitter Principal Name", principalName)
-    var displayName = me.name
-    console.log("Twitter Display Name", displayName)
-    NotebookStore.state().profileDisplayName = displayName
-    this.login(principalName + "#twitter", principalName)
-      .then(res => {
-        console.log('Twitter Notebook Login', res)
-        NotebookStore.state().spitfireLogin = res
-      })
-      var photoUrl = me.profile_image_url_https
-      console.log("Twitter Photo Url", photoUrl)
-      NotebookStore.state().profilePhoto = photoUrl
-      fetch(photoUrl)
-        .then((response: any) => {
-          return response.blob()
-        }).then((photoBlob: any) => {
-          NotebookStore.state().profilePhotoBlob = photoBlob
-          console.log("Twitter Photo Blob", photoBlob)
-          this.props.dispatchIsTwitterAuthenticatedAction()
-          history.push("/")
-    })
   }
 
 }

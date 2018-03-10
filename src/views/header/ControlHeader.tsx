@@ -39,7 +39,6 @@ export default class ControlHeader extends React.Component<any, any> {
   state = {
     isGoogleAuthenticated: false,
     isMicrosoftAuthenticated: false,
-    isTwitterAuthenticated: false,
     note: undefined,
     notes: [],
     scratchpadNoteId: '',
@@ -152,7 +151,7 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, spitfireMessageReceived, note } = nextProps
+    const { config, isGoogleAuthenticated, isMicrosoftAuthenticated, spitfireMessageReceived, note } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.notebookApi.listNotes()
@@ -166,11 +165,6 @@ export default class ControlHeader extends React.Component<any, any> {
     if (! this.state.isMicrosoftAuthenticated != isMicrosoftAuthenticated) {
       this.setState({
         isMicrosoftAuthenticated: isMicrosoftAuthenticated
-      })
-    }
-    if (! this.state.isTwitterAuthenticated != isTwitterAuthenticated) {
-      this.setState({
-        isTwitterAuthenticated: isTwitterAuthenticated
       })
     }
     if (note.id && (! isEqual(note, this.props.note))) {

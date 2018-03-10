@@ -11,7 +11,6 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/
 import NotebookApi from './../api/notebook/NotebookApi'
 import GoogleApi from '../api/google/GoogleApi'
 import MicrosoftApi from '../api/microsoft/MicrosoftApi'
-import TwitterApi from '../api/twitter/TwitterApi'
 import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
 const styles: any = stylesImport
@@ -25,12 +24,10 @@ export default class Welcome extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private readonly googleApi: GoogleApi
   private readonly microsoftApi: MicrosoftApi
-  private readonly twitterApi: TwitterApi
 
   state = {
     isGoogleAuthenticated: NotebookStore.state().isGoogleAuthenticated,
     isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
-    isTwitterAuthenticated: NotebookStore.state().isTwitterAuthenticated,
     profileDisplayName: NotebookStore.state().profileDisplayName,
     profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob)
   }
@@ -39,13 +36,12 @@ export default class Welcome extends React.Component<any, any> {
     super(props)
     this.googleApi = window["GoogleApi"]
     this.microsoftApi = window["MicrosoftApi"]
-    this.twitterApi = window["TwitterApi"]
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
 
-    const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, profileDisplayName, profilePhoto } = this.state
+    const { isGoogleAuthenticated, isMicrosoftAuthenticated, profileDisplayName, profilePhoto } = this.state
 
     return (
 
@@ -57,7 +53,7 @@ export default class Welcome extends React.Component<any, any> {
 
           <span className={ styles.tagline }>The easy way to run Big Data Science on Kubernetes.</span>
 
-          { (!isGoogleAuthenticated && !isMicrosoftAuthenticated && !isTwitterAuthenticated) &&
+          { (!isGoogleAuthenticated && !isMicrosoftAuthenticated ) &&
 
             <div>
               <div className="ms-Grid" style={{ padding: 0 }}>
@@ -72,9 +68,6 @@ export default class Welcome extends React.Component<any, any> {
                     </div>
                     <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 text-center">
                       <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onMicrosoftAuthenticateClick(e) }>Microsoft</a>
-                    </div>
-                    <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 text-center">
-                      <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onTwitterAuthenticateClick(e) }>Twitter</a>
                     </div>
                 </div>
                 <div className="ms-Grid-row">
@@ -102,7 +95,7 @@ export default class Welcome extends React.Component<any, any> {
 
           }
 
-          { (isGoogleAuthenticated || isMicrosoftAuthenticated || isTwitterAuthenticated) && 
+          { (isGoogleAuthenticated || isMicrosoftAuthenticated ) &&
           
               <div className="ms-Grid">
                 <div className="ms-Grid-row">
@@ -128,11 +121,11 @@ export default class Welcome extends React.Component<any, any> {
 
           <div className={ styles.flavor }>
 
-            { (!isGoogleAuthenticated && !isMicrosoftAuthenticated && !isTwitterAuthenticated) && 
+            { (!isGoogleAuthenticated && !isMicrosoftAuthenticated ) &&
               <img src={ DEFAULT_PROFILE_PHOTO } width='72' alt='Datalayer Logo' />
             }
 
-            { (isGoogleAuthenticated || isMicrosoftAuthenticated || isTwitterAuthenticated) && 
+            { (isGoogleAuthenticated || isMicrosoftAuthenticated ) &&
               <div className="ms-Grid-row">
                 <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                   <br/>
@@ -222,25 +215,6 @@ export default class Welcome extends React.Component<any, any> {
       })
     }
 
-    const { isTwitterAuthenticated } = nextProps
-    if ((this.state.isTwitterAuthenticated == true) && (isTwitterAuthenticated == false)) {
-      this.twitterApi.logout()
-      this.setState({
-        isTwitterAuthenticated: false,
-        profileDisplayName: '',
-        profilePhoto: DEFAULT_PROFILE_PHOTO
-      })
-    }
-    else if ((this.state.isTwitterAuthenticated == false) && (isTwitterAuthenticated == true)) {
-      var blobPhoto = NotebookStore.state().profilePhotoBlob
-      var profilePhoto = window.URL.createObjectURL(blobPhoto)
-      this.setState({
-        isTwitterAuthenticated: true,
-        profileDisplayName: NotebookStore.state().profileDisplayName,
-        profilePhoto: profilePhoto
-      })
-    }
-
     const { isGoogleAuthenticated } = nextProps
     if ((this.state.isGoogleAuthenticated == true) && (isGoogleAuthenticated == false)) {
       this.googleApi.logout()
@@ -270,11 +244,6 @@ export default class Welcome extends React.Component<any, any> {
   private onMicrosoftAuthenticateClick = (e) =>  {
     e.preventDefault()
     this.props.dispatchToMicrosoftAction()
-  }
-
-  private onTwitterAuthenticateClick = (e) =>  {
-    e.preventDefault()
-    this.props.dispatchToTwitterAction()
   }
 
   private explore = (e) =>  {

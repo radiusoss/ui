@@ -9,7 +9,6 @@ import { counterReducer, isSavingCounterReducer, isLoadingCounterReducer, errorC
 import { 
   isGoogleAuthenticatedReducer, isToGoogleReducer, googleTokenReducer, 
   isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer, 
-  isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer
  } from './AuthReducer'
 import { 
   spitfireLoginReducer, spitfireMessageSentReducer, 
@@ -32,9 +31,6 @@ export const reducers = combineReducers<ApplicationState.State>({
   isMicrosoftAuthenticated: isMicrosoftAuthenticatedReducer,
   isToMicrosoft: isToMicrosoftReducer,
   microsoftToken: microsoftTokenReducer,
-  isTwitterAuthenticated: isTwitterAuthenticatedReducer,
-  isToTwitter: isToTwitterReducer,
-  twitterToken: twitterTokenReducer,
   spitfireLogin: spitfireLoginReducer,
   spitfireMessageSent: spitfireMessageSentReducer,
   spitfireMessageReceived: spitfireMessageReceivedReducer,
