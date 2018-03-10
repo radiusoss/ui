@@ -335,22 +335,22 @@ public KUBER_PING() {
 // ----------------------------------------------------------------------------
 
   private principalValue(): string {
-    if (NotebookStore.state().notebookLogin.result) {
-      return NotebookStore.state().notebookLogin.result.body.principal
+    if (NotebookStore.state().spitfireLogin.result) {
+      return NotebookStore.state().spitfireLogin.result.body.principal
     }
     return ""
   }
 
   private rolesValue(): [string] {
-    if (NotebookStore.state().notebookLogin.result) {
-      return NotebookStore.state().notebookLogin.result.body.roles
+    if (NotebookStore.state().spitfireLogin.result) {
+      return NotebookStore.state().spitfireLogin.result.body.roles
     }
     return [""]
   }
   
   private ticketValue(): string {
-    if (NotebookStore.state().notebookLogin.result) {
-      return NotebookStore.state().notebookLogin.result.body.ticket
+    if (NotebookStore.state().spitfireLogin.result) {
+      return NotebookStore.state().spitfireLogin.result.body.ticket
     }
     return ""
   }

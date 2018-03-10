@@ -250,7 +250,7 @@ export default class ControlHeader extends React.Component<any, any> {
       })
     }
     if (spitfireMessageReceived && (spitfireMessageReceived.op == "PARAGRAPH")) {
-      var p = spitfireMessageReceived.data.paragraph 
+      var p = spitfireMessageReceived.data.paragraph
       if (p.status == ParagraphStatus.ERROR) {
         var errorMessage = p.errorMessage
         if (p.results && p.results.msg && p.results.msg.length > 0) {

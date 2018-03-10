@@ -3,11 +3,16 @@ import { connect, redux } from 'react-redux'
 import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import { NotebookStore } from './../../store/NotebookStore'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import ScratchpadSide from './../scratchpad/ScratchpadSide'
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
+import * as stylesImport from './../_styles/Styles.scss'
+const styles: any = stylesImport
 
 export type IAsideScratchpadState = {
-    spitfireMessages: any[],
-    interpreterSettings: any
+  note: any,
+  spitfireMessages: any[],
+  interpreterSettings: any
 }
 
 const MAX_MESSAGE_RECEIVED_LENGTH = 20
@@ -17,6 +22,10 @@ export default class AsideScratchpad extends React.Component<any, IAsideScratchp
   private notebookApi: NotebookApi
 
   state = {
+    note: {
+      id: '',
+      paragraphs: []
+    },
     spitfireMessages: new Array(),
     interpreterSettings: new Array()
   }
@@ -27,41 +36,60 @@ export default class AsideScratchpad extends React.Component<any, IAsideScratchp
   }
 
   public render() {
-    return (
-      <div>
-        <hr/>
-        <div className="ms-font-l">Executors</div>
-        <div className="ms-Grid" style={{ padding: 0 }}>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+    const { note } = this.state
+    if (note.id) {
+      return (
+        <div>
+          <div className="ms-Grid">
+            <div className="ms-Grid-row">
+              <ScratchpadSide/>
             </div>
           </div>
-        </div>
-        <hr/>
-        <div className="ms-font-l">Variables</div>
-        <div className="ms-Grid" style={{ padding: 0 }}>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+          <hr/>
+          <div className="ms-font-l">Executors</div>
+          <div className="ms-Grid" style={{ padding: 0 }}>
+            <div className="ms-Grid-row">
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              </div>
             </div>
           </div>
-        </div>
-        <hr/>
-        <div className="ms-Grid" style={{ padding: 0 }}>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Spark</CommandButton>
+          <hr/>
+          <div className="ms-font-l">Variables</div>
+          <div className="ms-Grid" style={{ padding: 0 }}>
+            <div className="ms-Grid-row">
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              </div>
             </div>
           </div>
-        </div>
-        </div>
-    )
+          <hr/>
+          <div className="ms-Grid" style={{ padding: 0 }}>
+            <div className="ms-Grid-row">
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Spark</CommandButton>
+              </div>
+            </div>
+          </div>
+          </div>
+      )
+    }
+    else {
+      return <div></div>
+    }
   }
 
   public async componentDidMount() {
     this.loadInterpreterSettings()
+    this.notebookApi.getNote(NotebookStore.state().scratchpadNoteId)
   }
 
   public componentWillReceiveProps(nextProps) {
+    const { spitfireMessageReceived } = nextProps
+    if (! spitfireMessageReceived) return
+    if (spitfireMessageReceived.op == "NOTE") {
+      this.setState({
+        note: spitfireMessageReceived.data.note
+      })
+    }
 /*
     const { spitfireMessageReceived } = nextProps
     if (spitfireMessageReceived.op) {
@@ -75,8 +103,8 @@ export default class AsideScratchpad extends React.Component<any, IAsideScratchp
       })
     }
 */
-  }
-    
+}
+
   private async loadInterpreterSettings() {
     var interpreterSettings = this.notebookApi.interpreterSetting()
      .then(s => {
@@ -91,6 +119,10 @@ export default class AsideScratchpad extends React.Component<any, IAsideScratchp
     e.preventDefault()
     this.notebookApi.restartInterpreters()
     this.loadInterpreterSettings()
+  }
+
+  private runNote() {
+    this.props.dispatchRunNoteAction( NotebookStore.state().scratchpadNoteId)
   }
 
 }

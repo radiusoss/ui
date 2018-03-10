@@ -6,9 +6,9 @@ export type NotebookAction = {
   message?: any
 }
 
-export const notebookTicketAction = (notebookLogin: string): NotebookAction => ({
-  type: 'NOTEBOOK_TICKET',
-  message: notebookLogin
+export const spitfireTicketAction = (spitfireLogin: string): NotebookAction => ({
+  type: 'SPITFIRE_TICKET',
+  message: spitfireLogin
 })
 
 export const spitfireMessageSentAction = (message: any): NotebookAction => ({
@@ -46,7 +46,7 @@ export const goTo = (path: string): NotebookAction => ({
 })
 
 export type NotebookProps = {
-  notebookLogin: {},
+  spitfireLogin: {},
   spitfireMessageSent: any,
   spitfireMessageReceived: any,
   note: any,
@@ -59,7 +59,7 @@ export type NotebookProps = {
 }
 
 export const mapStateToPropsNotebook = (state: ApplicationState.State): NotebookProps => ({
-  notebookLogin: state.notebookLogin,
+  spitfireLogin: state.spitfireLogin,
   spitfireMessageSent: state.spitfireMessageSent,
   spitfireMessageReceived: state.spitfireMessageReceived,
   note: state.note,
@@ -83,8 +83,8 @@ export type NotebookDispatchers = {
 }
 
 export const mapDispatchToPropsNotebook = (dispatch: Dispatch<ApplicationState.State>): NotebookDispatchers => ({
-  dispatchGetTicketAction: (notebookLogin: string) => {
-    dispatch(notebookTicketAction(notebookLogin))
+  dispatchGetTicketAction: (spitfireLogin: string) => {
+    dispatch(spitfireTicketAction(spitfireLogin))
   },
   dispatchWsMessageSentAction: (message: any) => {
     dispatch(spitfireMessageSentAction(message))

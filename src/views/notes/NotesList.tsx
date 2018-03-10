@@ -1,25 +1,24 @@
 import * as React from 'react'
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { DefaultButton, PrimaryButton, CompoundButton } from 'office-ui-fabric-react/lib/Button'
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { autobind } from 'office-ui-fabric-react/lib/Utilities'
+import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { DetailsList, DetailsListLayoutMode } from 'office-ui-fabric-react/lib/DetailsList'
 // import { Selection } from 'office-ui-fabric-react/lib/DetailsList'
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup'
 import { connect } from 'react-redux'
 import NotebookApi from './../../api/notebook/NotebookApi'
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import Dropzone from 'react-dropzone'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import { toastr } from 'react-redux-toastr'
-
 import { Selection, SelectionMode, SelectionZone } from 'office-ui-fabric-react/lib/utilities/selection/index'
 import { GroupedList, IGroup } from 'office-ui-fabric-react/lib/components/GroupedList/index'
 import { IColumn } from 'office-ui-fabric-react/lib/DetailsList'
 import { DetailsRow } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsRow'
 import { FocusZone } from 'office-ui-fabric-react/lib/FocusZone'
 import { createListItems, createGroups } from './../../spl/DataSpl'
-
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
@@ -70,9 +69,10 @@ export default class NotesList extends React.Component<any, any> {
     isNewNameValid: false,
 //    selectionDetails: this.getSelectionDetails(),
     drops: [],
-    _items: [],
-    _groups: Array<IGroup>(),
-    draggableSupport: false
+    items: [],
+    groups: Array<IGroup>(),
+    draggableSupport: false,
+    showImport: false
   }
 
   constructor(props) {
@@ -82,7 +82,7 @@ export default class NotesList extends React.Component<any, any> {
   }
 
   public render() {
-    const { notes, selectedNotes, drops, _items, _groups, draggableSupport } = this.state
+    const { notes, selectedNotes, drops, items, groups, draggableSupport, showImport } = this.state
 //    const { selectionDetails } = this.state
     return (
       <div>
@@ -91,13 +91,48 @@ export default class NotesList extends React.Component<any, any> {
 */}
         <div className="ms-Grid">
           <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg16" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
-              <Dropzone 
-                accept="application/json"
-                onDrop={ this.onDrop }
-                style={{ width: '100%', height: '50px', borderWidth: '2px', borderColor: 'rgb(102, 102, 102)', borderStyle: 'dashed', borderRadius: '5px' }}
-                >
-                <div className="ms-fontSize-" >Drop a JSON file here (or click and upload) to import a Note.</div>
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
+              <CommandBar
+                isSearchBoxVisible={ false }
+                items={
+                  [{
+                    key: 'import-note',
+                    icon: 'Import',
+                    name: 'Import Notes',
+                    title: 'Import Notes',
+                    onClick: () => this.setState({showImport: !this.state.showImport})
+                  }]
+                }
+                farItems={[]}
+                className={ styles.commandBarBackgroundTransparent }
+                />
+            </div>
+          </div>
+        </div>
+        {
+        (showImport) && 
+        <div className="ms-Grid">
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
+              <div>
+                <div>Select a JSON file to import a Note.
+                  { (draggableSupport) && (<span className="ms-fontColor-green ms-fontWeight-semibold"> [Your Browser supports Drag-and-Drop]</span>) }
+                  { (!draggableSupport) && (<span className="ms-fontColor-orange ms-fontWeight-semibold"> [Your Browser does not support Drag-and-Drop]</span>) }
+                </div>
+                <input 
+                  type="file"
+                  name="import-note"
+                  title="Import Notes"
+                  onChange={this.onUploadFile}/>
+              </div>
+            </div>
+            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
+            <Dropzone 
+              accept="application/json"
+              onDrop={ this.onDrop }
+              style={{ width: '100%', height: '50px', borderWidth: '2px', borderColor: 'rgb(102, 102, 102)', borderStyle: 'dashed', borderRadius: '5px' }}
+              >
+              <div className="ms-fontSize-" >Drop a JSON file here (or click and upload) to import a Note.</div>
 {/*
                 {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
                   if (isDragActive) {
@@ -125,19 +160,11 @@ export default class NotesList extends React.Component<any, any> {
 */}
               </Dropzone>
             </div>
-            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg16" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
-              <div>
-                <input 
-                  type="file"
-                  name="import-note"
-                  title=""
-                  onChange={this.onUploadFile}/>
-              </div>
-              <div>Select a JSON file to import a Note.
-                { (draggableSupport) && (<span className="ms-fontColor-green"> (Your Browser supports Drag-and-Drop)</span>) }
-                { (!draggableSupport) && (<span className="ms-fontColor-orange"> (Your Browser does not support Drag-and-Drop)</span>) }
-              </div>
-            </div>
+          </div>
+        </div>
+        }
+        <div className="ms-Grid">
+          <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
               <FocusZone>
                 <SelectionZone
@@ -145,15 +172,17 @@ export default class NotesList extends React.Component<any, any> {
                   selectionMode={ SelectionMode.multiple }
                 >
                   <GroupedList
-                    items={ _items }
+                    items={ items }
                     onRenderCell={ this._onRenderCell }
                     selection={ this._selection }
                     selectionMode={ SelectionMode.multiple }
-                    groups={ _groups }
+                    groups={ groups }
                   />
                 </SelectionZone>
               </FocusZone>
             </div>
+          </div>
+        </div>
 {/*
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px 0px 0px 0px', margin: '0px' }}>
               <TextField
@@ -172,8 +201,6 @@ export default class NotesList extends React.Component<any, any> {
                 />
 //              </MarqueeSelection>
 */}
-            </div>
-          </div>
           <Panel
             isOpen={ this.state.showDeletePanel }
             type={ PanelType.smallFixedNear }          
@@ -289,8 +316,8 @@ export default class NotesList extends React.Component<any, any> {
       this.setState ({
         notes: notes,
         selectedNotes: notes,
-        _items: notes,
-        _groups: groups
+        items: notes,
+        groups: groups
       })
 /*
       this.selectionTextField.setState({

@@ -106,10 +106,6 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.getNote(id)
   }
 
-  public showNoteScratchpad(id) {
-    history.push(`/dla/explorer/scratchpad`)
-  }
-
   public getNote(id: string) {
     return this.spitfireApi.getNote(id)
   }
@@ -146,8 +142,12 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     return this.spitfireApi.cancelParagraph(id)
   }
 
-  public restartInterpreter(id: string) {
-    return this.spitfireApi.restartInterpreter(id)
+  public restartInterpreter(id: string, noteId: string) {
+    return this.spitfireApi.restartInterpreter(id, noteId)
+  }
+
+  public restartInterpreterForAllUsers(id: string) {
+    return this.spitfireApi.restartInterpreterForAllUsers(id)
   }
 
   public listConfigurations(): void {
@@ -249,7 +249,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
         var id = interpreters[i].id
         var name = interpreters[i].name
         console.log('Requesting restart for Interpreter: ' + name + '(id: ' + id + ')')
-        var result = this.restartInterpreter(id).then(result => {
+        var result = this.restartInterpreter(id, NotebookStore.state().scratchpadNoteId).then(result => {
           console.log('Restart Interpreter result', name, result)
           if (result.success == true) {
             toastr.success('Restart', 'Interpreters are restarted.', toastrSuccessOptions)
@@ -261,7 +261,27 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     })
   }
 
-// ----------------------------------------------------------------------------
+  public restartInterpretersForAllUsers() {
+    var interpreterSettings = this.interpreterSetting()
+    interpreterSettings.then(res => {
+      var interpreters = res.result.body
+      for (var i in interpreters) {
+        var id = interpreters[i].id
+        var name = interpreters[i].name
+        console.log('Requesting restart for Interpreter: ' + name + '(id: ' + id + ')')
+        var result = this.restartInterpreterForAllUsers(id).then(result => {
+          console.log('Restart Interpreter result', name, result)
+          if (result.success == true) {
+            toastr.success('Restart', 'Interpreters are restarted.', toastrSuccessOptions)
+          } else {
+            toastr.error('Restart', 'Interpreters failed to restart.', toastrSuccessOptions)
+          }
+        })
+      }
+    })
+  }
+
+  // ----------------------------------------------------------------------------
   
   public componentWillReceiveProps(nextProps) {
     const { goTo, dispatch, location, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
@@ -309,11 +329,13 @@ export default class NotebookApi extends React.Component<any, any> implements IN
       email = me.emailAddresses[0].value
       userName = email
     }
+    var principal = email + "#google"
+    NotebookStore.state().profilePrincipal = principal
     console.log("Google Email", email)
-    this.login(userName + "#google", principalName)
+    this.login(principal, principalName)
       .then(res => {
         console.log('Google Notebook Login', res)
-        NotebookStore.state().notebookLogin = res
+        NotebookStore.state().spitfireLogin = res
         if (!res.success) {
           history.push("/500")
         }
@@ -361,7 +383,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
           this.login(principalName + "#microsoft", principalName)
             .then(res => {
               console.log('Microsoft Notebook Login', res)
-              NotebookStore.state().notebookLogin = res
+              NotebookStore.state().spitfireLogin = res
             })
           this.microsoftApi.getMyPicto((err, photoBlob) => {
             if (!err) {
@@ -412,7 +434,7 @@ export default class NotebookApi extends React.Component<any, any> implements IN
     this.login(principalName + "#twitter", principalName)
       .then(res => {
         console.log('Twitter Notebook Login', res)
-        NotebookStore.state().notebookLogin = res
+        NotebookStore.state().spitfireLogin = res
       })
       var photoUrl = me.profile_image_url_https
       console.log("Twitter Photo Url", photoUrl)

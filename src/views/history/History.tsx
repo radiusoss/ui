@@ -3,6 +3,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { Form, FormConditionalSubmitButton, FormDatePicker, FormDropdown, FormCheckBox, FormTextInput, Validators } from '@uifabric/experiments/lib/Form'
 import { LayoutGroup } from '@uifabric/experiments/lib/LayoutGroup'
 import NotebookApi from '../../api/notebook/NotebookApi'
+import { NotebookStore } from './../../store/NotebookStore'
 import { autobind } from 'office-ui-fabric-react/lib/Utilities'
 import { toastr } from 'react-redux-toastr'
 
@@ -75,7 +76,7 @@ export default class History extends React.Component<any, any> {
   @autobind
   private submit(values: any): void {
     var message = values.message
-    this.notebookApi.checkpointNote("_conf", message)
+    this.notebookApi.checkpointNote(NotebookStore.state().scratchpadNoteId, message)
     toastr.info("Commit", "The notebook is committed with message: " + message)
     this.setState({
       message: ''

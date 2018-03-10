@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import ScratchpadEditor from './ScratchpadEditor'
-import ScratchpadDisplay from './ScratchpadDisplay'
+import ScratchpadEditorSide from './ScratchpadEditorSide'
+import ScratchpadDisplaySide from './ScratchpadDisplaySide'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { NotebookStore } from './../../store/NotebookStore'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class NoteScratchpad extends React.Component<any, any> {
+export default class NoteScratchpadSide extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
   state = {
@@ -30,18 +30,18 @@ export default class NoteScratchpad extends React.Component<any, any> {
       return (
         <div className="ms-Grid">
           <div className="ms-Grid-row">
-            <div className={`${styles.editorHeight} ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px' }}>
-              <ScratchpadEditor 
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '0px', margin: '0px' }}>
+              <ScratchpadEditorSide 
                 note={note} 
-                minLines={100}
-                maxLines={200}
-                height="100vh"
-                showGutter={true}
-                fontSize={20}
+                minLines={10}
+                maxLines={20}
+                height="100%"
+                showGutter={false}
+                fontSize={10}
                 />
             </div>
-            <div className={`${styles.rendererHeight} ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6`} style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
-              <ScratchpadDisplay 
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
+              <ScratchpadDisplaySide
                 note={note} 
                 showGraphBar={true}
                 showControlBar={false}
@@ -66,9 +66,11 @@ export default class NoteScratchpad extends React.Component<any, any> {
     const { spitfireMessageReceived } = nextProps
     if (! spitfireMessageReceived) return
     if (spitfireMessageReceived.op == "NOTE") {
-      this.setState({
-        note: spitfireMessageReceived.data.note
-      })
+      if (spitfireMessageReceived.data.note.id == NotebookStore.state().scratchpadNoteId) {
+        this.setState({
+          note: spitfireMessageReceived.data.note
+        })
+      }
     }
   }
 

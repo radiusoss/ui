@@ -4,9 +4,9 @@ import { initialState } from '../state/State'
 import { toastr } from 'react-redux-toastr'
 import { ParagraphStatus, isParagraphRunning } from './../views/paragraph/ParagraphUtil'
 
-export const notebookLoginReducer = (state: {} = initialState.notebookLogin, action: NotebookAction): {} => {
+export const spitfireLoginReducer = (state: {} = initialState.spitfireLogin, action: NotebookAction): {} => {
   switch (action.type) {
-    case 'NOTEBOOK_TICKET':
+    case 'SPITFIRE_TICKET':
       return action.message
     default:
       return state
@@ -104,6 +104,10 @@ export const notesReducer = (state: any[] = initialState.notes, action: Notebook
     default:
       return []
   }
+}
+
+export const scratchpadNoteIdReducer = (state: string = initialState.scratchpadNoteId, action: NotebookAction): string => {
+  return state
 }
 
 export const clearScratchpadReducer = (state: boolean = initialState.clearScratchpad, action: NotebookAction): boolean => {

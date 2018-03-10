@@ -99,7 +99,7 @@ export default class NotesCover extends React.Component<any, any> {
     const { spitfireMessageReceived } = nextProps
     if (! spitfireMessageReceived) return
     if (spitfireMessageReceived.op == "NOTES_INFO") {
-      var notes = spitfireMessageReceived.data.notes.filter(n => n.name != '_conf')
+      var notes = spitfireMessageReceived.data.notes.filter(n => !n.name.startsWith('_'))
       var notesMap = {}
       notes.forEach(function (note, key, notes) {
         notesMap[note.id] = note

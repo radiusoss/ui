@@ -24,7 +24,7 @@ export default class InterpretersStatus extends React.Component<any, any> {
         <div className="ms-Grid" style={{ padding: 0 }}>
           <div className="ms-Grid-row">
             <div className="ms-Grid-row">
-              <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
+              <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpretersForAllUsers(e))} >Restart Interpreters for All Users</CommandButton>
             </div>
 {/*
             <div style={{ padding: "10px", backgroundColor: "rgb(39,40,34)" }}>
@@ -57,10 +57,10 @@ export default class InterpretersStatus extends React.Component<any, any> {
     })
   }
 
-  private async restartInterpreters(e) {
+  private async restartInterpretersForAllUsers(e) {
     e.stopPropagation()
     e.preventDefault()
-    this.notebookApi.restartInterpreters()
+    this.notebookApi.restartInterpretersForAllUsers()
     this.loadInterpreterSettings()
   }
 

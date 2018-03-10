@@ -2,25 +2,20 @@ import { combineReducers } from 'redux'
 import { reducer as toastrReducer } from 'react-redux-toastr'
 import { ApplicationState } from '../state/State'
 import { routerReducer } from 'react-router-redux'
-import { meReducer, profileDisplayNameReducer, profilePhotoBlobReducer } from './CommonReducer'
+import { meReducer, profilePrincipalReducer, profileDisplayNameReducer, profilePhotoBlobReducer } from './ProfileReducer'
 import { newConfigReducer } from './ConfigReducer'
-import { 
-  kuberMessageSentReducer, kuberMessageReceivedReducer, kuberStatusReducer
-} from './KuberReducer'
-import { 
-  counterReducer, isSavingCounterReducer, 
-  isLoadingCounterReducer, errorCounterReducer
-} from './CounterReducer'
+import { kuberMessageSentReducer, kuberMessageReceivedReducer, kuberStatusReducer } from './KuberReducer'
+import { counterReducer, isSavingCounterReducer, isLoadingCounterReducer, errorCounterReducer } from './CounterReducer'
 import { 
   isGoogleAuthenticatedReducer, isToGoogleReducer, googleTokenReducer, 
   isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer, 
   isTwitterAuthenticatedReducer, isToTwitterReducer, twitterTokenReducer
  } from './AuthReducer'
 import { 
-  notebookLoginReducer, spitfireMessageSentReducer, 
+  spitfireLoginReducer, spitfireMessageSentReducer, 
   spitfireMessageReceivedReducer, noteReducer, clearScratchpadReducer,
   runningParagraphsReducer, notesReducer, isStartNoteRunReducer,
-  goToReducer, isStartParagraphRunReducer
+  goToReducer, isStartParagraphRunReducer, scratchpadNoteIdReducer
 } from './NotebookReducer'
 
 export const reducers = combineReducers<ApplicationState.State>({
@@ -40,17 +35,19 @@ export const reducers = combineReducers<ApplicationState.State>({
   isTwitterAuthenticated: isTwitterAuthenticatedReducer,
   isToTwitter: isToTwitterReducer,
   twitterToken: twitterTokenReducer,
-  notebookLogin: notebookLoginReducer,
+  spitfireLogin: spitfireLoginReducer,
   spitfireMessageSent: spitfireMessageSentReducer,
   spitfireMessageReceived: spitfireMessageReceivedReducer,
   note: noteReducer,
   notes: notesReducer,
+  scratchpadNoteId: scratchpadNoteIdReducer,
   runningParagraphs: runningParagraphsReducer,
   isStartNoteRun: isStartNoteRunReducer,
   isStartParagraphRun: isStartParagraphRunReducer,
   toastr: toastrReducer,
   routing: routerReducer,
   me: meReducer,
+  profilePrincipal: profilePrincipalReducer,
   profileDisplayName: profileDisplayNameReducer,
   profilePhotoBlob: profilePhotoBlobReducer, 
   clearScratchpad: clearScratchpadReducer,

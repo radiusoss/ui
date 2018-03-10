@@ -47,7 +47,8 @@ export interface ISpitfireApi {
   runAllParagraphsSpitfire(id: string, paragraphs: any[])
   runParagraph(paragraph: any, code: string)
   cancelParagraph(id: string)
-  restartInterpreter(id: string)
+  restartInterpreter(id: string, noteId: string)
+  restartInterpreterForAllUsers(id: string)
   listConfigurations()
   interpreterSetting()
   addUsers(users: any): void
@@ -186,7 +187,14 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     )
   }
 
-  public async restartInterpreter(id: string): Promise<Result<SpitfireResponse>> {
+  public async restartInterpreter(id: string, noteId: string): Promise<Result<SpitfireResponse>> {
+    return this.wrapResult<SpitfireResponse, SpitfireResponse>(
+      r => r,
+      async () => this.restClient.put<SpitfireResponse>({noteId: noteId}, {}, jsonOpt, `/interpreter/setting/restart/${id}`)
+    )
+  }
+
+  public async restartInterpreterForAllUsers(id: string): Promise<Result<SpitfireResponse>> {
     return this.wrapResult<SpitfireResponse, SpitfireResponse>(
       r => r,
       async () => this.restClient.put<SpitfireResponse>({}, {}, jsonOpt, `/interpreter/setting/restart/${id}`)
@@ -895,22 +903,22 @@ private async wrapOutcome(action: () => Promise<boolean>): Promise<Outcome> {
 // ----------------------------------------------------------------------------
 
   private principalValue(): string {
-    if (NotebookStore.state().notebookLogin.result) {
-      return NotebookStore.state().notebookLogin.result.body.principal
+    if (NotebookStore.state().spitfireLogin.result) {
+      return NotebookStore.state().spitfireLogin.result.body.principal
     }
     return ""
   }
 
   private rolesValue(): [string] {
-    if (NotebookStore.state().notebookLogin.result) {
-      return NotebookStore.state().notebookLogin.result.body.roles
+    if (NotebookStore.state().spitfireLogin.result) {
+      return NotebookStore.state().spitfireLogin.result.body.roles
     }
     return [""]
   }
   
   private ticketValue(): string {
-    if (NotebookStore.state().notebookLogin.result) {
-      return NotebookStore.state().notebookLogin.result.body.ticket
+    if (NotebookStore.state().spitfireLogin.result) {
+      return NotebookStore.state().spitfireLogin.result.body.ticket
     }
     return ""
   }

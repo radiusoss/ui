@@ -22,6 +22,8 @@ import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
+const SCRATCHPAD_PREFIX = '_SCRATCHPAD_'
+
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 @connect(mapStateToPropsConfig, mapDispatchToPropsConfig)
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -40,13 +42,13 @@ export default class ControlHeader extends React.Component<any, any> {
     isTwitterAuthenticated: false,
     note: undefined,
     notes: [],
+    scratchpadNoteId: '',
     notesMenuItems: [{
       key: 'new-note',
       name: 'New note...',
       icon: 'QuickNote',
       onClick: () => this.setState({ showNewNotePanel: true })
     }],
-    noteScratchpadId: '_conf',
     flows: [],
     flowsMenuItems: [{
       key: 'new-flow',
@@ -55,10 +57,10 @@ export default class ControlHeader extends React.Component<any, any> {
       onClick: () => this.setState({ showNewFlowPanel: true })
     }],
     showNewNotePanel: false,
-    newNoteName: "",
+    newNoteName: '',
     isNewNoteNameValid: false,
     showNewFlowPanel: false,
-    newFlowName: "",
+    newFlowName: '',
     isNewFlowNameValid: false
   }
 
@@ -177,10 +179,18 @@ export default class ControlHeader extends React.Component<any, any> {
       })
     }
     if (spitfireMessageReceived && spitfireMessageReceived.op == "NEW_NOTE") {
-      this.notebookApi.showNoteLayout(noteId, 'workbench')
-      this.notebookApi.listNotes()
       var noteId = spitfireMessageReceived.data.note.id
-      var user = NotebookStore.state().notebookLogin.result.body.principal
+      if (spitfireMessageReceived.data.note.name != this.getScratchpadNoteName()) {
+        this.notebookApi.showNoteLayout(noteId, 'workbench')
+      }
+      if (spitfireMessageReceived.data.note.name != this.getScratchpadNoteName()) {
+        NotebookStore.state().scratchpadNoteId = noteId
+        this.setState({
+          scratchpadNoteId: noteId
+        })
+      }
+      this.notebookApi.listNotes()
+      var user = NotebookStore.state().spitfireLogin.result.body.principal
       var perms = {
         readers: [user],
         owners: [user],
@@ -190,11 +200,38 @@ export default class ControlHeader extends React.Component<any, any> {
       this.notebookApi.putNotePermissions(noteId, perms)
     }
     if (spitfireMessageReceived && spitfireMessageReceived.op == "NOTES_INFO") {
+      var scratchpadNoteId = ""
+      spitfireMessageReceived.data.notes.forEach(n => {
+        if (n.name == this.getScratchpadNoteName()) {
+          scratchpadNoteId = n.id
+        }
+      })
+      if (scratchpadNoteId == '') {
+        this.notebookApi.newNote(this.getScratchpadNoteName())
+      }
       var notes = spitfireMessageReceived.data.notes.filter(n => !n.name.startsWith('_'))
+      NotebookStore.state().scratchpadNoteId = scratchpadNoteId
       this.setState({
         notes: notes,
+        scratchpadNoteId: scratchpadNoteId,
         notesMenuItems: this.asNotesMenuItems(notes)
       })
+    }
+    if (spitfireMessageReceived && spitfireMessageReceived.op == "PARAGRAPH") {
+      if (this.state.scratchpadNoteId == '') {
+        var p = spitfireMessageReceived.data.paragraph
+        if (p.name == NotebookStore.state().profilePrincipal) {
+          NotebookStore.state().scratchpadNoteId = p.id
+          this.setState({
+            scratchpadNoteId: p.id
+          })
+          this.notebookApi.getInterpreterBindings(p.name)          
+        }
+      }
+    }
+    if (spitfireMessageReceived && (spitfireMessageReceived.op == "INTERPRETER_BINDINGS")) {
+      var ids = spitfireMessageReceived.data.interpreterBindings.map(intBind => {return intBind.id})
+      this.notebookApi.saveInterpreterBindings(this.state.scratchpadNoteId, ids)
     }
     if (spitfireMessageReceived && spitfireMessageReceived.op == "SAVE_FLOWS") {
       var flows = spitfireMessageReceived.data.flows
@@ -393,7 +430,7 @@ export default class ControlHeader extends React.Component<any, any> {
         key: 'Scratchpad',
         icon: 'NoteForward',
         title: 'Scratchpad',
-        onClick: () => this.notebookApi.showNoteScratchpad(this.state.noteScratchpadId)
+        onClick: () => history.push('/dla/explorer/scratchpad')
       }
     ]
     if (this.runIndicator.key) {
@@ -433,14 +470,14 @@ export default class ControlHeader extends React.Component<any, any> {
       return
     }
     if (note) {
-      if (note.name != this.state.noteScratchpadId) {
+      if (note.name != this.state.scratchpadNoteId) {
         this.runIndicator = {
           key: 'run-indicator',
           name: stripString(this.getShortname(note.name), 8),
           icon: 'Play',
           title: 'Run [SHIFT+Enter] ' + this.getShortname(note.name),
           onClick: () => this.runNote()
-          }
+        }
       }
       else {
         this.runIndicator = {
@@ -524,9 +561,16 @@ export default class ControlHeader extends React.Component<any, any> {
 
   @autobind
   private getShortname(name) {
+    if (name.startsWith(SCRATCHPAD_PREFIX)) {
+      return 'Scratchpad'
+    }
     var splits = name.split('/')
     if (splits.length > 1) return splits[1]
     return name
+  }
+
+  private getScratchpadNoteName() {
+    return SCRATCHPAD_PREFIX + NotebookStore.state().profilePrincipal    
   }
 
 }

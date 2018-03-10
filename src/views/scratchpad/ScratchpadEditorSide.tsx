@@ -10,7 +10,7 @@ import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ScratchpadEditor extends React.Component<any, any> {
+export default class ScratchpadEditorSide extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private codeEditor
 

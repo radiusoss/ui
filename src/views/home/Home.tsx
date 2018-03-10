@@ -11,6 +11,7 @@ import ParagraphDisplay from './../paragraph/ParagraphDisplay'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import * as stylesImport from './../_styles/Styles.scss'
+import { NotebookStore } from '../../store/NotebookStore';
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -50,7 +51,7 @@ export default class Home extends React.Component<any, any> {
                 showControlBar={false} 
                 showGraphBar={true} 
                 showParagraphTitle={false} 
-                stripDisplay={false}
+                stripDisplay={true}
                 />
               </div>
             }
@@ -98,7 +99,7 @@ export default class Home extends React.Component<any, any> {
 
   public componentDidMount() {
     this.notebookApi.listNotes()
-    this.notebookApi.getNote("_conf")
+    this.notebookApi.getNote(NotebookStore.state().scratchpadNoteId)
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -106,7 +107,7 @@ export default class Home extends React.Component<any, any> {
     if (! spitfireMessageReceived) return
     if (spitfireMessageReceived.op == "NOTE") {
       var note = spitfireMessageReceived.data.note
-      if (note.id == '_conf') {
+      if (note.id == NotebookStore.state().scratchpadNoteId) {
         this.setState({
           scratchpad: note
         })
