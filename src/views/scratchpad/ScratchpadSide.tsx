@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
-import ScratchpadEditorSide from './ScratchpadEditorSide'
-import ScratchpadDisplaySide from './ScratchpadDisplaySide'
+import ScratchpadSideEditor from './ScratchpadSideEditor'
+import ScratchpadSideDisplay from './ScratchpadSideDisplay'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { NotebookStore } from './../../store/NotebookStore'
 import * as stylesImport from './../_styles/Styles.scss'
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -30,18 +31,30 @@ export default class NoteScratchpadSide extends React.Component<any, any> {
       return (
         <div className="ms-Grid">
           <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '0px', margin: '0px' }}>
-              <ScratchpadEditorSide 
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ padding: '0px', margin: '0px' }}>
+              <CommandBar
+                isSearchBoxVisible={ this.props.isSearchBoxVisible }
+                items={ [{
+                  key: 'run-indicator',
+                  name: 'Run',
+                  icon: 'Play',
+                  title: 'Run [SHIFT+Enter]',
+                  onClick: () => this.runNote()
+                }] }
+                farItems={ [] }
+                className={ styles.commandBarBackgroundTransparentMarginLeftMinus30 }
+                />
+              <ScratchpadSideEditor
                 note={note} 
                 minLines={10}
                 maxLines={20}
                 height="100%"
                 showGutter={false}
-                fontSize={10}
+                fontSize={12}
                 />
             </div>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '0px', margin: '0px', overflowY: 'scroll' }} >
-              <ScratchpadDisplaySide
+              <ScratchpadSideDisplay
                 note={note} 
                 showGraphBar={true}
                 showControlBar={false}
@@ -72,6 +85,10 @@ export default class NoteScratchpadSide extends React.Component<any, any> {
         })
       }
     }
+  }
+
+  private runNote() {
+    this.props.dispatchRunNoteAction(NotebookStore.state().scratchpadNoteId)
   }
 
 }

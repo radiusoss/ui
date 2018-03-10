@@ -7,7 +7,7 @@ import NotebookApi from './../../api/notebook/NotebookApi'
 import ParagraphDisplay from './../paragraph/ParagraphDisplay'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ScratchpadDisplaySide extends React.Component<any, any> {
+export default class ScratchpadSideDisplay extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
   state = {

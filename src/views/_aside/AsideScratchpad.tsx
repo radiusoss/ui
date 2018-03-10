@@ -4,7 +4,6 @@ import { CommandButton } from 'office-ui-fabric-react/lib/Button'
 import { NotebookStore } from './../../store/NotebookStore'
 import NotebookApi from './../../api/notebook/NotebookApi'
 import ScratchpadSide from './../scratchpad/ScratchpadSide'
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
@@ -119,10 +118,6 @@ export default class AsideScratchpad extends React.Component<any, IAsideScratchp
     e.preventDefault()
     this.notebookApi.restartInterpreters()
     this.loadInterpreterSettings()
-  }
-
-  private runNote() {
-    this.props.dispatchRunNoteAction( NotebookStore.state().scratchpadNoteId)
   }
 
 }

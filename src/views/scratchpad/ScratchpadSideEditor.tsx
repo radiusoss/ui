@@ -10,7 +10,7 @@ import * as stylesImport from './../_styles/Styles.scss'
 const styles: any = stylesImport
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class ScratchpadEditorSide extends React.Component<any, any> {
+export default class ScratchpadSideEditor extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
   private codeEditor
 
@@ -48,7 +48,7 @@ export default class ScratchpadEditorSide extends React.Component<any, any> {
   public render() {
     const { note, paragraphs, code, minLines, maxLines, height, showGutter, fontSize } = this.state
     return (
-      <div className={styles.editorHeight} style={{overflowY: 'auto'}}>
+      <div style={{overflowY: 'auto'}}>
         <CodeEditor
           name={note.id}
           note={note}
@@ -82,7 +82,14 @@ export default class ScratchpadEditorSide extends React.Component<any, any> {
 
   public componentWillReceiveProps(nextProps) {
     const { isStartNoteRun, isStartParagraphRun } = nextProps
-    if ((isStartNoteRun && isStartNoteRun.noteId ) || (isStartParagraphRun && isStartParagraphRun.paragraphId)) {
+    var run = false
+    if (isStartNoteRun && isStartNoteRun.noteId && isStartNoteRun.noteId == this.state.note.id) {
+      run = true
+    }     
+    if (isStartParagraphRun && isStartParagraphRun.paragraphId && isStartParagraphRun.noteId == this.state.note.id) {
+      run = true
+    }
+    if (run) {
       var lines = this.codeEditor.getWrappedInstance().getValue().split(/\r?\n/)
       var pid = this.state.lastParagraphId
       var paragraphs = []

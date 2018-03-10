@@ -315,7 +315,7 @@ export default class NoteWorkbench extends React.Component<any, any> {
     if (isStartNoteRun) {
       var i = 0
       if (isStartNoteRun.noteId) {
-        if (isStartNoteRun.noteId == isStartNoteRun.noteId) {
+        if (isStartNoteRun.noteId == this.state.note.id) {
           this.state.note.paragraphs.map(p => {
             var editor = this.paragraphEditors.get(this.state.note.id + '-' + p.id)
             if (editor) {

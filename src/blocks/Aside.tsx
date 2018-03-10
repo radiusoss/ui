@@ -37,26 +37,27 @@ export default class Aside extends React.Component<any, AsideState> {
     return (
       <div>
         <aside className="aside-menu">
-          <ul className="nav nav-tabs" role="tablist">
 {/*
+          <ul className="nav nav-tabs" role="tablist">
               <li className="nav-item">
                 <a className={classNames({ active: this.state.activeTab === '1' }, 'nav-link')} onClick={() => { this.toggle('1'); }} data-toggle="tab" role="tab"><i className="icon-list"></i></a>
               </li>
-*/}
               <li className="nav-item">
                 <a className={classNames({ active: this.state.activeTab === '2' }, 'nav-link')} onClick={() => { this.toggle('2'); }} data-toggle="tab" role="tab"><i className="icon-list"></i></a>
               </li>
-{/*
               <li className="nav-item">
                 <a className={classNames({ active: this.state.activeTab === '3' }, 'nav-link')} onClick={() => { this.toggle('3'); }} data-toggle="tab" role="tab"><i className="icon-speedometer"></i></a>
               </li>
-*/}
           </ul>
+*/}
           <div className="tab-content">
               <div className={classNames({ active: this.state.activeTab === '1' }, 'tab-pane')} id="timeline" role="tabpanel">
                 <AsideActivity />
               </div>
+{/*
               <div className={classNames({ active: this.state.activeTab === '2' }, 'tab-pane', 'p-1')} id="messages" role="tabpanel">
+*/}
+              <div className={classNames({ active: this.state.activeTab === '2' }, 'tab-pane')} id="messages" role="tabpanel">
                 <AsideScratchpad />
               </div>
               <div className={classNames({ active: this.state.activeTab === '3' }, 'tab-pane', 'p-1')} id="settings" role="tabpanel">
