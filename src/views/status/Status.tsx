@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
-import K8SClusterTopology from './../cluster/K8SClusterTopology'
 import ReservationsStatus from './../reservations/ReservationsStatus'
 import RunningStatus from './../run/RunningStatus'
 import HDFStatus from './../hdfs/HDFSStatus'
@@ -37,10 +36,6 @@ export default class Status extends React.Component<any, any> {
           <PivotItem linkText='Cluster Reservations' itemIcon='Clock'>
             <div className="ms-fontSize-su">Cluster Reservations</div>
             <ReservationsStatus />
-          </PivotItem>
-          <PivotItem linkText='Cluster Usage' itemIcon='TFVCLogo'>
-            <div className="ms-fontSize-su">Cluster Usage</div>
-            <K8SClusterTopology />
           </PivotItem>
           <PivotItem linkText='AWS Instances' itemIcon='Cloud'>
             <AWSInstances />

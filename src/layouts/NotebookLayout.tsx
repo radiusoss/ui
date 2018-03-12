@@ -4,12 +4,8 @@ import history from './../history/History'
 import { Route } from 'react-router-dom'
 import AuthenticatedLayout from './../layouts/AuthenticatedLayout'
 import Highlights from './../views/about/Highlights'
-import Check from './../views/spl/Check'
 import Welcome from './../views/Welcome'
-import Tmp from './../views/spl/Tmp'
-import KuberSpl from './../views/spl/KuberSpl'
 import Help from './../views/help/Help'
-import Kuber from './../views/spl/Spl'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../actions/NotebookActions'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from './../actions/AuthActions'
 import { mapDispatchToPropsConfig, mapStateToPropsConfig } from './../actions/ConfigActions'
@@ -30,10 +26,6 @@ export default class NotebookLayout extends React.Component<any, any> {
         <Route exact path="/index.html" component={Welcome}/>
         <Route exact path="/help" name="Help" component={Help} />
         <Route exact path="/highlights" name="Highlights" component={Highlights} />
-        <Route exact path="/check" name="Check" component={Check} />
-        <Route exact path="/k8s" name="Kubernetes" component={Kuber} />
-        <Route exact path="/kuber/spl" name="Kuber Spl" component={KuberSpl} />
-        <Route exact path="/tmp" name="Temp" component={Tmp} />
         <Route path="/dla" component={AuthenticatedLayout}/>
       </div>
     )

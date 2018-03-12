@@ -149,7 +149,7 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, , spitfireMessageReceived, note } = nextProps
+    const { config, spitfireMessageReceived, note } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.notebookApi.listNotes()

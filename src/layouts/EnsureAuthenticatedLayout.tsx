@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Route } from 'react-router-dom'
-import Check from './../views/spl/Check'
 import Datasets from './../views/dataset/Datasets'
 import Home from './../views/home/Home'
 import Flows from './../views/flows/Flows'
@@ -18,16 +17,9 @@ import History from './../views/history/History'
 import Settings from './../views/settings/Settings'
 import Status from './../views/status/Status'
 import Budget from './../views/budget/Budget'
-import Simple from './../views/spl/Simple'
-import Lesson1 from '../views/school/lessons/lesson1/Lesson1'
-import Lesson2 from '../views/school/lessons/lesson2/Lesson2'
-import Lesson3 from '../views/school/lessons/lesson3/Lesson3'
 import Stories from './../views/stories/Stories'
-import Login from './../views/spl/Login'
-import Auth from './../views/spl/Auth'
 import Welcome from './../views/Welcome'
 import AWSCapacity from './../views/aws/AWSCapacity'
-import K8SClusterTopology from './../views/cluster/K8SClusterTopology'
 import ReservationsStatus from './../views/reservations/ReservationsStatus'
 import HDFSStatus from './../views/hdfs/HDFSStatus'
 import SparkStatus from './../views/spark/SparkStatus'
@@ -73,7 +65,6 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/status/cluster" name="Cluster Status" component={K8SClusterStatus}/>
           <Route path="/dla/kuber/status/aws" name="AWS Status" component={AWSInstances}/>
           <Route path="/dla/kuber/status/apps" name="Applications Status" component={AppsStatus}/>
-          <Route path="/dla/kuber/status/cluster-usage" name="Cluster Usage" component={K8SClusterTopology}/>
           <Route path="/dla/kuber/status/hdfs" name="HDFS Status" component={HDFSStatus}/>
           <Route path="/dla/kuber/status/reservations" name="Cluster Reservations" component={ReservationsStatus}/>
           <Route path="/dla/kuber/status/spark" name="Spark Status" component={SparkStatus}/>
@@ -94,9 +85,6 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/kuber/datasets" name="Datasets" component={Datasets} />
           <Route path="/dla/explorer/stories" name="Stories" component={Stories}/>
 */}
-          <Route path="/dla/school/lessons/lesson1" name="Lesson 1" component={Lesson1}/>
-          <Route path="/dla/school/lessons/lesson2" name="Lesson 2" component={Lesson2}/>
-          <Route path="/dla/school/lessons/lesson3" name="Lesson 3" component={Lesson3}/>
         </div>
       )
 

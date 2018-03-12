@@ -19,10 +19,7 @@ import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthA
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import AWSCapacity from './../aws/AWSCapacity'
-import K8SClusterTopology from './../cluster/K8SClusterTopology'
 import K8SClusterStatus from './../cluster/K8SClusterStatus'
-import ReservationsStatus from './../reservations/ReservationsStatus'
-import HDFStatus from './../hdfs/HDFSStatus'
 import SparkStatus from './../spark/SparkStatus'
 import RunningStatus from './../run/RunningStatus'
 import SpitfireInterpretersStatus from './../spitfire/SpitfireInterpretersStatus'
@@ -46,9 +43,6 @@ export default class ControlHeader extends React.Component<any, any> {
 
   private k8sClusterStatus: K8SClusterStatus
   private awsCapacity: AWSCapacity
-  private reservationsStatus: ReservationsStatus
-  private k8sClusterTopology: K8SClusterTopology
-  private hdfsStatus: HDFStatus
   private sparkStatus: SparkStatus
   private runningStatus: RunningStatus
   private networkStatus: NetworkStatus
@@ -58,9 +52,6 @@ export default class ControlHeader extends React.Component<any, any> {
     profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob),
     statusPanel: '',
     clusterColor: Colors.GREEN,
-    reservationsColor: Colors.GREEN,
-    topologyColor: Colors.GREEN,
-    hdfsColor: Colors.GREEN,
     sparkColor: Colors.GREEN,
     runningColor: Colors.GREEN,
     networkColor: Colors.GREEN
@@ -74,8 +65,8 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public render() {
-    const { statusPanel, profilePhoto, clusterColor, reservationsColor,
-       topologyColor, hdfsColor, sparkColor, runningColor, networkColor } = this.state
+    const { statusPanel, profilePhoto, clusterColor,
+        sparkColor, runningColor, networkColor } = this.state
     return (
       <div>
         <div style={{ float: 'right', padding: '0px 10px' }}>
@@ -97,34 +88,6 @@ export default class ControlHeader extends React.Component<any, any> {
             <Icon iconName="Health" 
               className={`${styles.dlaIndicatorIcon} ms-fontColor-${clusterColor}`}
               title="Cluster"
-              />
-          </a>
-          <a href="#"
-              onClick={(e) => {e.preventDefault(); this.setState({
-                statusPanel: 'reservations'
-              })}}>
-            <Icon iconName="Clock"
-              className={`${styles.dlaIndicatorIcon} ms-fontColor-${reservationsColor}`}
-              title="Reservations"
-            />
-          </a>
-          <a href="#"
-            onClick={(e) => {e.preventDefault(); this.setState({
-              statusPanel: 'topology'
-            })}}>
-            <Icon iconName="TFVCLogo" 
-              className={`${styles.dlaIndicatorIcon} ms-fontColor-${topologyColor}`}
-              title="Topology"
-              />
-          </a>
-          <a href="#"
-            onClick={(e) => {e.preventDefault(); this.setState({
-              statusPanel: 'hdfs'
-            })}}
-          >
-            <Icon iconName="OfflineStorageSolid" 
-              className={`${styles.dlaIndicatorIcon} ms-fontColor-${hdfsColor}`}
-              title="HDFS"
               />
           </a>
           <a href="#"
@@ -170,27 +133,6 @@ export default class ControlHeader extends React.Component<any, any> {
               <AWSCapacity ref={ ref => this.awsCapacity = ref } />
               <hr/>
               <K8SClusterStatus ref={ ref => this.k8sClusterStatus = ref } />
-            </div>
-          }
-          {
-            (statusPanel == 'reservations') &&
-            <div>
-              <div className="ms-font-su"><FabricIcon name="Clock" /> Reservations</div>
-              <ReservationsStatus ref={ ref => this.reservationsStatus = ref } />
-            </div>
-          }
-          {
-            (statusPanel == 'topology') &&
-            <div>
-              <div className="ms-font-su"><FabricIcon name="TFVCLogo" /> Topology</div>
-              <K8SClusterTopology ref={ ref => this.k8sClusterTopology = ref } />
-            </div>
-          }
-          {
-            (statusPanel == 'hdfs') &&
-            <div>
-              <div className="ms-font-su"><FabricIcon name="OfflineStorageSolid" /> HDFS</div>
-              <HDFStatus ref={ ref => this.hdfsStatus = ref } />
             </div>
           }
           {
