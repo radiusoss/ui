@@ -327,73 +327,79 @@ export default class ControlHeader extends React.Component<any, any> {
         onClick: () => history.push(`/dla/home`)
       },
       {
-        key: 'kuber',
-        name: 'Kuber',
-//        icon: 'EngineeringGroup',
-        title: 'Kuber',
-        items: [
-          {
-            key: 'calendar',
-            name: 'Reservations',
-            icon: 'Calendar',
-            title: 'Reservations',
-            onClick: () => history.push(`/dla/kuber/reservations`)
-          },
-          {
-            key: 'people',
-            name: 'Users',
-            icon: 'People',
-            title: 'Users',
-            onClick: () => history.push(`/dla/kuber/users`)
-          },
-          {
-            key: 'profile',
-            name: 'Profile',
-            icon: 'Accounts',
-            title: 'Profile',
-            onClick: () => history.push(`/dla/kuber/profile`)
-          },
-          {
-            key: 'status',
-            name: 'Status',
-            icon: 'AutoRacing',
-            title: 'Status',
-            onClick: () => history.push(`/dla/kuber/status`)
-          },
- /*
-          {
-            key: 'budget',
-            name: 'Budget',
-            icon: 'Money',
-            title: 'Budget',
-            onClick: () => history.push(`/dla/kuber/budget`)
-          },
-*/
-            {
-            key: 'settings',
-            name: 'Settings',
-            icon: 'Settings',
-            title: 'Settings',
-            onClick: () => history.push(`/dla/kuber/settings`)
-          }
-/*
-          {
-            key: 'docs',
-            name: 'Documentation',
-            icon: 'Documentation',
-            title: 'Documentation',
-            onClick: () => history.push(`/dla/support/docs`)
-          },
-          {
-            key: 'help',
-            name: 'Help',
-            icon: 'Help',
-            title: 'Help',
-            onClick: () => history.push(`/dla/support/help`)
-          }
-*/
-        ]
+        key: 'cluster',
+        name: 'Cluster',
+        title: 'Cluster',
+        items: [],
       },
+//       {
+//         key: 'kuber',
+//         name: 'Kuber',
+// //        icon: 'EngineeringGroup',
+//         title: 'Kuber',
+//         items: [
+//           {
+//             key: 'calendar',
+//             name: 'Reservations',
+//             icon: 'Calendar',
+//             title: 'Reservations',
+//             onClick: () => history.push(`/dla/kuber/reservations`)
+//           },
+//           {
+//             key: 'people',
+//             name: 'Users',
+//             icon: 'People',
+//             title: 'Users',
+//             onClick: () => history.push(`/dla/kuber/users`)
+//           },
+//           {
+//             key: 'profile',
+//             name: 'Profile',
+//             icon: 'Accounts',
+//             title: 'Profile',
+//             onClick: () => history.push(`/dla/kuber/profile`)
+//           },
+//           {
+//             key: 'status',
+//             name: 'Status',
+//             icon: 'AutoRacing',
+//             title: 'Status',
+//             onClick: () => history.push(`/dla/kuber/status`)
+//           },
+//  /*
+//           {
+//             key: 'budget',
+//             name: 'Budget',
+//             icon: 'Money',
+//             title: 'Budget',
+//             onClick: () => history.push(`/dla/kuber/budget`)
+//           },
+// */
+//             {
+//             key: 'settings',
+//             name: 'Settings',
+//             icon: 'Settings',
+//             title: 'Settings',
+//             onClick: () => history.push(`/dla/kuber/settings`)
+//           }
+// /*
+//           {
+//             key: 'docs',
+//             name: 'Documentation',
+//             icon: 'Documentation',
+//             title: 'Documentation',
+//             onClick: () => history.push(`/dla/support/docs`)
+//           },
+//           {
+//             key: 'help',
+//             name: 'Help',
+//             icon: 'Help',
+//             title: 'Help',
+//             onClick: () => history.push(`/dla/support/help`)
+//           }
+// */
+//         ]
+//       },
       {
         key: 'explorer',
         name: 'Explorer',

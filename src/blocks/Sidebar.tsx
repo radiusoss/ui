@@ -90,31 +90,31 @@ export default class Sidebar extends React.Component<any, any> {
             </li>
             <li className="divider"></li>
 */}
-          <li className={this.activeRoute("/dla/kuber")}>
-            <a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}>Kuber</a>
-            <ul className="nav-dropdown-items">
-            <li className="nav-item">
-                <NavLink to={'/dla/kuber/reservations'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Reservations</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to={'/dla/kuber/users'} className="nav-link" activeClassName="active"><FabricIcon name="People"/> Users</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to={'/dla/kuber/profile'} className="nav-link" activeClassName="active"><FabricIcon name="Accounts"/> Profile</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to={'/dla/kuber/status'} className="nav-link" activeClassName="active"><FabricIcon name="AutoRacing"/> Status</NavLink>
-              </li>
-{/*
-              <li className="nav-item">
-                <NavLink to={'/dla/kuber/budget'} className="nav-link" activeClassName="active"><FabricIcon name="Money"/> Budget</NavLink>
-              </li>
-*/}
-              <li className="nav-item">
-                <NavLink to={'/dla/kuber/settings'} className="nav-link" activeClassName="active"><FabricIcon name="Settings"/> Settings</NavLink>
-              </li>
-            </ul>
-          </li>
+          {/*<li className={this.activeRoute("/dla/kuber")}>*/}
+            {/*<a href="" className="nav-link nav-dropdown-toggle" onClick={e => this.handleClick(e)}>Kuber</a>*/}
+            {/*<ul className="nav-dropdown-items">*/}
+            {/*<li className="nav-item">*/}
+                {/*<NavLink to={'/dla/kuber/reservations'} className="nav-link" activeClassName="active"><FabricIcon name="Calendar"/> Reservations</NavLink>*/}
+              {/*</li>*/}
+              {/*<li className="nav-item">*/}
+                {/*<NavLink to={'/dla/kuber/users'} className="nav-link" activeClassName="active"><FabricIcon name="People"/> Users</NavLink>*/}
+              {/*</li>*/}
+              {/*<li className="nav-item">*/}
+                {/*<NavLink to={'/dla/kuber/profile'} className="nav-link" activeClassName="active"><FabricIcon name="Accounts"/> Profile</NavLink>*/}
+              {/*</li>*/}
+              {/*<li className="nav-item">*/}
+                {/*<NavLink to={'/dla/kuber/status'} className="nav-link" activeClassName="active"><FabricIcon name="AutoRacing"/> Status</NavLink>*/}
+              {/*</li>*/}
+{/*/!**/}
+              {/*<li className="nav-item">*/}
+                {/*<NavLink to={'/dla/kuber/budget'} className="nav-link" activeClassName="active"><FabricIcon name="Money"/> Budget</NavLink>*/}
+              {/*</li>*/}
+{/**!/*/}
+              {/*<li className="nav-item">*/}
+                {/*<NavLink to={'/dla/kuber/settings'} className="nav-link" activeClassName="active"><FabricIcon name="Settings"/> Settings</NavLink>*/}
+              {/*</li>*/}
+            {/*</ul>*/}
+          {/*</li>*/}
 {/*
             <li className="divider"></li>
 */}
