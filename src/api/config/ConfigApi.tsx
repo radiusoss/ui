@@ -16,10 +16,6 @@ export type IConfig = {
 	kuberUi: string
 	kuberRest: string
 	kuberWs: string
-	googleApiKey: string
-	googleClientId: string
-	googleRedirect: string
-	googleScope: string
 	microsoftApplicationId: string
 	microsoftRedirect: string
 	microsoftScope: string
@@ -32,10 +28,6 @@ export const emptyConfig: IConfig = {
   kuberUi: '',
   kuberRest: '',
   kuberWs: '',
-	googleApiKey: '',
-	googleClientId: '',
-	googleRedirect: '',
-	googleScope: '',
   microsoftApplicationId: '',
   microsoftRedirect: '',
   microsoftScope: '',
@@ -107,9 +99,6 @@ export default class ConfigApi extends React.Component<any, any> {
       }
       if (config.kuberWs == '') {
         config.kuberWs = currentBaseUrl.replace('http', 'ws')
-      }
-      if (config.googleRedirect == '') {
-        config.googleRedirect =  config.kuberUi + "/kuber/auth/google/redirect"
       }
       if (config.microsoftRedirect == '') {
         config.microsoftRedirect = config.kuberUi + "/kuber/auth/microsoft/redirect"

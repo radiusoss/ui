@@ -7,7 +7,7 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 import NotebookApi from './../../api/notebook/NotebookApi'
 import { DocumentCard, DocumentCardActivity, DocumentCardPreview, DocumentCardTitle, IDocumentCardPreviewProps, DocumentCardActions } from 'office-ui-fabric-react/lib/DocumentCard'
 import { ImageFit } from 'office-ui-fabric-react/lib/Image'
-import GoogleUsers from './GoogleUsers'
+
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
 export default class Users extends React.Component<any, any> {
@@ -15,7 +15,6 @@ export default class Users extends React.Component<any, any> {
 
   state = {
     users: [],
-    isGoogleAuthenticated: NotebookStore.state().isGoogleAuthenticated,
     isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
   }
 
@@ -25,7 +24,7 @@ export default class Users extends React.Component<any, any> {
   }
 
   public render() {
-    const { isGoogleAuthenticated, isMicrosoftAuthenticated } = this.state
+    const { isMicrosoftAuthenticated } = this.state
     return (      
       <div>
         <div>
@@ -77,7 +76,6 @@ export default class Users extends React.Component<any, any> {
             }
           </div>
           <hr/>
-          { (isGoogleAuthenticated) && <GoogleUsers/> }
 {/*
           { (isMicrosoftAuthenticated) && <MicrosoftUsers/> }
           { (isTwitterAuthenticated) && <TwitterUsers/> }

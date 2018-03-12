@@ -17,7 +17,6 @@ import { mapDispatchToPropsConfig, mapStateToPropsConfig } from '../../actions/C
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
-import GoogleProfileWidget from './../profile/GoogleProfileWidget'
 import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import AWSCapacity from './../aws/AWSCapacity'
 import K8SClusterTopology from './../cluster/K8SClusterTopology'
@@ -163,12 +162,6 @@ export default class ControlHeader extends React.Component<any, any> {
           onDismiss={() => this.setState({statusPanel: ''})}
         >
         <div>
-          {(statusPanel == 'profile') &&
-          <div>
-            <div className="ms-font-su"><FabricIcon name="Accounts" /> Profile</div>
-            <GoogleProfileWidget/>
-          </div>
-          }
           {
             (statusPanel == 'cluster') &&
             <div>

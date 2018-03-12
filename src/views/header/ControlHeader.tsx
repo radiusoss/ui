@@ -37,7 +37,6 @@ export default class ControlHeader extends React.Component<any, any> {
   private rightItems: any[] = [{}]
 
   state = {
-    isGoogleAuthenticated: false,
     isMicrosoftAuthenticated: false,
     note: undefined,
     notes: [],
@@ -151,16 +150,11 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, isGoogleAuthenticated, isMicrosoftAuthenticated, spitfireMessageReceived, note } = nextProps
+    const { config, isMicrosoftAuthenticated, spitfireMessageReceived, note } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.notebookApi.listNotes()
       this.notebookApi.listFlows()
-    }
-    if (! this.state.isGoogleAuthenticated != isGoogleAuthenticated) {
-      this.setState({
-        isGoogleAuthenticated: isGoogleAuthenticated
-      })
     }
     if (! this.state.isMicrosoftAuthenticated != isMicrosoftAuthenticated) {
       this.setState({

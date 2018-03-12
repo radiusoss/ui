@@ -7,8 +7,7 @@ import { newConfigReducer } from './ConfigReducer'
 import { kuberMessageSentReducer, kuberMessageReceivedReducer, kuberStatusReducer } from './KuberReducer'
 import { counterReducer, isSavingCounterReducer, isLoadingCounterReducer, errorCounterReducer } from './CounterReducer'
 import { 
-  isGoogleAuthenticatedReducer, isToGoogleReducer, googleTokenReducer, 
-  isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer, 
+  isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer,
  } from './AuthReducer'
 import { 
   spitfireLoginReducer, spitfireMessageSentReducer, 
@@ -25,9 +24,6 @@ export const reducers = combineReducers<ApplicationState.State>({
   errorCounter: errorCounterReducer,
   kuberMessageSent: kuberMessageSentReducer,
   kuberMessageReceived: kuberMessageReceivedReducer,
-  isGoogleAuthenticated: isGoogleAuthenticatedReducer,
-  isToGoogle: isToGoogleReducer,
-  googleToken: googleTokenReducer,
   isMicrosoftAuthenticated: isMicrosoftAuthenticatedReducer,
   isToMicrosoft: isToMicrosoftReducer,
   microsoftToken: microsoftTokenReducer,

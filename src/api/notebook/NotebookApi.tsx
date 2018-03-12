@@ -7,8 +7,6 @@ import { NotebookStore } from './../../store/NotebookStore'
 import SpitfireApi, { ISpitfireApi, SpitfireResponse } from './../spitfire/SpitfireApi'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from './../../actions/AuthActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
-import GoogleApi from './../google/GoogleApi'
-import { GoogleProfileStorageKey } from './../google/GoogleApi'
 import MicrosoftApi from './../microsoft/MicrosoftApi'
 import { MicrosoftProfileStorageKey } from './../microsoft/MicrosoftApi'
 
@@ -20,7 +18,6 @@ export interface INotebookApi extends ISpitfireApi {}
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class NotebookApi extends React.Component<any, any> implements INotebookApi {
   private spitfireApi: SpitfireApi
-  private googleApi: GoogleApi
   private microsoftApi: MicrosoftApi
 
   state = {
@@ -41,7 +38,6 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   
   public componentDidMount() {
     this.spitfireApi = window['SpitfireApi']
-    this.googleApi = window['GoogleApi']
     this.microsoftApi = window['MicrosoftApi']
   }
 
@@ -280,90 +276,14 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   // ----------------------------------------------------------------------------
   
   public componentWillReceiveProps(nextProps) {
-    const { goTo, dispatch, location, isGoogleAuthenticated, isMicrosoftAuthenticated, } = this.props
+    const { goTo, dispatch, location, isMicrosoftAuthenticated, } = this.props
     if (goTo) {
       history.push(goTo)
     }
   }
 
 // ----------------------------------------------------------------------------
-  
-  public updateGoogleProfile(goPath: string) {
-    var me: any
-    try {
-     me = JSON.parse(localStorage.getItem(MeStorageKey))
-    }
-    catch(e) {
-      console.log(e)
-    }
-    if (me && me.resourceName) {
-      this.processGoogleMe(me, goPath)
-    }
-    else {
-      var cred = localStorage.getItem(GoogleProfileStorageKey)
-      if (cred) {
-        this.googleApi.getMe()
-          .then(me => {
-            this.processGoogleMe(me.result, goPath)
-          })
-        }
-      }
-  }
 
-  private processGoogleMe(me: any, goPath: string) {
-    console.log('Google Me', me)
-    NotebookStore.state().me = me
-    localStorage.setItem(MeStorageKey, JSON.stringify(me))
-    var principalName = me.resourceName
-    console.log("Google Principal Name", principalName)
-    var displayName = me.names[0].displayName
-    var userName = principalName
-    console.log("Google Display Name", displayName)
-    NotebookStore.state().profileDisplayName = displayName
-    var email = ""
-    if (me.emailAddresses) {
-      email = me.emailAddresses[0].value
-      userName = email
-    }
-    var principal = email + "#google"
-    NotebookStore.state().profilePrincipal = principal
-    console.log("Google Email", email)
-    this.login(principal, principalName)
-      .then(res => {
-        console.log('Google Notebook Login', res)
-        NotebookStore.state().spitfireLogin = res
-        if (!res.success) {
-          history.push("/500")
-        }
-        else if (res.result.status != "OK") {
-          history.push("/500")
-        }
-        else {
-          this.spitfireApi.newRestClient(res.result.body.principal)
-          var photoUrl = me.photos[0].url
-          console.log("Google Photo Url", photoUrl)
-          NotebookStore.state().profilePhoto = photoUrl
-          fetch(photoUrl)
-            .then((response: any) => {
-              return response.blob()
-            }).then((photoBlob: any) => {
-              NotebookStore.state().profilePhotoBlob = photoBlob
-              console.log("Google Photo Blob", photoBlob)
-              this.props.dispatchIsGoogleAuthenticatedAction()
-              if (this.state.initialPath.startsWith('/auth/')) {
-                history.push(goPath)
-//              this.props.dispatchGoToAction(goPath)
-              }
-            })
-          }
-      })
-      .catch(function(error) {
-        console.log(error)
-      })
-  }
-
-// ----------------------------------------------------------------------------
-  
   public updateMicrosoftProfile() {
     var profile = localStorage.getItem(MicrosoftProfileStorageKey)
     if (profile) {

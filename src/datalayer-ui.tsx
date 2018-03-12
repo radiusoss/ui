@@ -8,7 +8,6 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import { NotebookStore } from './store/NotebookStore'
 import ConfigApi from './api/config/ConfigApi'
-import GoogleApi from './api/google/GoogleApi'
 import MicrosoftApi from './api/microsoft/MicrosoftApi'
 import NotebookApi from './api/notebook/NotebookApi'
 import SpitfireApi from './api/spitfire/SpitfireApi'
@@ -51,7 +50,6 @@ function start(): void {
             <ConfigApi/>
             <SpitfireApi/>
             <KuberApi/>
-            <GoogleApi/>
             <MicrosoftApi/>
             <NotebookApi/>
             <ConnectedRouter history = { routerHistory } >

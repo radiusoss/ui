@@ -52,7 +52,6 @@ export default class KuberApi extends React.Component<any, any>  implements IKub
   private webSocketClient: ReconnectingWebSocket
   
   state = {
-    isGoogleAuthenticated: false,
     isMicrosoftAuthenticated: false,
     webSocketHealthy: false
   }

@@ -59,7 +59,7 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
   }
 
   public render() {
-    const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
+    const { isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
     // if ( || isMicrosoftAuthenticated || isTwitterAuthenticated) {
       return (
         <div>
@@ -113,11 +113,11 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
   }
 
   public componentWillReceiveProps(nextProps) {    
-    const { config, goTo, dispatch, location, isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
+    const { config, goTo, dispatch, location, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
     if (config && ! isEqual(config, this.config)) {
       this.config = config
-      if (!isGoogleAuthenticated && !isMicrosoftAuthenticated && !isTwitterAuthenticated) {
-        this.notebookApi.updateGoogleProfile("/")
+      if ( !isMicrosoftAuthenticated ) {
+        //this.notebookApi.updateGoogleProfile("/")
       }
     }
   }

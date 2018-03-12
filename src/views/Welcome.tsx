@@ -9,7 +9,6 @@ import { CompoundButton } from 'office-ui-fabric-react/lib/Button'
 import { Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../actions/NotebookActions'
 import NotebookApi from './../api/notebook/NotebookApi'
-import GoogleApi from '../api/google/GoogleApi'
 import MicrosoftApi from '../api/microsoft/MicrosoftApi'
 import HighlightsWidget from './about/HighlightsWidget'
 import * as stylesImport from './_styles/Styles.scss'
@@ -22,11 +21,9 @@ const DEFAULT_PROFILE_PHOTO = '/img/explorer/explorer_white.svg'
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class Welcome extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
-  private readonly googleApi: GoogleApi
   private readonly microsoftApi: MicrosoftApi
 
   state = {
-    isGoogleAuthenticated: NotebookStore.state().isGoogleAuthenticated,
     isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
     profileDisplayName: NotebookStore.state().profileDisplayName,
     profilePhoto: window.URL.createObjectURL(NotebookStore.state().profilePhotoBlob)
@@ -34,14 +31,13 @@ export default class Welcome extends React.Component<any, any> {
 
   public constructor(props) {
     super(props)
-    this.googleApi = window["GoogleApi"]
     this.microsoftApi = window["MicrosoftApi"]
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
 
-    const { isGoogleAuthenticated, isMicrosoftAuthenticated, profileDisplayName, profilePhoto } = this.state
+    const { isMicrosoftAuthenticated, profileDisplayName, profilePhoto } = this.state
 
     return (
 
@@ -53,7 +49,7 @@ export default class Welcome extends React.Component<any, any> {
 
           <span className={ styles.tagline }>The easy way to run Big Data Science on Kubernetes.</span>
 
-          { (!isGoogleAuthenticated && !isMicrosoftAuthenticated ) &&
+          { !isMicrosoftAuthenticated &&
 
             <div>
               <div className="ms-Grid" style={{ padding: 0 }}>
@@ -63,9 +59,6 @@ export default class Welcome extends React.Component<any, any> {
                   </div>
                 </div>
                 <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 text-center">
-                      <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onGoogleAuthenticateClick(e) }>Google</a>
-                    </div>
                     <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4 text-center">
                       <a href="#" className={ css(styles.button, styles.primaryButton) } onClick={ (e) => this.onMicrosoftAuthenticateClick(e) }>Microsoft</a>
                     </div>
@@ -95,7 +88,7 @@ export default class Welcome extends React.Component<any, any> {
 
           }
 
-          { (isGoogleAuthenticated || isMicrosoftAuthenticated ) &&
+          { isMicrosoftAuthenticated &&
           
               <div className="ms-Grid">
                 <div className="ms-Grid-row">
@@ -121,11 +114,11 @@ export default class Welcome extends React.Component<any, any> {
 
           <div className={ styles.flavor }>
 
-            { (!isGoogleAuthenticated && !isMicrosoftAuthenticated ) &&
+            { !isMicrosoftAuthenticated &&
               <img src={ DEFAULT_PROFILE_PHOTO } width='72' alt='Datalayer Logo' />
             }
 
-            { (isGoogleAuthenticated || isMicrosoftAuthenticated ) &&
+            { isMicrosoftAuthenticated &&
               <div className="ms-Grid-row">
                 <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
                   <br/>
@@ -215,30 +208,6 @@ export default class Welcome extends React.Component<any, any> {
       })
     }
 
-    const { isGoogleAuthenticated } = nextProps
-    if ((this.state.isGoogleAuthenticated == true) && (isGoogleAuthenticated == false)) {
-      this.googleApi.logout()
-      this.setState({
-        isGoogleAuthenticated: false,
-        profileDisplayName: '',
-        profilePhoto: DEFAULT_PROFILE_PHOTO
-      })
-    }
-    else if ((this.state.isGoogleAuthenticated == false) && (isGoogleAuthenticated == true)) {
-      var blobPhoto = NotebookStore.state().profilePhotoBlob
-      var profilePhoto = window.URL.createObjectURL(blobPhoto)
-      this.setState({
-        isGoogleAuthenticated: true,
-        profileDisplayName: NotebookStore.state().profileDisplayName,
-        profilePhoto: profilePhoto
-      })
-    }
-
-  }
-
-  private onGoogleAuthenticateClick = (e) =>  {
-    e.preventDefault()
-    this.props.dispatchToGoogleAction()
   }
 
   private onMicrosoftAuthenticateClick = (e) =>  {

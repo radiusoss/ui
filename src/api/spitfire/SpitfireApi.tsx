@@ -88,9 +88,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   private flows = []
 
   state = {
-    isGoogleAuthenticated: false,
     isMicrosoftAuthenticated: false,
-    isTwitterAuthenticated: false,
     webSocketHealthy: false
   }
   
@@ -104,7 +102,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { isGoogleAuthenticated, isMicrosoftAuthenticated, isTwitterAuthenticated, config } = nextProps
+    const { isMicrosoftAuthenticated, config } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.webSocketClient = new ReconnectingWebSocket(this.config.spitfireWs + '/spitfire/ws')
@@ -146,9 +144,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       this.newRestClient(this.principalValue())
     }
     this.setState({
-      isGoogleAuthenticated: isGoogleAuthenticated,
       isMicrosoftAuthenticated: isMicrosoftAuthenticated,
-      isTwitterAuthenticated: isTwitterAuthenticated
     })
   }
 

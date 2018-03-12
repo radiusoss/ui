@@ -5,7 +5,6 @@ import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Piv
 import { NotebookStore } from './../../store/NotebookStore'
 import KerberosProfile from './KerberosProfile'
 import MicrosoftProfile from './MicrosoftProfile'
-import GoogleProfile from './GoogleProfile'
 import { connect } from 'react-redux'
 import { MessageBarButton } from 'office-ui-fabric-react/lib/Button'
 import { Link } from 'office-ui-fabric-react/lib/Link'
@@ -18,7 +17,6 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 export default class Profile extends React.Component<any, any> {
 
   state = {
-    isGoogleAuthenticated: NotebookStore.state().isGoogleAuthenticated,
     isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
   }
 
@@ -27,7 +25,7 @@ export default class Profile extends React.Component<any, any> {
   }
 
   public render() {
-    const { isGoogleAuthenticated, isMicrosoftAuthenticated } = this.state
+    const { isMicrosoftAuthenticated } = this.state
 /*
     var selectedKey = 'google'
     if (isMicrosoftAuthenticated) selectedKey = 'microsoft'
@@ -35,7 +33,6 @@ export default class Profile extends React.Component<any, any> {
 */
     return (
       <div>
-        { (isGoogleAuthenticated) &&  <GoogleProfile/> }
         { (isMicrosoftAuthenticated) && <MicrosoftProfile/> }
 {/*
         <Pivot selectedKey={ selectedKey }>
