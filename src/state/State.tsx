@@ -10,9 +10,6 @@ export namespace ApplicationState {
     isSavingCounter: boolean,
     isLoadingCounter: boolean,
     errorCounter: string,
-    isToMicrosoft: boolean,
-    isMicrosoftAuthenticated: boolean,
-    microsoftToken: any,
     spitfireLogin: any,
     spitfireMessageSent: any,
     spitfireMessageReceived: any,
@@ -33,7 +30,8 @@ export namespace ApplicationState {
     kuberMessageReceived: any,
     clearScratchpad: boolean,
     goTo: string,
-    kuberStatus: any
+    kuberStatus: any,
+    mockAuth: boolean,
   }
 }
 
@@ -46,9 +44,6 @@ export const initialState: ApplicationState.State = {
   isSavingCounter: false,
   isLoadingCounter: false,
   errorCounter: '',
-  isToMicrosoft: false,
-  isMicrosoftAuthenticated: false,
-  microsoftToken: {},
   spitfireLogin: {},
   spitfireMessageSent: {},
   spitfireMessageReceived: {},
@@ -69,5 +64,6 @@ export const initialState: ApplicationState.State = {
   kuberMessageReceived: {},
   clearScratchpad: false,
   goTo: null,
-  kuberStatus: {}
+  kuberStatus: {},
+  mockAuth: true
 }

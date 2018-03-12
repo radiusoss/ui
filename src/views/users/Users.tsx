@@ -15,7 +15,6 @@ export default class Users extends React.Component<any, any> {
 
   state = {
     users: [],
-    isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
   }
 
   public constructor(props) {
@@ -24,8 +23,7 @@ export default class Users extends React.Component<any, any> {
   }
 
   public render() {
-    const { isMicrosoftAuthenticated } = this.state
-    return (      
+    return (
       <div>
         <div>
           <div style={{float: "left"}}>

@@ -59,8 +59,6 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
   }
 
   public render() {
-    const { isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
-    // if ( || isMicrosoftAuthenticated || isTwitterAuthenticated) {
       return (
         <div>
           <Route exact path="/dla" component={Welcome}/>
@@ -101,10 +99,6 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
           <Route path="/dla/school/lessons/lesson3" name="Lesson 3" component={Lesson3}/>
         </div>
       )
-    // }
-    // else {
-    //   return <div></div>
-    // }
 
   }
 
@@ -113,12 +107,9 @@ export default class EnsureAuthenticatedLayout extends React.Component<any, any>
   }
 
   public componentWillReceiveProps(nextProps) {    
-    const { config, goTo, dispatch, location, isMicrosoftAuthenticated, isTwitterAuthenticated } = this.props
+    const { config, goTo, dispatch, location, } = this.props
     if (config && ! isEqual(config, this.config)) {
       this.config = config
-      if ( !isMicrosoftAuthenticated ) {
-        //this.notebookApi.updateGoogleProfile("/")
-      }
     }
   }
 

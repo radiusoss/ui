@@ -4,7 +4,6 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon'
 import { PivotItem, IPivotItemProps, Pivot} from 'office-ui-fabric-react/lib/Pivot'
 import { NotebookStore } from './../../store/NotebookStore'
 import KerberosProfile from './KerberosProfile'
-import MicrosoftProfile from './MicrosoftProfile'
 import { connect } from 'react-redux'
 import { MessageBarButton } from 'office-ui-fabric-react/lib/Button'
 import { Link } from 'office-ui-fabric-react/lib/Link'
@@ -17,7 +16,6 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actio
 export default class Profile extends React.Component<any, any> {
 
   state = {
-    isMicrosoftAuthenticated: NotebookStore.state().isMicrosoftAuthenticated,
   }
 
   public constructor(props) {
@@ -25,7 +23,7 @@ export default class Profile extends React.Component<any, any> {
   }
 
   public render() {
-    const { isMicrosoftAuthenticated } = this.state
+    const {} = this.state
 /*
     var selectedKey = 'google'
     if (isMicrosoftAuthenticated) selectedKey = 'microsoft'
@@ -33,7 +31,6 @@ export default class Profile extends React.Component<any, any> {
 */
     return (
       <div>
-        { (isMicrosoftAuthenticated) && <MicrosoftProfile/> }
 {/*
         <Pivot selectedKey={ selectedKey }>
           <PivotItem linkText='Google' itemIcon='SocialListeningLogo' itemKey='google'>
@@ -93,10 +90,7 @@ export default class Profile extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { isMicrosoftAuthenticated, profileDisplayName, profilePhoto } = nextProps
-    this.setState({
-      isMicrosoftAuthenticated: isMicrosoftAuthenticated, 
-    })
+    const { profileDisplayName, profilePhoto } = nextProps;
   }
 
 }

@@ -1,10 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { AuthDispatchers, AuthProps, mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
-import MicrosoftApi from './../../api/microsoft/MicrosoftApi'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
-import PeoplePickerExample from './../../components/PeoplePicker'
-import DetailsList from './../../components/DetailsList'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from '../../actions/NotebookActions'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
@@ -76,11 +73,9 @@ export default class Auth extends React.Component<AuthDispatchers & AuthProps, a
               <div>
               {
                 this.state.example === 'people-picker-example' &&
-                <PeoplePickerExample />
               }
               {
                 this.state.example === 'details-list-example' &&
-                <DetailsList />
               }
               </div>
           }

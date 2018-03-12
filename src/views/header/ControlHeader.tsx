@@ -37,7 +37,6 @@ export default class ControlHeader extends React.Component<any, any> {
   private rightItems: any[] = [{}]
 
   state = {
-    isMicrosoftAuthenticated: false,
     note: undefined,
     notes: [],
     scratchpadNoteId: '',
@@ -150,16 +149,11 @@ export default class ControlHeader extends React.Component<any, any> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { config, isMicrosoftAuthenticated, spitfireMessageReceived, note } = nextProps
+    const { config, , spitfireMessageReceived, note } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.notebookApi.listNotes()
       this.notebookApi.listFlows()
-    }
-    if (! this.state.isMicrosoftAuthenticated != isMicrosoftAuthenticated) {
-      this.setState({
-        isMicrosoftAuthenticated: isMicrosoftAuthenticated
-      })
     }
     if (note.id && (! isEqual(note, this.props.note))) {
       this.setState({

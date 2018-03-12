@@ -16,9 +16,6 @@ export type IConfig = {
 	kuberUi: string
 	kuberRest: string
 	kuberWs: string
-	microsoftApplicationId: string
-	microsoftRedirect: string
-	microsoftScope: string
 	spitfireRest: string
 	spitfireWs: string
 }
@@ -28,9 +25,6 @@ export const emptyConfig: IConfig = {
   kuberUi: '',
   kuberRest: '',
   kuberWs: '',
-  microsoftApplicationId: '',
-  microsoftRedirect: '',
-  microsoftScope: '',
   spitfireRest: '',
   spitfireWs: '',
 }
@@ -99,9 +93,6 @@ export default class ConfigApi extends React.Component<any, any> {
       }
       if (config.kuberWs == '') {
         config.kuberWs = currentBaseUrl.replace('http', 'ws')
-      }
-      if (config.microsoftRedirect == '') {
-        config.microsoftRedirect = config.kuberUi + "/kuber/auth/microsoft/redirect"
       }
       console.log('Updated Config', config)
       this.setState({

@@ -7,8 +7,6 @@ import { NotebookStore } from './../../store/NotebookStore'
 import SpitfireApi, { ISpitfireApi, SpitfireResponse } from './../spitfire/SpitfireApi'
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from './../../actions/AuthActions'
 import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../actions/NotebookActions'
-import MicrosoftApi from './../microsoft/MicrosoftApi'
-import { MicrosoftProfileStorageKey } from './../microsoft/MicrosoftApi'
 
 export const MeStorageKey = 'me'
 
@@ -18,7 +16,6 @@ export interface INotebookApi extends ISpitfireApi {}
 @connect(mapStateToPropsAuth, mapDispatchToPropsAuth)
 export default class NotebookApi extends React.Component<any, any> implements INotebookApi {
   private spitfireApi: SpitfireApi
-  private microsoftApi: MicrosoftApi
 
   state = {
     initialPath: ''
@@ -38,7 +35,6 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   
   public componentDidMount() {
     this.spitfireApi = window['SpitfireApi']
-    this.microsoftApi = window['MicrosoftApi']
   }
 
 // ----------------------------------------------------------------------------
@@ -276,42 +272,9 @@ export default class NotebookApi extends React.Component<any, any> implements IN
   // ----------------------------------------------------------------------------
   
   public componentWillReceiveProps(nextProps) {
-    const { goTo, dispatch, location, isMicrosoftAuthenticated, } = this.props
+    const { goTo, dispatch, location, } = this.props
     if (goTo) {
       history.push(goTo)
     }
   }
-
-// ----------------------------------------------------------------------------
-
-  public updateMicrosoftProfile() {
-    var profile = localStorage.getItem(MicrosoftProfileStorageKey)
-    if (profile) {
-      this.microsoftApi.getMe(async (err, me) => {
-        if (!err) {
-          console.log('Microsoft Me', me)
-          NotebookStore.state().me = me
-          var principalName = me.userPrincipalName
-          console.log("Microsoft Principal Name", principalName)
-          var displayName = me.userPrincipalName
-          console.log("Microsoft Display Name", displayName)
-          NotebookStore.state().profileDisplayName = displayName
-          this.login(principalName + "#microsoft", principalName)
-            .then(res => {
-              console.log('Microsoft Notebook Login', res)
-              NotebookStore.state().spitfireLogin = res
-            })
-          this.microsoftApi.getMyPicto((err, photoBlob) => {
-            if (!err) {
-              NotebookStore.state().profilePhotoBlob = photoBlob
-              console.log("Microsoft Photo Blob", photoBlob)
-              this.props.dispatchIsMicrosoftAuthenticatedAction()
-              history.push("/")
-            }
-          })
-        }
-      })
-    }
-  }
-
 }

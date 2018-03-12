@@ -7,10 +7,7 @@ import { newConfigReducer } from './ConfigReducer'
 import { kuberMessageSentReducer, kuberMessageReceivedReducer, kuberStatusReducer } from './KuberReducer'
 import { counterReducer, isSavingCounterReducer, isLoadingCounterReducer, errorCounterReducer } from './CounterReducer'
 import { 
-  isMicrosoftAuthenticatedReducer, isToMicrosoftReducer, microsoftTokenReducer,
- } from './AuthReducer'
-import { 
-  spitfireLoginReducer, spitfireMessageSentReducer, 
+  spitfireLoginReducer, spitfireMessageSentReducer,
   spitfireMessageReceivedReducer, noteReducer, clearScratchpadReducer,
   runningParagraphsReducer, notesReducer, isStartNoteRunReducer,
   goToReducer, isStartParagraphRunReducer, scratchpadNoteIdReducer
@@ -24,9 +21,6 @@ export const reducers = combineReducers<ApplicationState.State>({
   errorCounter: errorCounterReducer,
   kuberMessageSent: kuberMessageSentReducer,
   kuberMessageReceived: kuberMessageReceivedReducer,
-  isMicrosoftAuthenticated: isMicrosoftAuthenticatedReducer,
-  isToMicrosoft: isToMicrosoftReducer,
-  microsoftToken: microsoftTokenReducer,
   spitfireLogin: spitfireLoginReducer,
   spitfireMessageSent: spitfireMessageSentReducer,
   spitfireMessageReceived: spitfireMessageReceivedReducer,

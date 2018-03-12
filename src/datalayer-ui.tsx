@@ -8,7 +8,6 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import { NotebookStore } from './store/NotebookStore'
 import ConfigApi from './api/config/ConfigApi'
-import MicrosoftApi from './api/microsoft/MicrosoftApi'
 import NotebookApi from './api/notebook/NotebookApi'
 import SpitfireApi from './api/spitfire/SpitfireApi'
 import BigCalendar from 'react-big-calendar'
@@ -50,7 +49,6 @@ function start(): void {
             <ConfigApi/>
             <SpitfireApi/>
             <KuberApi/>
-            <MicrosoftApi/>
             <NotebookApi/>
             <ConnectedRouter history = { routerHistory } >
             <Routes />

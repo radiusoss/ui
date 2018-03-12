@@ -88,7 +88,6 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   private flows = []
 
   state = {
-    isMicrosoftAuthenticated: false,
     webSocketHealthy: false
   }
   
@@ -102,7 +101,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
   }
 
   public componentWillReceiveProps(nextProps) {
-    const { isMicrosoftAuthenticated, config } = nextProps
+    const { config } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
       this.webSocketClient = new ReconnectingWebSocket(this.config.spitfireWs + '/spitfire/ws')
@@ -143,9 +142,6 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
       }, 10000 )
       this.newRestClient(this.principalValue())
     }
-    this.setState({
-      isMicrosoftAuthenticated: isMicrosoftAuthenticated,
-    })
   }
 
     public componentDidMount() {
