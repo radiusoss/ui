@@ -22,9 +22,10 @@
   "dependencies": {
     "@microsoft/load-themed-styles": "1.7.5",
     "@microsoft/microsoft-graph-client": "1.0.0",
+    "@types/moment-duration-format": "2.2.0",
     "@uifabric/experiments": "5.11.1",
     "@uifabric/icons": "5.2.0",
-    "@types/moment-duration-format": "2.2.0",
+    "axios": "^0.18.0",
     "better-react-spinkit": "2.0.2",
     "brace": "0.10.0",
     "chart.js": "2.5.0",

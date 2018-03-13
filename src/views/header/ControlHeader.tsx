@@ -20,6 +20,7 @@ import { mapStateToPropsNotebook, mapDispatchToPropsNotebook } from './../../act
 import { mapStateToPropsAuth, mapDispatchToPropsAuth } from '../../actions/AuthActions'
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
 import * as stylesImport from './../_styles/Styles.scss'
+import axios from 'axios';
 const styles: any = stylesImport
 
 const SCRATCHPAD_PREFIX = '_SCRATCHPAD_'
@@ -327,10 +328,37 @@ export default class ControlHeader extends React.Component<any, any> {
         onClick: () => history.push(`/dla/home`)
       },
       {
-        key: 'cluster',
-        name: 'Cluster',
-        title: 'Cluster',
-        items: [],
+        key: 'attach',
+        name: 'Attach',
+        title: 'Attach',
+        items: [
+          {
+            key: 'create',
+            name: 'Create Cluster',
+            title: 'Create Cluster',
+            onClick: () => this.createCluster()
+          }, {
+            key: 'Alpha',
+            name: 'Alpha',
+            title: 'Alpha',
+            onClick: () => this.updateInterpreterMaster('Alpha')
+          },{
+            key: 'Beta',
+            name: 'Beta',
+            title: 'Beta',
+            onClick: () => this.updateInterpreterMaster('Beta')
+          },{
+            key: 'Gamma',
+            name: 'Gamma',
+            title: 'Gamma',
+            onClick: () => this.updateInterpreterMaster('Gamma')
+          },{
+            key: 'Delta',
+            name: 'Delta',
+            title: 'Delta',
+            onClick: () => this.updateInterpreterMaster('Delta')
+          }
+            ],
       },
 //       {
 //         key: 'kuber',
@@ -561,4 +589,187 @@ export default class ControlHeader extends React.Component<any, any> {
     return SCRATCHPAD_PREFIX + NotebookStore.state().profilePrincipal    
   }
 
+    // --------------------------------------------------------------------------
+  @autobind
+  private updateInterpreterMaster(clusterName){
+    const note = this.state.note;
+    axios.get('http://localhost:8080/api/interpreter/setting').then((results) => {
+      const interpreters = results.data.body.map(interpreter => interpreter.id);
+      const clusterId = results.data.body.filter(interpreter => interpreter.name === clusterName)[0].id;
+      interpreters.splice(interpreters.indexOf(clusterId), 1);
+      interpreters.unshift(clusterId);
+      const bindUrl = `http://localhost:8080/api/notebook/interpreter/bind/${note.id}`;
+      return axios.put(bindUrl, interpreters);
+    }).then((res) => console.log(res)).catch(err => console.log(err))
+
+  }
+
+  @autobind
+  private createCluster(){
+    console.log('create cluster function');
+    // setTimeout(()=>{
+    //   'Mock retrieve Cluster Name'
+    //     const mockName = 'MockCluster' + Math.floor(Math.random() * 1000);
+    //   console.log('Mockname', mockName)
+    //     axios.post('http://localhost:8080/api/interpreter/setting',
+    //         this.sparkInterpreterSettingsData(mockName)
+    //     ).then(res => console.log(res)).catch(err => console.log(err))
+    // }, 1000)
+  }
+  private sparkInterpreterSettingsData(clusterName){
+    return {
+        "name": clusterName,
+        "group": "spark",
+        "properties": {
+            "spark.executor.memory": {
+                "name": "spark.executor.memory",
+                "value": "",
+                "type": "string"
+            },
+            "zeppelin.spark.concurrentSQL": {
+                "name": "zeppelin.spark.concurrentSQL",
+                "value": false,
+                "type": "checkbox"
+            },
+            "zeppelin.R.knitr": {
+                "name": "zeppelin.R.knitr",
+                "value": true,
+                "type": "checkbox"
+            },
+            "zeppelin.R.cmd": {
+                "name": "zeppelin.R.cmd",
+                "value": "R",
+                "type": "string"
+            },
+            "spark.app.name": {
+                "name": "spark.app.name",
+                "value": "Zeppelin",
+                "type": "string"
+            },
+            "zeppelin.R.image.width": {
+                "name": "zeppelin.R.image.width",
+                "value": "100%",
+                "type": "number"
+            },
+            "zeppelin.spark.importImplicit": {
+                "name": "zeppelin.spark.importImplicit",
+                "value": true,
+                "type": "checkbox"
+            },
+            "zeppelin.dep.additionalRemoteRepository": {
+                "name": "zeppelin.dep.additionalRemoteRepository",
+                "value": "spark-packages,http://dl.bintray.com/spark-packages/maven,false;",
+                "type": "textarea"
+            },
+            "zeppelin.spark.maxResult": {
+                "name": "zeppelin.spark.maxResult",
+                "value": "1000",
+                "type": "number"
+            },
+            "master": {
+                "name": "master",
+                "value": "local[*]",
+                "type": "string"
+            },
+            "zeppelin.pyspark.python": {
+                "name": "zeppelin.pyspark.python",
+                "value": "/usr/bin/python3",
+                "type": "string"
+            },
+            "args": {
+                "name": "args",
+                "value": "",
+                "type": "string"
+            },
+            "zeppelin.dep.localrepo": {
+                "name": "zeppelin.dep.localrepo",
+                "value": "local-repo",
+                "type": "string"
+            },
+            "zeppelin.spark.sql.stacktrace": {
+                "name": "zeppelin.spark.sql.stacktrace",
+                "value": false,
+                "type": "checkbox"
+            },
+            "zeppelin.spark.useHiveContext": {
+                "name": "zeppelin.spark.useHiveContext",
+                "value": true,
+                "type": "checkbox"
+            },
+            "zeppelin.spark.unSupportedVersionCheck": {
+                "name": "zeppelin.spark.unSupportedVersionCheck",
+                "value": true,
+                "type": "checkbox"
+            },
+            "zeppelin.R.render.options": {
+                "name": "zeppelin.R.render.options",
+                "value": "out.format = 'html', comment = NA, echo = FALSE, results = 'asis', message = F, warning = F",
+                "type": "textarea"
+            },
+            "zeppelin.spark.printREPLOutput": {
+                "name": "zeppelin.spark.printREPLOutput",
+                "value": true,
+                "type": "checkbox"
+            },
+            "spark.cores.max": {
+                "name": "spark.cores.max",
+                "value": "",
+                "type": "number"
+            }
+        },
+        "status": "READY",
+        "interpreterGroup": [
+            {
+                "name": "spark",
+                "class": "org.apache.zeppelin.spark.SparkInterpreter",
+                "defaultInterpreter": true,
+                "editor": {
+                    "language": "scala"
+                }
+            },
+            {
+                "name": "sql",
+                "class": "org.apache.zeppelin.spark.SparkSqlInterpreter",
+                "defaultInterpreter": false,
+                "editor": {
+                    "language": "sql"
+                }
+            },
+            {
+                "name": "dep",
+                "class": "org.apache.zeppelin.spark.DepInterpreter",
+                "defaultInterpreter": false,
+                "editor": {
+                    "language": "scala"
+                }
+            },
+            {
+                "name": "pyspark",
+                "class": "org.apache.zeppelin.spark.PySparkInterpreter",
+                "defaultInterpreter": false,
+                "editor": {
+                    "language": "python"
+                }
+            },
+            {
+                "name": "r",
+                "class": "org.apache.zeppelin.spark.SparkRInterpreter",
+                "defaultInterpreter": false,
+                "editor": {
+                    "language": "r"
+                }
+            },
+            {
+                "name": "ipyspark",
+                "class": "org.apache.zeppelin.spark.IPySparkInterpreter",
+                "defaultInterpreter": false,
+                "editor": {
+                    "language": "python",
+                    "editOnDblClick": false
+                }
+            }
+        ],
+        "dependencies": []
+    }
+  }
 }
