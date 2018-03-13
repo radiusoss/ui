@@ -14,8 +14,9 @@ export default class TableBubbleDisplay extends TableBaseDisplay {
   }
 
   public render() {
+    const { stripDisplay } = this.props
     return (
-      <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+      <div className={styles.overflowYOverlay} style={{ maxHeight: this.getHeigthStyle(stripDisplay), overflowY: 'auto' }}>
         <Bubble
           data={this.bubbleData}
 //          options={this.options}

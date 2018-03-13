@@ -82,14 +82,12 @@ export default class Home extends React.Component<any, any> {
               &nbsp;<a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status")}}>Cluster</a>
             </span>
             <K8SClusterHealth />
-            <hr/>
 {/*
             <Icon iconName='LightningBolt' className='ms-Icon25' />
             <span className='ms-font-xxl'>
               &nbsp;<a href="" onClick={(e) => {e.preventDefault(); history.push("/dla/kuber/status")}}>Spark</a>
             </span>
             <SparkStatus/>
-            <hr/>
 */}
             </div>
         </div>

@@ -39,12 +39,14 @@ export default class AsideScratchpad extends React.Component<any, IAsideScratchp
     if (note.id) {
       return (
         <div>
+{/*
           <div className="ms-Grid">
             <div className="ms-Grid-row">
               <ScratchpadSide/>
             </div>
           </div>
           <hr/>
+*/}
           <div className="ms-font-l">Executors</div>
           <div className="ms-Grid" style={{ padding: 0 }}>
             <div className="ms-Grid-row">

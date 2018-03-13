@@ -71,6 +71,7 @@ export default class NoteCover extends React.Component<any, any> {
                   showControlBar={false} 
                   showGraphBar={false} 
                   showParagraphTitle={true} 
+                  stripDisplay={false}
                   />
               </div>
             </div>

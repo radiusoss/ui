@@ -67,17 +67,18 @@ export default class ParagraphDisplay extends React.Component<any, any> {
   }
 
   public render() {
-
     const { paragraph, showControlBar, showGraphBar, showParagraphTitle, stripDisplay } = this.state
-
     var paragraphHeader = <div></div>
-    var title = '[Add an awesome title]'
+    var maxHeight = "100%"
+    if (stripDisplay) {
+      maxHeight = "350px"
+    }    
+    var title = ''
     var cl = "ms-font-l ms-fontWeight-light dla-ParagraphTitle"
     if (paragraph.title && (paragraph.title.length > 0)) {
       title = paragraph.title
       cl = "ms-font-xl ms-fontWeight-semibold"
     }
-
     paragraphHeader = <div>
       {
       (showParagraphTitle == true) && 
@@ -96,75 +97,26 @@ export default class ParagraphDisplay extends React.Component<any, any> {
       (showControlBar == true) && <div></div>
       }
     </div>
-    if (paragraph.status == ParagraphStatus.ERROR) {
-//      console.log("Paragraph Error.", this.state.paragraph, paragraph)
-      var errorMessage = paragraph.errorMessage
-      var detailedErrorMessage = "No Detail Available for the Returned Message."
-      if (paragraph.results && paragraph.results.msg && paragraph.results.msg.length > 0) {
-        var data = paragraph.results.msg[0].data
-        if (data && data.length > 0) {
-          if (paragraph.errorMessage && paragraph.errorMessage.length > 0) {
-            errorMessage = paragraph.errorMessage
-          } else {
-            errorMessage = paragraph.results.msg[0].data
-          }
-          detailedErrorMessage = paragraph.results.msg[0].data
-        }
-      }
-      return <div>
-        { paragraphHeader }
-        <MessageBar messageBarType={ MessageBarType.severeWarning }>
-          <div style = {{maxHeight: "350px", overflowY: "auto" }}>
-            <pre>
-              {errorMessage}
-            </pre>
-          </div>
-          {
-            (!this.state.showErrorDetail) && 
-            <div>
-              <a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: true}) }}>Show Details</a>
-            </div>
-          }
-          {
-            (this.state.showErrorDetail) && 
-            <div className="ms-slideDownIn20">
-              <div>
-                <a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: false}) }}>Hide Details</a>
-              </div>
-              <div style = {{maxHeight: "450px", width: "100%", overflowY: "auto" }}>
-                <pre>
-                {detailedErrorMessage}
-                </pre>
-              </div>
-            </div>
-          }
-        </MessageBar>
-        <div>
-          <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
-        </div>
-        <div>
-          <CommandButton iconProps={ { iconName: 'BackToWindow' } } onClick={ (e => this.bindNoteToAllInterpreters(e))} >Bind Interpreters</CommandButton>
-        </div>
-        { this.getFooter(paragraph) }
-      </div>
-    }
     var results = paragraph.results
     if (!results) {
       if (paragraph.status == ParagraphStatus.FINISHED) {
-        return <div>
+        return <div style={{maxHeight: maxHeight, overflowY: "auto" }}>
           { paragraphHeader }
+          { this.getErrorMessage(paragraph)}
           { this.getFooter(paragraph) }
         </div>
       }
       if (paragraph.status == ParagraphStatus.READY) {
         return <div>
           { paragraphHeader }
+          { this.getErrorMessage(paragraph)}
           { this.getFooter(paragraph) }
         </div>
       }
       else {
         return <div style={{minHeight: 70, paddingLeft: '10px'}}>
           { paragraphHeader }
+          { this.getErrorMessage(paragraph)}
           <Spinner size={50} />
         </div>
       }
@@ -172,24 +124,23 @@ export default class ParagraphDisplay extends React.Component<any, any> {
     var msgs = results.msg
     if (!msgs) return <div></div>
     if (msgs.length == 0) return <div></div>
-
     var r = -1
     var rendered = msgs.map( msg => {
       r++
-      return <div key={paragraph.id + '-' + r}>{this.renderMsg(paragraph, results, msg, paragraphHeader, stripDisplay, showGraphBar)}</div>
+      return <div key={paragraph.id + '-' + r}>
+        {this.renderMsg(paragraph, results, msg, paragraphHeader, stripDisplay, showGraphBar, maxHeight)}
+      </div>
     })
-
+    rendered.push(this.getErrorMessage(paragraph))
     rendered.push(
       <div className="ms-fontColor-neutralSecondary" style={{ fontSize: "10px"}} key={paragraph.id + '-took'}>
         { this.getFooter(paragraph) }
       </div>
     )
-
     return rendered
-  
   }
 
-  private renderMsg(paragraph, results, msg, paragraphHeader, stripDisplay, showGraphBar) {
+  private renderMsg(paragraph, results, msg, paragraphHeader, stripDisplay, showGraphBar, maxHeight) {
     if (!msg) return <div></div>
     const id = paragraph.id
     const data = msg.data
@@ -212,7 +163,7 @@ export default class ParagraphDisplay extends React.Component<any, any> {
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12" style={{ paddingLeft: '10px', margin: '0px' }} key={paragraph.id}>
             {
               ((type == 'TEXT') && (stripDisplay)) && 
-              <div style = {{maxHeight: "350px", overflowY: "auto" }}>
+              <div style = {{maxHeight: maxHeight, overflowY: "auto" }}>
                 <TextDisplay
                   data={data}
                   stripDisplay={stripDisplay}
@@ -424,6 +375,61 @@ export default class ParagraphDisplay extends React.Component<any, any> {
       return getElapsedTime(paragraph)
     } else {
       return getExecutionMessage(paragraph)
+    }
+  }
+
+  private getErrorMessage(paragraph:any) {
+    if (paragraph.status == ParagraphStatus.ERROR) {
+      var errorMessage = paragraph.errorMessage
+      var detailedErrorMessage = "No Detail Available for the Returned Message."
+      if (paragraph.results && paragraph.results.msg && paragraph.results.msg.length > 0) {
+        var data = paragraph.results.msg[0].data
+        if (data && data.length > 0) {
+          if (paragraph.errorMessage && paragraph.errorMessage.length > 0) {
+            errorMessage = paragraph.errorMessage
+          } else {
+            errorMessage = paragraph.results.msg[0].data
+          }
+          detailedErrorMessage = paragraph.results.msg[0].data
+        }
+      }
+      return <div>
+        <MessageBar messageBarType={ MessageBarType.severeWarning }>
+          <div>
+            <pre>
+              {errorMessage}
+            </pre>
+          </div>
+          {
+            (!this.state.showErrorDetail) && 
+            <div>
+              <a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: true}) }}>Show Details</a>
+            </div>
+          }
+          {
+            (this.state.showErrorDetail) && 
+            <div className="ms-slideDownIn20">
+              <div>
+                <a href="#" onClick={ (e) => { e.preventDefault(); this.setState({showErrorDetail: false}) }}>Hide Details</a>
+              </div>
+              <div style = {{maxHeight: "450px", width: "100%", overflowY: "auto" }}>
+                <pre>
+                {detailedErrorMessage}
+                </pre>
+              </div>
+            </div>
+          }
+        </MessageBar>
+        <div>
+          <CommandButton iconProps={ { iconName: 'Sync' } } onClick={ (e => this.restartInterpreters(e))} >Restart Interpreters</CommandButton>
+        </div>
+        <div>
+          <CommandButton iconProps={ { iconName: 'BackToWindow' } } onClick={ (e => this.bindNoteToAllInterpreters(e))} >Bind Interpreters</CommandButton>
+        </div>
+      </div>
+    }
+    else {
+      return <div></div>
     }
   }
 

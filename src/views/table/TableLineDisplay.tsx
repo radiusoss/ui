@@ -14,8 +14,9 @@ export default class TableLineDisplay extends TableBaseDisplay {
   }
 
   render() {
+    const { stripDisplay } = this.props
     return (
-      <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+      <div className={styles.overflowYOverlay} style={{ maxHeight: this.getHeigthStyle(stripDisplay), overflowY: 'auto' }}>
         <Line
           data={this.lineData}
           options={this.options}

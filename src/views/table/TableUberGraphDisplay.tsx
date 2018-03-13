@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as stylesImport from './../_styles/Styles.scss'
+import TableBaseDisplay from './_TableBaseDisplay'
 const styles: any = stylesImport
 
 /*
@@ -67,12 +68,13 @@ const data = {
   ]
 };
 
-export default class TableUberGraphDisplay extends React.Component<any, any> {
+export default class TableUberGraphDisplay extends TableBaseDisplay {
   displayName: 'BarExample'
 
   public render() {
+    const { stripDisplay } = this.props
     return (
-      <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+      <div className={styles.overflowYOverlay} style={{ maxHeight: this.getHeigthStyle(stripDisplay), overflowY: 'auto' }}>
         <h2>Bar Example (custom size)</h2>
         <Bar
           data={data}

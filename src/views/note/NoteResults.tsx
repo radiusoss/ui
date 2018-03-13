@@ -6,7 +6,7 @@ import NotebookApi from './../../api/notebook/NotebookApi'
 import ParagraphDisplay from './../paragraph/ParagraphDisplay'
 
 @connect(mapStateToPropsNotebook, mapDispatchToPropsNotebook)
-export default class   extends React.Component<any, any> {
+export default class NoteResults extends React.Component<any, any> {
   private readonly notebookApi: NotebookApi
 
   state = {
@@ -19,7 +19,8 @@ export default class   extends React.Component<any, any> {
     },
     showControlBar: false,
     showGraphBar: false,
-    showParagraphTitle: false
+    showParagraphTitle: false,
+    stripDisplay: false
   }
 
   public constructor(props) {
@@ -28,15 +29,16 @@ export default class   extends React.Component<any, any> {
       note: props.note,
       showControlBar: props.showControlBar,
       showGraphBar: props.showGraphBar,
-      showParagraphTitle: props.showParagraphTitle
+      showParagraphTitle: props.showParagraphTitle,
+      stripDisplay: props.stripDisplay
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    var {note, showControlBar, showGraphBar, showParagraphTitle} = this.state
+    var { note, showControlBar, showGraphBar, showParagraphTitle, stripDisplay } = this.state
     if (!note.paragraphs) {
-      return <div></div>
+      return <div>No Paragraph to be found here...</div>
     }
     return (
       <div>
@@ -50,7 +52,7 @@ export default class   extends React.Component<any, any> {
                   showControlBar={showControlBar} 
                   showGraphBar={showGraphBar} 
                   showParagraphTitle={showParagraphTitle} 
-                  stripDisplay={false}
+                  stripDisplay={stripDisplay}
                   />
               </div>
             )

@@ -14,8 +14,9 @@ export default class TablePieDisplay extends TableBaseDisplay {
   }
 
   public render() {
+    const { stripDisplay } = this.props
     return (
-      <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+      <div className={styles.overflowYOverlay} style={{ maxHeight: this.getHeigthStyle(stripDisplay), overflowY: 'auto' }}>
         <Pie
           data={this.pieData}
         />

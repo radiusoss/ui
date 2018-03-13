@@ -45,6 +45,11 @@ export default class TableBaseDisplay extends React.Component<any, any> {
     super(props)
   }
 
+  protected getHeigthStyle(stripDisplay: boolean) {
+    if (stripDisplay) return '80vh'
+    return '100%'
+  }
+
   protected prepareData(columns, items, data) {
     var labels = []
     for (var i = 0; i < items.length; i++) {

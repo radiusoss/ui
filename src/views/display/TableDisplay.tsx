@@ -141,13 +141,14 @@ export default class TableDisplay extends React.Component<any, any> {
       items: items,
       columnsData: columnsData,
       showGraphBar: props.showGraphBar,
-      format: format
+      format: format,
+      stripDisplay: props.stripDisplay
     }
     this.notebookApi = window["NotebookApi"]
   }
 
   public render() {
-    var { columns, items, format, showGraphBar } = this.state
+    var { columns, items, format, showGraphBar, stripDisplay } = this.state
     return (
       <div>
         <div>
@@ -162,28 +163,28 @@ export default class TableDisplay extends React.Component<any, any> {
             />
           }
           {
-            (format == 'text') && <TableTextDisplay columns={this.state.columns} items={this.state.items} />
+            (format == 'text') && <TableTextDisplay columns={this.state.columns} items={this.state.items} stripDisplay={stripDisplay} />
           }
           {
-            (format == 'line') && <TableLineDisplay columns={this.state.columns} items={this.state.items} />
+            (format == 'line') && <TableLineDisplay columns={this.state.columns} items={this.state.items} stripDisplay={stripDisplay} />
           }
           {
-            (format == 'barchart') && <TableBarDisplay columns={this.state.columns} items={this.state.items} />
+            (format == 'barchart') && <TableBarDisplay columns={this.state.columns} items={this.state.items} stripDisplay={stripDisplay} />
           }
           {
-            (format == 'barchart-horizontal') && <TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} />
+            (format == 'barchart-horizontal') && <TableBarHorizontalDisplay columns={this.state.columns} items={this.state.items} stripDisplay={stripDisplay} />
           }
           {
-            (format == 'pie') && <TablePieDisplay columns={this.state.columns} items={this.state.items} />
+            (format == 'pie') && <TablePieDisplay columns={this.state.columns} items={this.state.items} stripDisplay={stripDisplay} />
           }
           {
-            (format == 'doughnut') && <TableDoughnutDisplay columns={this.state.columns} items={this.state.items} />
+            (format == 'doughnut') && <TableDoughnutDisplay columns={this.state.columns} items={this.state.items} stripDisplay={stripDisplay} />
           }
           {
-            (format == 'scatter') && <TableScatterDisplay columns={this.state.columns} items={this.state.items} />
+            (format == 'scatter') && <TableScatterDisplay columns={this.state.columns} items={this.state.items} stripDisplay={stripDisplay} />
           }
           {
-            (format == 'bubble') && <TableBubbleDisplay columns={this.state.columns} items={this.state.items} />
+            (format == 'bubble') && <TableBubbleDisplay columns={this.state.columns} items={this.state.items} stripDisplay={stripDisplay} />
           }
         </div>
       </div>

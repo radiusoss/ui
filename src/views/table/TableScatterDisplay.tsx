@@ -15,8 +15,9 @@ export default class TableScatterDisplay extends TableBaseDisplay {
   }
 
   public render() {
+    const { stripDisplay } = this.props
     return (
-      <div className={styles.overflowYOverlay} style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+      <div className={styles.overflowYOverlay} style={{ maxHeight: this.getHeigthStyle(stripDisplay), overflowY: 'auto' }}>
         <Scatter
           data={this.scatterData}
           options={this.options}
