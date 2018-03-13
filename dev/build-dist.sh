@@ -17,7 +17,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-yarn build
+yarn build --production
 
 TARGET_FOLDER="_ui"
 
