@@ -593,12 +593,12 @@ export default class ControlHeader extends React.Component<any, any> {
   @autobind
   private updateInterpreterMaster(clusterName){
     const note = this.state.note;
-    axios.get('http://localhost:8080/spitfire/api/interpreter/setting').then((results) => {
+    axios.get(this.config.spitfireRest + '/spitfire/api/interpreter/setting').then((results) => {
       const interpreters = results.data.body.map(interpreter => interpreter.id);
       const clusterId = results.data.body.filter(interpreter => interpreter.name === clusterName)[0].id;
       interpreters.splice(interpreters.indexOf(clusterId), 1);
       interpreters.unshift(clusterId);
-      const bindUrl = `http://localhost:8080/spitfire/api/notebook/interpreter/bind/${note.id}`;
+      const bindUrl = `${this.config.spitfireRest}/spitfire/api/notebook/interpreter/bind/${note.id}`;
       return axios.put(bindUrl, interpreters);
     }).then((res) => console.log(res)).catch(err => console.log(err))
 
@@ -611,7 +611,7 @@ export default class ControlHeader extends React.Component<any, any> {
     //   'Mock retrieve Cluster Name'
     //     const mockName = 'MockCluster' + Math.floor(Math.random() * 1000);
     //   console.log('Mockname', mockName)
-    //     axios.post('http://localhost:8080/spitfire/api/interpreter/setting',
+    //     axios.post(this.config.spitfireRest + '/spitfire/api/interpreter/setting',
     //         this.sparkInterpreterSettingsData(mockName)
     //     ).then(res => console.log(res)).catch(err => console.log(err))
     // }, 1000)
