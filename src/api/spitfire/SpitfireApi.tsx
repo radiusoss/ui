@@ -104,7 +104,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     const { config } = nextProps
     if (config && ! isEqual(config, this.config)) {
       this.config = config
-      this.webSocketClient = new ReconnectingWebSocket(this.config.spitfireWs + '/spitfire/ws')
+      this.webSocketClient = new ReconnectingWebSocket('ws://spitfire.radiusiot.com/spitfire/ws')
       this.webSocketClient.onopen = (event: MessageEvent) => {
         console.log("Spitfire WebSocket has been opened.");
         toastr.success('Spitfire', 'Connected to Spitfire Server.')
@@ -146,7 +146,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
 
     public componentDidMount() {
         this.config = this.props.config;
-        this.webSocketClient = new ReconnectingWebSocket(this.config.spitfireWs + '/spitfire/ws/')
+        this.webSocketClient = new ReconnectingWebSocket('ws://spitfire.radiusiot.com/spitfire/ws')
         console.log('websocket attempt:', this.webSocketClient);
         this.webSocketClient.onopen = (event: MessageEvent) => {
             console.log("Spitfire WebSocket has been opened.");
@@ -189,7 +189,7 @@ export default class SpitfireApi extends React.Component<any, any>  implements I
     public newRestClient(username: string) {
         this.restClient = new RestClient({
             name: 'SpitfireApi',
-            url: this.config.spitfireRest,
+            url: 'http://spitfire.radiusiot.com',
             path: '/spitfire/api/',
             username: username,
             password: SHARED_PASSWORD
