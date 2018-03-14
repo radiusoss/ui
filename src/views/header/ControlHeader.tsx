@@ -570,7 +570,7 @@ export default class ControlHeader extends React.Component<any, any> {
       }
   }
 
-  private createFlow(): void {    
+  private createFlow(): void {
     this.setState({ showNewFlowPanel: false })
     this.notebookApi.newFlow(this.newFlowTextField.value)
   }
@@ -593,12 +593,12 @@ export default class ControlHeader extends React.Component<any, any> {
   @autobind
   private updateInterpreterMaster(clusterName){
     const note = this.state.note;
-    axios.get('http://spitfire.radiusiot.com/spitfire/api/interpreter/setting').then((results) => {
+    axios.get('https://spitfire.radiusiot.com/spitfire/api/interpreter/setting').then((results) => {
       const interpreters = results.data.body.map(interpreter => interpreter.id);
       const clusterId = results.data.body.filter(interpreter => interpreter.name === clusterName)[0].id;
       interpreters.splice(interpreters.indexOf(clusterId), 1);
       interpreters.unshift(clusterId);
-      const bindUrl = `http://spitfire.radiusiot.com/spitfire/api/notebook/interpreter/bind/${note.id}`;
+      const bindUrl = `https://spitfire.radiusiot.com/spitfire/api/notebook/interpreter/bind/${note.id}`;
       return axios.put(bindUrl, interpreters);
     }).then((res) => console.log(res)).catch(err => console.log(err))
 
@@ -611,7 +611,7 @@ export default class ControlHeader extends React.Component<any, any> {
     //   'Mock retrieve Cluster Name'
     //     const mockName = 'MockCluster' + Math.floor(Math.random() * 1000);
     //   console.log('Mockname', mockName)
-    //     axios.post('http://spitfire.radiusiot.com/spitfire/api/interpreter/setting',
+    //     axios.post('https://spitfire.radiusiot.com/spitfire/api/interpreter/setting',
     //         this.sparkInterpreterSettingsData(mockName)
     //     ).then(res => console.log(res)).catch(err => console.log(err))
     // }, 1000)
